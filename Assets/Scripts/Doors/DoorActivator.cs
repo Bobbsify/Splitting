@@ -13,7 +13,7 @@ public class DoorActivator : MonoBehaviour
     {
         if (Input.GetKeyDown(inputButton) && playerIsInZone)
         {
-            foreach (GameObject d in targetDoor)
+            foreach (GameObject d in targetDoors)
             {
                 IDoor door = d.GetComponent<IDoor>();
                 door.ToggleDoor();

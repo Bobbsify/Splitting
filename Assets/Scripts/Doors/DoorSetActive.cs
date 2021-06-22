@@ -5,7 +5,7 @@ using UnityEngine;
 public class DoorSetActive : MonoBehaviour, IDoor
 {
 
-    private bool isOpen = false;
+    public bool isOpen = false; //Stato iniziale della porta: False = Chiusa, 
 
     public void CloseDoor()
     {
@@ -19,7 +19,6 @@ public class DoorSetActive : MonoBehaviour, IDoor
 
     public void ToggleDoor()
     {
-        isOpen = !isOpen;
         if (isOpen)
         {
             OpenDoor();
@@ -28,5 +27,6 @@ public class DoorSetActive : MonoBehaviour, IDoor
         {
             CloseDoor();
         }
+        isOpen = !isOpen;
     }
 }

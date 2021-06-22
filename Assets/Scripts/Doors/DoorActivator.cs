@@ -4,14 +4,36 @@ using UnityEngine;
 
 public class DoorActivator : MonoBehaviour
 {
-    public GameObject targetDoor;
+    public GameObject[] targetDoors;
     public KeyCode inputButton;
 
-    public void Activate()
+    private bool playerIsInZone = false;
+
+    public void Update()
     {
-        if (Input.GetKeyDown(inputButton)) { 
-            IDoor door = targetDoor.GetComponent<IDoor>();
-            door.ToggleDoor();
+        if (Input.GetKeyDown(inputButton) && playerIsInZone)
+        {
+            foreach (GameObject d in targetDoor)
+            {
+                IDoor door = d.GetComponent<IDoor>();
+                door.ToggleDoor();
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            playerIsInZone = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            playerIsInZone = false;
         }
     }
 }

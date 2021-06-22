@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
+    //speed of the object that's moving
+    public float speed;
+    public float horizontalInput;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +17,7 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if()
+        transform.position = new Vector2(transform.position.x + (Time.deltaTime * speed), transform.position.y);
     }
 }

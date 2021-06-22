@@ -18,6 +18,6 @@ public class Move : MonoBehaviour
     void Update()
     {
         horizontalInput = Input.GetAxis("Horizontal");
-        transform.position = new Vector2(transform.position.x + (Time.deltaTime * speed * horizontalInput), transform.position.y);
+        transform.position = new Vector2(transform.position.x + (Time.deltaTime * speed * horizontalInput), transform.position.y); //transform.Translate?
     }
 }

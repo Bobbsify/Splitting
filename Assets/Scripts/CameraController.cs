@@ -57,7 +57,11 @@ public class CameraController : MonoBehaviour
         transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x) / 25), transform.position.y + ((yTo - transform.position.y) / 25), transform.position.z);
 
         // Screen shake 
-        transform.position = new Vector3(transform.position.x + Random.Range(-shakeRemain, shakeRemain), transform.position.y + Random.Range(-shakeRemain, shakeRemain), transform.position.z);
-        shakeRemain = Mathf.Max(0, shakeRemain - ((1 / shakeLenght) * shakeMagnitude * Time.deltaTime));
+        if (shakeLenght > 0)
+        {
+            transform.position = new Vector3(transform.position.x + Random.Range(-shakeRemain, shakeRemain), transform.position.y + Random.Range(-shakeRemain, shakeRemain), transform.position.z);
+            shakeRemain = Mathf.Max(0, shakeRemain - ((1 / shakeLenght) * shakeMagnitude * Time.deltaTime));
+        }
+       
     }
 }

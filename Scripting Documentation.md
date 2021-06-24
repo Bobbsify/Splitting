@@ -20,7 +20,7 @@ controllate le emissioni delle audiosource correttamente taggate come "**Audio**
     private float maxY;
     private float maxX;
 
-- Audiosource: _utilizzata per lavorare sull'audio che si trova all'interno dell'area_
+- audioIn: _utilizzata per lavorare sull'audio che si trova all'interno dell'area_
 
 - objCollider: _il collider attaccato, serve per rendere dinamica la grandezza del collider_
 
@@ -34,7 +34,7 @@ controllate le emissioni delle audiosource correttamente taggate come "**Audio**
 
 * DetectStereoPan(float incomingX): _basandosi sulla posizione sull'asse x del centro dell'audio controller esso calcola la direzione da cui deve provenire il suono e la ritorna_
 
-* ProcessVolume(float incomingX,float incomingY): _basandosi sulla distanza dall'epicentro delle audiosource all'interno del collider regola il volume_
+* ProcessVolume(float incomingX, float incomingY): _basandosi sulla distanza dall'epicentro delle audiosource all'interno del collider regola il volume_
 
 <hr>
 
@@ -44,8 +44,8 @@ Permette di cambiare da un personaggio ad un altro target, solo un personaggio d
 
 ### Variabili
 
-    public KeyCode swapButton;
-    public GameObject targetEntity;
+    [SerializeField] private KeyCode swapButton = KeyCode.Q; //Defaults to Q
+    [SerializeField] private GameObject targetEntity;
 
 - swapButton : _Segnala il bottone per cambiare personaggio. di default è Q_
 
@@ -58,6 +58,31 @@ Permette di cambiare da un personaggio ad un altro target, solo un personaggio d
 * TurnThisOff(): _Cerca tutte le script di questo gameObject e le spegne, disabilita il tag "Player" da quest'oggetto per far muovere la telecamera (vedi: [CameraController](##CameraController.cs))_
 
 * TurnOtherOn(): _Cerca tutte le script del gameObject target e le accende e ne cambia il tag in "Player"_
+
+<hr>
+
+## Move.cs
+
+Move è il componente che consente ad un entità di muoversi utilizzando gli input orizzontali.
+Interagisce con l'animatore aggiornando il valore del parametro "velocityX" con la velocità verso la quale sta viaggiando l'entità (**Valore assoluto**)
+
+### Variabili
+
+    [SerializeField] private float speed;
+    private float horizontalInput;
+    public bool canMove;
+
+- speed : _Velocità alla quale si muove il nostro personaggio_
+
+- horizontalInput : _detecta l'input orizzontale del giocatore, ha un valore tra -1 e 1 e serve per la direzione dove si sta viaggiando_
+
+- canMove : _utilizzato da componenti esterni tra cui [StateController](##StateController.cs) per determinare se il giocatore può muoversi o meno_
+
+### Metodi
+
+* Update(): _ad ogni frame, se l'entità può muoversi farà dei calcoli per spostare nella direzione scelta l'entità, aggiornando l'animatore tramite **CallAnimator()**_
+
+* CallAnimator(float speed): _data la velocità alla quale si sta muovendo l'entità, aggionra il parametro **velocityX** nell'animator del gameObject_
 
 <hr>
 

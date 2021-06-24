@@ -11,6 +11,8 @@ In fondo a questo foglio si può trovare un template per descrivere gli script e
 L'audio controller permette di designare un Collider2D settato con is trigger messo a **true** ed attaccato ad un **Rigidbody 2D di tipo Kinematic** come luogo dove vengono
 controllate le emissioni delle audiosource correttamente taggate come "**Audio**" : tutte quelle esterne alla box vengono mutate e quelle interne vengono regolate in base alla distanza
 
+**Importante** con questo AudioController è importante che di Default l'audio degli emitter sia impostato a Zero
+
 ### Variabili
 
     private AudioSource audioIn;

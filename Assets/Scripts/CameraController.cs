@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject player;
+    public GameObject[] players;
 
     private float height; 
     private float width;
@@ -47,21 +47,24 @@ public class CameraController : MonoBehaviour
     {
 
         // Update destination
-        if (player)
+        foreach (GameObject player in players)
         {
-            xTo = player.transform.position.x;
-            yTo = player.transform.position.y;
-        }
+            if (player.tag == "Player")
+            {
+                xTo = player.transform.position.x;
+                yTo = player.transform.position.y;
+            }
 
-        // Update position
-        transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x) / 25), transform.position.y + ((yTo - transform.position.y) / 25), transform.position.z);
+            // Update position
+            transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x) / 25), transform.position.y + ((yTo - transform.position.y) / 25), transform.position.z);
 
-        // Screen shake 
-        if (shakeLenght > 0)
-        {
-            transform.position = new Vector3(transform.position.x + Random.Range(-shakeRemain, shakeRemain), transform.position.y + Random.Range(-shakeRemain, shakeRemain), transform.position.z);
-            shakeRemain = Mathf.Max(0, shakeRemain - ((1 / shakeLenght) * shakeMagnitude * Time.deltaTime));
-        }
+            // Screen shake 
+            if (shakeLenght > 0)
+            {
+                transform.position = new Vector3(transform.position.x + Random.Range(-shakeRemain, shakeRemain), transform.position.y + Random.Range(-shakeRemain, shakeRemain), transform.position.z);
+                shakeRemain = Mathf.Max(0, shakeRemain - ((1 / shakeLenght) * shakeMagnitude * Time.deltaTime));
+            }
+        }    
        
     }
 }

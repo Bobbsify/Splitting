@@ -58,7 +58,7 @@ public class AudioController : MonoBehaviour
         float distanceY = Mathf.Abs(currY - incomingY); //detect distance X
 
 
-        return 1-(distanceX / maxX * 95 / 100) + (distanceY / maxY * 5 / 100);
+        return 1-Mathf.Sqrt(Mathf.Pow(distanceX / maxX,2) + Mathf.Pow(distanceY / maxY,2));
 
     }
 }

@@ -38,6 +38,29 @@ controllate le emissioni delle audiosource correttamente taggate come "**Audio**
 
 <hr>
 
+## SwitchCharacter.cs
+
+Permette di cambiare da un personaggio ad un altro target, solo un personaggio deve iniziare con le script accese, gli altri devono **iniziare con le script spente** altrimenti saranno accesi in contemporanea all'inizio della scena
+
+### Variabili
+
+    public KeyCode swapButton;
+    public GameObject targetEntity;
+
+- swapButton : _Segnala il bottone per cambiare personaggio. di default è Q_
+
+- targetEntity : _GameObject con la quale si deve effettuare lo switch_
+
+### Metodi
+
+* Update(): _L'update detecta quando viene premuto il pulsante segnalato in **swapButton** ed esegue **turnThisOff()** e **turnOtherOn()**_
+
+* TurnThisOff(): _Cerca tutte le script di questo gameObject e le spegne, disabilita il tag "Player" da quest'oggetto per far muovere la telecamera (vedi: [CameraController](##CameraController.cs))_
+
+* TurnOtherOn(): _Cerca tutte le script del gameObject target e le accende e ne cambia il tag in "Player"_
+
+<hr>
+
 ## [Nome Scripts].cs
 
 Introduzione all'utilizzo + note per l'implementazione nell'engine

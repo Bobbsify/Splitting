@@ -25,23 +25,29 @@ public class Jump : MonoBehaviour
 
         jumpForce = Input.GetKey(KeyCode.Space);
 
-        if (jumpForce && canJump)
-        {
-            elapsed += Time.deltaTime;             
-        }
 
-        if (Input.GetKeyUp(KeyCode.Space) && elapsed < timerJump)
+        if ( canJump)
         {
-            transform.Translate(Vector3.up * Time.deltaTime * vSpeed);
-            canJump = false;
-            elapsed = 0.0F;
+            if (jumpForce)
+            {
+                elapsed += Time.deltaTime;
+            }
 
-        } else if (Input.GetKeyUp(KeyCode.Space) && elapsed >= timerJump)
-        {
-            transform.Translate(Vector3.up * Time.deltaTime * vSpeed * 2);
-            canJump = false;
-            elapsed = 0.0F;
-        }
+            if (Input.GetKeyUp(KeyCode.Space) && elapsed < timerJump)
+            {
+                transform.Translate(Vector3.up * Time.deltaTime * vSpeed);
+                canJump = false;
+                elapsed = 0.0f;
+
+            }
+            else if (Input.GetKeyUp(KeyCode.Space) && elapsed >= timerJump)
+            {
+                transform.Translate(Vector3.up * Time.deltaTime * vSpeed * 2);
+                canJump = false;
+                elapsed = 0.0f;
+            }
+
+        }        
 
     }
 
@@ -51,7 +57,5 @@ public class Jump : MonoBehaviour
         {
             canJump = true;
         }
-
-        Debug.Log("reset jump");
     }
 }

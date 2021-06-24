@@ -7,55 +7,49 @@ public class Jump : MonoBehaviour
 
     public bool canJump;
 
-    public float vSpeed = 2000.0f;
-    public bool jumpForce;
+    public float jumpForce = 1000.0f;
+    public bool jumping;
 
     public float timerJump = 2.0f;
     public float elapsed;
 
+    new private Rigidbody2D rigidbody2D;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        jumpForce = Input.GetKey(KeyCode.Space);
+        jumping = Input.GetKey(KeyCode.Space);
 
 
         if ( canJump)
         {
-            if (jumpForce)
+            if (jumping)
             {
                 elapsed += Time.deltaTime;
             }
 
             if (Input.GetKeyUp(KeyCode.Space) && elapsed < timerJump)
             {
-                transform.Translate(Vector3.up * Time.deltaTime * vSpeed);
+                rigidbody2D.AddForce(new Vector2(0f, jumpForce));
                 canJump = false;
                 elapsed = 0.0f;
 
             }
             else if (Input.GetKeyUp(KeyCode.Space) && elapsed >= timerJump)
             {
-                transform.Translate(Vector3.up * Time.deltaTime * vSpeed * 2);
+                rigidbody2D.AddForce(new Vector2(0f, jumpForce * 2));
                 canJump = false;
                 elapsed = 0.0f;
             }
 
         }        
 
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            canJump = true;
-        }
     }
 }

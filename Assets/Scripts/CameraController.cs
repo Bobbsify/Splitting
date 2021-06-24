@@ -56,7 +56,7 @@ public class CameraController : MonoBehaviour
             }
 
             // Update position
-            transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x) / 25), transform.position.y + ((yTo - transform.position.y) / 25), transform.position.z);
+            transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x)), transform.position.y + ((yTo - transform.position.y)), transform.position.z);
 
             // Screen shake 
             if (shakeLenght > 0)

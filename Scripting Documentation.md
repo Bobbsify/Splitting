@@ -82,7 +82,7 @@ Interagisce con l'animatore aggiornando il valore del parametro "velocityX" con 
 
 * Update(): _ad ogni frame, se l'entità può muoversi farà dei calcoli per spostare nella direzione scelta l'entità, aggiornando l'animatore tramite **CallAnimator()**_
 
-* CallAnimator(float speed): _data la velocità alla quale si sta muovendo l'entità, aggionra il parametro **velocityX** nell'animator del gameObject_
+* CallAnimator(float speed): _data la velocità alla quale si sta muovendo l'entità, aggiorna il parametro **velocityX** nell'animator del gameObject_
 
 <hr>
 

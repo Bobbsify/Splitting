@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SwitchCharacter : MonoBehaviour
 {
-    public KeyCode swapButton;
-    public GameObject targetEntity;
+    [SerializeField] private KeyCode swapButton = KeyCode.Q; //Defaults to Q
+    [SerializeField] private GameObject targetEntity;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +33,7 @@ public class SwitchCharacter : MonoBehaviour
         {
             script.enabled = false;
         }
+        //TODO sort layer
         gameObject.tag = "Untagged";
     }
 
@@ -43,6 +44,7 @@ public class SwitchCharacter : MonoBehaviour
         {
             script.enabled = true;
         }
+        //TODO sort layer
         targetEntity.tag = "Player";
 
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Move : MonoBehaviour
 {
     //speed of the object that's moving
-    public float speed;
+    [SerializeField] private float speed;
     private float horizontalInput;
     public bool canMove;
 
@@ -21,6 +21,7 @@ public class Move : MonoBehaviour
         if (canMove) { 
             horizontalInput = Input.GetAxis("Horizontal");
             transform.position = new Vector2(transform.position.x + (Time.deltaTime * speed * horizontalInput), transform.position.y); //transform.Translate?
+            CallAnimator((Time.deltaTime * speed * horizontalInput));
             if (horizontalInput != 0) {
                 if (horizontalInput < 0)
                 {
@@ -32,6 +33,15 @@ public class Move : MonoBehaviour
                 }
                 transform.localScale = new Vector3(-horizontalInput, transform.localScale.y,1);
             }
+        }
+    }
+
+    //Updates animator velocity
+    private void CallAnimator(float speed)
+    {
+        if (gameObject.GetComponent<Animator>() == null) //is null falsey?
+        { 
+            gameObject.GetComponent<Animator>().SetFloat("velocityX", Mathf.Abs(speed));
         }
     }
 }

@@ -18,8 +18,10 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        horizontalInput = Input.GetAxis("Horizontal");
+
         if (canMove) { 
-            horizontalInput = Input.GetAxis("Horizontal");
+            
             transform.position = new Vector2(transform.position.x + (Time.deltaTime * speed * horizontalInput), transform.position.y); //transform.Translate?
             CallAnimator(Time.deltaTime * speed * horizontalInput);
         }

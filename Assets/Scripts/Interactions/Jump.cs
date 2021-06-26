@@ -7,11 +7,16 @@ public class Jump : MonoBehaviour
 
     public bool canJump;
 
+    public bool isJumping;
+    public bool isFalling;
+
     public float jumpForce = 1000.0f;
-    public bool jumping;
+    public bool jumpKey;
 
     public float timerJump = 2.0f;
     public float elapsed;
+
+    public float velocityY;
 
     new private Rigidbody2D rigidbody2D;
 
@@ -25,12 +30,12 @@ public class Jump : MonoBehaviour
     void Update()
     {
 
-        jumping = Input.GetKey(KeyCode.Space);
+        jumpKey = Input.GetKey(KeyCode.Space);
 
 
         if ( canJump)
         {
-            if (jumping)
+            if (jumpKey)
             {
                 elapsed += Time.deltaTime;
             }
@@ -38,18 +43,36 @@ public class Jump : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Space) && elapsed < timerJump)
             {
                 rigidbody2D.AddForce(new Vector2(0f, jumpForce));
-                canJump = false;
+
+                isJumping = true;                
+
                 elapsed = 0.0f;
 
             }
             else if (Input.GetKeyUp(KeyCode.Space) && elapsed >= timerJump)
             {
                 rigidbody2D.AddForce(new Vector2(0f, jumpForce * 2));
-                canJump = false;
-                elapsed = 0.0f;
-            }
 
-        }        
+                isJumping = true;
+
+                elapsed = 0.0f;
+            }    
+
+        }
+
+        velocityY = rigidbody2D.velocity.y;
+
+        if (velocityY < 0)
+        {
+            isJumping = false;
+            isFalling = true;
+        } else
+        {
+            isFalling = false;
+        }
+
+        
+
 
     }
 }

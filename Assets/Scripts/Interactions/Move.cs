@@ -21,7 +21,7 @@ public class Move : MonoBehaviour
         if (canMove) { 
             horizontalInput = Input.GetAxis("Horizontal");
             transform.position = new Vector2(transform.position.x + (Time.deltaTime * speed * horizontalInput), transform.position.y); //transform.Translate?
-            CallAnimator((Time.deltaTime * speed * horizontalInput));
+            CallAnimator(Time.deltaTime * speed * horizontalInput);
             if (horizontalInput != 0) {
                 if (horizontalInput < 0)
                 {
@@ -39,7 +39,7 @@ public class Move : MonoBehaviour
     //Updates animator velocity
     private void CallAnimator(float speed)
     {
-        if (gameObject.GetComponent<Animator>() == null) //is null falsey?
+        if (gameObject.GetComponent<Animator>() != null) //is null falsey?
         { 
             gameObject.GetComponent<Animator>().SetFloat("velocityX", Mathf.Abs(speed));
         }

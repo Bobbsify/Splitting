@@ -11,7 +11,7 @@ public class StateController : MonoBehaviour
     public bool isObstructed;
 
     public Jump jump;
-    public Move move;  // devi lasciarmi public canCrouch e crouchKey. Poi da sotto con i commenti dovresti capire come voglio gestirlo
+    public Move move;  
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +20,7 @@ public class StateController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (hasControl)
         {
@@ -36,30 +36,29 @@ public class StateController : MonoBehaviour
             if (isGrounded)
             {
                 jump.canJump = true;
-                // move.canCrouch = true;
+                move.canCrouch = true;
 
                 if (jump.jumpKey)
                 {
                     move.canMove = false;
-                    //move.canCrouch = false;
                 }
 
-                /* if (move.crouchKey)
-                 * {
-                 *    jump.canJump = false;
-                 * }                
-                */
-
-                if (isObstructed) // && move.crouchKey
+                if (move.isCrouched)
                 {
-                    // move.crouchKey = true;
+                    jump.canJump = false;
+                }                
+                
+
+                if (isObstructed && move.isCrouched)
+                {
+                    move.isCrouched = true;
                 }
             }
 
             if (!isGrounded)
             {                
                 jump.canJump = false;
-                // move.canCrouch = false;
+                move.canCrouch = false;
 
                 if (!isWalled)
                 {

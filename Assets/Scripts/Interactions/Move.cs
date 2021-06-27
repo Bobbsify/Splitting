@@ -5,26 +5,36 @@ using UnityEngine;
 public class Move : MonoBehaviour
 {
     //speed of the object that's moving
+    private Animator animator;
+
     [SerializeField] private float speed;
     private float horizontalInput;
+    private float verticalInput;
+
+    [System.NonSerialized] public bool isCrouched;
+    public bool canCrouch;
     public bool canMove;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+        isCrouched = verticalInput < 0 && canCrouch;
 
-        if (canMove) { 
-            
-            transform.position = new Vector2(transform.position.x + (Time.deltaTime * speed * horizontalInput), transform.position.y); //transform.Translate?
-            CallAnimator(Time.deltaTime * speed * horizontalInput);
+        if (canMove)
+        {
+            transform.position = new Vector2(transform.position.x + (Time.deltaTime * speed/(isCrouched ? 2 : 1) * horizontalInput), transform.position.y); //halves speed if is crouchings
+            CallAnimator(Time.deltaTime * speed/(isCrouched ? 2 : 1) * horizontalInput, isCrouched); 
         }
+        //Invertscale
         if (horizontalInput != 0)
         {
             if (horizontalInput < 0)
@@ -40,11 +50,12 @@ public class Move : MonoBehaviour
     }
 
     //Updates animator velocity
-    private void CallAnimator(float speed)
+    private void CallAnimator(float speed,bool crouched)
     {
-        if (gameObject.GetComponent<Animator>() != null) //is null falsey?
-        { 
-            gameObject.GetComponent<Animator>().SetFloat("velocityX", Mathf.Abs(speed));
+        if (animator != null) //is null falsey?
+        {
+            animator.SetFloat("velocityX", Mathf.Abs(speed));
+            animator.SetBool("isCrouched", crouched);
         }
     }
 }

@@ -2,35 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundCheck : MonoBehaviour
+namespace Splitting
 {
-    public StateController stateController;
-
-    // Start is called before the first frame update
-    void Start()
+    public class GroundCheck : MonoBehaviour
     {
-        
-    }
+        public StateController stateController;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {       
+        // Start is called before the first frame update
+        void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
             if (collision.gameObject.tag == "Ground")
             {
                 stateController.isGrounded = true;
-            }  
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            stateController.isGrounded = false;
+            }
         }
-    }
 
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag == "Ground")
+            {
+                stateController.isGrounded = false;
+            }
+        }
+
+    }
 }

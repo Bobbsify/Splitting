@@ -19,11 +19,13 @@ public class CameraController : MonoBehaviour
     private float shakeMagnitude = 0.0f;
     private float shakeRemain = 0.0f;
 
+    private Vector3 offset = new Vector3(0, 8, 0);
+
     // Start is called before the first frame update
     void Start()
     {
         height = 2f * Camera.main.orthographicSize;
-        width = height * Screen.width / Screen.height;
+        width = height * Screen.width / Screen.height;       
 
         halfH = height * 0.5f;
         halfW = width * 0.5f;
@@ -56,7 +58,7 @@ public class CameraController : MonoBehaviour
             }
 
             // Update position
-            transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x)), transform.position.y + ((yTo - transform.position.y)), transform.position.z);
+            transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x)), transform.position.y + ((yTo - transform.position.y)), transform.position.z) + offset;
 
             // Screen shake 
             if (shakeLenght > 0)

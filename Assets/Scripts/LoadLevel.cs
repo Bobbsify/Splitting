@@ -10,8 +10,6 @@ public class LoadLevel : MonoBehaviour
     [SerializeField] private bool transition;
     private List<string> gameScenes = new List<string>();
 
-    private bool playerIsHere;
-
     private void Start()
     {
         loadLevel(transition);
@@ -29,6 +27,7 @@ public class LoadLevel : MonoBehaviour
 
     private void loadLevel(bool goToTransition) {
         SceneManager.LoadScene(gameScenes.ToArray()[(int)sceneToLoad]);
+        //TODO implement transition
     }
 }
 

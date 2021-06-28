@@ -29,8 +29,8 @@ public class LoadLevel : MonoBehaviour
     }
 
     private void loadLevel(bool transition) {
-        Debug.Log("Loading Scene: " + gameScenes[(int)sceneToLoad]);
-        //SceneManager.LoadScene(gameScenes);
+        //Debug.Log("Loading Scene: " + gameScenes[(int)sceneToLoad]);
+        SceneManager.LoadScene(gameScenes[(int)sceneToLoad]);
     }
 
     private void OnTriggerStay2D(Collider2D collision)

@@ -86,11 +86,11 @@ Interagisce con l'animatore aggiornando il valore del parametro "velocityX" con 
 
 <hr>
 
-## LoadLevel.cs [[ DA AGGIORNARE ]]
+## LoadLevel.cs
 
 Load Level è un componente che attaccato ad un gameObject consente il cambiamento di livello, prima di poter utilizzare correttamente questo componento è necessario andare nei build settings (File --> Build Settings) e trascinare tutte le scene di gioco all'interno dei build settings.
 
-Opera in modo simile a [DoorActivator.cs](##DoorActivator.cs) a livello di zone detection
+Se viene acceso automaticamente avvia il livello segnalato, da far quindi partire spento e poi accenderlo tramite un [Awake Behaviour](##AwakeBehaviour.cs)
 
 ### Variabili
 
@@ -98,27 +98,19 @@ Opera in modo simile a [DoorActivator.cs](##DoorActivator.cs) a livello di zone 
     [SerializeField] private bool transition;
     private List<string> gameScenes = new List<string>();
     
-    private bool playerIsHere;
-    
 - sceneToLoad : _risultato di un enumerazione che segnala i livelli presenti nel gioco, quest'enumerazione è da aggiornare in base a ciò che c'è scritto nei build settings rispetto alle scene_
 
 - transition : _segnala se il cambio di scena richiede una transizione ad un loadingscreen oppure no_
 
 - gameScenes : _lista di scene presenti all'interno del progetto determinata dai BuildSettings_
 
-- playerIsHere : _serve a determinare se si può fare l'interazione per viaggiare nella scena successiva_
-
 ### Metodi
 
-* Start(): _Aggiunge alla lista gameScenes tutte le scene nei BuildSettings_
+* Awake(): _Prepara il componente al caricamento della scena selezionata_
 
-* Update(): _Serve a determinare quando ricaricare la scena_
+* Start(): _Lancia il metodo LoadLevel() il primo frame che il componente è acceso_
 
 * loadLevel(): _Lancia il metodo di SceneManager per caricare il livello selezionato_
-
-* OnTriggerStay2D(Collider2D collision): _Setta a true playerIsHere se collide con un gameObject col tag "Player"_
-
-* OnTriggerExit2D(Collider2D collision): _Setta a false playerIsHere se esce dalla hitbox un gameObject col tag "Player"_
 
 <hr>
 

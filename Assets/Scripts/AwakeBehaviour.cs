@@ -79,7 +79,7 @@ public class AwakeBehaviour : MonoBehaviour
         bool action = actionType == Turn.on;
         foreach (MonoBehaviour script in scriptsToLoad)
         {
-            script.enabled = action;
+            script.enabled = actionType == Turn.toggle ? !script.enabled : action;
         }
     }
 }
@@ -94,5 +94,6 @@ enum ActivationTypes
 enum Turn
 {
     on,
-    off
+    off,
+    toggle
 }

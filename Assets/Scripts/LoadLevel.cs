@@ -14,39 +14,26 @@ public class LoadLevel : MonoBehaviour
 
     private void Start()
     {
+        loadLevel(transition);
+    }
+
+    private void Awake()
+    {
+        Debug.Log("Start compiling game scenes\ntotal number of scenes: " + SceneManager.sceneCountInBuildSettings);
+
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
         {
             gameScenes.Add(SceneUtility.GetScenePathByBuildIndex(i));
+
         }
-    }
-
-    private void Update()
-    {
-        if (playerIsHere && Input.GetKeyDown(KeyCode.E))
-        { 
-            loadLevel(transition);
-        }
-    }
-
-    private void loadLevel(bool transition) {
-        //Debug.Log("Loading Scene: " + gameScenes[(int)sceneToLoad]);
-        SceneManager.LoadScene(gameScenes[(int)sceneToLoad]);
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
+        foreach (string name in gameScenes)
         {
-            playerIsHere = true;
+            Debug.Log(name);
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            playerIsHere = false;
-        }
+    private void loadLevel(bool goToTransition) {
+        SceneManager.LoadScene(gameScenes.ToArray()[(int)sceneToLoad]);
     }
 }
 

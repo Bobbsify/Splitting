@@ -61,7 +61,7 @@ Permette di cambiare da un personaggio ad un altro target, solo un personaggio d
 
 <hr>
 
-## Move.cs
+## Move.cs [[ DA AGGIORNARE ]]
 
 Move è il componente che consente ad un entità di muoversi utilizzando gli input orizzontali.
 Interagisce con l'animatore aggiornando il valore del parametro "velocityX" con la velocità verso la quale sta viaggiando l'entità (**Valore assoluto**)
@@ -86,7 +86,7 @@ Interagisce con l'animatore aggiornando il valore del parametro "velocityX" con 
 
 <hr>
 
-## LoadLevel.cs
+## LoadLevel.cs [[ DA AGGIORNARE ]]
 
 Load Level è un componente che attaccato ad un gameObject consente il cambiamento di livello, prima di poter utilizzare correttamente questo componento è necessario andare nei build settings (File --> Build Settings) e trascinare tutte le scene di gioco all'interno dei build settings.
 
@@ -119,6 +119,46 @@ Opera in modo simile a [DoorActivator.cs](##DoorActivator.cs) a livello di zone 
 * OnTriggerStay2D(Collider2D collision): _Setta a true playerIsHere se collide con un gameObject col tag "Player"_
 
 * OnTriggerExit2D(Collider2D collision): _Setta a false playerIsHere se esce dalla hitbox un gameObject col tag "Player"_
+
+<hr>
+
+## AwakeBehaviour.cs
+
+AwakeBehaviour accende o spegne le script presenti all'interno di un determinato gameObject in base ad una condizione specificata nelle impostazioni
+
+### Variabili
+
+    [SerializeField] private Turn actionType;
+    [SerializeField] private ActivationTypes activationType;
+    [SerializeField] private KeyCode buttonToPress; //Not compulsory
+    [SerializeField] private MonoBehaviour[] scriptsToLoad;
+
+    private bool isPlayerHere;
+    private Collider2D objCollider;
+    
+- actionType : _Se le script sono da accendere, spegnere o toggleare_
+
+- activationType : _Segnala il tipo di attivazione effettuato, onEnter attiverà l'evento non appena il player entrerà nell'area del collider, onClick si attiverà con un click del mouse in qualsiasi momento, enterAndClick invece obbliga il giocatore ad effettuare un click solo nell'area designata_
+
+- buttonToPress : _Tasto da utilizzare per interagire_
+
+- scriptsToLoad : _Array di script da lanciare quando la condizione è soddisfatta_
+
+- isPlayerHere : _Booleana che serve a controllare se il giocatore si trova nell'area del collider_
+
+- objCollider : _Collider recuperato automaticamente dell'oggetto a cui è attaccata la script_
+
+### Metodi
+
+* Start(): _Ottiene il collider dell'oggetto quando richiesto dall'activationType_
+
+* Update(): _Effettua l'azione di awakeScripts() se la condizione dell'activationType è soddisfatta_
+
+* OnTriggerStay2D(Collider2D col): _Aggiorna a true playerIsHere se c'è un GameObject con tag "Player" nel collider_
+
+* OnTriggerExit2D(Collider2D col): _Aggiorna a false playerIsHere se un GameObject con tag "Player" nel collider ne esce_
+
+* awakeScripts(): _Imposta tutte le script a true o folse basandosi sull'actionType_
 
 <hr>
 

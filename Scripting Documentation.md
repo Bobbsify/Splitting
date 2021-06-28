@@ -195,7 +195,7 @@ Al suo interno viene inoltre controllato se l'entità a cui è applicata la forz
 
 - rigidbody2D : _variabile che stora al suo interno l'ID del rigidbody2D dell'entità_
 
-###
+### Metodi
 
 * Start(): _la variabile rigidbody2D prende il componente Rigidbody2D dell'entità_
 

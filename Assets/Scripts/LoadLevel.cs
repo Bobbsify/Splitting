@@ -19,16 +19,11 @@ public class LoadLevel : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Start compiling game scenes\ntotal number of scenes: " + SceneManager.sceneCountInBuildSettings);
 
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
         {
             gameScenes.Add(SceneUtility.GetScenePathByBuildIndex(i));
 
-        }
-        foreach (string name in gameScenes)
-        {
-            Debug.Log(name);
         }
     }
 

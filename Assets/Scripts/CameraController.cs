@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
     private float shakeMagnitude = 0.0f;
     private float shakeRemain = 0.0f;
 
-    private Vector3 offset = new Vector3(0, 8, 0);
+    [SerializeField] private Vector3 offset = new Vector3(0, 8, 0);
 
     // Start is called before the first frame update
     void Start()

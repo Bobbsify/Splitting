@@ -9,7 +9,7 @@ public class AwakeBehaviour : MonoBehaviour
     [SerializeField] private KeyCode buttonToPress; //Not compulsory
     [SerializeField] private MonoBehaviour[] scriptsToLoad;
 
-    private bool isPlayerHere;
+    private bool isPlayerHere = false;
     private Collider2D objCollider;
 
     private void Start()

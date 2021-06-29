@@ -8,10 +8,15 @@ In fondo a questo foglio si può trovare un template per descrivere gli script e
 ###Indice
 
 [AudioController.cs](##AudioController.cs)
+
 [SwitchCharacter.cs](##SwitchCharacter.cs)
+
 [Move.cs](##Move.cs)
+
 [LoadLevel.cs](##LodaLevel.cs)
+
 [AwakeBehaviour.cs](##AwakeBehaviour.cs)
+
 [Jump.cs](##Jump.cs)
 
 <hr>

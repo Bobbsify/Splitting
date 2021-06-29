@@ -6,17 +6,16 @@ namespace Splitting
 {
     public class Move : MonoBehaviour
     {
-        //speed of the object that's moving
         private Animator animator;
 
         [SerializeField] private float speed;
         private float horizontalInput;
         private float verticalInput;
 
-        [System.NonSerialized] public bool isCrouched;
-        public bool canCrouch;
-        public bool canMove;
-        public bool isObstructed;
+        [HideInInspector] public bool isCrouched;
+        [HideInInspector] public bool canCrouch;
+        [HideInInspector] public bool canMove;
+        [HideInInspector] public bool isObstructed;
 
 
         // Start is called before the first frame update

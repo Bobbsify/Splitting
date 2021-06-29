@@ -23,42 +23,49 @@ namespace Splitting
 
         // Update is called once per frame
         void LateUpdate()
-        {
-            if (hasControl)
-            {
+        {          
 
+            if (hasControl)
+            {         
+                
                 if (isWalled)
                 {
-                    move.canMove = false;
+                     move.canMove = false;
                 }
                 else
                 {
-                    move.canMove = true;
+                     move.canMove = true;
                 }
 
                 if (isGrounded)
                 {
+                    if (jump.wasJumping)
+                    {
+                        jump.isLanded = true;
+                        jump.wasJumping = false;
+                    }                    
+
                     jump.canJump = true;
                     move.canCrouch = true;
 
                     if (jump.jumpKeyDown)
                     {
-                        move.canMove = false;
+                         move.canMove = false;
                     }
 
                     if (move.isCrouched)
                     {
-                        jump.canJump = false;
+                         jump.canJump = false;
                     }
 
 
                     if (isObstructed && move.isCrouched)
                     {
-                        move.isObstructed = true;
+                         move.isObstructed = true;
                     }
                     else
                     {
-                        move.isObstructed = false;
+                         move.isObstructed = false;
                     }
                 }
 
@@ -69,9 +76,10 @@ namespace Splitting
 
                     if (!isWalled)
                     {
-                        move.canMove = true;
+                         move.canMove = true;
                     }
                 }
+                
             }
 
         }

@@ -6,17 +6,23 @@ namespace Splitting
 {
     public class Jump : MonoBehaviour
     {
+        private Animator animator;
 
         public bool canJump;
+       
+        public bool isLanded;
 
-        public bool isJumping;
-        public bool isFalling;
+        public bool wasJumping;
 
         [SerializeField] private float jumpForce = 1000.0f;
         public bool jumpKeyDown;
 
         [SerializeField] private float timerJump = 2.0f;
-        [SerializeField] private float elapsed;
+        [SerializeField] private float elapsedKeyDown;
+
+        [SerializeField] private float timerLand = 0.5f;
+        [SerializeField] private float elapsedFromJump;
+
 
         private float velocityY;
 
@@ -25,6 +31,8 @@ namespace Splitting
         // Start is called before the first frame update
         void Start()
         {
+            animator = gameObject.GetComponent<Animator>();
+
             rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
@@ -39,44 +47,55 @@ namespace Splitting
             {
                 if (jumpKeyDown)
                 {
-                    elapsed += Time.deltaTime;
+                    elapsedKeyDown += Time.deltaTime;
                 }
 
-                if (Input.GetKeyUp(KeyCode.Space) && elapsed < timerJump)
+                if (Input.GetKeyUp(KeyCode.Space) && elapsedKeyDown < timerJump)
                 {
-                    rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+                    rigidbody2D.AddForce(new Vector2(0f, jumpForce));                  
 
-                    isJumping = true;
-
-                    elapsed = 0.0f;
+                    elapsedKeyDown = 0.0f;
 
                 }
-                else if (Input.GetKeyUp(KeyCode.Space) && elapsed >= timerJump)
+                else if (Input.GetKeyUp(KeyCode.Space) && elapsedKeyDown >= timerJump)
                 {
-                    rigidbody2D.AddForce(new Vector2(0f, jumpForce * 2));
+                    rigidbody2D.AddForce(new Vector2(0f, jumpForce * 2));                    
 
-                    isJumping = true;
-
-                    elapsed = 0.0f;
+                    elapsedKeyDown = 0.0f;
                 }
-
             }
 
             velocityY = rigidbody2D.velocity.y;
 
             if (velocityY < 0)
-            {
-                isJumping = false;
-                isFalling = true;
+            {          
+                wasJumping = true;
             }
-            else
+  
+            
+            if (isLanded)
             {
-                isFalling = false;
+                elapsedFromJump += Time.deltaTime;
             }
 
+            if (elapsedFromJump > timerLand)
+            {
+                isLanded = false;
+                elapsedFromJump = 0;
+            }
 
+            CallAnimator(jumpKeyDown, velocityY, isLanded);
+            
+        }
 
-
+        private void CallAnimator(bool isPreparing, float verticalSpeed, bool isLanded)
+        {
+            if (animator != null)
+            {
+                animator.SetBool("jumpPrep", isPreparing);
+                animator.SetFloat("velocityY", verticalSpeed);
+                animator.SetBool("land", isLanded);
+            }
         }
     }
 }

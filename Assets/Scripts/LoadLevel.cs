@@ -17,7 +17,6 @@ public class LoadLevel : MonoBehaviour
 
     private void Awake()
     {
-
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
         {
             gameScenes.Add(SceneUtility.GetScenePathByBuildIndex(i));

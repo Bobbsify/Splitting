@@ -76,31 +76,50 @@ Permette di cambiare da un personaggio ad un altro target, solo un personaggio d
 
 <hr>
 
-## Move.cs [[ DA AGGIORNARE ]]
+## Move.cs
 
 Move è il componente che consente ad un entità di muoversi utilizzando gli input orizzontali.
 Interagisce con l'animatore aggiornando il valore del parametro "velocityX" con la velocità verso la quale sta viaggiando l'entità (**Valore assoluto**)
 
 ### Variabili
 
-    [SerializeField] private float speed;
-    private float horizontalInput;
-    public bool canMove;
+        private Animator animator;
+
+        [SerializeField] private float speed;
+        private float horizontalInput;
+        private float verticalInput;
+
+        public bool canCrouch;
+        [HideInInspector] public bool isCrouched;
+        [HideInInspector] public bool canMove;
+        [HideInInspector] public bool isObstructed;
+
+- animator : _Animator dell'oggetto a cui è attaccato lo script_
 
 - speed : _Velocità alla quale si muove il nostro personaggio_
 
 - horizontalInput : _detecta l'input orizzontale del giocatore, ha un valore tra -1 e 1 e serve per la direzione dove si sta viaggiando_
 
-- canMove : _utilizzato da componenti esterni tra cui [StateController](##StateController.cs) per determinare se il giocatore può muoversi o meno_
+- vericalInput : _ottiene l'input verticale del giocatore, ha un valore tra -1 e 1 e viene usato per determinare se l'entità si sta accucciando o alzando
+
+- canCrouch : _utilizzato da componenti esterni tra cui [StateController](##StateController.cs) per determinare se l'entità può accovacciarsi o meno_
+
+- isCrouched : _Determina se l'entità è accovacciata_
+
+- canMove : _utilizzato da componenti esterni tra cui [StateController](##StateController.cs) per determinare se l'entità può muoversi o meno_
+
+- isObstructed : _utilizzato da componenti esterni tra cui [StateController](##StateController.cs) per determinare se l'entità è ostruita sopra di se_
+
 
 ### Metodi
 
-* Update(): _ad ogni frame, se l'entità può muoversi farà dei calcoli per spostare nella direzione scelta l'entità, aggiornando l'animatore tramite **CallAnimator()**_
+* Start(): _ottiene l'animatore dell'entità in questione_
 
-* CallAnimator(float speed): _data la velocità alla quale si sta muovendo l'entità, aggiorna il parametro **velocityX** nell'animator del gameObject_
+* Update(): _ad ogni frame, se l'entità può muoversi farà dei calcoli per spostare, accovacciare o alzare l'entità, aggiornando l'animatore tramite **CallAnimator()**_
+
+* CallAnimator(float speed): _aggiorna secondo quello che gli è fornito da Update() i parametri_ **velocityX** _e_ **isCrouched** _nell'animator del gameObject_
 
 <hr>
-
 ## LoadLevel.cs
 
 Load Level è un componente che attaccato ad un gameObject consente il cambiamento di livello, prima di poter utilizzare correttamente questo componento è necessario andare nei build settings (File --> Build Settings) e trascinare tutte le scene di gioco all'interno dei build settings.

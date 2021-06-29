@@ -4,6 +4,16 @@ In questo foglio verrà scritta la documentazione inerente ad ogni script.
 
 In fondo a questo foglio si può trovare un template per descrivere gli script e i propri metodi
 
+
+###Indice
+
+[AudioController.cs](##AudioController.cs)
+[SwitchCharacter.cs](##SwitchCharacter.cs)
+[Move.cs](##Move.cs)
+[LoadLevel.cs](##LodaLevel.cs)
+[AwakeBehaviour.cs](##AwakeBehaviour.cs)
+[Jump.cs](##Jump.cs)
+
 <hr>
 
 ## AudioController.cs

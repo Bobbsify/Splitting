@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class ConstantMovement : MonoBehaviour
 {
-    public Directions direction;
-    public bool active;
-    public Vector3 destination;
+    [SerializeField] private Directions direction;
+    [SerializeField] private Vector3 destination;
     public float speed;
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (active)
-        {
-            TravelTo(destination);
-        }
+        TravelTo(destination);
     }
 
     //Makes the platform travel
@@ -27,7 +23,7 @@ public class ConstantMovement : MonoBehaviour
             position.y += speed * Time.deltaTime; // Add Y
             if (position.y >= destination.y)
             {
-                active = false;
+                this.enabled = false;
             }
         }
         else if (direction == Directions.Right)
@@ -35,7 +31,7 @@ public class ConstantMovement : MonoBehaviour
             position.x += speed * Time.deltaTime; // Add X
             if (position.x >= destination.x)
             {
-                active = false;
+                this.enabled = false;
             }
         }
         else if (direction == Directions.Left)
@@ -43,14 +39,15 @@ public class ConstantMovement : MonoBehaviour
             position.x -= speed * Time.deltaTime; // Remove X
             if (position.x <= destination.x)
             {
-                active = false;
+                this.enabled = false;
             }
         }
         else
         {
             position.y -= speed * Time.deltaTime; // Remove Y
-            if (position.y <= destination.y) {
-                active = false;
+            if (position.y <= destination.y)
+            {
+                this.enabled = false;
             }
         }
         transform.position = position;

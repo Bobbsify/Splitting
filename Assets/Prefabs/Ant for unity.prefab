@@ -1609,6 +1609,7 @@ GameObject:
   - component: {fileID: 1295458794309819840}
   - component: {fileID: 1295458794309819841}
   - component: {fileID: 2851082451685741025}
+  - component: {fileID: 4453016718628986984}
   m_Layer: 0
   m_Name: Ant for unity
   m_TagString: Player
@@ -1720,8 +1721,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  isCrouched: 0
   canCrouch: 0
   canMove: 0
+  isObstructed: 0
 --- !u!114 &1295458794309819840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1738,10 +1741,9 @@ MonoBehaviour:
   isJumping: 0
   isFalling: 0
   jumpForce: 1000
-  jumpKey: 0
+  jumpKeyDown: 0
   timerJump: 2
   elapsed: 0
-  velocityY: 0
 --- !u!114 &1295458794309819841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1779,3 +1781,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4453016718628986984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989811706785929297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d78ea79462b79214a8bd5e1cb690736a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swapButton: 113
+  targetEntity: {fileID: 2546342908211747843, guid: 9a3681aadea86de41af58fac875f48a8,
+    type: 3}

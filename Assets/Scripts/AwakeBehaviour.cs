@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AwakeBehaviour : MonoBehaviour
 {
+    [Header("Awaking Settings")]
     [SerializeField] private Turn actionType;
     [SerializeField] private ActivationTypes activationType;
     [SerializeField] private KeyCode buttonToPress; //Not compulsory

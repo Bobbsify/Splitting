@@ -18,11 +18,7 @@ namespace Splitting
         public bool jumpKeyDown;
 
         [SerializeField] private float timerJump = 2.0f;
-        [SerializeField] private float elapsedKeyDown;
-
-        [SerializeField] private float timerLand = 0.5f;
-        [SerializeField] private float elapsedFromJump;
-
+        [SerializeField] private float elapsedKeyDown;       
 
         private float velocityY;
 
@@ -43,7 +39,7 @@ namespace Splitting
             jumpKeyDown = Input.GetKey(KeyCode.Space);
 
 
-            if (canJump)
+            if (canJump && !isLanded && !wasJumping)
             {
                 if (jumpKeyDown)
                 {
@@ -67,22 +63,10 @@ namespace Splitting
 
             velocityY = rigidbody2D.velocity.y;
 
-            if (velocityY < 0)
+            if (Mathf.Abs(velocityY) > 0.01 && Mathf.Abs(velocityY) < 100)
             {          
                 wasJumping = true;
-            }
-  
-            
-            if (isLanded)
-            {
-                elapsedFromJump += Time.deltaTime;
-            }
-
-            if (elapsedFromJump > timerLand)
-            {
-                isLanded = false;
-                elapsedFromJump = 0;
-            }
+            }    
 
             CallAnimator(jumpKeyDown, velocityY, isLanded);
             
@@ -97,5 +81,7 @@ namespace Splitting
                 animator.SetBool("land", isLanded);
             }
         }
+
+       
     }
 }

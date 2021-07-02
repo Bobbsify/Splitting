@@ -12,8 +12,8 @@ namespace Splitting
         private float horizontalInput;
         private float verticalInput;
 
+        public bool canCrouch;
         [HideInInspector] public bool isCrouched;
-        [HideInInspector] public bool canCrouch;
         [HideInInspector] public bool canMove;
         [HideInInspector] public bool isObstructed;
 

@@ -33,8 +33,7 @@ namespace Splitting
 
             if (canMove)
             {
-                transform.position = new Vector2(transform.position.x + (Time.deltaTime * speed / (isCrouched ? 2 : 1) * horizontalInput), transform.position.y); //halves speed if is crouchings
-                CallAnimator(Time.deltaTime * speed / (isCrouched ? 2 : 1) * horizontalInput, isCrouched);
+                transform.position = new Vector2(transform.position.x + (Time.deltaTime * speed / (isCrouched ? 2 : 1) * horizontalInput), transform.position.y); //halves speed if is crouchings                
             }
             //Invertscale
             if (horizontalInput != 0)
@@ -49,6 +48,7 @@ namespace Splitting
                 }
                 transform.localScale = new Vector3(-horizontalInput, transform.localScale.y, 1);
             }
+            CallAnimator(Time.deltaTime * speed / (isCrouched ? 2 : 1) * horizontalInput, isCrouched);
         }
 
         //Updates animator velocity

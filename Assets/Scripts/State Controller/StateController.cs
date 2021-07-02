@@ -10,13 +10,14 @@ namespace Splitting
 
         public bool isGrounded;
         public bool isWalled;
-        public bool isObstructed;
+        public bool isObstructed;        
 
         [SerializeField] private float shake = 1.0f;
         [SerializeField] private float lenght = 1.0f;
 
         public Jump jump;
         public Move move;
+        public Carry carry;
 
         private Animator animator;
 
@@ -61,9 +62,16 @@ namespace Splitting
                         ScreenShake(shake, lenght);                        
                     }
                     
-                    
-                    jump.canJump = true;
-                    move.canCrouch = true;
+                    if (carry.isCarrying || AnimatorIsPlaying("AntLift3 0"))
+                    {
+                        jump.canJump = false;
+                        move.canCrouch = false;
+                    }
+                    else
+                    {
+                        jump.canJump = true;
+                        move.canCrouch = true;
+                    }
 
                     if (jump.jumpKeyDown)
                     {
@@ -84,6 +92,15 @@ namespace Splitting
                     {
                          move.isObstructed = false;
                     }
+
+                    if (isObstructed || carry.isCarrying)
+                    {
+                        carry.canCarry = false;
+                    }
+                    else
+                    {
+                        carry.canCarry = true;
+                    }
                 }
 
                 if (!isGrounded)
@@ -95,7 +112,7 @@ namespace Splitting
                     {
                          move.canMove = true;
                     }
-                }
+                }               
                 
             }
 

@@ -51,7 +51,6 @@ namespace Splitting
                     rigidbody2D.AddForce(new Vector2(0f, jumpForce));                  
 
                     elapsedKeyDown = 0.0f;
-
                 }
                 else if (Input.GetKeyUp(KeyCode.Space) && elapsedKeyDown >= timerJump)
                 {

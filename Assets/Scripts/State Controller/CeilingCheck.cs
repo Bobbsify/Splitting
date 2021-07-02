@@ -24,8 +24,7 @@ namespace Splitting
             if (collision.gameObject.tag == "Ground")
             {
                 stateController.isObstructed = true;
-            }
-
+            }    
         }
 
         private void OnTriggerExit2D(Collider2D collision)

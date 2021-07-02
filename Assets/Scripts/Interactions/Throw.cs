@@ -8,10 +8,10 @@ public class Throw : MonoBehaviour
     public GameObject entityThrowing;
     public KeyCode throwButton = KeyCode.E;
 
-    //control how much it can be influenced on the x
+    //control min and max of heightModifier
     [SerializeField] private float maxThrowDistance = 15f;
     [SerializeField] private float minThrowDistance = 1f;
-    //control how much it can be influenced on the y
+    //control min and max of distanceModifier
     [SerializeField] private float maxHeightDistance = 15f;
     [SerializeField] private float minHeightDistance = 1f;
     //Throw base power
@@ -19,9 +19,11 @@ public class Throw : MonoBehaviour
 
     private float distanceModifier = 1f;
     private float heightModifier = 1f;
+
     private float horizontalInput;
     private float verticalInput;
-    private float throwPower;
+
+    private float throwPower; //factors distanceModifier, power and direction
 
     private bool throwing = false;
 
@@ -42,6 +44,7 @@ public class Throw : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
 
         transform.position = rbToThrow.transform.position;
+        //When key gets pressed
         if (Input.GetKeyDown(throwButton))
         {
             startPos = rbToThrow.transform.position;
@@ -54,7 +57,7 @@ public class Throw : MonoBehaviour
             controlVelocity();
             _velocity = (endPos - startPos);
 
-            Vector2[] trajectory = Plot(rbToThrow, transform.position, _velocity, 200);
+            Vector2[] trajectory = Plot(rbToThrow, transform.position, _velocity, calculateSteps());
 
             lr.positionCount = trajectory.Length;
 
@@ -100,10 +103,15 @@ public class Throw : MonoBehaviour
         heightModifier = Mathf.Min(Mathf.Max(minHeightDistance, heightModifier + verticalInput), maxHeightDistance);
         distanceModifier = Mathf.Min(Mathf.Max(minThrowDistance, distanceModifier + horizontalInput), maxThrowDistance);
 
-        Debug.Log(heightModifier + " - " + distanceModifier);
-
         throwPower = (power + distanceModifier) * -entityThrowing.transform.localScale.x;
         endPos.x += throwPower;
         endPos.y += power + heightModifier;
+    }
+
+    private int calculateSteps()
+    {
+        int heightInfluence = (int)(heightModifier); // 75%
+        int distanceInfluence = (int)(distanceModifier * 25 / 100); // 25%
+        return (200 + distanceInfluence + heightInfluence);
     }
 }

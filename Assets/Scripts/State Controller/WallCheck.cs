@@ -9,19 +9,20 @@ namespace Splitting
     {
         public StateController stateController;
 
+        public Carry carry;       
 
-        public Carry carry;
+        private Animator animator;
 
         // Start is called before the first frame update
         void Start()
         {
-
+            animator = gameObject.GetComponent<Animator>();
         }
 
         // Update is called once per frame
         void Update()
         {
-
+            CallAnimator(carry.isCarrying);
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -30,7 +31,7 @@ namespace Splitting
                 stateController.isWalled = true;
             }
 
-            if (collision.gameObject.tag == "Carryable")
+            if (collision.gameObject.tag == "Carryable" && !carry.carryKey)
             {
                 carry.carryedObj = collision.gameObject;
             }
@@ -43,9 +44,17 @@ namespace Splitting
                 stateController.isWalled = false;
             }
 
-            if (collision.gameObject.tag == "Carryable")
+            if (collision.gameObject.tag == "Carryable" && !carry.carryKey)
             {
                 carry.carryedObj = null;
+            }
+        }
+
+        private void CallAnimator(bool isCarrying)
+        {
+            if (animator != null)
+            {
+                animator.SetBool("carry", isCarrying);
             }
         }
     }

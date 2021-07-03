@@ -62,7 +62,7 @@ namespace Splitting
 
             velocityY = rigidbody2D.velocity.y;
 
-            if (Mathf.Abs(velocityY) > 0.01 && Mathf.Abs(velocityY) < 100)
+            if (Mathf.Abs(velocityY) > 4 && Mathf.Abs(velocityY) < 100)
             {          
                 wasJumping = true;
             }    

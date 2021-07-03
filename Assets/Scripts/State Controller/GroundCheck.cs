@@ -21,7 +21,7 @@ namespace Splitting
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.tag == "Ground")
+            if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Carryable")
             {
                 stateController.isGrounded = true;
             }
@@ -29,7 +29,7 @@ namespace Splitting
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.tag == "Ground")
+            if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Carryable")
             {
                 stateController.isGrounded = false;
             }

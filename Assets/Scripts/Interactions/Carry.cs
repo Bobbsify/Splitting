@@ -29,7 +29,7 @@ namespace Splitting
         // Update is called once per frame
         void Update()
         {
-            carryKey = Input.GetKey(KeyCode.P);
+            carryKey = Input.GetKey(KeyCode.P);           
 
             if (canCarry)
             {
@@ -41,13 +41,21 @@ namespace Splitting
             }
             else
             {
-                if (carryKey && isCarrying )
-                {            
-
-                    isCarrying = false;
+                if (carryKey && isCarrying)
+                {                            
                     carryedRig.isKinematic = false;
 
-                    lastObj.transform.SetParent(null);                    
+                    lastObj.transform.SetParent(null);
+
+                    if (transform.localScale.x > 0)
+                    {
+                        carryedRig.AddForce(new Vector2(-750, 250));
+                    }
+                    else
+                    {
+                        carryedRig.AddForce(new Vector2(750, 250));
+                    }
+                    isCarrying = false;
                 }                
             }
 
@@ -70,40 +78,9 @@ namespace Splitting
                 }
                 carryedObj.transform.SetParent(transform);
                 carryedObj.transform.position = new Vector2(transform.position.x, transform.position.y + 10);               
-            }           
+            }         
 
             CallAnimator(isCarrying, preparingCarry);
-
-            /*
-            if (canCarry)
-            {
-                if (carryedObj)
-                {
-                    lastObj = carryedObj;
-
-                    carryedCol = carryedObj.GetComponent<Collider2D>();
-                    carryedRig = carryedObj.GetComponent<Rigidbody2D>();
-
-                    // carryedCol.enabled = false;
-                                        
-                    carryedRig.isKinematic = true;
-
-                    if (isCarrying)
-                    {             
-                        carryedObj.transform.SetParent(transform);
-                        carryedObj.transform.position = new Vector2(transform.position.x, transform.position.y + 10);
-                    }                    
-                }
-                else
-                {
-                    lastObj.transform.SetParent(null);
-                }
-            
-            
-                
-            }
-            */
-
         }
 
         private void CallAnimator(bool isCarrying, bool preparingCarry)
@@ -113,7 +90,6 @@ namespace Splitting
                 animator.SetBool("isCarrying", isCarrying);
                 animator.SetBool("preparingCarry", preparingCarry);
             }
-
         }
 
         bool AnimatorIsPlaying(string stateName)

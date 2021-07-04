@@ -4,6 +4,21 @@ In questo foglio verrà scritta la documentazione inerente ad ogni script.
 
 In fondo a questo foglio si può trovare un template per descrivere gli script e i propri metodi
 
+
+###Indice
+
+[AudioController.cs](##AudioController.cs)
+
+[SwitchCharacter.cs](##SwitchCharacter.cs)
+
+[Move.cs](##Move.cs)
+
+[LoadLevel.cs](##LodaLevel.cs)
+
+[AwakeBehaviour.cs](##AwakeBehaviour.cs)
+
+[Jump.cs](##Jump.cs)
+
 <hr>
 
 ## AudioController.cs
@@ -61,31 +76,50 @@ Permette di cambiare da un personaggio ad un altro target, solo un personaggio d
 
 <hr>
 
-## Move.cs [[ DA AGGIORNARE ]]
+## Move.cs
 
 Move è il componente che consente ad un entità di muoversi utilizzando gli input orizzontali.
 Interagisce con l'animatore aggiornando il valore del parametro "velocityX" con la velocità verso la quale sta viaggiando l'entità (**Valore assoluto**)
 
 ### Variabili
 
-    [SerializeField] private float speed;
-    private float horizontalInput;
-    public bool canMove;
+        private Animator animator;
+
+        [SerializeField] private float speed;
+        private float horizontalInput;
+        private float verticalInput;
+
+        public bool canCrouch;
+        [HideInInspector] public bool isCrouched;
+        [HideInInspector] public bool canMove;
+        [HideInInspector] public bool isObstructed;
+
+- animator : _Animator dell'oggetto a cui è attaccato lo script_
 
 - speed : _Velocità alla quale si muove il nostro personaggio_
 
 - horizontalInput : _detecta l'input orizzontale del giocatore, ha un valore tra -1 e 1 e serve per la direzione dove si sta viaggiando_
 
-- canMove : _utilizzato da componenti esterni tra cui [StateController](##StateController.cs) per determinare se il giocatore può muoversi o meno_
+- vericalInput : _ottiene l'input verticale del giocatore, ha un valore tra -1 e 1 e viene usato per determinare se l'entità si sta accucciando o alzando
+
+- canCrouch : _utilizzato da componenti esterni tra cui [StateController](##StateController.cs) per determinare se l'entità può accovacciarsi o meno_
+
+- isCrouched : _Determina se l'entità è accovacciata_
+
+- canMove : _utilizzato da componenti esterni tra cui [StateController](##StateController.cs) per determinare se l'entità può muoversi o meno_
+
+- isObstructed : _utilizzato da componenti esterni tra cui [StateController](##StateController.cs) per determinare se l'entità è ostruita sopra di se_
+
 
 ### Metodi
 
-* Update(): _ad ogni frame, se l'entità può muoversi farà dei calcoli per spostare nella direzione scelta l'entità, aggiornando l'animatore tramite **CallAnimator()**_
+* Start(): _ottiene l'animatore dell'entità in questione_
 
-* CallAnimator(float speed): _data la velocità alla quale si sta muovendo l'entità, aggiorna il parametro **velocityX** nell'animator del gameObject_
+* Update(): _ad ogni frame, se l'entità può muoversi farà dei calcoli per spostare, accovacciare o alzare l'entità, aggiornando l'animatore tramite **CallAnimator()**_
+
+* CallAnimator(float speed): _aggiorna secondo quello che gli è fornito da Update() i parametri_ **velocityX** _e_ **isCrouched** _nell'animator del gameObject_
 
 <hr>
-
 ## LoadLevel.cs
 
 Load Level è un componente che attaccato ad un gameObject consente il cambiamento di livello, prima di poter utilizzare correttamente questo componento è necessario andare nei build settings (File --> Build Settings) e trascinare tutte le scene di gioco all'interno dei build settings.
@@ -151,6 +185,55 @@ AwakeBehaviour accende o spegne le script presenti all'interno di un determinato
 * OnTriggerExit2D(Collider2D col): _Aggiorna a false playerIsHere se un GameObject con tag "Player" nel collider ne esce_
 
 * awakeScripts(): _Imposta tutte le script a true o folse basandosi sull'actionType_
+
+<hr>
+
+## Jump.cs
+
+Lo script Jump permette di applicare una forza verticale al Rigidbody2D dell'entità in cui è assegnato tramite la lettura degli input provenienti dalla Barra Spaziatrice.
+La forza applicata varia a seconda di quanto tempo è rimasta premuta la barra spaziatrice.
+Al suo interno viene inoltre controllato se l'entità a cui è applicata la forza sta saltando o cadendo in modo da poter modificare l'animazione.
+
+### Variabili
+
+        public bool canJump;
+
+        public bool isJumping;
+        public bool isFalling;
+
+        [SerializeField] private float jumpForce = 1000.0f;
+        public bool jumpKeyDown;
+
+        [SerializeField] private float timerJump = 2.0f;
+        [SerializeField] private float elapsed;
+
+        private float velocityY;
+
+        new private Rigidbody2D rigidbody2D;
+        
+- canJump : _booleana che controlla se l'entità può saltare oppure no_
+
+- isJumping : _booleana che indica se l'entità sta saltando in quel momento oppure no_
+
+- isFalling : _booleana che indica se l'entità sta cadendo in quel momento oppure no_
+ 
+- jumpForce : _forza verticale che verrà applicata all'entità_
+
+- jumpKeyDown : _booleana che controlla quando la barra spaziatrice è premuta oppure no_
+
+- timerJump : _valore che indica il tempo necessario a compiere il salto caricato_
+
+- elapsed : _valore che si aggiorna in base al tempo passato con barra spaziatrice premuta_
+
+- velocityY : _valore che indica la velocità dell'entità sull'asse Y_
+
+- rigidbody2D : _variabile che stora al suo interno l'ID del rigidbody2D dell'entità_
+
+### Metodi
+
+* Start(): _la variabile rigidbody2D prende il componente Rigidbody2D dell'entità_
+
+* Update(): _la variabile jumpKeyDown detecta se viene premuta o no la barra spaziatrice. La variabile elapsed aumenta fin tanto che jumpKeyDown restituisce true. Quando viene rilasciata la barra spaziatrice jumpKeyDown restituirà quindi false. Se questo avviene mentre canJump è true viene applicata una forza sul rigidbody2D. La forza applicata è normalmente uguale a jumpForce, ma se elapsed supera timerJump la forza applicata sarà jumpForce*2 e si otterrà quindi un salto caricato. Inoltre se velocityY è positiva isJumping sarà uguale a true e isFalling false, altrimenti con una velocityY negativa avremo che isJumping è false e isFalling è true.        
 
 <hr>
 

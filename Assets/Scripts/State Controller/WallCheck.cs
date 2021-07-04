@@ -2,35 +2,60 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallCheck : MonoBehaviour
+namespace Splitting
 {
-    public StateController stateController;
 
-    // Start is called before the first frame update
-    void Start()
+    public class WallCheck : MonoBehaviour
     {
-        
-    }
+        public StateController stateController;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
+        public Carry carry;       
+
+        private Animator animator;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            stateController.isWalled = true;
-        }       
+            animator = gameObject.GetComponent<Animator>();
+        }
 
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
+        // Update is called once per frame
+        void Update()
         {
-            stateController.isWalled = false;
+            CallAnimator(carry.isCarrying);
+        }
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag == "Ground")
+            {
+                stateController.isWalled = true;
+            }
+
+            if (collision.gameObject.tag == "Carryable" && !carry.carryKey)
+            {
+                carry.carryedObj = collision.gameObject;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag == "Ground")
+            {
+                stateController.isWalled = false;
+            }
+
+            if (collision.gameObject.tag == "Carryable" && !carry.carryKey)
+            {
+                carry.carryedObj = null;
+            }
+        }
+
+        private void CallAnimator(bool isCarrying)
+        {
+            if (animator != null)
+            {
+                animator.SetBool("carry", isCarrying);
+            }
         }
     }
 }

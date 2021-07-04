@@ -62,7 +62,7 @@ namespace Splitting
                         ScreenShake(shake, lenght);                        
                     }
                     
-                    if (carry.isCarrying || AnimatorIsPlaying("AntLift3 0"))
+                    if (carry.isCarrying || AnimatorIsPlaying("AntLift3 0") || AnimatorIsPlaying("AntJump 0"))
                     {
                         jump.canJump = false;
                         move.canCrouch = false;

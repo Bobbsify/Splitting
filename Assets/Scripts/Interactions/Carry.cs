@@ -18,6 +18,9 @@ namespace Splitting
         private Collider2D carryedCol;
         private Rigidbody2D carryedRig;
 
+        [SerializeField] private float horizontalForce = 750.0f;
+        [SerializeField] private float verticalForce = 250.0f;
+
         private Animator animator;
 
         // Start is called before the first frame update
@@ -49,11 +52,11 @@ namespace Splitting
 
                     if (transform.localScale.x > 0)
                     {
-                        carryedRig.AddForce(new Vector2(-750, 250));
+                        carryedRig.AddForce(new Vector2(-horizontalForce, verticalForce));
                     }
                     else
                     {
-                        carryedRig.AddForce(new Vector2(750, 250));
+                        carryedRig.AddForce(new Vector2(horizontalForce, verticalForce));
                     }
                     isCarrying = false;
                 }                

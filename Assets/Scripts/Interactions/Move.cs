@@ -12,6 +12,7 @@ namespace Splitting
         private float horizontalInput;
         private float verticalInput;
 
+        //For state controller
         public bool canCrouch;
         [HideInInspector] public bool isCrouched;
         [HideInInspector] public bool canMove;

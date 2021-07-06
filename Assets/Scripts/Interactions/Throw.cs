@@ -77,6 +77,11 @@ public class Throw : MonoBehaviour
                 lr.positionCount = 0;
                 throwing = false;
                 rbToThrow = null;
+                if (rbToThrow.gameObject != null && rbToThrow.gameObject.tag == "Carryable")
+                {
+                    rbToThrow.gameObject.transform.parent = null;
+                    rbToThrow.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+                }
             }
         }
     }

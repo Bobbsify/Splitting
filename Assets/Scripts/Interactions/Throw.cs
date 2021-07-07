@@ -40,40 +40,49 @@ public class Throw : MonoBehaviour
 
     private void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        if (rbToThrow != null)
+        { 
+            horizontalInput = Input.GetAxis("Horizontal");
+            verticalInput = Input.GetAxis("Vertical");
 
-        transform.position = rbToThrow.transform.position;
-        //When key gets pressed
-        if (Input.GetKeyDown(throwButton))
-        {
-            startPos = rbToThrow.transform.position;
-            throwing = true;
-        }
-
-        if (throwing)
-        {
-            endPos = startPos;
-            controlVelocity();
-            _velocity = (endPos - startPos);
-
-            Vector2[] trajectory = Plot(rbToThrow, transform.position, _velocity, calculateSteps());
-
-            lr.positionCount = trajectory.Length;
-
-            Vector3[] positions = new Vector3[trajectory.Length];
-            for (int i = 0; i < positions.Length; i++)
+            transform.position = rbToThrow.transform.position;
+            //When key gets pressed
+            if (Input.GetKeyDown(throwButton))
             {
-                positions[i] = trajectory[i];
+                startPos = rbToThrow.transform.position;
+                throwing = true;
             }
-            lr.SetPositions(positions);
-        }
 
-        if (Input.GetKeyUp(throwButton))
-        {
-            rbToThrow.velocity = _velocity;
-            lr.positionCount = 0;
-            throwing = false;
+            if (throwing)
+            {
+                endPos = startPos;
+                controlVelocity();
+                _velocity = (endPos - startPos);
+
+                Vector2[] trajectory = Plot(rbToThrow, transform.position, _velocity, calculateSteps());
+
+                lr.positionCount = trajectory.Length;
+
+                Vector3[] positions = new Vector3[trajectory.Length];
+                for (int i = 0; i < positions.Length; i++)
+                {
+                    positions[i] = trajectory[i];
+                }
+                lr.SetPositions(positions);
+            }
+
+            if (Input.GetKeyUp(throwButton))
+            {
+                rbToThrow.velocity = _velocity;
+                lr.positionCount = 0;
+                throwing = false;
+                rbToThrow = null;
+                if (rbToThrow.gameObject != null && rbToThrow.gameObject.tag == "Carryable")
+                {
+                    rbToThrow.gameObject.transform.parent = null;
+                    rbToThrow.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+                }
+            }
         }
     }
 

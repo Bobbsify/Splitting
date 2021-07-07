@@ -40,6 +40,9 @@ namespace Splitting {
         [SerializeField]
         private KeyCode torchAngleDownButton = KeyCode.Alpha3;
 
+        [SerializeField]
+        private KeyCode pauseButton = KeyCode.Escape;
+
         public KeyCode JumpButton { get => jumpButton; set => jumpButton = value; }
         public KeyCode PickupButton { get => pickupButton; set => pickupButton = value; }
         public KeyCode ReleaseItemButton { get => releaseItemButton; set => releaseItemButton = value; }
@@ -51,5 +54,6 @@ namespace Splitting {
         public KeyCode FlashlightButton { get => flashlightButton; set => flashlightButton = value; }
         public KeyCode TorchAngleUpButton { get => torchAngleUpButton; set => torchAngleUpButton = value; }
         public KeyCode TorchAngleDownButton { get => torchAngleDownButton; set => torchAngleDownButton = value; }
+        public KeyCode PauseButton { get => pauseButton; set => pauseButton = value; }
     }
 }

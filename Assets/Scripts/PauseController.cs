@@ -20,7 +20,7 @@ public class PauseController : MonoBehaviour
         {
             if (Input.GetKeyUp(pauseButton))
             {
-                //Time.timeScale = pause ? 1 : 0;
+                Time.timeScale = pause ? 1 : 0;
                 pause = !pause;
                 GUI.SetActive(pause);
             }

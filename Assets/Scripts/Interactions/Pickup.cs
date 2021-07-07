@@ -11,51 +11,57 @@ using UnityEngine;
  *
  */
 
-public class Pickup : MonoBehaviour
-{
-
-    [Header("Throw Settings")]
-    public Throw throwScript;
-
-    public KeyCode grabButton = KeyCode.E;
-    public float grabDistance = 1.0f;
-
-    private Collider2D col;
-    private RaycastHit2D grabCheck; 
-
-    // Start is called before the first frame update
-    void Start()
+namespace Splitting { 
+    public class Pickup : MonoBehaviour
     {
-        col = gameObject.GetComponent<Collider2D>();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(grabButton))
+        [Header("Throw Settings")]
+        public Throw throwScript;
+
+        private KeyCode pickupButton;
+        public float grabDistance = 1.0f;
+
+        private Collider2D col;
+        private RaycastHit2D grabCheck; 
+
+        // Start is called before the first frame update
+        void Start()
         {
-            Vector2 editedTransform = new Vector2(transform.position.x - (col.bounds.size.x * transform.localScale.x), transform.position.y+5);//+5 perchè il centro dell'oggetto è più sotto del previsto..
-            grabCheck = Physics2D.Raycast(editedTransform, Vector2.right * transform.localScale.x,grabDistance);
-            Debug.Log("Raycast start:" + editedTransform + "\nRaycasty direction: "+ (Vector2.right * transform.localScale.x));
-            Debug.Log(grabCheck.collider + " //// " + grabCheck.collider.tag);
-            if (grabCheck.collider != null && grabCheck.collider.tag == "Carryable")
+            col = gameObject.GetComponent<Collider2D>();
+            pickupButton = new InputSettings().PickupButton;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (Input.GetKeyUp(pickupButton))
             {
-                Debug.Log("Hit");
-                Rigidbody2D objRigidbody = grabCheck.collider.gameObject.GetComponent<Rigidbody2D>();
-                grabCheck.collider.gameObject.transform.parent = transform;
-                grabCheck.collider.gameObject.transform.position = new Vector2(transform.position.x,transform.position.y+10);
-                objRigidbody.isKinematic = true;
-                throwScript.rbToThrow = objRigidbody;
+                Vector2 editedTransform = new Vector2(transform.position.x - (col.bounds.size.x * transform.localScale.x), transform.position.y);//+5 perchè il centro dell'oggetto è più sotto del previsto..
+                grabCheck = Physics2D.Raycast(editedTransform, Vector2.right * -transform.localScale.x, grabDistance);
+                if (grabCheck.collider != null && grabCheck.collider.tag == "Carryable")
+                {
+                    Rigidbody2D objRigidbody = grabCheck.collider.gameObject.GetComponent<Rigidbody2D>();
+                    grabCheck.collider.gameObject.transform.parent = transform;
+                    grabCheck.collider.gameObject.transform.position = new Vector2(transform.position.x, transform.position.y + col.bounds.size.y * 2);
+                    objRigidbody.isKinematic = true;
+                    throwScript.rbToThrow = objRigidbody;
+                }
+                /*
+                * This should be done in the throw
+                if (grabCheck.collider != null && grabCheck.collider.tag == "Carryable")
+                { 
+                    grabCheck.collider.gameObject.transform.parent = null;
+                    grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+                }
+                */
             }
         }
-        // This should be done in the throw
-        if (Input.GetKeyUp(grabButton))
+
+        private void OnDrawGizmosSelected()
         {
-            if (grabCheck.collider != null && grabCheck.collider.tag == "Carryable")
-            { 
-                grabCheck.collider.gameObject.transform.parent = null;
-                grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
-            }
+            col = gameObject.GetComponent<Collider2D>();
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(new Vector2(transform.position.x - (col.bounds.size.x / 2 * transform.localScale.x), transform.position.y),Vector2.right*-transform.localScale.x);
         }
     }
 }

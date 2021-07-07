@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 01df8acb7a0eebb439650637908289fa
+guid: bf0a0a2ffc40b1e43aa0e501d31b7a4d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1407037223369280981
-    second: Button_sprites2_0
+      213: 8463534221583659010
+    second: Button_MenuButtonSprites_0
   - first:
-      213: 1697878756321574423
-    second: Button_sprites2_1
+      213: 662937585760323080
+    second: Button_MenuButtonSprites_1
   - first:
-      213: -4126761381891203607
-    second: Button_sprites2_2
+      213: 9065024195165853400
+    second: Button_MenuButtonSprites_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -100,64 +100,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Button_sprites2_0
+      name: Button_MenuButtonSprites_0
       rect:
         serializedVersion: 2
-        x: 35
-        y: 520
-        width: 1279
-        height: 184
+        x: 59
+        y: 775
+        width: 1830
+        height: 274
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5dd8dac56ecc68310800000000000000
-      internalID: 1407037223369280981
+      spriteID: 2003bd56883847570800000000000000
+      internalID: 8463534221583659010
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Button_sprites2_1
+      name: Button_MenuButtonSprites_1
       rect:
         serializedVersion: 2
-        x: 35
-        y: 275
-        width: 1775
-        height: 185
+        x: 59
+        y: 428
+        width: 1830
+        height: 275
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71eba3eabb3109710800000000000000
-      internalID: 1697878756321574423
+      spriteID: 806cf7bc83a333900800000000000000
+      internalID: 662937585760323080
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Button_sprites2_2
+      name: Button_MenuButtonSprites_2
       rect:
         serializedVersion: 2
-        x: 35
-        y: 36
-        width: 1279
-        height: 184
+        x: 59
+        y: 83
+        width: 2442
+        height: 274
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ed139f336ccab6c0800000000000000
-      internalID: -4126761381891203607
+      spriteID: 8d69e291a7f6dcd70800000000000000
+      internalID: 9065024195165853400
       vertices: []
       indices: 
       edges: []

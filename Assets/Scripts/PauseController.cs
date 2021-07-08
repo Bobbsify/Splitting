@@ -8,8 +8,6 @@ public class PauseController : MonoBehaviour
     {
         [SerializeField]
         private GameObject GUI;
-        [SerializeField]
-        private Button Button;
 
         private KeyCode pauseButton;
         private bool pause = false;
@@ -17,10 +15,9 @@ public class PauseController : MonoBehaviour
         private void Start()
         {
             pauseButton = new InputSettings().PauseButton;
-            Button.onClick.AddListener(TaskOnClick);
         }
 
-        private void TaskOnClick()
+        private void Update()
         {
             if (Input.GetKeyUp(pauseButton))
             {
@@ -30,7 +27,7 @@ public class PauseController : MonoBehaviour
             }
         }
 
-        private void Update()
+        public void TaskOnClick()
         {
             if (Input.GetKeyUp(pauseButton))
             {

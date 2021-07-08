@@ -8,13 +8,22 @@ namespace Splitting
     {
         public bool canCarry;
 
-        public bool carryKey;
-        public bool preparingCarry;
+        public bool dropKey;
+
+        public bool isFixing;
+        [SerializeField] private float fixingRange = 20.0f;
         public bool isCarrying;
+
+        [SerializeField] private float elapsedFix = 0.0f;
+
+        //[SerializeField] private float takeDistance = 5.0f;
 
         public GameObject carryedObj;
         public GameObject lastObj;
 
+        private Collider2D col;
+
+        //private RaycastHit2D takeCheck;
         private Collider2D carryedCol;
         private Rigidbody2D carryedRig;
 
@@ -22,29 +31,46 @@ namespace Splitting
         [SerializeField] private float verticalForce = 250.0f;
 
         private Animator animator;
-
+        
         // Start is called before the first frame update
         void Start()
         {
-            animator = gameObject.GetComponent<Animator>();       
+            animator = gameObject.GetComponent<Animator>();
+
+            col = gameObject.GetComponent<Collider2D>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            carryKey = Input.GetKey(KeyCode.P);           
+            dropKey = Input.GetKey(KeyCode.P);
+            
+            /*
+            Vector2 editedTransform = new Vector2(transform.position.x, transform.position.y + col.bounds.size.y / 2);
 
+            takeCheck = Physics2D.Raycast(editedTransform, Vector2.up, takeDistance);
+
+            if (takeCheck.collider != null && takeCheck.collider.tag == "Carryable")
+            {
+                Debug.Log("boh");
+                carryedRig = takeCheck.collider.gameObject.GetComponent<Rigidbody2D>();
+                takeCheck.collider.gameObject.transform.parent = transform;
+            }
+            */
+            
+
+            
             if (canCarry)
             {
-                if (carryedObj != null && carryKey && !isCarrying)
+                if (carryedObj != null)
                 {                                        
-                    preparingCarry = true;
+                    isFixing = true;
                     lastObj = null;
                 }
             }
             else
             {
-                if (carryKey && isCarrying)
+                if (dropKey && isCarrying)
                 {                            
                     carryedRig.isKinematic = false;
 
@@ -62,11 +88,28 @@ namespace Splitting
                 }                
             }
 
-            if (preparingCarry && AnimatorIsPlaying("AntIdle 0"))
-            {
-                isCarrying = true;
+            if (isFixing)
+            {             
+                lastObj = carryedObj;
+                carryedCol =carryedObj.GetComponent<Collider2D>();
+                carryedRig = carryedObj.GetComponent<Rigidbody2D>();
+
+                if (carryedRig != null)
+                {
+                    carryedRig.isKinematic = true;
+                }
+
+                carryedObj.transform.SetParent(transform);
+                carryedObj.transform.position = new Vector2(carryedObj.transform.position.x, transform.position.y + col.bounds.size.y);
+
+                if (carryedObj.transform.position.x != transform.position.x)
+                {
+                    elapsedFix += Time.deltaTime;
+                    
+                }
             }
 
+            /*
             if (isCarrying && preparingCarry)
             {
                 lastObj = carryedObj;
@@ -80,10 +123,12 @@ namespace Splitting
                     carryedRig.isKinematic = true;
                 }
                 carryedObj.transform.SetParent(transform);
-                carryedObj.transform.position = new Vector2(transform.position.x, transform.position.y + 10);               
+                carryedObj.transform.position = new Vector2(transform.position.x, transform.position.y + 4);               
             }         
 
             CallAnimator(isCarrying, preparingCarry);
+            */
+            
         }
 
         private void CallAnimator(bool isCarrying, bool preparingCarry)
@@ -100,6 +145,14 @@ namespace Splitting
             return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
         }
 
+        /*
+        private void OnDrawGizmosSelected()
+        {
+            col = gameObject.GetComponent<Collider2D>();
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(new Vector2(transform.position.x, transform.position.y + col.bounds.size.y), Vector2.right);
+        }
+        */
     }
     
 }

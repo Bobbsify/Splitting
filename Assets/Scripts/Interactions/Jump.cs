@@ -15,6 +15,7 @@ namespace Splitting
         public bool wasJumping;
 
         [SerializeField] private float jumpForce = 1000.0f;
+        [SerializeField] private float jumpMoltiplicator = 2.0f;
         public bool jumpKeyDown;
 
         [SerializeField] private float timerJump = 2.0f;
@@ -54,7 +55,7 @@ namespace Splitting
                 }
                 else if (Input.GetKeyUp(KeyCode.Space) && elapsedKeyDown >= timerJump)
                 {
-                    rigidbody2D.AddForce(new Vector2(0f, jumpForce * 2));                    
+                    rigidbody2D.AddForce(new Vector2(0f, jumpForce * jumpMoltiplicator));                    
 
                     elapsedKeyDown = 0.0f;
                 }

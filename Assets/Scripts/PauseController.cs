@@ -17,7 +17,17 @@ public class PauseController : MonoBehaviour
         private void Start()
         {
             pauseButton = new InputSettings().PauseButton;
-            Button.onClick.AddListener(Update);
+            Button.onClick.AddListener(TaskOnClick);
+        }
+
+        private void TaskOnClick()
+        {
+            if (Input.GetKeyUp(pauseButton))
+            {
+                Time.timeScale = pause ? 1 : 0;
+                pause = !pause;
+                GUI.SetActive(pause);
+            }
         }
 
         private void Update()

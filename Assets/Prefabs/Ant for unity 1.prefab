@@ -348,7 +348,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateController: {fileID: 700035413992777756}
-  carry: {fileID: 700035413992777734}
 --- !u!1 &769320745123790970
 GameObject:
   m_ObjectHideFlags: 0
@@ -1347,7 +1346,7 @@ Animator:
   m_GameObject: {fileID: 7246107592126878312}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ed7537257dcdd67449e3395ba3e4fcd4, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1368,7 +1367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d7a368cb283aa4fae982647cc0dafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
   canCrouch: 0
   isCrouched: 0
   canMove: 0
@@ -1388,9 +1387,9 @@ MonoBehaviour:
   canJump: 0
   isLanded: 0
   wasJumping: 0
-  jumpForce: 1000
+  jumpForce: 750
   jumpKeyDown: 0
-  timerJump: 2
+  timerJump: 1
   elapsedKeyDown: 0
 --- !u!114 &700035413992777756
 MonoBehaviour:
@@ -1427,11 +1426,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canCarry: 0
-  dropKey: 0
-  isFixing: 0
-  fixingRange: 20
+  carryKey: 0
+  preparingCarry: 0
   isCarrying: 0
-  elapsedFix: 0
   carryedObj: {fileID: 0}
   lastObj: {fileID: 0}
   horizontalForce: 300

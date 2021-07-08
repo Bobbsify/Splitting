@@ -21,16 +21,16 @@ public class PauseController : MonoBehaviour
         {
             if (Input.GetKeyUp(pauseButton))
             {
-                Time.timeScale = pause ? 1 : 0;
                 pause = !pause;
+                Time.timeScale = pause ? 0 : 1;
                 GUI.SetActive(pause);
             }
         }
 
         public void TaskOnClick()
         {
-            Time.timeScale = 1;
-            pause = false;
+            pause = !pause;
+            Time.timeScale = pause ? 0 : 1;
             GUI.SetActive(pause);
         }
     }

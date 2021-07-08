@@ -6,7 +6,14 @@ public class ConstantMovement : MonoBehaviour
 {
     [SerializeField] private Directions direction;
     [SerializeField] private Vector3 destination;
+
+    private Vector3 startPosition;
     public float speed;
+
+    private void Awake()
+    {
+        startPosition = transform.position;
+    }
 
     // Update is called once per frame
     private void Update()
@@ -23,6 +30,9 @@ public class ConstantMovement : MonoBehaviour
             position.y += speed * Time.deltaTime; // Add Y
             if (position.y >= destination.y)
             {
+                destination = startPosition;
+                startPosition = transform.position;
+                direction = Directions.Down;
                 this.enabled = false;
             }
         }
@@ -31,6 +41,9 @@ public class ConstantMovement : MonoBehaviour
             position.x += speed * Time.deltaTime; // Add X
             if (position.x >= destination.x)
             {
+                destination = startPosition;
+                startPosition = transform.position;
+                direction = Directions.Left;
                 this.enabled = false;
             }
         }
@@ -39,6 +52,9 @@ public class ConstantMovement : MonoBehaviour
             position.x -= speed * Time.deltaTime; // Remove X
             if (position.x <= destination.x)
             {
+                destination = startPosition;
+                startPosition = transform.position;
+                direction = Directions.Right;
                 this.enabled = false;
             }
         }
@@ -47,6 +63,9 @@ public class ConstantMovement : MonoBehaviour
             position.y -= speed * Time.deltaTime; // Remove Y
             if (position.y <= destination.y)
             {
+                destination = startPosition;
+                startPosition = transform.position;
+                direction = Directions.Up;
                 this.enabled = false;
             }
         }

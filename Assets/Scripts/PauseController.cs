@@ -29,9 +29,9 @@ public class PauseController : MonoBehaviour
 
         public void TaskOnClick()
         {
-                Time.timeScale = pause ? 1 : 0;
-                pause = !pause;
-                GUI.SetActive(pause);
+            Time.timeScale = 1;
+            pause = false;
+            GUI.SetActive(pause);
         }
     }
 }

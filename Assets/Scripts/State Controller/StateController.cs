@@ -67,10 +67,19 @@ namespace Splitting
                         jump.canJump = false;
                         move.canCrouch = false;
                     }
-                    else
+                    else 
                     {
-                        jump.canJump = true;
-                        move.canCrouch = true;
+                        if (carry.isCarrying)
+                        {
+                            jump.canJump = true;
+                            move.canCrouch = false;
+                        }
+                        else
+                        {
+                            jump.canJump = true;
+                            move.canCrouch = true;
+                        }
+                       
                     }
 
                     if (jump.jumpKeyDown)

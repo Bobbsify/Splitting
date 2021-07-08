@@ -29,12 +29,7 @@ namespace Splitting
             if (collision.gameObject.tag == "Ground")
             {
                 stateController.isWalled = true;
-            }
-
-            if (collision.gameObject.tag == "Carryable" && !carry.carryKey)
-            {
-                carry.carryedObj = collision.gameObject;
-            }
+            }           
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -42,12 +37,7 @@ namespace Splitting
             if (collision.gameObject.tag == "Ground")
             {
                 stateController.isWalled = false;
-            }
-
-            if (collision.gameObject.tag == "Carryable" && !carry.carryKey)
-            {
-                carry.carryedObj = null;
-            }
+            }           
         }
 
         private void CallAnimator(bool isCarrying)

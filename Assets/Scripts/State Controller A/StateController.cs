@@ -35,7 +35,7 @@ namespace Splitting
         void LateUpdate()
         {
             
-            if (jump.isLanded && !AnimatorIsPlaying("AntDeath"))
+            if (jump.isLanded && !AnimatorIsPlaying("AntJump5"))
             {
                 jump.isLanded = false;
             }       
@@ -62,7 +62,7 @@ namespace Splitting
                         ScreenShake(shake, lenght);                        
                     }
                     
-                    if (carry.isCarrying || AnimatorIsPlaying("AntLift3 0") || AnimatorIsPlaying("AntJump 0"))
+                    if (AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntJump5") || AnimatorIsPlaying("AntCarryingEnd"))
                     {
                         jump.canJump = false;
                         move.canCrouch = false;
@@ -72,11 +72,13 @@ namespace Splitting
                         if (carry.isCarrying)
                         {
                             jump.canJump = true;
+                            jump.jumpDivider = jump.jumpMultiplier;
                             move.canCrouch = false;
                         }
                         else
                         {
                             jump.canJump = true;
+                            jump.jumpDivider = 1.0f;
                             move.canCrouch = true;
                         }
                        

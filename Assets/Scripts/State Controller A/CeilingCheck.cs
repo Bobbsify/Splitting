@@ -9,10 +9,12 @@ namespace Splitting
         public StateController stateController;
         public Carry carry;
 
+        private Rigidbody2D objRig;
+
         // Start is called before the first frame update
         void Start()
         {
-
+            objRig = gameObject.GetComponent<Rigidbody2D>();
         }
 
         // Update is called once per frame
@@ -27,9 +29,12 @@ namespace Splitting
                 stateController.isObstructed = true;
             }
             
-            if (collision.gameObject.tag == "Carryable")
+            if (collision.gameObject.tag == "Carryable" && !carry.wasCarrying)
             {
                 carry.carryedObj = collision.gameObject;
+
+                objRig = collision.GetComponent<Rigidbody2D>();
+                carry.carryedRig = objRig;
             }
         }
 
@@ -40,10 +45,12 @@ namespace Splitting
                 stateController.isObstructed = false;
             }
 
+            
             if (collision.gameObject.tag == "Carryable")
             {
-                carry.carryedObj = null;
+                carry.carryedObj = null;                
             }
+            
         }
     }
 }

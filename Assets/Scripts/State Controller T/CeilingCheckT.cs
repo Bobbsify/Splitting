@@ -2,17 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CeilingCheckT : MonoBehaviour
+namespace Splitting
 {
-    // Start is called before the first frame update
-    void Start()
+    public class CeilingCheckT : MonoBehaviour
     {
-        
-    }
+        public StateControllerT stateController;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Start is called before the first frame update
+        void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag == "Ground")
+            {
+                stateController.isObstructed = true;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag == "Ground")
+            {
+                stateController.isObstructed = false;
+            }
+        }
     }
 }

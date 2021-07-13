@@ -111,7 +111,7 @@ public class Patrol : MonoBehaviour
         Vector2 position = transform.position;
         if (movementType == MovementTypes.FixedSpeed)
         {
-            position.x += (speed * Time.deltaTime) * whereToX;
+            position.x += (speed * Mathf.Min(distanceX / distanceY, 1) * Time.deltaTime) * whereToX;
         }
         else //MovementTypes.SlowToFastToSlow
         {
@@ -122,14 +122,15 @@ public class Patrol : MonoBehaviour
 
     private void AdvanceY()
     {
+        //Se la distanza X è maggiore della distanzaY la velocità y deve diminuire altrimenti deve aumentare
         Vector2 position = transform.position;
         if (movementType == MovementTypes.FixedSpeed)
         {
-            position.y += (speed * Time.deltaTime) * whereToY;
+            position.y += speed * Mathf.Min(distanceY/distanceX,1) * Time.deltaTime * whereToY;
         }
         else //MovementTypes.SlowToFastToSlow
         {
-            position.y += (Speed(false) * Time.deltaTime) * whereToY;
+            position.y += (Speed(false) * distanceY / distanceX * Time.deltaTime) * whereToY;
         }
         transform.position = position;
     }

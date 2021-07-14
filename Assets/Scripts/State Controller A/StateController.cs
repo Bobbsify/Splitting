@@ -126,6 +126,13 @@ namespace Splitting
                 }               
                 
             }
+            else
+            {
+                move.canMove = false;
+                move.canCrouch = false;
+                jump.canJump = false;
+                carry.canCarry = false;
+            }
 
         }
 

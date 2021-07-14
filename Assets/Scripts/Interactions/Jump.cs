@@ -67,7 +67,8 @@ namespace Splitting
             if (Mathf.Abs(velocityY) > 4 && Mathf.Abs(velocityY) < 100)
             {          
                 wasJumping = true;
-            }    
+            }
+            
 
             CallAnimator(jumpKeyDown, velocityY, isLanded);
             

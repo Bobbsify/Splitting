@@ -51,7 +51,10 @@ namespace Splitting
                 }
                 transform.localScale = new Vector3(initialScale.x * horizontalInput, initialScale.y);
             }
-            CallAnimator(Time.deltaTime * speed / (isCrouched ? 2 : 1) * horizontalInput, isCrouched);
+            if (canCrouch || canMove)
+            { 
+                CallAnimator(Time.deltaTime * speed / (isCrouched ? 2 : 1) * horizontalInput, isCrouched);
+            }
         }
 
         //Updates animator velocity

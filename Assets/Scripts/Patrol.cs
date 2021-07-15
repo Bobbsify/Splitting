@@ -62,44 +62,44 @@ public class Patrol : MonoBehaviour
     {
         if (whereToX == 1 && whereToY == 1) //Moving Top Right
         {
-            if (transform.position.y <= path[nextPoint].y)
+            if (transform.position.y < path[nextPoint].y)
             {
                 AdvanceY();
             }
-            if (transform.position.x <= path[nextPoint].x)
+            if (transform.position.x < path[nextPoint].x)
             {
                 AdvanceX();
             }
         }
         if (whereToX == 1 && whereToY == -1) //Moving Top Left
         {
-            if (transform.position.y >= path[nextPoint].y)
+            if (transform.position.y > path[nextPoint].y)
             {
                 AdvanceY();
             }
-            if (transform.position.x <= path[nextPoint].x)
+            if (transform.position.x < path[nextPoint].x)
             {
                 AdvanceX();
             }
         }
         if (whereToX == -1 && whereToY == 1) //Moving Bottom Right
         {
-            if (transform.position.y <= path[nextPoint].y)
+            if (transform.position.y < path[nextPoint].y)
             {
                 AdvanceY();
             }
-            if (transform.position.x >= path[nextPoint].x)
+            if (transform.position.x > path[nextPoint].x)
             {
                 AdvanceX();
             }
         }
         if (whereToX == -1 && whereToY == -1) //Moving Bottom Left
         {
-            if (transform.position.y >= path[nextPoint].y)
+            if (transform.position.y > path[nextPoint].y)
             {
                 AdvanceY();
             }
-            if (transform.position.x >= path[nextPoint].x)
+            if (transform.position.x > path[nextPoint].x)
             {
                 AdvanceX();
             }

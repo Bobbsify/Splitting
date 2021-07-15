@@ -1347,7 +1347,7 @@ Animator:
   m_GameObject: {fileID: 7246107592126878312}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d22972a81ea729a428ac7a887b5b2a3a, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1389,7 +1389,8 @@ MonoBehaviour:
   isLanded: 0
   wasJumping: 0
   jumpForce: 1000
-  jumpMoltiplicator: 1.6
+  jumpMultiplier: 2
+  jumpDivider: 1
   jumpKeyDown: 0
   timerJump: 1
   elapsedKeyDown: 0
@@ -1409,8 +1410,8 @@ MonoBehaviour:
   isGrounded: 0
   isWalled: 0
   isObstructed: 0
-  shake: 1
-  lenght: 1
+  shake: 0.3
+  lenght: 0.6
   jump: {fileID: 700035413992777759}
   move: {fileID: 700035413992777758}
   carry: {fileID: 700035413992777734}
@@ -1429,12 +1430,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canCarry: 0
   dropKey: 0
+  isFixed: 0
   isFixing: 0
-  fixingRange: 20
   isCarrying: 0
-  elapsedFix: 0
+  wasCarrying: 0
   carryedObj: {fileID: 0}
   lastObj: {fileID: 0}
+  carryedRig: {fileID: 0}
   horizontalForce: 300
   verticalForce: 150
 --- !u!114 &700035413992777735
@@ -1449,8 +1451,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d78ea79462b79214a8bd5e1cb690736a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swapButton: 113
   targetEntity: {fileID: 0}
+  NamesOfScriptsToDisable: []
+  NamesOfScriptsToEnable: []
 --- !u!1 &7919752602983841060
 GameObject:
   m_ObjectHideFlags: 0

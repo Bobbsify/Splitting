@@ -41,8 +41,11 @@ namespace Splitting
             }       
                         
             if (hasControl)
-            {         
-                
+            {
+                jump.enabled = true;
+                carry.enabled = true;
+                move.enabled = true;
+
                 if (isWalled)
                 {
                      move.canMove = false;
@@ -127,11 +130,10 @@ namespace Splitting
                 
             }
             else
-            {
-                move.canMove = false;
-                move.canCrouch = false;
-                jump.canJump = false;
-                carry.canCarry = false;
+            {                
+                jump.enabled = false;
+                carry.enabled = false;
+                move.enabled = false;
             }
 
         }

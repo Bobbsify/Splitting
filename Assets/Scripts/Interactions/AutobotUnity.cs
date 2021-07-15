@@ -40,7 +40,14 @@ namespace Splitting
         // Update is called once per frame
         void Update()
         {
-            layerMask = LayerMask.GetMask("Gameplay-Back");
+            if (gameObject.layer == 8)
+            {
+                layerMask = LayerMask.GetMask("Gameplay-Middle");
+            }
+            else if (gameObject.layer == 9)
+            {
+                layerMask = LayerMask.GetMask("Gameplay-Back");
+            }            
 
             Vector2 editedTransform = new Vector2(transform.position.x - (boxCol.bounds.size.x / 2), transform.position.y + (boxCol.bounds.size.y / 2) + (capsuleCol.bounds.size.y / 8));
             connectCheck = Physics2D.Raycast(editedTransform, Vector2.down + Vector2.right, connectDistance, layerMask);
@@ -111,7 +118,7 @@ namespace Splitting
             capsuleCol = gameObject.GetComponent<CapsuleCollider2D>();
 
             Gizmos.color = Color.red;
-            Gizmos.DrawRay(new Vector2(transform.position.x - (boxCol.bounds.size.x / 2), transform.position.y + (boxCol.bounds.size.y / 2) + (capsuleCol.bounds.size.y / 8)), (Vector2.down + Vector2.right) * 5);
+            Gizmos.DrawRay(new Vector2(boxCol.bounds.center.x - (boxCol.bounds.size.x / 2), boxCol.bounds.center.y + (boxCol.bounds.size.y / 2)), (Vector2.down + Vector2.right) * 5);
         }
 
         private void CallAnimator(float speed)

@@ -1389,10 +1389,10 @@ MonoBehaviour:
   isLanded: 0
   wasJumping: 0
   jumpForce: 1000
-  jumpMultiplier: 2
+  jumpMultiplier: 1.6
   jumpDivider: 1
   jumpKeyDown: 0
-  timerJump: 1
+  timerJump: 0.7
   elapsedKeyDown: 0
 --- !u!114 &700035413992777756
 MonoBehaviour:

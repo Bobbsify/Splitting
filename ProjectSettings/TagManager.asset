@@ -9,6 +9,7 @@ TagManager:
   - SoundBubbleMedium
   - SoundBubbleFar
   - Audio
+  - Carryable
   layers:
   - Default
   - TransparentFX
@@ -18,9 +19,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Gameplay-Back
+  - Gameplay-Middle
+  - Gameplay-Front
   - 
   - 
   - 

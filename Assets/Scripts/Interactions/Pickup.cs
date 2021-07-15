@@ -36,7 +36,8 @@ namespace Splitting {
         {
             if (Input.GetKeyUp(pickupButton))
             {
-                Vector2 editedTransform = new Vector2(transform.position.x - (col.bounds.size.x * transform.localScale.x), transform.position.y);//+5 perchè il centro dell'oggetto è più sotto del previsto..
+                //Check if there is a grabbable object
+                Vector2 editedTransform = new Vector2(transform.position.x - (col.bounds.size.x / 2 * transform.localScale.x), transform.position.y);
                 grabCheck = Physics2D.Raycast(editedTransform, Vector2.right * -transform.localScale.x, grabDistance);
                 if (grabCheck.collider != null && grabCheck.collider.tag == "Carryable")
                 {
@@ -46,14 +47,6 @@ namespace Splitting {
                     objRigidbody.isKinematic = true;
                     throwScript.rbToThrow = objRigidbody;
                 }
-                /*
-                * This should be done in the throw
-                if (grabCheck.collider != null && grabCheck.collider.tag == "Carryable")
-                { 
-                    grabCheck.collider.gameObject.transform.parent = null;
-                    grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
-                }
-                */
             }
         }
 

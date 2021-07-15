@@ -44,7 +44,6 @@ public class Rotator : MonoBehaviour
         {
             Normalize();
         }
-        Debug.Log(rotation);
         Quaternion rot = new Quaternion();
         rot.eulerAngles = rotation;
         transform.localRotation = rot;

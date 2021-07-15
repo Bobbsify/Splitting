@@ -10,9 +10,10 @@ public class ConstantMovement : MonoBehaviour
     private Vector3 startPosition;
     public float speed;
 
-    private void Awake()
+    private void Start()
     {
         startPosition = transform.position;
+        Debug.Log("startPosition: "+startPosition);
     }
 
     // Update is called once per frame
@@ -31,7 +32,9 @@ public class ConstantMovement : MonoBehaviour
             if (position.y >= destination.y)
             {
                 destination = startPosition;
+                Debug.Log("destinationPosition: " + destination);
                 startPosition = transform.position;
+                Debug.Log("startPosition: " + startPosition);
                 direction = Directions.Down;
                 this.enabled = false;
             }

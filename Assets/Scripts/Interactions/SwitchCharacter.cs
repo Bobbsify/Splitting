@@ -1,3 +1,5 @@
+using System.Reflection;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,14 +8,28 @@ namespace Splitting {
     public class SwitchCharacter : MonoBehaviour
     {
         [SerializeField] private GameObject targetEntity;
-        [SerializeField] private List<string> NamesOfScriptsToDisable;
-        [SerializeField] private List<string> NamesOfScriptsToEnable;
+        [SerializeField] private List<string> ScriptsToDisable;
+        [SerializeField] private List<string> ScriptsToEnable;
         private KeyCode swapButton; //Defaults to Q
+
+        [Header("Tyrant")]
+        [SerializeField] private string tyrantName;
+        private GameObject tyrAnt;
+        private AutobotUnity unionCheck;
 
         // Start is called before the first frame update
         void Awake()
         {
             swapButton = new InputSettings().SwitchCharacterButton;
+            try
+            {
+                tyrAnt = transform.Find(tyrantName).gameObject;
+            }
+            catch
+            {
+                //throw new MissingFieldException(gameObject.name+" is missing TyrAnt");
+            }
+            unionCheck = GetComponent<AutobotUnity>();
         }
 
         // Update is called once per frame
@@ -21,36 +37,45 @@ namespace Splitting {
         {
             if (targetEntity != null)
             {
-                if (Input.GetKeyUp(swapButton))
+                if (Input.GetKeyUp(swapButton) && !unionCheck.connectable)
                 {
-                    turnThisOff();
-                    turnOtherOn();
+                    TurnThisOff();
+                    TurnOtherOn();
+                }
+                if (unionCheck.connectable && false) //todo change to correct variable
+                {
+                    targetEntity.SetActive(false); //Disable Other
+                    gameObject.SetActive(false); //Disable This
+                    tyrAnt.transform.parent = null; //Remove Object from parent
+                    targetEntity.transform.parent = tyrAnt.transform; // Set Ant&Tyr as children of TyrAnt
+                    transform.parent = tyrAnt.transform;
+                    tyrAnt.SetActive(true);
+                    tyrAnt.GetComponent<Animator>().SetTrigger("Link");
                 }
             }
         }
 
-        private void turnThisOff()
+        private void Connect()
         {
-            MonoBehaviour[] scripts = gameObject.GetComponents<MonoBehaviour>();
-            foreach (MonoBehaviour script in scripts)
+            
+        }
+
+        private void TurnThisOff()
+        {
+            foreach (string script in ScriptsToDisable) //Get Scripts and disable them one by one
             {
-                if(NamesOfScriptsToDisable.Contains(script.name))
-                    script.enabled = false;
+                (gameObject.GetComponent(script) as MonoBehaviour).enabled = false;
             }
-            gameObject.layer = 8;
             StopMovementX();
             gameObject.tag = "Untagged";
         }
 
-        private void turnOtherOn()
+        private void TurnOtherOn()
         {
-            MonoBehaviour[] scripts = targetEntity.GetComponents<MonoBehaviour>();
-            foreach (MonoBehaviour script in scripts)
+            foreach (string script in ScriptsToEnable) //Get Scripts and enable them one by one
             {
-                if (NamesOfScriptsToEnable.Contains(script.name))
-                    script.enabled = true;
+                (targetEntity.GetComponent(script) as MonoBehaviour).enabled = true;
             }
-            targetEntity.layer = 9;
             targetEntity.tag = "Player";
 
         }

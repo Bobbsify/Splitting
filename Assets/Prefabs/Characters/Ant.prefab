@@ -1877,6 +1877,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TyrAnt
       objectReference: {fileID: 0}
+    - target: {fileID: 951898228632749195, guid: 606814118d2b249488d70744fbd89d87,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1070449606028704046, guid: 606814118d2b249488d70744fbd89d87,
         type: 3}
       propertyPath: m_Bounds.m_Center.x

@@ -14,6 +14,7 @@ namespace Splitting
 
         public Move move;
         public Jump jump;
+        public Pickup pickup;
 
         private GameObject trajectPred;
         private Throw getThrow;
@@ -46,6 +47,9 @@ namespace Splitting
 
             if (hasControl)
             {
+                jump.enabled = true;
+                move.enabled = true;
+
                 jump.canJump = false;
 
                 if (isWalled)
@@ -68,6 +72,8 @@ namespace Splitting
 
                 if (isGrounded)
                 {
+                    pickup.enabled = true;
+
                     if (jump.wasJumping && !animator.IsInTransition(0))
                     {
                         jump.isLanded = true;
@@ -76,6 +82,16 @@ namespace Splitting
                         ScreenShake(shake, lenght);
                     }
                 }
+                else
+                {
+                    pickup.enabled = false;
+                }
+            }
+            else
+            {
+                jump.enabled = false;
+                pickup.enabled = false;
+                move.enabled = false;
             }
 
         }

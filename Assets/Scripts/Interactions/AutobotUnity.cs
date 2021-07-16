@@ -14,9 +14,10 @@ namespace Splitting
         [SerializeField] private float approachSpeed;
 
         public StateController stateController;
+        public StateControllerT stateControllerT;
         private Animator animator;
 
-        private Rigidbody2D tyrRig;
+        private Rigidbody2D targetRig;
         private BoxCollider2D boxCol;
         private CapsuleCollider2D capsuleCol;
         private RaycastHit2D connectCheck;
@@ -47,14 +48,16 @@ namespace Splitting
             else if (gameObject.layer == 9)
             {
                 layerMask = LayerMask.GetMask("Gameplay-Back");
-            }            
+            }
 
-            Vector2 editedTransform = new Vector2(transform.position.x - (boxCol.bounds.size.x / 2), transform.position.y + (boxCol.bounds.size.y / 2) + (capsuleCol.bounds.size.y / 8));
+            connectDistance = Mathf.Sqrt(Mathf.Pow(boxCol.bounds.size.y + (capsuleCol.bounds.size.y / 2), 2.0f) + Mathf.Pow(boxCol.bounds.size.x, 2.0f));
+
+            Vector2 editedTransform = new Vector2(boxCol.bounds.center.x - (boxCol.bounds.size.x / 2), boxCol.bounds.center.y + (boxCol.bounds.size.y / 2));
             connectCheck = Physics2D.Raycast(editedTransform, Vector2.down + Vector2.right, connectDistance, layerMask);
 
             if (connectCheck.collider != null)
             {
-                tyrRig = connectCheck.collider.gameObject.GetComponent<Rigidbody2D>();
+                targetRig = connectCheck.collider.gameObject.GetComponent<Rigidbody2D>();
                 connectable = true;
             }
             else
@@ -64,30 +67,37 @@ namespace Splitting
 
             if (connectable && Input.GetKeyUp(connectButton))
             {
-                stateController.hasControl = false;
+                if (gameObject.layer == 9)
+                {
+                    stateController.hasControl = false;
+                }
+                else if (gameObject.layer == 8)
+                {
+                    stateControllerT.hasControl = false;
+                }                
                 connectionPrep = true;
             }
 
             if (connectionPrep)
             {
-                if (transform.position.x > tyrRig.transform.position.x)
+                if (transform.position.x > targetRig.transform.position.x)
                 {
                     transform.localScale = new Vector3(initialScale.x * 1, initialScale.y);
 
                     transform.position = new Vector2(transform.position.x + (Time.deltaTime * approachSpeed *-1), transform.position.y);
 
-                    if (transform.position.x <= tyrRig.transform.position.x)
+                    if (transform.position.x <= targetRig.transform.position.x)
                     {
                         connectionPrep = false;
                         readyForConnection = true;
                     }
                 }
-                else if (transform.position.x < tyrRig.transform.position.x)
+                else if (transform.position.x < targetRig.transform.position.x)
                 {
                     transform.localScale = new Vector3(initialScale.x * -1, initialScale.y);
                     transform.position = new Vector2(transform.position.x + (Time.deltaTime * approachSpeed * 1), transform.position.y);
 
-                    if (transform.position.x >= tyrRig.transform.position.x)
+                    if (transform.position.x >= targetRig.transform.position.x)
                     {
                         connectionPrep = false;
                         readyForConnection = true;

@@ -26,12 +26,12 @@ public class LoadLevel : MonoBehaviour
         sceneLoadingInfo.AddComponent<SceneToLoad>();
     }
 
-    private IEnumerator loadLevel(bool goToTransition) {
-        yield return new WaitForSeconds(3.0f);
+    private void loadLevel(bool goToTransition) {
         if (goToTransition)
         {
             sceneLoadingInfo.GetComponent<SceneToLoad>().value = (int)sceneToLoad;
             DontDestroyOnLoad(sceneLoadingInfo);
+            SceneManager.LoadScene(gameScenes.ToArray()[gameScenes.ToArray().Length-1]);
         }
         else
         {

@@ -1236,6 +1236,7 @@ GameObject:
   - component: {fileID: 700035413992777755}
   - component: {fileID: 700035413992777758}
   - component: {fileID: 700035413992777759}
+  - component: {fileID: 7406661742844682963}
   - component: {fileID: 700035413992777756}
   - component: {fileID: 700035413992777734}
   - component: {fileID: 700035413992777735}
@@ -1395,6 +1396,23 @@ MonoBehaviour:
   jumpKeyDown: 0
   timerJump: 0.7
   elapsedKeyDown: 0
+--- !u!114 &7406661742844682963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7246107592126878312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68a6ca3d9593d75438efe455b676511a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  connectable: 0
+  readyForConnection: 0
+  connectDistance: 5
+  approachSpeed: 0
+  stateController: {fileID: 700035413992777756}
 --- !u!114 &700035413992777756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1461,11 +1479,11 @@ MonoBehaviour:
   - SwitchCharacter
   ScriptsToEnable:
   - Move
-  - Throw
-  - StateController
+  - Pickup
+  - StateControllerT
   - AutobotUnity
   - SwitchCharacter
-  tyrantName: 
+  tyrantName: TyrAnt
 --- !u!1 &7919752602983841060
 GameObject:
   m_ObjectHideFlags: 0

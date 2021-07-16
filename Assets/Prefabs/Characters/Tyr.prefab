@@ -1161,7 +1161,7 @@ MonoBehaviour:
   targetEntity: {fileID: 0}
   ScriptsToDisable:
   - Move
-  - Throw
+  - Pickup
   - StateControllerT
   - AutobotUnity
   - SwitchCharacter

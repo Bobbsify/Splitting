@@ -1640,6 +1640,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 874174295704951239, guid: f6c7b284010412c4b9c1c95174e95911,
         type: 3}
       propertyPath: m_Name

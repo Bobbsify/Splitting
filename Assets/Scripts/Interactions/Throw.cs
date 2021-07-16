@@ -8,24 +8,19 @@ namespace Splitting
     {
         public Rigidbody2D rbToThrow;
         public GameObject entityThrowing;
-        public KeyCode throwButton = KeyCode.E;
+        private KeyCode throwButton;
 
         //control min and max of heightModifier
-        [SerializeField] private float maxThrowDistance = 15f;
-        [SerializeField] private float minThrowDistance = 1f;
+        [SerializeField] private float maxPower = 15f;
+        [SerializeField] private float minPower = -15f;
+        private float power = 0f;
         //control min and max of distanceModifier
-        [SerializeField] private float maxHeightDistance = 15f;
-        [SerializeField] private float minHeightDistance = 1f;
-        //Throw base power
-        [SerializeField] private float power = 5f;
-
-        private float distanceModifier = 1f;
-        private float heightModifier = 1f;
+        [SerializeField] private float maxAngle = 90f;
+        [SerializeField] private float minAngle = -90f;
+        private float angle = 0f;
 
         private float horizontalInput;
         private float verticalInput;
-
-        private float throwPower; //factors distanceModifier, power and direction
 
         private bool throwing = false;
 
@@ -35,9 +30,10 @@ namespace Splitting
         Vector2 endPos;
         Vector2 _velocity;
 
-        private void Start()
+        private void Awake()
         {
             lr = GetComponent<LineRenderer>();
+            throwButton = new InputSettings().ThrowButton;
         }
 
         private void Update()
@@ -58,10 +54,10 @@ namespace Splitting
                 if (throwing)
                 {
                     endPos = startPos;
-                    controlVelocity();
+                    calculateVelocity();
                     _velocity = (endPos - startPos);
 
-                    Vector2[] trajectory = Plot(rbToThrow, transform.position, _velocity, calculateSteps());
+                    Vector2[] trajectory = Plot(rbToThrow, transform.position, _velocity);
 
                     lr.positionCount = trajectory.Length;
 
@@ -88,9 +84,9 @@ namespace Splitting
             }
         }
 
-        private Vector2[] Plot(Rigidbody2D rigibody, Vector2 pos, Vector2 velocity, int steps)
+        private Vector2[] Plot(Rigidbody2D rigibody, Vector2 pos, Vector2 velocity) //Plots course until point touches ground
         {
-            Vector2[] results = new Vector2[steps];
+            List<Vector2> results = new List<Vector2>();
 
             float timestep = Time.fixedDeltaTime / Physics2D.velocityIterations;
             Vector2 gravityAccel = Physics2D.gravity * rigibody.gravityScale * timestep * timestep;
@@ -98,32 +94,54 @@ namespace Splitting
             float drag = 1f - timestep * rigibody.drag;
             Vector2 moveStep = velocity * timestep;
 
-            for (int i = 0; i < steps; i++)
+            for (int i = 0; true; i++)
             {
                 moveStep += gravityAccel;
                 moveStep *= drag;
                 pos += moveStep;
-                results[i] = pos;
+                results.Add(pos);
+                if (Physics2D.Raycast(pos, Vector2.down).collider.tag == "Ground")
+                {
+                    break;
+                } 
             }
 
-            return results;
+            return results.ToArray();
         }
 
-        private void controlVelocity()
+        private void calculateVelocity()
         {
-            heightModifier = Mathf.Min(Mathf.Max(minHeightDistance, heightModifier + verticalInput), maxHeightDistance);
-            distanceModifier = Mathf.Min(Mathf.Max(minThrowDistance, distanceModifier + horizontalInput), maxThrowDistance);
-
-            throwPower = (power + distanceModifier) * -entityThrowing.transform.localScale.x;
-            endPos.x += throwPower;
-            endPos.y += power + heightModifier;
+            defineAngle();
+            defineStrength();
         }
 
-        private int calculateSteps()
+        private void defineAngle()
         {
-            int heightInfluence = (int)(heightModifier); // 75%
-            int distanceInfluence = (int)(distanceModifier * 25 / 100); // 25%
-            return (200 + distanceInfluence + heightInfluence);
+            //horizontalInput
+            angle = Mathf.Min(Mathf.Max(angle + horizontalInput, minAngle),maxAngle);
+
+            //flip when angle is less than zero
+            Vector3 originalScale = entityThrowing.transform.localScale;
+            Debug.Log("Original Scale"+originalScale);
+            Debug.Log((angle < 0) + " - " + (originalScale.x > 0));
+            originalScale.x = Mathf.Abs(originalScale.x);
+            if (angle > 0 && originalScale.x > 0)
+            {
+                originalScale.x = -originalScale.x;
+            }
+            else
+            Debug.Log("Modified Scale" + originalScale);
+            entityThrowing.transform.localScale = originalScale;
+
+            endPos.x += angle;
+        }
+
+        private void defineStrength()
+        {
+            //verticalInput
+            power = Mathf.Min(Mathf.Max(power + verticalInput, minPower), maxPower);
+            endPos.y = (maxAngle - Mathf.Abs(angle)) / maxAngle + power;
         }
     }
+
 }

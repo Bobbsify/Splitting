@@ -982,6 +982,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3337251345036382522}
+  - component: {fileID: 3135611250926639117}
   - component: {fileID: 609878403404720270}
   - component: {fileID: 609878403404720271}
   - component: {fileID: 609878403404720268}
@@ -1023,6 +1024,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &3135611250926639117
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3107717179103924200}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 744a50b582c690a49bc665c3b3f746fc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!50 &609878403404720270
 Rigidbody2D:
   serializedVersion: 4
@@ -1098,8 +1118,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d78ea79462b79214a8bd5e1cb690736a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swapButton: 113
   targetEntity: {fileID: 0}
+  ScriptsToDisable:
+  - Move
+  - Throw
+  - StateController
+  - AutobotUnity
+  - SwitchCharacter
+  ScriptsToEnable:
+  - Move
+  - Jump
+  - StateController
+  - AutobotUnity
+  - SwitchCharacter
+  tyrantName: Tyrant
 --- !u!114 &609878403404720499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1117,7 +1149,10 @@ MonoBehaviour:
   isWalled: 0
   isObstructed: 0
   move: {fileID: 609878403404720496}
+  jump: {fileID: 0}
   camera: {fileID: 0}
+  shake: 1
+  lenght: 1
 --- !u!114 &7944306211986232739
 MonoBehaviour:
   m_ObjectHideFlags: 0

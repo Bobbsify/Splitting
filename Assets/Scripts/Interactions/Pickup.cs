@@ -5,7 +5,7 @@ using UnityEngine;
 /*
  * 2 Azioni:
  *
- * (1) Crea un collider nella direzione in cui è orientata l'entità lungo (X) dove x è settabile dal programmatore
+ * Crea un collider nella direzione in cui è orientata l'entità lungo (X) dove x è settabile dal programmatore
  * - Se questo collider colpisce il collider di un oggetto con il tag "Carryable" raccoglilo ed assegnalo al Rigidbody del throw
  * - Sposta l'oggetto in cima all'entità corrente
  *

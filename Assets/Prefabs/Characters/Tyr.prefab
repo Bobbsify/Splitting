@@ -1146,6 +1146,7 @@ MonoBehaviour:
   connectDistance: 5
   approachSpeed: 0
   stateController: {fileID: 0}
+  stateControllerT: {fileID: 609878403404720499}
 --- !u!114 &609878403404720498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1190,6 +1191,7 @@ MonoBehaviour:
   isObstructed: 0
   move: {fileID: 609878403404720496}
   jump: {fileID: 7046280223817936551}
+  pickup: {fileID: 7944306211986232739}
   camera: {fileID: 0}
   shake: 1
   lenght: 1
@@ -2002,12 +2004,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rbToThrow: {fileID: 0}
   entityThrowing: {fileID: 3107717179103924200}
-  throwButton: 101
-  maxThrowDistance: 30
-  minThrowDistance: 8
-  maxHeightDistance: 30
-  minHeightDistance: 5
-  power: 5
+  maxPower: 45
+  minPower: -45
+  maxAngle: 45
+  minAngle: -45
+  throwing: 0
 --- !u!1 &9209456400820196440
 GameObject:
   m_ObjectHideFlags: 0

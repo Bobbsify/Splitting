@@ -64,17 +64,19 @@ namespace Splitting
                     calculateVelocity();
                     _velocity = (endPos - startPos);
 
-                    Vector2[] trajectory = Plot(rbToThrow, transform.position, _velocity);
+                    if (horizontalInput != 0 || verticalInput != 0) { //Optimize to calculate only when position changes
+                        Vector2[] trajectory = Plot(rbToThrow, transform.position, _velocity);
 
-                    lr.positionCount = trajectory.Length;
+                        lr.positionCount = trajectory.Length;
 
-                    //Sets positions from plot into linerenderer
-                    Vector3[] positions = new Vector3[trajectory.Length];
-                    for (int i = 0; i < positions.Length; i++)
-                    {
-                        positions[i] = trajectory[i];
+                        //Sets positions from plot into linerenderer
+                        Vector3[] positions = new Vector3[trajectory.Length];
+                        for (int i = 0; i < positions.Length; i++)
+                        {
+                            positions[i] = trajectory[i];
+                        }
+                        lr.SetPositions(positions);
                     }
-                    lr.SetPositions(positions);
                 }
 
                 if (Input.GetKeyUp(throwButton))

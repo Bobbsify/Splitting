@@ -47,9 +47,9 @@ namespace Splitting
 
                 transform.position = rbToThrow.transform.position;
 
-                if (Input.GetKeyUp(undoThrowButton))
+                if (Input.GetKeyUp(undoThrowButton)) //drop
                 {
-                    rbToThrow.velocity = entityThrowing.transform.localScale;
+                    rbToThrow.velocity = new Vector2(entityThrowing.GetComponent<Collider2D>().bounds.size.x*2, 0) * -entityThrowing.transform.localScale;
                     resetLr();
                 }
 
@@ -131,7 +131,6 @@ namespace Splitting
             else {
                 originalScale.x = Mathf.Abs(originalScale.x); // Stay
             }
-            Debug.Log(originalScale.x);
             entityThrowing.transform.localScale = originalScale;
 
             endPos.x += angle;

@@ -9,6 +9,7 @@ namespace Splitting
         public Rigidbody2D rbToThrow;
         public GameObject entityThrowing;
         private KeyCode throwButton;
+        private KeyCode undoThrowButton;
 
         //control min and max of heightModifier
         [SerializeField] private float maxPower = 15f;
@@ -34,6 +35,7 @@ namespace Splitting
         {
             lr = GetComponent<LineRenderer>();
             throwButton = new InputSettings().ThrowButton;
+            undoThrowButton = new InputSettings().UndoThrowButton;
         }
 
         private void Update()
@@ -44,10 +46,15 @@ namespace Splitting
                 verticalInput = Input.GetAxis("Vertical");
 
                 transform.position = rbToThrow.transform.position;
-                //When key gets pressed
+
+                if (Input.GetKeyUp(undoThrowButton))
+                {
+                    rbToThrow.velocity = entityThrowing.transform.localScale;
+                    resetLr();
+                }
+
                 if (Input.GetKeyDown(throwButton))
                 {
-                    startPos = rbToThrow.transform.position;
                     throwing = true;
                 }
 
@@ -61,6 +68,7 @@ namespace Splitting
 
                     lr.positionCount = trajectory.Length;
 
+                    //Sets positions from plot into linerenderer
                     Vector3[] positions = new Vector3[trajectory.Length];
                     for (int i = 0; i < positions.Length; i++)
                     {
@@ -72,14 +80,7 @@ namespace Splitting
                 if (Input.GetKeyUp(throwButton))
                 {
                     rbToThrow.velocity = _velocity;
-                    lr.positionCount = 0;
-                    throwing = false;
-                    if (rbToThrow.gameObject != null && rbToThrow.gameObject.tag == "Carryable")
-                    {
-                        rbToThrow.gameObject.transform.parent = null;
-                        rbToThrow.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
-                    }
-                    rbToThrow = null; //remove object
+                    resetLr();
                 }
             }
         }
@@ -122,15 +123,14 @@ namespace Splitting
 
             //flip when angle is less than zero
             Vector3 originalScale = entityThrowing.transform.localScale;
-            Debug.Log("Original Scale"+originalScale);
-            Debug.Log((angle < 0) + " - " + (originalScale.x > 0));
             originalScale.x = Mathf.Abs(originalScale.x);
-            if (angle > 0 && originalScale.x > 0)
+            if (angle < 0 && originalScale.x < 0)
             {
                 originalScale.x = -originalScale.x;
             }
-            else
-            Debug.Log("Modified Scale" + originalScale);
+            else {
+                originalScale.x = Mathf.Abs(originalScale.x);
+            }
             entityThrowing.transform.localScale = originalScale;
 
             endPos.x += angle;
@@ -141,6 +141,19 @@ namespace Splitting
             //verticalInput
             power = Mathf.Min(Mathf.Max(power + verticalInput, minPower), maxPower);
             endPos.y = (maxAngle - Mathf.Abs(angle)) / maxAngle + power;
+        }
+
+        //Resets Linerenderer so it may be used once more
+        private void resetLr()
+        {
+            lr.positionCount = 0;
+            throwing = false;
+            if (rbToThrow.gameObject != null && rbToThrow.gameObject.tag == "Carryable")
+            {
+                rbToThrow.gameObject.transform.parent = null;
+                rbToThrow.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+            }
+            rbToThrow = null; //remove object
         }
     }
 

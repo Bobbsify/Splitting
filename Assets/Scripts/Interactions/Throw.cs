@@ -58,13 +58,12 @@ namespace Splitting
                     throwing = true;
                 }
 
-                if (throwing)
+                if (throwing
+                    && (horizontalInput != 0 || verticalInput != 0)) //Optimize to change position only when it changes
                 {
                     endPos = startPos;
                     calculateVelocity();
                     _velocity = (endPos - startPos);
-
-                    if (horizontalInput != 0 || verticalInput != 0) { //Optimize to calculate only when position changes
                         Vector2[] trajectory = Plot(rbToThrow, transform.position, _velocity);
 
                         lr.positionCount = trajectory.Length;
@@ -76,7 +75,6 @@ namespace Splitting
                             positions[i] = trajectory[i];
                         }
                         lr.SetPositions(positions);
-                    }
                 }
 
                 if (Input.GetKeyUp(throwButton))

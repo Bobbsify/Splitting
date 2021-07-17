@@ -124,13 +124,14 @@ namespace Splitting
             //flip when angle is less than zero
             Vector3 originalScale = entityThrowing.transform.localScale;
             originalScale.x = Mathf.Abs(originalScale.x);
-            if (angle < 0 && originalScale.x < 0)
+            if (angle > 0 && originalScale.x > 0) //If front and flipped
             {
-                originalScale.x = -originalScale.x;
+                originalScale.x = -Mathf.Abs(originalScale.x); //Flip back
             }
             else {
-                originalScale.x = Mathf.Abs(originalScale.x);
+                originalScale.x = Mathf.Abs(originalScale.x); // Stay
             }
+            Debug.Log(originalScale.x);
             entityThrowing.transform.localScale = originalScale;
 
             endPos.x += angle;

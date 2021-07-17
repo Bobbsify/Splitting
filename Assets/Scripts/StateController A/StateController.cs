@@ -64,8 +64,14 @@ namespace Splitting
 
                         ScreenShake(shake, lenght);                        
                     }
-                    
-                    if (AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntJump5") || AnimatorIsPlaying("AntCarryingEnd"))
+
+                    if (AnimatorIsPlaying("AntJump5"))
+                    {
+                        move.canMove = false;
+                        jump.canJump = false;
+                        move.canCrouch = false;
+                    }                    
+                    else if (AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd"))
                     {
                         jump.canJump = false;
                         move.canCrouch = false;

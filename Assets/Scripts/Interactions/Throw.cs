@@ -23,7 +23,7 @@ namespace Splitting
         private float horizontalInput;
         private float verticalInput;
 
-        private bool throwing = false;
+        public bool throwing = false;
 
         LineRenderer lr;
 

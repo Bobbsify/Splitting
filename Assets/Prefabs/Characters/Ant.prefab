@@ -1411,7 +1411,7 @@ MonoBehaviour:
   connectable: 0
   readyForConnection: 0
   connectDistance: 5
-  approachSpeed: 0
+  approachSpeed: 1
   stateController: {fileID: 700035413992777756}
   stateControllerT: {fileID: 0}
 --- !u!114 &700035413992777756

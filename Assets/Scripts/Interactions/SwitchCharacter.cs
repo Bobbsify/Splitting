@@ -4,7 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Splitting { 
+namespace Splitting
+{
     public class SwitchCharacter : MonoBehaviour
     {
         [SerializeField] private GameObject targetEntity;
@@ -16,7 +17,7 @@ namespace Splitting {
         [SerializeField] private string tyrantName;
         private GameObject tyrAnt;
         private AutobotUnity unionCheck;
-        
+
 
         void Awake()
         {
@@ -31,7 +32,7 @@ namespace Splitting {
             }
             unionCheck = GetComponent<AutobotUnity>();
         }
-        
+
 
         void Update()
         {
@@ -39,13 +40,14 @@ namespace Splitting {
             {
                 if (unionCheck != null)
                 {
-                    if (Input.GetKeyUp(swapButton) && !unionCheck.readyForConnection)
+                    if (Input.GetKeyUp(swapButton) && (!unionCheck.connectable && !unionCheck.readyForConnection))
                     {
                         TurnThisOff();
                         TurnOtherOn();
                     }
-                    if (unionCheck.readyForConnection) //todo change to correct variable
+                    else if (unionCheck.readyForConnection)
                     {
+                        Debug.Log((targetEntity != null) + " - " + (unionCheck != null) + "Diobestia");
                         Connect();
                     }
                 }
@@ -53,6 +55,7 @@ namespace Splitting {
                 {
                     if (Input.GetKeyUp(swapButton))
                     {
+                        Debug.Log((targetEntity != null) + " - " + (unionCheck != null));
                         TurnThisOff();
                         TurnOtherOn();
                     }
@@ -62,12 +65,26 @@ namespace Splitting {
 
         private void Connect()
         {
+            Debug.Log("deactivating " + targetEntity.name);
             targetEntity.SetActive(false); //Disable Other
+            Debug.Log("Deactivated " + targetEntity.name + "\n ---- \n");
+
+            Debug.Log("deactivating " + gameObject.name);
             gameObject.SetActive(false); //Disable This
+            Debug.Log("Deactivated " + gameObject.name + "\n ---- \n");
+
+            Debug.Log("Detatching TyrAnt...");
             tyrAnt.transform.parent = null; //Remove Object from parent
+            Debug.Log("Detatched \n ---- \n");
+
+            Debug.Log("Attaching entities to TyrAnt");
             targetEntity.transform.parent = tyrAnt.transform; // Set Ant&Tyr as children of TyrAnt
             transform.parent = tyrAnt.transform;
+            Debug.Log("Done.. \n ---- \n");
+
+            Debug.Log("Activate TyrAnt");
             tyrAnt.SetActive(true);
+            Debug.Log("Activated: " + tyrAnt.activeSelf);
             tyrAnt.GetComponent<Animator>().SetTrigger("Link");
         }
 

@@ -19,31 +19,15 @@ namespace Splitting
         private AutobotUnity unionCheck;
 
 
-        void Awake()
+        private void Awake()
         {
-            swapButton = new InputSettings().SwitchCharacterButton;
-            try
-            {
-                tyrAnt = transform.Find(tyrantName).gameObject;
-            }
-            catch
-            {
-                try
-                {
-                    tyrAnt = targetEntity.transform.Find(tyrantName).gameObject;
-                }
-                catch
-                {
-                    throw new Exception("Neither Entity has a TyrAnt attached OR the specified TyrAnt name is incorrect! Please attach a tyrant to either entity and assign its correct name in the \"SwitchCharacter\" module");
-                }
-            }
-            unionCheck = GetComponent<AutobotUnity>();
-            if (unionCheck == null)
-            {
-                unionCheck = targetEntity.GetComponent<AutobotUnity>();
-            }
+            gatherInfo();
         }
 
+        private void OnEnable()
+        {
+            gatherInfo();
+        }
 
         void Update()
         {
@@ -68,6 +52,31 @@ namespace Splitting
             }
         }
 
+        private void gatherInfo()
+        {
+            swapButton = new InputSettings().SwitchCharacterButton;
+            try
+            {
+                tyrAnt = transform.Find(tyrantName).gameObject;
+            }
+            catch
+            {
+                try
+                {
+                    tyrAnt = targetEntity.transform.Find(tyrantName).gameObject;
+                }
+                catch
+                {
+                    throw new Exception("Neither Entity has a TyrAnt attached OR the specified TyrAnt name is incorrect! Please attach a tyrant to either entity and assign its correct name in the \"SwitchCharacter\" module");
+                }
+            }
+            unionCheck = GetComponent<AutobotUnity>();
+            if (unionCheck == null)
+            {
+                unionCheck = targetEntity.GetComponent<AutobotUnity>();
+            }
+        }
+
         private void Connect()
         {
             targetEntity.SetActive(false); //Disable Other
@@ -75,15 +84,11 @@ namespace Splitting
             gameObject.SetActive(false); //Disable This
             
             tyrAnt.transform.parent = null; //Remove Object from parent
-
-            Debug.Log("Attaching entities to TyrAnt");
+            
             targetEntity.transform.parent = tyrAnt.transform; // Set Ant&Tyr as children of TyrAnt
             transform.parent = tyrAnt.transform;
-            Debug.Log("Done.. \n ---- \n");
-
-            Debug.Log("Activate TyrAnt");
+            
             tyrAnt.SetActive(true);
-            Debug.Log("Activated: " + tyrAnt.activeSelf);
             tyrAnt.GetComponent<Animator>().SetTrigger("Link");
         }
 

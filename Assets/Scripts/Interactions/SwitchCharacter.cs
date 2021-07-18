@@ -28,9 +28,20 @@ namespace Splitting
             }
             catch
             {
-                //throw new MissingFieldException(gameObject.name+" is missing TyrAnt");
+                try
+                {
+                    tyrAnt = targetEntity.transform.Find(tyrantName).gameObject;
+                }
+                catch
+                {
+                    throw new Exception("Neither Entity has a TyrAnt attached OR the specified TyrAnt name is incorrect! Please attach a tyrant to either entity and assign its correct name in the \"SwitchCharacter\" module");
+                }
             }
             unionCheck = GetComponent<AutobotUnity>();
+            if (unionCheck == null)
+            {
+                unionCheck = targetEntity.GetComponent<AutobotUnity>();
+            }
         }
 
 
@@ -47,35 +58,23 @@ namespace Splitting
                     }
                     else if (unionCheck.readyForConnection)
                     {
-                        Debug.Log((targetEntity != null) + " - " + (unionCheck != null) + "Diobestia");
                         Connect();
                     }
                 }
                 else
                 {
-                    if (Input.GetKeyUp(swapButton))
-                    {
-                        Debug.Log((targetEntity != null) + " - " + (unionCheck != null));
-                        TurnThisOff();
-                        TurnOtherOn();
-                    }
+                    throw new Exception("Unknown State Exception: unionCheck should be assigned but is instead " + unionCheck);
                 }
             }
         }
 
         private void Connect()
         {
-            Debug.Log("deactivating " + targetEntity.name);
             targetEntity.SetActive(false); //Disable Other
-            Debug.Log("Deactivated " + targetEntity.name + "\n ---- \n");
-
-            Debug.Log("deactivating " + gameObject.name);
+            
             gameObject.SetActive(false); //Disable This
-            Debug.Log("Deactivated " + gameObject.name + "\n ---- \n");
-
-            Debug.Log("Detatching TyrAnt...");
+            
             tyrAnt.transform.parent = null; //Remove Object from parent
-            Debug.Log("Detatched \n ---- \n");
 
             Debug.Log("Attaching entities to TyrAnt");
             targetEntity.transform.parent = tyrAnt.transform; // Set Ant&Tyr as children of TyrAnt

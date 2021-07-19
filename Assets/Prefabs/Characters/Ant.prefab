@@ -100,7 +100,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 7023325643832984280}
   m_Bounds:
-    m_Center: {x: 0.04159543, y: -5.230694, z: 0}
+    m_Center: {x: 0.041595906, y: -5.230694, z: 0}
     m_Extent: {x: 0.495, y: 0.76499987, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -250,7 +250,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -2.6583157, y: -0.49732208}
+  m_Offset: {x: -2.6583157, y: -0.29141235}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -261,7 +261,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.10033131, y: 3.9342117}
+  m_Size: {x: 0.10033131, y: 3.5223923}
   m_EdgeRadius: 0
 --- !u!114 &700035415146053996
 MonoBehaviour:
@@ -449,7 +449,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 328668533147712480}
   m_Bounds:
-    m_Center: {x: 0.04344058, y: -5.229449, z: 0}
+    m_Center: {x: 0.043441534, y: -5.229449, z: 0}
     m_Extent: {x: 0.73815536, y: 0.8587556, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -553,7 +553,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 2536978773388307378}
   m_Bounds:
-    m_Center: {x: 0.041642487, y: -5.2324677, z: 0}
+    m_Center: {x: 0.041641057, y: -5.2324677, z: 0}
     m_Extent: {x: 0.494955, y: 1.5872197, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -791,7 +791,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 6809701173966564235}
   m_Bounds:
-    m_Center: {x: 0.04159546, y: -5.2286024, z: 0}
+    m_Center: {x: 0.041596413, y: -5.2286024, z: 0}
     m_Extent: {x: 0.5750003, y: 0.78290534, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -895,7 +895,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 5878818248302729848}
   m_Bounds:
-    m_Center: {x: 0.04151535, y: -5.230609, z: 0}
+    m_Center: {x: 0.041515827, y: -5.230609, z: 0}
     m_Extent: {x: 1.2888597, y: 1.0836749, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1236,7 +1236,6 @@ GameObject:
   - component: {fileID: 700035413992777755}
   - component: {fileID: 700035413992777758}
   - component: {fileID: 700035413992777759}
-  - component: {fileID: 7406661742844682963}
   - component: {fileID: 700035413992777756}
   - component: {fileID: 700035413992777734}
   - component: {fileID: 700035413992777735}
@@ -1398,25 +1397,6 @@ MonoBehaviour:
   jumpKeyDown: 0
   timerJump: 0.7
   elapsedKeyDown: 0
---- !u!114 &7406661742844682963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7246107592126878312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68a6ca3d9593d75438efe455b676511a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  connectable: 0
-  readyForConnection: 0
-  connectDistance: 5
-  approachSpeed: 1
-  stateController: {fileID: 700035413992777756}
-  stateControllerT: {fileID: 0}
-  ant: {fileID: 0}
 --- !u!114 &700035413992777756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1476,15 +1456,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetEntity: {fileID: 0}
   ScriptsToDisable:
-  - Move
-  - Jump
-  - StateController
   - AutobotUnity
   - SwitchCharacter
   ScriptsToEnable:
-  - Move
-  - Pickup
-  - StateControllerT
   - AutobotUnity
   - SwitchCharacter
   tyrantName: TyrAnt
@@ -1506,7 +1480,7 @@ MonoBehaviour:
   approachSpeed: 5
   stateController: {fileID: 700035413992777756}
   stateControllerT: {fileID: 0}
-  ant: {fileID: 0}
+  ant: {fileID: 7246107592126878312}
 --- !u!114 &9132564662669934093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1619,7 +1593,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 347332157902760452}
   m_Bounds:
-    m_Center: {x: 0.039505422, y: -5.2290335, z: 0}
+    m_Center: {x: 0.0395059, y: -5.2290335, z: 0}
     m_Extent: {x: 0.73791015, y: 0.8583405, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1

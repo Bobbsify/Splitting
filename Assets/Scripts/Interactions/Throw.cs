@@ -79,7 +79,7 @@ namespace Splitting
 
                 if (Input.GetKeyUp(throwButton))
                 {
-                    entityThrowing.GetComponent<Animator>().SetBool("Pickup", false);
+                    entityThrowing.GetComponent<Animator>().SetBool("pickUp", false);
                     rbToThrow.velocity = _velocity;
                     resetLr();
                 }

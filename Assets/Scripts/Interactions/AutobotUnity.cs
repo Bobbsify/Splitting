@@ -23,6 +23,8 @@ namespace Splitting
         private RaycastHit2D connectCheck;
         private int layerMask;
 
+        public GameObject ant;
+
         private Vector3 initialScale;
 
         // Start is called before the first frame update
@@ -99,6 +101,8 @@ namespace Splitting
 
                     if (transform.position.x >= targetRig.transform.position.x)
                     {
+                        ant.transform.localScale = new Vector3(1, initialScale.y);
+
                         connectionPrep = false;
                         readyForConnection = true;
                     }

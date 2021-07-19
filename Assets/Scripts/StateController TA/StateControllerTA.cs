@@ -52,7 +52,7 @@ namespace Splitting
 
                 move.canCrouch = false;
 
-                if (isWalled)
+                if (isWalled || jump.jumpKeyDown)
                 {
                     move.canMove = false;
                 }
@@ -83,12 +83,14 @@ namespace Splitting
                         move.enabled = true;
                         jump.canJump = false;
                     }
+
                     else
                     {
                         move.enabled = true;
                         jump.jumpDivider = jump.jumpMultiplier;
                         jump.canJump = true;
                     }
+
                 }
                 else
                 {

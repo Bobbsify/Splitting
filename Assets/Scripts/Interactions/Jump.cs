@@ -62,6 +62,11 @@ namespace Splitting
                 }
             }
 
+            if (!canJump)
+            {
+                elapsedKeyDown = 0.0f;
+            }
+
             velocityY = rigidbody2D.velocity.y;
 
             if (Mathf.Abs(velocityY) > 4 && Mathf.Abs(velocityY) < 100)

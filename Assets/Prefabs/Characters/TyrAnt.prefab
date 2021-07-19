@@ -1066,8 +1066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d06dc2b53341640a9a2a537ef62545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwScript: {fileID: 8175980588382098896, guid: 18c82e67c8cefaf4a9cc097f6b32d1af,
-    type: 3}
+  throwScript: {fileID: 4331100877676722024}
   grabDistance: 1
 --- !u!114 &5291164841475823447
 MonoBehaviour:
@@ -1102,7 +1101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d7a368cb283aa4fae982647cc0dafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 12
   canCrouch: 0
   isCrouched: 0
   canMove: 0

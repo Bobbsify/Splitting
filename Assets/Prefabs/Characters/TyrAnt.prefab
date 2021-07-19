@@ -1084,8 +1084,8 @@ MonoBehaviour:
   canJump: 0
   isLanded: 0
   wasJumping: 0
-  jumpForce: 1000
-  jumpMultiplier: 2
+  jumpForce: 1300
+  jumpMultiplier: 1.6
   jumpDivider: 1
   jumpKeyDown: 0
   timerJump: 2

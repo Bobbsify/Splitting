@@ -79,6 +79,7 @@ namespace Splitting
 
                 if (Input.GetKeyUp(throwButton))
                 {
+                    entityThrowing.GetComponent<Animator>().SetBool("Pickup", false);
                     rbToThrow.velocity = _velocity;
                     resetLr();
                 }
@@ -101,7 +102,7 @@ namespace Splitting
                 moveStep *= drag;
                 pos += moveStep;
                 results.Add(pos);
-                if (Physics2D.Raycast(pos, Vector2.down).collider.tag == "Ground")
+                if (Physics2D.BoxCast(pos,new Vector2(0.1f,0.1f),0,Vector2.down).collider.tag == "Ground")
                 {
                     break;
                 } 

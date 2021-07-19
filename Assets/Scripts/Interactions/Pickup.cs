@@ -41,6 +41,7 @@ namespace Splitting {
                 grabCheck = Physics2D.Raycast(editedTransform, Vector2.right * -transform.localScale.x, grabDistance);
                 if (grabCheck.collider != null && grabCheck.collider.tag == "Carryable")
                 {
+                    GetComponent<Animator>().SetBool("Pickup", true);
                     Rigidbody2D objRigidbody = grabCheck.collider.gameObject.GetComponent<Rigidbody2D>();
                     grabCheck.collider.gameObject.transform.parent = transform;
                     grabCheck.collider.gameObject.transform.position = new Vector2(transform.position.x, transform.position.y + col.bounds.size.y * 2);

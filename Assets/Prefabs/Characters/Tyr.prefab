@@ -992,6 +992,7 @@ GameObject:
   - component: {fileID: 609878403404720499}
   - component: {fileID: 7944306211986232739}
   - component: {fileID: 609878403404720496}
+  - component: {fileID: 4425477685088742811}
   m_Layer: 8
   m_Name: Tyr
   m_TagString: Untagged
@@ -1147,6 +1148,7 @@ MonoBehaviour:
   approachSpeed: 1
   stateController: {fileID: 0}
   stateControllerT: {fileID: 609878403404720499}
+  ant: {fileID: 0}
 --- !u!114 &609878403404720498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1226,6 +1228,18 @@ MonoBehaviour:
   isCrouched: 0
   canMove: 0
   isObstructed: 0
+--- !u!114 &4425477685088742811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3107717179103924200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3718cf61c7957bb47afff28e4e11781c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3606572360260058097
 GameObject:
   m_ObjectHideFlags: 0

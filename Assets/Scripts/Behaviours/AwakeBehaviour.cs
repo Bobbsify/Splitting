@@ -61,9 +61,16 @@ public class AwakeBehaviour : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D col)
     {
-        if (activationType == ActivationTypes.onEnter || activationType == ActivationTypes.enterAndClick && col.gameObject.tag == "Player")
+        if (activationType == ActivationTypes.onEnter || activationType == ActivationTypes.enterAndClick)
         {
-            isPlayerHere = true;
+            if (col.gameObject.tag == "Player")
+            {
+                isPlayerHere = true;
+            }
+            else
+            {
+                isPlayerHere = false;
+            }
         }
     }
 

@@ -28,8 +28,6 @@ namespace Splitting
         // Start is called before the first frame update
         void Start()
         {
-            hasControl = true;
-
             animator = gameObject.GetComponent<Animator>();
 
             trajectPred = GameObject.Find("TrajectoryPrediction");
@@ -45,10 +43,30 @@ namespace Splitting
                 jump.isLanded = false;
             }
 
+            if (isGrounded)
+            {
+                if (jump.wasJumping && !animator.IsInTransition(0))
+                {
+                    jump.isLanded = true;
+                    jump.wasJumping = false;
+
+                    ScreenShake(shake, lenght);
+                }
+            }
+
+            if (gameObject.tag != "Player")
+            {
+                hasControl = false;     
+            }
+            else
+            {
+                hasControl = true;
+            }
+
             if (hasControl)
             {
                 jump.enabled = true;
-                move.enabled = true;
+                move.enabled = true;                       
 
                 jump.canJump = false;
 
@@ -73,14 +91,6 @@ namespace Splitting
                 if (isGrounded)
                 {
                     pickup.enabled = true;
-
-                    if (jump.wasJumping && !animator.IsInTransition(0))
-                    {
-                        jump.isLanded = true;
-                        jump.wasJumping = false;
-
-                        ScreenShake(shake, lenght);
-                    }
                 }
                 else
                 {
@@ -88,10 +98,18 @@ namespace Splitting
                 }
             }
             else
-            {
-                jump.enabled = false;
+            {                
                 pickup.enabled = false;
                 move.enabled = false;
+
+                if (isGrounded && AnimatorIsPlaying("Tyr idle"))
+                {
+                    jump.enabled = false;
+                }
+                else
+                {
+                    jump.enabled = true;
+                }
             }
 
         }

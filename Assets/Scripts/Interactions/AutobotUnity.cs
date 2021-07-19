@@ -8,7 +8,7 @@ namespace Splitting
     {
         private KeyCode connectButton;
         public bool connectable;
-        private bool connectionPrep;
+        private bool connectionPrep;         
         public bool readyForConnection;
         [SerializeField] private float connectDistance = 5.0f;
         [SerializeField] private float approachSpeed;
@@ -85,11 +85,17 @@ namespace Splitting
                 if (transform.position.x > targetRig.transform.position.x)
                 {
                     transform.localScale = new Vector3(initialScale.x * 1, initialScale.y);
-
-                    transform.position = new Vector2(transform.position.x + (Time.deltaTime * approachSpeed *-1), transform.position.y);
+                    transform.position = new Vector2(transform.position.x + (Time.deltaTime * approachSpeed *-1), transform.position.y);                   
 
                     if (transform.position.x <= targetRig.transform.position.x)
                     {
+                        CallAnimator(Time.deltaTime * approachSpeed);
+
+                        if (ant.transform.localScale.x < 0)
+                        {
+                            ant.transform.localScale = new Vector3(ant.transform.localScale.x * -1, ant.transform.localScale.y);
+                        }
+
                         connectionPrep = false;
                         readyForConnection = true;
                     }
@@ -97,25 +103,33 @@ namespace Splitting
                 else if (transform.position.x < targetRig.transform.position.x)
                 {
                     transform.localScale = new Vector3(initialScale.x * -1, initialScale.y);
-                    transform.position = new Vector2(transform.position.x + (Time.deltaTime * approachSpeed * 1), transform.position.y);
+                    transform.position = new Vector2(transform.position.x + (Time.deltaTime * approachSpeed * 1), transform.position.y);                    
 
                     if (transform.position.x >= targetRig.transform.position.x)
                     {
-                        ant.transform.localScale = new Vector3(1, initialScale.y);
+                        CallAnimator(Time.deltaTime * approachSpeed);
+
+                        if (ant.transform.localScale.x < 0)
+                        {
+                            ant.transform.localScale = new Vector3(ant.transform.localScale.x * -1, ant.transform.localScale.y);
+                        }                      
 
                         connectionPrep = false;
                         readyForConnection = true;
                     }
-                }               
+                }
 
+                /*
                 if (connectionPrep)
                 {
                     CallAnimator(Time.deltaTime * approachSpeed);
                 }
+                
                 else
                 {
                     CallAnimator(0);
                 }
+                */
             }
 
             if (readyForConnection)

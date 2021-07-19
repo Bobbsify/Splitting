@@ -26,7 +26,6 @@ namespace Splitting
         // Start is called before the first frame update
         void Start()
         {
-            hasControl = true;
 
             animator = gameObject.GetComponent<Animator>();
         }
@@ -38,8 +37,19 @@ namespace Splitting
             if (jump.isLanded && !AnimatorIsPlaying("AntJump5"))
             {
                 jump.isLanded = false;
-            }       
-                        
+            }
+            
+            if (isGrounded)
+            {
+                if (jump.wasJumping && !animator.IsInTransition(0))
+                {
+                    jump.isLanded = true;
+                    jump.wasJumping = false;
+
+                    ScreenShake(shake, lenght);
+                }
+            }
+
             if (hasControl)
             {
                 jump.enabled = true;
@@ -56,14 +66,7 @@ namespace Splitting
                 }
 
                 if (isGrounded)
-                {
-                    if (jump.wasJumping && !animator.IsInTransition(0))
-                    {
-                        jump.isLanded = true;
-                        jump.wasJumping = false;
-
-                        ScreenShake(shake, lenght);                        
-                    }
+                {                   
 
                     if (AnimatorIsPlaying("AntJump5"))
                     {
@@ -137,10 +140,26 @@ namespace Splitting
             }
             else
             {                
-                jump.enabled = false;
-                carry.enabled = false;
                 move.enabled = false;
+
+                if (isGrounded && AnimatorIsPlaying("AntIdle"))
+                {
+                    jump.enabled = false;
+                }
+                else
+                {
+                    jump.enabled = true;
+                }
             }
+            
+            if (gameObject.tag != "Player")
+            {
+                hasControl = false;
+            }
+            else
+            {
+                hasControl = true;
+            }         
 
         }
 

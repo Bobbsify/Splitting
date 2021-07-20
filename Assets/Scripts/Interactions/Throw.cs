@@ -163,7 +163,8 @@ namespace Splitting
             }
             rbToThrow = null; //remove object
         }
-        
+
+        public void tiPregoVedimiGiorgioAngiolella() { } //Dummy for test TODO REMOVE
     }
 
 }

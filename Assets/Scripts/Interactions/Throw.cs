@@ -81,7 +81,7 @@ namespace Splitting
                 if (Input.GetKeyUp(throwButton))
                 {
                     entityThrowing.GetComponent<Animator>().SetBool("pickUp", false);
-                    //Animator wil call throw
+                    //Animator will call throw
                 }
             }
         }

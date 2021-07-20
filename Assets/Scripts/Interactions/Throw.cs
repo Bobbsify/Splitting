@@ -81,8 +81,7 @@ namespace Splitting
                 if (Input.GetKeyUp(throwButton))
                 {
                     entityThrowing.GetComponent<Animator>().SetBool("pickUp", false);
-                    rbToThrow.velocity = _velocity;
-                    resetLr();
+                    //Animator wil call throw
                 }
             }
         }
@@ -151,6 +150,12 @@ namespace Splitting
             endPos.y = (maxAngle - Mathf.Abs(angle)) / maxAngle + power;
         }
 
+        public void Throw()
+        {
+            rbToThrow.velocity = _velocity;
+            resetLr();
+        }
+
         //Resets Linerenderer so it may be used once more
         private void resetLr()
         {
@@ -163,8 +168,6 @@ namespace Splitting
             }
             rbToThrow = null; //remove object
         }
-
-        public void tiPregoVedimiGiorgioAngiolella() { } //Dummy for test TODO REMOVE
     }
 
 }

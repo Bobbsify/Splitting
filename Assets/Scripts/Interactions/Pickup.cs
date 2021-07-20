@@ -24,6 +24,8 @@ namespace Splitting {
         private Collider2D col;
         private RaycastHit2D grabCheck;
 
+        private GameObject trajectoryPrediction;
+
         private Animator animator;
         
         void Awake()
@@ -59,7 +61,7 @@ namespace Splitting {
 
         public void Throw()
         {
-
+            trajectoryPrediction.GetComponent<Throw>().ThrowEntity();
         }
 
         private void OnDrawGizmosSelected()

@@ -4,63 +4,58 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
-public class LoadLevel : MonoBehaviour
-{
-    [SerializeField] private InGameScenes sceneToLoad;
-    [SerializeField] private bool transition;
-    private List<string> gameScenes = new List<string>();
-    private GameObject sceneLoadingInfo;
-
-    private void Start()
+namespace Splitting
+{ 
+    public class LoadLevel : MonoBehaviour
     {
-        loadLevel(transition);
+        [SerializeField] private InGameScenes sceneToLoad;
+        [SerializeField] private bool transition;
+        private List<string> gameScenes = new List<string>();
+        private LevelLoadingInfo lvlInfoObj;
+
+        private void Start()
+        {
+            loadLevel(transition);
+        }
+
+        private void Awake()
+        {
+            for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+            {
+                gameScenes.Add(SceneUtility.GetScenePathByBuildIndex(i));
+            }
+        }
+
+        private void loadLevel(bool goToTransition) {
+            if (goToTransition)
+            {
+                lvlInfoObj.levelInfo.levelToLoad = (int)sceneToLoad;
+                SceneManager.LoadScene(gameScenes.ToArray()[gameScenes.ToArray().Length-1]);
+            }
+            else
+            {
+                SceneManager.LoadScene(gameScenes.ToArray()[(int)sceneToLoad]);
+            }
+            //TODO implement transition
+        }
     }
 
-    private void Awake()
+    /*
+    1: Main Menu
+    2: Livello 0
+    3: Livello 1
+    4: Livello 2
+    5: Livello 3
+    6: Loading Screen
+    */
+
+    public enum InGameScenes
     {
-        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
-        {
-            gameScenes.Add(SceneUtility.GetScenePathByBuildIndex(i));
-        }
-        sceneLoadingInfo = new GameObject();
-        sceneLoadingInfo.AddComponent<SceneToLoad>();
+        MainMenu = 0,
+        Level0 = 1,
+        Level1 = 2,
+        Level2 = 3,
+        Level3 = 4,
+        LoadingScreen = 5
     }
-
-    private void loadLevel(bool goToTransition) {
-        if (goToTransition)
-        {
-            sceneLoadingInfo.GetComponent<SceneToLoad>().value = (int)sceneToLoad;
-            DontDestroyOnLoad(sceneLoadingInfo);
-            SceneManager.LoadScene(gameScenes.ToArray()[gameScenes.ToArray().Length-1]);
-        }
-        else
-        {
-            SceneManager.LoadScene(gameScenes.ToArray()[(int)sceneToLoad]);
-        }
-        //TODO implement transition
-    }
-}
-
-/*
-1: Main Menu
-2: Livello 0
-3: Livello 1
-4: Livello 2
-5: Livello 3
-6: Loading Screen
-*/
-
-public enum InGameScenes
-{
-    MainMenu = 0,
-    Level0 = 1,
-    Level1 = 2,
-    Level2 = 3,
-    Level3 = 4,
-    LoadingScreen = 5
-}
-
-public class SceneToLoad : MonoBehaviour
-{
-    public int value;
 }

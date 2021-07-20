@@ -64,17 +64,18 @@ namespace Splitting
                     endPos = startPos;
                     calculateVelocity();
                     _velocity = (endPos - startPos);
-                        Vector2[] trajectory = Plot(rbToThrow, transform.position, _velocity);
 
-                        lr.positionCount = trajectory.Length;
+                    Vector2[] trajectory = Plot(rbToThrow, transform.position, _velocity);
 
-                        //Sets positions from plot into linerenderer
-                        Vector3[] positions = new Vector3[trajectory.Length];
-                        for (int i = 0; i < positions.Length; i++)
-                        {
-                            positions[i] = trajectory[i];
-                        }
-                        lr.SetPositions(positions);
+                    lr.positionCount = trajectory.Length;
+
+                    //Sets positions from plot into linerenderer
+                    Vector3[] positions = new Vector3[trajectory.Length];
+                    for (int i = 0; i < positions.Length; i++)
+                    {
+                        positions[i] = trajectory[i];
+                    }
+                    lr.SetPositions(positions);
                 }
 
                 if (Input.GetKeyUp(throwButton))
@@ -86,7 +87,8 @@ namespace Splitting
             }
         }
 
-        private Vector2[] Plot(Rigidbody2D rigibody, Vector2 pos, Vector2 velocity) //Plots course until point touches ground
+        //Returns the series of points that make the trajectory of the thrown object
+        private Vector2[] Plot(Rigidbody2D rigibody, Vector2 pos, Vector2 velocity)
         {
             List<Vector2> results = new List<Vector2>();
 
@@ -96,16 +98,21 @@ namespace Splitting
             float drag = 1f - timestep * rigibody.drag;
             Vector2 moveStep = velocity * timestep;
 
-            for (int i = 0; true; i++)
-            {
+            RaycastHit2D hitRay = Physics2D.Raycast(pos, Vector2.down, 0.1f);
+
+            while(true) { 
                 moveStep += gravityAccel;
                 moveStep *= drag;
                 pos += moveStep;
                 results.Add(pos);
-                if (Physics2D.BoxCast(pos,new Vector2(0.1f,0.1f),0,Vector2.down).collider.tag == "Ground")
+                hitRay = Physics2D.Raycast(pos, Vector2.down, 0.1f);
+                if (hitRay.collider != null)
                 {
-                    break;
-                } 
+                    if(hitRay.collider.tag.ToUpper() == "GROUND")
+                    {
+                        break;
+                    }
+                }
             }
 
             return results.ToArray();
@@ -156,6 +163,7 @@ namespace Splitting
             }
             rbToThrow = null; //remove object
         }
+        
     }
 
 }

@@ -18,6 +18,7 @@ namespace Splitting
         public Jump jump;
         public Move move;
         public Carry carry;
+        public AutobotUnity autobotUnity;
 
         private Animator animator;
 
@@ -152,11 +153,11 @@ namespace Splitting
                 }
             }
             
-            if (gameObject.tag != "Player")
+            if (gameObject.tag != "Player" )
             {
                 hasControl = false;
             }
-            else
+            else if (!autobotUnity.connectable && gameObject.tag == "Player")
             {
                 hasControl = true;
             }         

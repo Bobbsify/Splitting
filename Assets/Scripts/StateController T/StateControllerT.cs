@@ -15,6 +15,7 @@ namespace Splitting
         public Move move;
         public Jump jump;
         public Pickup pickup;
+        public AutobotUnity autobotUnity;
 
         private GameObject trajectPred;
         private Throw getThrow;
@@ -56,9 +57,9 @@ namespace Splitting
 
             if (gameObject.tag != "Player")
             {
-                hasControl = false;     
+                hasControl = false;
             }
-            else
+            else if (!autobotUnity.connectable && gameObject.tag == "Player")
             {
                 hasControl = true;
             }

@@ -88,8 +88,7 @@ namespace Splitting
                     transform.position = new Vector2(transform.position.x + (Time.deltaTime * approachSpeed *-1), transform.position.y);                   
 
                     if (transform.position.x <= targetRig.transform.position.x)
-                    {
-                        CallAnimator(Time.deltaTime * approachSpeed);
+                    {                       
 
                         if (ant.transform.localScale.x < 0)
                         {
@@ -106,8 +105,7 @@ namespace Splitting
                     transform.position = new Vector2(transform.position.x + (Time.deltaTime * approachSpeed * 1), transform.position.y);                    
 
                     if (transform.position.x >= targetRig.transform.position.x)
-                    {
-                        CallAnimator(Time.deltaTime * approachSpeed);
+                    {                       
 
                         if (ant.transform.localScale.x < 0)
                         {
@@ -119,7 +117,7 @@ namespace Splitting
                     }
                 }
 
-                /*
+                
                 if (connectionPrep)
                 {
                     CallAnimator(Time.deltaTime * approachSpeed);
@@ -129,14 +127,8 @@ namespace Splitting
                 {
                     CallAnimator(0);
                 }
-                */
+                
             }
-
-            if (readyForConnection)
-            {
-                Debug.Log("TYRANT ATTIVAZIONE!");
-            }
-
 
         }
 

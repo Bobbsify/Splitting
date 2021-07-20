@@ -150,7 +150,7 @@ namespace Splitting
             endPos.y = (maxAngle - Mathf.Abs(angle)) / maxAngle + power;
         }
 
-        public void Throw()
+        public void ThrowEntity()
         {
             rbToThrow.velocity = _velocity;
             resetLr();

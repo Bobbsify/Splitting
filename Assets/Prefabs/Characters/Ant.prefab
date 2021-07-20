@@ -1418,6 +1418,7 @@ MonoBehaviour:
   jump: {fileID: 700035413992777759}
   move: {fileID: 700035413992777758}
   carry: {fileID: 700035413992777734}
+  autobotUnity: {fileID: 1886915357}
   camera: {fileID: 0}
 --- !u!114 &700035413992777734
 MonoBehaviour:
@@ -1440,7 +1441,7 @@ MonoBehaviour:
   carryedObj: {fileID: 0}
   lastObj: {fileID: 0}
   carryedRig: {fileID: 0}
-  horizontalForce: 300
+  horizontalForce: 700
   verticalForce: 150
 --- !u!114 &700035413992777735
 MonoBehaviour:

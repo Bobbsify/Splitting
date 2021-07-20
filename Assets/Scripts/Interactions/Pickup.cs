@@ -44,7 +44,6 @@ namespace Splitting {
                 if (grabCheck.collider != null && grabCheck.collider.tag == "Carryable")
                 {
                     animator.SetBool("pickUp", true);
-                    PickUp();
                 }
             }
         }
@@ -56,6 +55,11 @@ namespace Splitting {
             grabCheck.collider.gameObject.transform.position = new Vector2(transform.position.x, transform.position.y + col.bounds.size.y * 2);
             objRigidbody.isKinematic = true;
             throwScript.rbToThrow = objRigidbody;
+        }
+
+        public void Throw()
+        {
+
         }
 
         private void OnDrawGizmosSelected()

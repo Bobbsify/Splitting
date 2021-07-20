@@ -4,17 +4,29 @@ using UnityEngine;
 
 public class Extend : MonoBehaviour
 {
+    private Animator animator;
+
+    [HideInInspector] public bool canExtend = true;
     private float verticalInput;
 
-    // Start is called before the first frame update
-    void Start()
+    
+    void Awake()
     {
-        
+        animator = GetComponent<Animator>();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         verticalInput = Input.GetAxis("Vertical");
+        if (canExtend) { 
+            if (verticalInput > 0)
+            {
+                animator.SetBool("isExtending", true);
+            }
+            else
+            {
+                animator.SetBool("isExtending", false);
+            }
+        }
     }
 }

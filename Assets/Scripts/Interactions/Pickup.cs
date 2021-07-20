@@ -22,13 +22,15 @@ namespace Splitting {
         public float grabDistance = 1.0f;
 
         private Collider2D col;
-        private RaycastHit2D grabCheck; 
+        private RaycastHit2D grabCheck;
 
-        // Start is called before the first frame update
-        void Start()
+        private Animator animator;
+        
+        void Awake()
         {
             col = gameObject.GetComponent<Collider2D>();
             pickupButton = new InputSettings().PickupButton;
+            animator = GetComponent<Animator>();
         }
 
         // Update is called once per frame
@@ -41,14 +43,19 @@ namespace Splitting {
                 grabCheck = Physics2D.Raycast(editedTransform, Vector2.right * -transform.localScale.x, grabDistance);
                 if (grabCheck.collider != null && grabCheck.collider.tag == "Carryable")
                 {
-                    GetComponent<Animator>().SetBool("pickUp", true);
-                    Rigidbody2D objRigidbody = grabCheck.collider.gameObject.GetComponent<Rigidbody2D>();
-                    grabCheck.collider.gameObject.transform.parent = transform;
-                    grabCheck.collider.gameObject.transform.position = new Vector2(transform.position.x, transform.position.y + col.bounds.size.y * 2);
-                    objRigidbody.isKinematic = true;
-                    throwScript.rbToThrow = objRigidbody;
+                    animator.SetBool("pickUp", true);
+                    PickUp();
                 }
             }
+        }
+
+        public void PickUp()
+        {
+            Rigidbody2D objRigidbody = grabCheck.collider.gameObject.GetComponent<Rigidbody2D>();
+            grabCheck.collider.gameObject.transform.parent = transform;
+            grabCheck.collider.gameObject.transform.position = new Vector2(transform.position.x, transform.position.y + col.bounds.size.y * 2);
+            objRigidbody.isKinematic = true;
+            throwScript.rbToThrow = objRigidbody;
         }
 
         private void OnDrawGizmosSelected()

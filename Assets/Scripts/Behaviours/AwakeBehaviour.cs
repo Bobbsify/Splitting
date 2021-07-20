@@ -10,6 +10,9 @@ public class AwakeBehaviour : MonoBehaviour
     [SerializeField] private KeyCode buttonToPress; //Not compulsory
     [SerializeField] private MonoBehaviour[] scriptsToLoad;
 
+    [SerializeField] private Platform scoringPlatform;
+    [SerializeField] private int targetScore;
+
     private bool isPlayerHere = false;
     private Collider2D objCollider;
 
@@ -49,6 +52,12 @@ public class AwakeBehaviour : MonoBehaviour
                 break;
             case ActivationTypes.enterAndClick:
                 if (isPlayerHere && Input.GetKey(buttonToPress))
+                {
+                    awakeScripts();
+                }
+                break;
+            case ActivationTypes.score:
+                if (scoringPlatform.score >= targetScore)
                 {
                     awakeScripts();
                 }
@@ -96,7 +105,8 @@ enum ActivationTypes
 {
     onEnter,
     onClick,
-    enterAndClick
+    enterAndClick,
+    score
 }
 
 enum Turn

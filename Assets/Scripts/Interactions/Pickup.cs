@@ -24,7 +24,7 @@ namespace Splitting {
         private Collider2D col;
         private RaycastHit2D grabCheck;
 
-        private GameObject trajectoryPrediction;
+        public GameObject trajectoryPrediction;
 
         private Animator animator;
         

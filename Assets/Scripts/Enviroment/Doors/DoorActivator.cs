@@ -23,21 +23,30 @@ public class DoorActivator : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Player")
-        {
-            playerIsInZone = true;
-        }
-        else
-        {
-            playerIsInZone = false;
+        if (!col.name.Contains("Check")) //Praticamente un chiodo che regge un palazzo
+        { 
+            if (col.gameObject.tag == "Player")
+            {
+                playerIsInZone = true;
+                Debug.Log("In - "+ col.name);
+            }
+            else
+            {
+                playerIsInZone = false;
+                Debug.Log("Out" + col.name);
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Player")
+        if (!col.name.Contains("Check")) //Praticamente un chiodo che regge un palazzo
         {
-            playerIsInZone = false;
+            if (col.gameObject.tag == "Player")
+            {
+                playerIsInZone = false;
+                Debug.Log("Out2" + col.name);
+            }
         }
     }
 }

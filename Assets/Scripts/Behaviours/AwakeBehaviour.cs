@@ -72,13 +72,16 @@ public class AwakeBehaviour : MonoBehaviour
     {
         if (activationType == ActivationTypes.onEnter || activationType == ActivationTypes.enterAndClick)
         {
-            if (col.gameObject.tag == "Player")
-            {
-                isPlayerHere = true;
-            }
-            else
-            {
-                isPlayerHere = false;
+            if (!col.name.Contains("Check"))
+            { 
+                if (col.gameObject.tag == "Player")
+                {
+                    isPlayerHere = true;
+                }
+                else
+                {
+                    isPlayerHere = false;
+                }
             }
         }
     }

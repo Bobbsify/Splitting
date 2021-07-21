@@ -9,12 +9,12 @@ public class DoorSetActive : MonoBehaviour, IDoor
 
     public void CloseDoor()
     {
-        gameObject.SetActive(false);
+        gameObject.SetActive(true);
     }
 
     public void OpenDoor()
     {
-        gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     public void ToggleDoor()

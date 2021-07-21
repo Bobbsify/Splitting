@@ -34,7 +34,7 @@ public class DoorActivator : MonoBehaviour
                     foreach (GameObject d in targetDoors)
                     {
                         IDoor door = d.GetComponent<IDoor>();
-                        door.CloseDoor();
+                        door.OpenDoor();
                     }
                 }
                 else
@@ -42,7 +42,7 @@ public class DoorActivator : MonoBehaviour
                     foreach (GameObject d in targetDoors)
                     {
                         IDoor door = d.GetComponent<IDoor>();
-                        door.OpenDoor();
+                        door.CloseDoor();
                     }
                 }
                 break;

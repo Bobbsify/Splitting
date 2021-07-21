@@ -21,11 +21,11 @@ public class DoorSetActive : MonoBehaviour, IDoor
     {
         if (isOpen)
         {
-            OpenDoor();
+            CloseDoor();
         }
         else
         {
-            CloseDoor();
+            OpenDoor();
         }
         isOpen = !isOpen;
     }

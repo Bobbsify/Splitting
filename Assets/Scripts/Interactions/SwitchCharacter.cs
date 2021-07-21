@@ -80,15 +80,18 @@ namespace Splitting
         private void Connect()
         {
             targetEntity.SetActive(false); //Disable Other
+            targetEntity.tag = "Untagged";
             
             gameObject.SetActive(false); //Disable This
-            
+            gameObject.tag = "Untagged";
+
             tyrAnt.transform.parent = null; //Remove Object from parent
             
             targetEntity.transform.parent = tyrAnt.transform; // Set Ant&Tyr as children of TyrAnt
             transform.parent = tyrAnt.transform;
             
             tyrAnt.SetActive(true);
+            tyrAnt.tag = "Player";
             tyrAnt.GetComponent<Animator>().SetTrigger("Link");
         }
 

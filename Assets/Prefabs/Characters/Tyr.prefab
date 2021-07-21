@@ -131,7 +131,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 317979651061577933}
   m_Bounds:
-    m_Center: {x: -0.001449585, y: -4.140689, z: 0}
+    m_Center: {x: -0.0014457703, y: -4.140704, z: 0}
     m_Extent: {x: 0.48499998, y: 0.10457516, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -573,7 +573,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 5901481022570277174}
   m_Bounds:
-    m_Center: {x: 0.003170669, y: -4.141164, z: 0}
+    m_Center: {x: 0.003159225, y: -4.141164, z: 0}
     m_Extent: {x: 0.53039515, y: 0.13912511, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -737,7 +737,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 7745901007663328199}
   m_Bounds:
-    m_Center: {x: -0.0014342964, y: -4.1408195, z: 0}
+    m_Center: {x: -0.0014438331, y: -4.1408005, z: 0}
     m_Extent: {x: 0.46500003, y: 0.109475136, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -937,8 +937,8 @@ MonoBehaviour:
   - {fileID: 3231299480469633267}
   - {fileID: 1838138652335233041}
   m_Bounds:
-    m_Center: {x: -0.00044167042, y: -4.140389, z: 0}
-    m_Extent: {x: 1.1066486, y: 2.1615305, z: 0}
+    m_Center: {x: -0.000436306, y: -4.140387, z: 0}
+    m_Extent: {x: 1.1066482, y: 2.1615286, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &3040743065514218523
@@ -986,13 +986,14 @@ GameObject:
   - component: {fileID: 609878403404720270}
   - component: {fileID: 609878403404720271}
   - component: {fileID: 609878403404720268}
-  - component: {fileID: 609878403404720498}
-  - component: {fileID: 609878403404720499}
-  - component: {fileID: 7944306211986232739}
   - component: {fileID: 609878403404720496}
-  - component: {fileID: 4425477685088742811}
-  - component: {fileID: 2044338323}
   - component: {fileID: 2044338324}
+  - component: {fileID: 609878403404720499}
+  - component: {fileID: 609878403404720498}
+  - component: {fileID: 2044338323}
+  - component: {fileID: 7944306211986232739}
+  - component: {fileID: 4425477685088742811}
+  - component: {fileID: 1670462146472388267}
   m_Layer: 8
   m_Name: Tyr
   m_TagString: Untagged
@@ -1109,7 +1110,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6.4122524, y: 4.5519867}
   m_EdgeRadius: 0
---- !u!114 &609878403404720498
+--- !u!114 &609878403404720496
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1118,17 +1119,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 3107717179103924200}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d78ea79462b79214a8bd5e1cb690736a, type: 3}
+  m_Script: {fileID: 11500000, guid: 64d7a368cb283aa4fae982647cc0dafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetEntity: {fileID: 0}
-  ScriptsToDisable:
-  - AutobotUnity
-  - SwitchCharacter
-  ScriptsToEnable:
-  - AutobotUnity
-  - SwitchCharacter
-  tyrantName: TyrAnt
+  speed: 9
+  canCrouch: 0
+  isCrouched: 0
+  canMove: 0
+  isObstructed: 0
+--- !u!114 &2044338324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3107717179103924200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61570de01b4f85f4c81ca7ebef53a4c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canJump: 0
+  isLanded: 0
+  wasJumping: 0
+  jumpForce: 1000
+  jumpMultiplier: 2
+  jumpDivider: 1
+  jumpKeyDown: 0
+  timerJump: 2
+  elapsedKeyDown: 0
 --- !u!114 &609878403404720499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1152,7 +1171,7 @@ MonoBehaviour:
   camera: {fileID: 0}
   shake: 1
   lenght: 1
---- !u!114 &7944306211986232739
+--- !u!114 &609878403404720498
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1161,41 +1180,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3107717179103924200}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43d06dc2b53341640a9a2a537ef62545, type: 3}
+  m_Script: {fileID: 11500000, guid: d78ea79462b79214a8bd5e1cb690736a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwScript: {fileID: 6517885039344880893}
-  grabDistance: 1
-  trajectoryPrediction: {fileID: 9175190140723448285}
---- !u!114 &609878403404720496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3107717179103924200}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64d7a368cb283aa4fae982647cc0dafb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 9
-  canCrouch: 0
-  isCrouched: 0
-  canMove: 0
-  isObstructed: 0
---- !u!114 &4425477685088742811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3107717179103924200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3718cf61c7957bb47afff28e4e11781c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  targetEntity: {fileID: 0}
+  ScriptsToDisable:
+  - AutobotUnity
+  - SwitchCharacter
+  ScriptsToEnable:
+  - AutobotUnity
+  - SwitchCharacter
+  tyrantName: TyrAnt
 --- !u!114 &2044338323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1215,7 +1210,22 @@ MonoBehaviour:
   stateController: {fileID: 0}
   stateControllerT: {fileID: 609878403404720499}
   ant: {fileID: 0}
---- !u!114 &2044338324
+--- !u!114 &7944306211986232739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3107717179103924200}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43d06dc2b53341640a9a2a537ef62545, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwScript: {fileID: 6517885039344880893}
+  grabDistance: 1
+  trajectoryPrediction: {fileID: 9175190140723448285}
+--- !u!114 &4425477685088742811
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1224,18 +1234,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 3107717179103924200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61570de01b4f85f4c81ca7ebef53a4c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 3718cf61c7957bb47afff28e4e11781c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canJump: 0
-  isLanded: 0
-  wasJumping: 0
-  jumpForce: 1000
-  jumpMultiplier: 2
-  jumpDivider: 1
-  jumpKeyDown: 0
-  timerJump: 2
-  elapsedKeyDown: 0
+--- !u!114 &1670462146472388267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3107717179103924200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c63bbc6fc7b4c409896a05049dd891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3606572360260058097
 GameObject:
   m_ObjectHideFlags: 0
@@ -1370,8 +1383,8 @@ MonoBehaviour:
   - {fileID: 288579815312479026}
   - {fileID: 2290418253837847466}
   m_Bounds:
-    m_Center: {x: -0.003161788, y: -4.1402893, z: 0}
-    m_Extent: {x: 1.1382725, y: 2.15, z: 0}
+    m_Center: {x: -0.003164649, y: -4.1402874, z: 0}
+    m_Extent: {x: 1.1382792, y: 2.150002, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &4180274504905672216
@@ -1504,7 +1517,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 305906849111206644}
   m_Bounds:
-    m_Center: {x: -0.001629591, y: -4.140284, z: 0}
+    m_Center: {x: -0.001623869, y: -4.140284, z: 0}
     m_Extent: {x: 0.7243801, y: 0.40498495, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1859,7 +1872,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 5179899206455735793}
   m_Bounds:
-    m_Center: {x: -0.0023946762, y: -4.142324, z: 0}
+    m_Center: {x: -0.0023889542, y: -4.14232, z: 0}
     m_Extent: {x: 2.747695, y: 2.277965, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -2119,7 +2132,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 2376659255351089597}
   m_Bounds:
-    m_Center: {x: -0.0014343262, y: -4.1408243, z: 0}
+    m_Center: {x: -0.0014457703, y: -4.1408243, z: 0}
     m_Extent: {x: 0.57, y: 0.1294651, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1

@@ -1237,10 +1237,11 @@ GameObject:
   - component: {fileID: 700035413992777758}
   - component: {fileID: 700035413992777759}
   - component: {fileID: 700035413992777756}
-  - component: {fileID: 700035413992777734}
   - component: {fileID: 700035413992777735}
   - component: {fileID: 1886915357}
+  - component: {fileID: 700035413992777734}
   - component: {fileID: 9132564662669934093}
+  - component: {fileID: -768708338597490307}
   m_Layer: 9
   m_Name: Ant
   m_TagString: Player
@@ -1420,29 +1421,6 @@ MonoBehaviour:
   carry: {fileID: 700035413992777734}
   autobotUnity: {fileID: 1886915357}
   camera: {fileID: 0}
---- !u!114 &700035413992777734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7246107592126878312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 187d0a0106b7dcc4689ac8484bc17de0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canCarry: 0
-  dropKey: 0
-  isFixed: 0
-  isFixing: 0
-  isCarrying: 0
-  wasCarrying: 0
-  carryedObj: {fileID: 0}
-  lastObj: {fileID: 0}
-  carryedRig: {fileID: 0}
-  horizontalForce: 700
-  verticalForce: 150
 --- !u!114 &700035413992777735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1482,6 +1460,29 @@ MonoBehaviour:
   stateController: {fileID: 700035413992777756}
   stateControllerT: {fileID: 0}
   ant: {fileID: 7246107592126878312}
+--- !u!114 &700035413992777734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7246107592126878312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187d0a0106b7dcc4689ac8484bc17de0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canCarry: 0
+  dropKey: 0
+  isFixed: 0
+  isFixing: 0
+  isCarrying: 0
+  wasCarrying: 0
+  carryedObj: {fileID: 0}
+  lastObj: {fileID: 0}
+  carryedRig: {fileID: 0}
+  horizontalForce: 700
+  verticalForce: 150
 --- !u!114 &9132564662669934093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1492,6 +1493,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3718cf61c7957bb47afff28e4e11781c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-768708338597490307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7246107592126878312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c63bbc6fc7b4c409896a05049dd891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7919752602983841060

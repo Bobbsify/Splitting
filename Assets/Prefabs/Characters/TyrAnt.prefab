@@ -770,12 +770,13 @@ GameObject:
   - component: {fileID: 4280052369775188293}
   - component: {fileID: 4515405025540260558}
   - component: {fileID: 6325505145876589244}
-  - component: {fileID: 5141993665767243004}
-  - component: {fileID: 9209683297213411197}
   - component: {fileID: 5057541199975206167}
+  - component: {fileID: 9209683297213411197}
   - component: {fileID: 4467002386518633220}
   - component: {fileID: 3512373615381440574}
+  - component: {fileID: 5141993665767243004}
   - component: {fileID: 8746866374052616510}
+  - component: {fileID: 6246131808769302956}
   m_Layer: 0
   m_Name: TyrAnt
   m_TagString: Player
@@ -902,7 +903,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5141993665767243004
+--- !u!114 &5057541199975206167
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -911,12 +912,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1197837186119568659}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43d06dc2b53341640a9a2a537ef62545, type: 3}
+  m_Script: {fileID: 11500000, guid: 64d7a368cb283aa4fae982647cc0dafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwScript: {fileID: 772799475776130882}
-  grabDistance: 1
-  trajectoryPrediction: {fileID: 358797554176745611}
+  speed: 12
+  canCrouch: 0
+  isCrouched: 0
+  canMove: 0
+  isObstructed: 0
 --- !u!114 &9209683297213411197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -938,23 +941,6 @@ MonoBehaviour:
   jumpKeyDown: 0
   timerJump: 2
   elapsedKeyDown: 0
---- !u!114 &5057541199975206167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1197837186119568659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64d7a368cb283aa4fae982647cc0dafb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 12
-  canCrouch: 0
-  isCrouched: 0
-  canMove: 0
-  isObstructed: 0
 --- !u!114 &4467002386518633220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -991,6 +977,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tyrName: Tyr
   antName: Ant
+--- !u!114 &5141993665767243004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1197837186119568659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43d06dc2b53341640a9a2a537ef62545, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwScript: {fileID: 772799475776130882}
+  grabDistance: 1
+  trajectoryPrediction: {fileID: 358797554176745611}
 --- !u!114 &8746866374052616510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1001,6 +1002,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3718cf61c7957bb47afff28e4e11781c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6246131808769302956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1197837186119568659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c63bbc6fc7b4c409896a05049dd891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1217218096529879877

@@ -85,13 +85,14 @@ namespace Splitting
                         if (carry.isCarrying)
                         {
                             jump.canJump = true;
+                            jump.superJump = false;
                             jump.jumpDivider = jump.jumpMultiplier;
                             move.canCrouch = false;
                         }
                         else
                         {
                             jump.canJump = true;
-                            jump.jumpDivider = 1.0f;
+                            jump.jumpDivider = 1.0f;                            
                             move.canCrouch = true;
                         }
                        
@@ -105,6 +106,7 @@ namespace Splitting
                     if (move.isCrouched)
                     {
                          jump.canJump = false;
+                         jump.superJump = false;
                     }
 
 

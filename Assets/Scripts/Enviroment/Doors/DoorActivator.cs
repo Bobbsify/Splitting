@@ -34,7 +34,15 @@ public class DoorActivator : MonoBehaviour
                     foreach (GameObject d in targetDoors)
                     {
                         IDoor door = d.GetComponent<IDoor>();
-                        door.ToggleDoor();
+                        door.OpenDoor();
+                    }
+                }
+                else
+                {
+                    foreach (GameObject d in targetDoors)
+                    {
+                        IDoor door = d.GetComponent<IDoor>();
+                        door.CloseDoor();
                     }
                 }
                 break;

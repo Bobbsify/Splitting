@@ -40,10 +40,14 @@ namespace Splitting
         {
             //Remove Ant & Tyr Children
             ant.transform.parent = null;
+            ant.tag = "Player";
+
             tyr.transform.parent = null;
+            tyr.tag = "Untagged";
 
             //Disable TyrAnt
             gameObject.SetActive(false);
+            gameObject.tag = "Untagged";
 
             //Attach TyrAnt to Ant
             transform.parent = ant.transform;

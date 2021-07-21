@@ -30,7 +30,7 @@ namespace Splitting {
         
         void Awake()
         {
-            col = gameObject.GetComponent<Collider2D>();
+            col = gameObject.GetComponent<CapsuleCollider2D>();
             pickupButton = new InputSettings().PickupButton;
             animator = GetComponent<Animator>();
         }
@@ -41,7 +41,7 @@ namespace Splitting {
             if (Input.GetKeyUp(pickupButton))
             {
                 //Check if there is a grabbable object
-                Vector2 editedTransform = new Vector2(transform.position.x - (col.bounds.size.x / 2 * transform.localScale.x), transform.position.y);
+                Vector2 editedTransform = new Vector2(transform.Find("Wall Check").position.x - (col.bounds.size.x / 2 * transform.localScale.x), transform.position.y);
                 grabCheck = Physics2D.Raycast(editedTransform, Vector2.right * -transform.localScale.x, grabDistance);
                 if (grabCheck.collider != null && grabCheck.collider.tag == "Carryable")
                 {
@@ -66,9 +66,9 @@ namespace Splitting {
 
         private void OnDrawGizmosSelected()
         {
-            col = gameObject.GetComponent<Collider2D>();
+            col = gameObject.GetComponent<CapsuleCollider2D>();
             Gizmos.color = Color.red;
-            Gizmos.DrawRay(new Vector2(transform.position.x - (col.bounds.size.x / 2 * transform.localScale.x), transform.position.y),Vector2.right*-transform.localScale.x);
+            Gizmos.DrawRay(new Vector2(transform.Find("Wall Check").position.x - (col.bounds.size.x / 2 * transform.localScale.x), transform.position.y),Vector2.right*-transform.localScale.x);
         }
     }
 }

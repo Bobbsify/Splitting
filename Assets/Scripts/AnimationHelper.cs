@@ -22,19 +22,6 @@ using System;
                     throw new Exception("Error: Could not find layer with name "+layer.layerName+" - Reminder: This check is case sensitive meaning you should use UpperCase letters correctly");
                 }
             }
-            /*
-            for (int i = 0; i < names.Length; i++)
-            {
-                try
-                {
-                    transform.Find(names[i]).GetComponent<SpriteRenderer>().sortingOrder = layerValues[i];
-                }
-                catch
-                {
-                    throw new Exception("Error: Could not find layer with name " + names[i] + " - Reminder: This check is case sensitive meaning you should use UpperCase letters correctly");
-                }
-            }
-            */
         }
 
     //String structure: "LayerName-orderingLayerNumber|LayerName-orderingLayerNumber|"..etc

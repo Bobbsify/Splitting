@@ -1,23 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class DoorActivator : MonoBehaviour
 {
     public GameObject[] targetDoors;
     public KeyCode inputButton;
+    public ActivationTypes activationType = ActivationTypes.PressWhenInArea;
+
+    [SerializeField] private GameObject scoringPlatform;
+    [SerializeField] private int targetScore;
 
     private bool playerIsInZone = false;
 
     public void Update()
     {
-        if (Input.GetKeyDown(inputButton) && playerIsInZone)
+        switch (activationType)
         {
-            foreach (GameObject d in targetDoors)
-            {
-                IDoor door = d.GetComponent<IDoor>();
-                door.ToggleDoor();
-            }
+            case ActivationTypes.PressWhenInArea:
+                if (Input.GetKeyDown(inputButton) && playerIsInZone)
+                {
+                    foreach (GameObject d in targetDoors)
+                    {
+                        IDoor door = d.GetComponent<IDoor>();
+                        door.ToggleDoor();
+                    }
+                }
+                break;
+            case ActivationTypes.Score:
+                if (scoringPlatform.GetComponent<Platform>().score >= targetScore)
+                {
+                    foreach (GameObject d in targetDoors)
+                    {
+                        IDoor door = d.GetComponent<IDoor>();
+                        door.OpenDoor();
+                    }
+                }
+                else
+                {
+                    foreach (GameObject d in targetDoors)
+                    {
+                        IDoor door = d.GetComponent<IDoor>();
+                        door.CloseDoor();
+                    }
+                }
+                break;
+            default:
+                throw new Exception("Unknown Activation type for " + gameObject);
         }
     }
 
@@ -48,5 +78,12 @@ public class DoorActivator : MonoBehaviour
                 Debug.Log("Out2" + col.name);
             }
         }
+    }
+
+
+    public enum ActivationTypes
+    {
+        PressWhenInArea,
+        Score
     }
 }

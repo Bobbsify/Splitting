@@ -60,7 +60,7 @@ namespace Splitting
             {
                 hasControl = false;
             }
-            else if (!autobotUnity.connectable && gameObject.tag == "Player")
+            else if (!autobotUnity.connectionPrep && gameObject.tag == "Player")
             {
                 hasControl = true;
             }

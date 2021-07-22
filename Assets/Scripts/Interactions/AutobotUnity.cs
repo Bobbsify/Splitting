@@ -9,7 +9,7 @@ namespace Splitting
         private KeyCode connectButton;
         public bool canConnect;
         public bool connectable;
-        private bool connectionPrep;         
+        public bool connectionPrep;         
         public bool readyForConnection;
         [SerializeField] private float connectDistance = 5.0f;
         [SerializeField] private float approachSpeed;

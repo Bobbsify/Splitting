@@ -41,7 +41,8 @@ namespace Splitting {
             if (Input.GetKeyUp(pickupButton))
             {
                 //Check if there is a grabbable object
-                Vector2 editedTransform = new Vector2((transform.Find("Wall Check").position.x + transform.Find("Wall Check").GetComponent<BoxCollider2D>().offset.x) * transform.localScale.x, transform.position.y);
+                BoxCollider2D wallCheckCollider = transform.Find("Wall Check").GetComponent<BoxCollider2D>();
+                Vector2 editedTransform = new Vector2((wallCheckCollider.transform.position.x + wallCheckCollider.offset.x - wallCheckCollider.size.x) * transform.localScale.x, transform.position.y);
                 grabCheck = Physics2D.Raycast(editedTransform, Vector2.right * -transform.localScale.x);
                 if (grabCheck.collider != null && grabCheck.collider.tag == "Carryable")
                 {
@@ -67,8 +68,9 @@ namespace Splitting {
         private void OnDrawGizmosSelected()
         {
             col = gameObject.GetComponent<CapsuleCollider2D>();
+            BoxCollider2D wallCheckCollider = transform.Find("Wall Check").GetComponent<BoxCollider2D>();
             Gizmos.color = Color.red;
-            Gizmos.DrawRay(new Vector2((transform.Find("Wall Check").position.x + transform.Find("Wall Check").GetComponent<BoxCollider2D>().offset.x) * transform.localScale.x, transform.position.y),Vector2.right*-transform.localScale.x);
+            Gizmos.DrawRay(new Vector2((wallCheckCollider.transform.position.x + wallCheckCollider.offset.x - wallCheckCollider.size.x) * transform.localScale.x, transform.position.y),Vector2.right*-transform.localScale.x);
         }
     }
 }

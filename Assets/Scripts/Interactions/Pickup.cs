@@ -68,7 +68,7 @@ namespace Splitting {
         {
             col = gameObject.GetComponent<CapsuleCollider2D>();
             Gizmos.color = Color.red;
-            Gizmos.DrawRay(new Vector2(transform.Find("Wall Check").position.x - (col.bounds.size.x / 2 * transform.localScale.x), transform.position.y),Vector2.right*-transform.localScale.x);
+            Gizmos.DrawRay(new Vector2((transform.Find("Wall Check").position.x + transform.Find("Wall Check").GetComponent<BoxCollider2D>().offset.x) * transform.localScale.x, transform.position.y),Vector2.right*-transform.localScale.x);
         }
     }
 }

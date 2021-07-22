@@ -81,6 +81,7 @@ namespace Splitting
                     {
                         jump.canJump = false;
                         move.canCrouch = false;
+                        move.canMove = false;
                     }
                     else 
                     {
@@ -141,6 +142,7 @@ namespace Splitting
                 {
                     jump.canJump = false;
                     move.canCrouch = false;
+                    carry.canCarry = false;
 
                     if (!isWalled)
                     {

@@ -7,6 +7,7 @@ namespace Splitting
     public class AutobotUnity : MonoBehaviour
     {
         private KeyCode connectButton;
+        public bool canConnect;
         public bool connectable;
         private bool connectionPrep;         
         public bool readyForConnection;
@@ -55,7 +56,11 @@ namespace Splitting
             connectDistance = Mathf.Sqrt(Mathf.Pow(boxCol.bounds.size.y + (capsuleCol.bounds.size.y / 2), 2.0f) + Mathf.Pow(boxCol.bounds.size.x, 2.0f));
 
             Vector2 editedTransform = new Vector2(boxCol.bounds.center.x - (boxCol.bounds.size.x / 2), boxCol.bounds.center.y + (boxCol.bounds.size.y / 2));
-            connectCheck = Physics2D.Raycast(editedTransform, Vector2.down + Vector2.right, connectDistance, layerMask);
+
+            if (canConnect)
+            {
+                connectCheck = Physics2D.Raycast(editedTransform, Vector2.down + Vector2.right, connectDistance, layerMask);
+            }
 
             if (connectCheck.collider != null)
             {

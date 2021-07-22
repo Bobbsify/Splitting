@@ -18,7 +18,9 @@ namespace Splitting
         public Jump jump;
         public Move move;
         public Carry carry;
-        public AutobotUnity autobotUnity;
+
+        public AutobotUnity autobotUnityA;
+        public AutobotUnity autobotUnityT;
 
         private Animator animator;
 
@@ -88,12 +90,18 @@ namespace Splitting
                             jump.superJump = false;
                             jump.jumpDivider = jump.jumpMultiplier;
                             move.canCrouch = false;
+
+                            autobotUnityA.canConnect = false;
+                            autobotUnityT.canConnect = false;
                         }
                         else
                         {
                             jump.canJump = true;
                             jump.jumpDivider = 1.0f;                            
                             move.canCrouch = true;
+
+                            autobotUnityA.canConnect = true;
+                            autobotUnityT.canConnect = true;
                         }
                        
                     }
@@ -159,7 +167,7 @@ namespace Splitting
             {
                 hasControl = false;
             }
-            else if (!autobotUnity.connectable && gameObject.tag == "Player")
+            else if (!autobotUnityA.connectable && gameObject.tag == "Player")
             {
                 hasControl = true;
             }         

@@ -73,7 +73,7 @@ namespace Splitting
                         ScreenShake(shake, lenght);
                     }
 
-                    if (AnimatorIsPlaying("Tyrant Jump 4") || getThrow.throwing)
+                    if (AnimatorIsPlaying("Tyrant Jump 4") || getThrow.throwing || AnimatorIsPlaying("Tyrant Jump 4"))
                     {
                         move.enabled = false;
                         jump.canJump = false;                        
@@ -83,7 +83,6 @@ namespace Splitting
                         move.enabled = true;
                         jump.canJump = false;
                     }
-
                     else
                     {
                         move.enabled = true;

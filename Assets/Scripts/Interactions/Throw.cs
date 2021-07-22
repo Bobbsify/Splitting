@@ -67,7 +67,7 @@ namespace Splitting
                     calculateVelocity();
                     _velocity = (endPos - startPos);
 
-                    Vector2[] trajectory = Plot(rbToThrow, transform.position, _velocity);
+                    Vector3[] trajectory = Plot(rbToThrow, transform.position, _velocity);
 
                     lr.positionCount = trajectory.Length;
 
@@ -89,9 +89,9 @@ namespace Splitting
         }
 
         //Returns the series of points that make the trajectory of the thrown object
-        private Vector2[] Plot(Rigidbody2D rigibody, Vector2 pos, Vector2 velocity)
+        private Vector3[] Plot(Rigidbody2D rigibody, Vector2 pos, Vector2 velocity)
         {
-            List<Vector2> results = new List<Vector2>();
+            List<Vector3> results = new List<Vector3>();
 
             float timestep = Time.fixedDeltaTime / Physics2D.velocityIterations;
             Vector2 gravityAccel = Physics2D.gravity * rigibody.gravityScale * timestep * timestep;
@@ -105,7 +105,9 @@ namespace Splitting
                 moveStep += gravityAccel;
                 moveStep *= drag;
                 pos += moveStep;
-                results.Add(pos);
+                Vector3 newPos = pos;
+                newPos.z = -2;
+                results.Add(newPos);
                 hitRay = Physics2D.Raycast(pos, Vector2.down, 0.1f);
                 if (hitRay.collider != null)
                 {

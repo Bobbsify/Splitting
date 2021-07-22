@@ -15,8 +15,8 @@ namespace Splitting
         Jump antJump;
         Carry antCarry;
 
-        private GameObject trajectPred;
-        private Throw getThrow;
+        public GameObject trajectPred;
+        public Throw tyrThrow;        
 
         [SerializeField] private int currentPlayer;
 
@@ -29,8 +29,8 @@ namespace Splitting
             antJump = players[0].GetComponent<Jump>();
             antCarry = players[0].GetComponent<Carry>();
 
-            trajectPred = GameObject.Find("TrajectoryPrediction");
-            getThrow = trajectPred.GetComponentInChildren<Throw>();
+            trajectPred = players[1].transform.Find("TrajectoryPrediction").gameObject;
+            tyrThrow = trajectPred.GetComponent<Throw>();
 
             // Get abilities
             for (int i = 0; i < abilities.Length; i++)
@@ -46,8 +46,8 @@ namespace Splitting
 
         // Update is called once per frame
         void Update()
-        {            
-
+        {
+            
             if (players[currentPlayer].tag != "Player")
             {
                 for (int i = 0; i < currentAbilities.Length; i++)
@@ -121,22 +121,22 @@ namespace Splitting
 
             // Tyr
             if (currentPlayer == 1)
-            {
-                if (getThrow.rbToThrow)
+            {                
+                if (tyrThrow.rbToThrow != null)
                 {
-                    currentAbilities[1].transform.Find("AbilityFrame1").gameObject.SetActive(false);
-                    currentAbilities[1].transform.Find("Icon_Launch").gameObject.SetActive(false);
+                    currentAbilities[0].transform.Find("AbilityFrame1").gameObject.SetActive(false);
+                    currentAbilities[0].transform.Find("Icon_Launch").gameObject.SetActive(false);
 
-                    currentAbilities[1].transform.Find("AbilityOnFrame1").gameObject.SetActive(true);
-                    currentAbilities[1].transform.Find("OnIcon_Launch").gameObject.SetActive(true);
+                    currentAbilities[0].transform.Find("AbilityOnFrame1").gameObject.SetActive(true);
+                    currentAbilities[0].transform.Find("OnIcon_Launch").gameObject.SetActive(true);
                 }
                 else
                 {
-                    currentAbilities[1].transform.Find("AbilityFrame1").gameObject.SetActive(true);
-                    currentAbilities[1].transform.Find("Icon_Launch").gameObject.SetActive(true);
+                    currentAbilities[0].transform.Find("AbilityFrame1").gameObject.SetActive(true);
+                    currentAbilities[0].transform.Find("Icon_Launch").gameObject.SetActive(true);
 
-                    currentAbilities[1].transform.Find("AbilityOnFrame1").gameObject.SetActive(false);
-                    currentAbilities[1].transform.Find("OnIcon_Launch").gameObject.SetActive(false);
+                    currentAbilities[0].transform.Find("AbilityOnFrame1").gameObject.SetActive(false);
+                    currentAbilities[0].transform.Find("OnIcon_Launch").gameObject.SetActive(false);
                 }
 
             }

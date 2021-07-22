@@ -15,6 +15,7 @@ namespace Splitting
         public Move move;
         public Jump jump;
         public Pickup pickup;
+
         public AutobotUnity autobotUnity;
 
         private GameObject trajectPred;
@@ -80,7 +81,7 @@ namespace Splitting
                     move.canMove = true;
                 }
 
-                if (getThrow.rbToThrow)
+                if (getThrow.rbToThrow || AnimatorIsPlaying("Tyr throw1") || AnimatorIsPlaying("Tyr throw4"))
                 {
                     move.enabled = false;
                 }

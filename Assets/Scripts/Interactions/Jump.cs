@@ -9,7 +9,7 @@ namespace Splitting
         private Animator animator;
 
         public bool canJump;
-       
+        public bool superJump;
         public bool isLanded;
 
         public bool wasJumping;
@@ -48,13 +48,22 @@ namespace Splitting
                     elapsedKeyDown += Time.deltaTime;
                 }
 
-                if (Input.GetKeyUp(KeyCode.Space) && elapsedKeyDown < timerJump)
+                if (elapsedKeyDown >= timerJump)
+                {
+                    superJump = true;
+                }
+                else
+                {
+                    superJump = false;
+                }
+
+                if (Input.GetKeyUp(KeyCode.Space) && !superJump)
                 {
                     rigidbody2D.AddForce(new Vector2(0f, jumpForce));                  
 
                     elapsedKeyDown = 0.0f;
                 }
-                else if (Input.GetKeyUp(KeyCode.Space) && elapsedKeyDown >= timerJump)
+                else if (Input.GetKeyUp(KeyCode.Space) && superJump)
                 {                    
                     rigidbody2D.AddForce(new Vector2(0f, jumpForce * (jumpMultiplier / jumpDivider)));                    
 

@@ -22,10 +22,10 @@ namespace Splitting
         private GameObject trajectPred;
         private Throw getThrow;
 
-        private GameObject ant;
-        private AutobotUnity antUnity;
-        private GameObject tyr;
-        private AutobotUnity tyrUnity;
+        public GameObject ant;
+        public AutobotUnity antUnity;
+        public GameObject tyr;
+        public AutobotUnity tyrUnity;
 
         private Animator animator;
 
@@ -118,13 +118,13 @@ namespace Splitting
             if (gameObject.tag != "Player")
             {
                 hasControl = false;
-
-                antUnity.readyForConnection = false;
-                tyrUnity.readyForConnection = false;
             }
             else if (gameObject.tag == "Player")
             {
                 hasControl = true;
+
+                antUnity.readyForConnection = false;
+                tyrUnity.readyForConnection = false;
             }
         }
 

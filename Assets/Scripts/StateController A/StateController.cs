@@ -169,7 +169,7 @@ namespace Splitting
             {
                 hasControl = false;
             }
-            else if (!autobotUnityA.connectable && gameObject.tag == "Player")
+            else if (!autobotUnityA.connectionPrep && gameObject.tag == "Player")
             {
                 hasControl = true;
             }         

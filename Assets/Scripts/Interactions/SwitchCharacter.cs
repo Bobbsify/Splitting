@@ -92,7 +92,7 @@ namespace Splitting
             
             tyrAnt.SetActive(true);
             tyrAnt.tag = "Player";
-            tyrAnt.GetComponent<Animator>().SetTrigger("Link");
+            tyrAnt.GetComponent<Animator>().SetTrigger("link");
         }
 
         private void TurnThisOff()

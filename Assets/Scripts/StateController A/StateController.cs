@@ -141,6 +141,7 @@ namespace Splitting
                 {
                     jump.canJump = false;
                     move.canCrouch = false;
+                    carry.canCarry = false;
 
                     if (!isWalled)
                     {

@@ -355,6 +355,7 @@ MonoBehaviour:
   minPower: -15
   maxAngle: 90
   minAngle: -90
+  maxCalculations: 500000
   throwing: 0
 --- !u!1 &460920147809103970
 GameObject:
@@ -779,7 +780,7 @@ GameObject:
   - component: {fileID: 6246131808769302956}
   m_Layer: 0
   m_Name: TyrAnt
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -933,6 +934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canJump: 0
+  superJump: 0
   isLanded: 0
   wasJumping: 0
   jumpForce: 1300

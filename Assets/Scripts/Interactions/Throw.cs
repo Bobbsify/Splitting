@@ -20,6 +20,8 @@ namespace Splitting
         [SerializeField] private float minAngle = -90f;
         private float angle = 0f;
 
+        [SerializeField] private float maxCalculations = 500000;
+
         private float horizontalInput;
         private float verticalInput;
 
@@ -99,7 +101,7 @@ namespace Splitting
 
             RaycastHit2D hitRay = Physics2D.Raycast(pos, Vector2.down, 0.1f);
 
-            while(true) { 
+            for(int i = 0; i < maxCalculations; i++) { 
                 moveStep += gravityAccel;
                 moveStep *= drag;
                 pos += moveStep;

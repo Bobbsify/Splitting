@@ -22,6 +22,11 @@ namespace Splitting
         private GameObject trajectPred;
         private Throw getThrow;
 
+        private GameObject ant;
+        private AutobotUnity antUnity;
+        private GameObject tyr;
+        private AutobotUnity tyrUnity;
+
         private Animator animator;
 
         new public CameraController camera;
@@ -35,6 +40,12 @@ namespace Splitting
 
             trajectPred = GameObject.Find("TrajectoryPredictionTA");
             getThrow = trajectPred.GetComponentInChildren<Throw>();
+
+            ant = gameObject.transform.Find("Ant").gameObject;
+            tyr = gameObject.transform.Find("Tyr").gameObject;
+
+            antUnity = ant.GetComponent<AutobotUnity>();
+            tyrUnity = tyr.GetComponent<AutobotUnity>();
         }
 
         // Update is called once per frame
@@ -102,6 +113,18 @@ namespace Splitting
                 jump.enabled = false;
                 pickup.enabled = false;
                 move.enabled = false;
+            }
+
+            if (gameObject.tag != "Player")
+            {
+                hasControl = false;
+
+                antUnity.readyForConnection = false;
+                tyrUnity.readyForConnection = false;
+            }
+            else if (gameObject.tag == "Player")
+            {
+                hasControl = true;
             }
         }
 

@@ -22,6 +22,7 @@ namespace Splitting {
         public float grabDistance = 1.0f;
 
         private Collider2D col;
+        private RaycastHit2D[] grabChecks;
         private RaycastHit2D grabCheck;
 
         public GameObject trajectoryPrediction;
@@ -43,10 +44,14 @@ namespace Splitting {
                 //Check if there is a grabbable object
                 BoxCollider2D wallCheckCollider = transform.Find("Wall Check").GetComponent<BoxCollider2D>();
                 Vector2 editedTransform = new Vector2(wallCheckCollider.transform.position.x + (Mathf.Abs(wallCheckCollider.offset.x) + wallCheckCollider.size.x) * -transform.localScale.x, transform.position.y);
-                grabCheck = Physics2D.Raycast(editedTransform, Vector2.right * -transform.localScale.x);
-                if (grabCheck.collider != null && grabCheck.collider.tag == "Carryable")
-                {
-                    animator.SetBool("pickUp", true);
+                grabChecks = Physics2D.RaycastAll(editedTransform, Vector2.right * -transform.localScale.x);
+                foreach (RaycastHit2D check in grabChecks) { 
+                    if (check.collider != null && check.collider.tag == "Carryable")
+                    {
+                        grabCheck = check;
+                        animator.SetBool("pickUp", true);
+                        break;
+                    }
                 }
             }
         }

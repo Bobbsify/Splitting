@@ -33,7 +33,7 @@ namespace Splitting
 
         private void Disconnect() //Start Disconnection animation
         {
-            animator.SetTrigger("Unlink");
+            animator.SetTrigger("unlink");
         }
 
         public void Unlink()    //Animation should fire this event

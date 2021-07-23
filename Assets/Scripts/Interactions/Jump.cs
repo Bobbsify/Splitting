@@ -28,7 +28,7 @@ namespace Splitting
         new private Rigidbody2D rigidbody2D;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             animator = gameObject.GetComponent<Animator>();
 
@@ -43,7 +43,7 @@ namespace Splitting
 
             if (canJump && !isLanded && !wasJumping)
             {
-                if (Input.GetKeyDown(jumpButton))
+                if (Input.GetKey(jumpButton))
                 {
                     elapsedKeyDown += Time.deltaTime;
                 }
@@ -84,7 +84,7 @@ namespace Splitting
             }
             
 
-            CallAnimator(Input.GetKeyDown(jumpButton), velocityY, isLanded);
+            CallAnimator(Input.GetKey(jumpButton), velocityY, isLanded);
             
         }
 

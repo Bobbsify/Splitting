@@ -40,7 +40,6 @@ namespace Splitting
 
             jumpKeyDown = Input.GetKey(KeyCode.Space);
 
-
             if (canJump && !isLanded && !wasJumping)
             {
                 if (jumpKeyDown)

@@ -10,13 +10,19 @@ namespace Splitting
 
         public GameObject[] abilities = new GameObject[3];
         public GameObject[] currentAbilities = new GameObject[5];
-                
+         
+        // ant
         Move antMove;
         Jump antJump;
         Carry antCarry;
 
-        public GameObject trajectPred;
-        public Throw tyrThrow;        
+        // tyr
+        public GameObject tyrTrajectPred;
+        public Throw tyrThrow;
+
+        // tyrant
+        public GameObject tyrantTrajectPred;
+        public Throw tyrantThrow;
 
         [SerializeField] private int currentPlayer;
 
@@ -25,12 +31,18 @@ namespace Splitting
         {
             currentPlayer = ControlWhoIsPlayer();            
 
+            // ant
             antMove = players[0].GetComponent<Move>();
             antJump = players[0].GetComponent<Jump>();
             antCarry = players[0].GetComponent<Carry>();
 
-            trajectPred = players[1].transform.Find("TrajectoryPrediction").gameObject;
-            tyrThrow = trajectPred.GetComponent<Throw>();
+            // tyr
+            tyrTrajectPred = players[1].transform.Find("TrajectoryPrediction").gameObject;
+            tyrThrow = tyrTrajectPred.GetComponent<Throw>();
+
+            // tyrant
+            tyrantTrajectPred = players[2].transform.Find("TrajectoryPredictionTA").gameObject;
+            tyrantThrow = tyrantTrajectPred.GetComponent<Throw>();
 
             // Get abilities
             for (int i = 0; i < abilities.Length; i++)
@@ -38,10 +50,9 @@ namespace Splitting
                 abilities[i] = gameObject.transform.GetChild(i).gameObject;
             }
 
-            for (int i = 0; i < currentAbilities.Length; i++)
-            {
-                currentAbilities[i] = abilities[currentPlayer].transform.Find("Ability" + (i + 1)).gameObject;
-            }
+            // Get current abilities
+            GetCurrentAbilities();
+                        
         }
 
         // Update is called once per frame
@@ -57,10 +68,7 @@ namespace Splitting
 
                 currentPlayer = ControlWhoIsPlayer();
 
-                for (int i = 0; i < currentAbilities.Length; i++)
-                {
-                    currentAbilities[i] = abilities[currentPlayer].transform.Find("Ability" + (i + 1)).gameObject;
-                }
+                GetCurrentAbilities();
             }
             
             // Ant
@@ -122,7 +130,7 @@ namespace Splitting
             // Tyr
             if (currentPlayer == 1)
             {                
-                if (tyrThrow.rbToThrow != null)
+                if (tyrThrow.throwing == true)
                 {
                     currentAbilities[0].transform.Find("AbilityFrame1").gameObject.SetActive(false);
                     currentAbilities[0].transform.Find("Icon_Launch").gameObject.SetActive(false);
@@ -139,6 +147,41 @@ namespace Splitting
                     currentAbilities[0].transform.Find("OnIcon_Launch").gameObject.SetActive(false);
                 }
 
+            }
+
+            // Tyrant
+            if (currentPlayer == 2)
+            {
+                if (tyrantThrow.rbToThrow == true && tyrantThrow.throwing == false)
+                {
+                    currentAbilities[1].transform.Find("AbilityFrame4").gameObject.SetActive(false);
+                    currentAbilities[1].transform.Find("Icon_Carry").gameObject.SetActive(false);
+
+                    currentAbilities[1].transform.Find("AbilityOnFrame4").gameObject.SetActive(true);
+                    currentAbilities[1].transform.Find("OnIcon_Carry").gameObject.SetActive(true);
+                }
+                else if (tyrantThrow.throwing == true && tyrantThrow.rbToThrow == true)
+                {
+                    currentAbilities[1].transform.Find("AbilityFrame4").gameObject.SetActive(true);
+                    currentAbilities[1].transform.Find("Icon_Carry").gameObject.SetActive(true);
+
+                    currentAbilities[1].transform.Find("AbilityOnFrame4").gameObject.SetActive(false);
+                    currentAbilities[1].transform.Find("OnIcon_Carry").gameObject.SetActive(false);
+
+                    currentAbilities[2].transform.Find("AbilityFrame1").gameObject.SetActive(false);
+                    currentAbilities[2].transform.Find("Icon_Launch").gameObject.SetActive(false);
+
+                    currentAbilities[2].transform.Find("AbilityOnFrame1").gameObject.SetActive(true);
+                    currentAbilities[2].transform.Find("OnIcon_Launch").gameObject.SetActive(true);
+                }
+                else if (tyrantThrow.throwing == false)
+                {                 
+                    currentAbilities[2].transform.Find("AbilityFrame1").gameObject.SetActive(true);
+                    currentAbilities[2].transform.Find("Icon_Launch").gameObject.SetActive(true);
+
+                    currentAbilities[2].transform.Find("AbilityOnFrame1").gameObject.SetActive(false);
+                    currentAbilities[2].transform.Find("OnIcon_Launch").gameObject.SetActive(false);
+                }
             }
             
         }
@@ -162,6 +205,32 @@ namespace Splitting
             }
 
             return x;
-        }        
+        }
+        
+        public void GetCurrentAbilities()
+        {
+            if (currentPlayer == 0)
+            {
+                for (int i = 0; i < (currentAbilities.Length - 1); i++)
+                {
+                    currentAbilities[i] = abilities[currentPlayer].transform.Find("Ability" + (i + 1)).gameObject;
+                }
+            }
+            else if (currentPlayer == 1)
+            {
+                for (int i = 0; i < (currentAbilities.Length - 2); i++)
+                {
+                    currentAbilities[i] = abilities[currentPlayer].transform.Find("Ability" + (i + 1)).gameObject;
+                }
+            }
+            else if (currentPlayer == 2)
+            {
+                for (int i = 0; i < (currentAbilities.Length); i++)
+                {
+                    currentAbilities[i] = abilities[currentPlayer].transform.Find("Ability" + (i + 1)).gameObject;
+                }
+            }
+
+        }
     }    
 }

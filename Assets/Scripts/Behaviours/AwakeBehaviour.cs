@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class AwakeBehaviour : MonoBehaviour
 {
@@ -29,8 +30,7 @@ public class AwakeBehaviour : MonoBehaviour
                 objCollider = gameObject.GetComponent<Collider2D>();
                 break;
             default:
-                Debug.Log("Error, unknown activation Type for " + gameObject);
-                break;
+                throw new Exception("Error, unknown activation Type for " + gameObject);
         }
     }
 

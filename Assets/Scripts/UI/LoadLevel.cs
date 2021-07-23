@@ -30,7 +30,7 @@ namespace Splitting
             if (goToTransition)
             {
                 lvlInfoObj.levelInfo.levelToLoad = (int)sceneToLoad;
-                SceneManager.LoadScene(gameScenes.ToArray()[gameScenes.ToArray().Length-1]);
+                SceneManager.LoadScene(gameScenes.ToArray()[(int)InGameScenes.LoadingScreen]);
             }
             else
             {
@@ -47,6 +47,7 @@ namespace Splitting
     4: Livello 2
     5: Livello 3
     6: Loading Screen
+    7: Win Scene
     */
 
     public enum InGameScenes
@@ -56,6 +57,7 @@ namespace Splitting
         Level1 = 2,
         Level2 = 3,
         Level3 = 4,
-        LoadingScreen = 5
+        LoadingScreen = 5,
+        WinScene = 6
     }
 }

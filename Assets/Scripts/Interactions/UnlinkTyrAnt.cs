@@ -38,12 +38,16 @@ namespace Splitting
 
         public void Unlink()    //Animation should fire this event
         {
+            //Set correct TyrAnt
+            gameObject.transform.localScale = new Vector2(Mathf.Abs(gameObject.transform.localScale.x),gameObject.transform.localScale.y);
+
             //Remove Ant & Tyr Children
             ant.transform.parent = null;
             ant.tag = "Player";
 
             tyr.transform.parent = null;
             tyr.tag = "Untagged";
+            tyr.transform.localScale = new Vector2(1.13f,1.13f);
 
             //Disable TyrAnt
             gameObject.SetActive(false);

@@ -16,6 +16,7 @@ namespace Splitting
         [SerializeField] private float lenght = 1.0f;
 
         public Jump jump;
+        public KeyCode jumpButton;
         public Move move;
         public Pickup pickup;
 
@@ -46,6 +47,8 @@ namespace Splitting
 
             antUnity = ant.GetComponent<AutobotUnity>();
             tyrUnity = tyr.GetComponent<AutobotUnity>();
+
+            jumpButton = new InputSettings().JumpButton;
         }
 
         // Update is called once per frame
@@ -63,7 +66,7 @@ namespace Splitting
 
                 move.canCrouch = false;
 
-                if (isWalled || jump.jumpKeyDown)
+                if (isWalled || Input.GetKey(jumpButton))
                 {
                     move.canMove = false;
                 }

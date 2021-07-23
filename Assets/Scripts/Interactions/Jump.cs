@@ -17,7 +17,8 @@ namespace Splitting
         [SerializeField] private float jumpForce = 1000.0f;
         public float jumpMultiplier = 2.0f;
         public float jumpDivider = 1.0f;
-        public bool jumpKeyDown;
+
+        public KeyCode jumpButton;
 
         [SerializeField] private float timerJump = 2.0f;
         [SerializeField] private float elapsedKeyDown;       
@@ -32,17 +33,17 @@ namespace Splitting
             animator = gameObject.GetComponent<Animator>();
 
             rigidbody2D = GetComponent<Rigidbody2D>();
+
+            jumpButton = new InputSettings().JumpButton;
         }
 
         // Update is called once per frame
         void Update()
-        {
-
-            jumpKeyDown = Input.GetKey(KeyCode.Space);
+        {            
 
             if (canJump && !isLanded && !wasJumping)
             {
-                if (jumpKeyDown)
+                if (Input.GetKeyDown(jumpButton))
                 {
                     elapsedKeyDown += Time.deltaTime;
                 }
@@ -56,13 +57,13 @@ namespace Splitting
                     superJump = false;
                 }
 
-                if (Input.GetKeyUp(KeyCode.Space) && !superJump)
+                if (Input.GetKeyUp(jumpButton) && !superJump)
                 {
                     rigidbody2D.AddForce(new Vector2(0f, jumpForce));                  
 
                     elapsedKeyDown = 0.0f;
                 }
-                else if (Input.GetKeyUp(KeyCode.Space) && superJump)
+                else if (Input.GetKeyUp(jumpButton) && superJump)
                 {                    
                     rigidbody2D.AddForce(new Vector2(0f, jumpForce * (jumpMultiplier / jumpDivider)));                    
 
@@ -83,7 +84,7 @@ namespace Splitting
             }
             
 
-            CallAnimator(jumpKeyDown, velocityY, isLanded);
+            CallAnimator(Input.GetKeyDown(jumpButton), velocityY, isLanded);
             
         }
 

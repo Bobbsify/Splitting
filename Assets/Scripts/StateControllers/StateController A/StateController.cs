@@ -73,7 +73,7 @@ namespace Splitting
                 if (isGrounded)
                 {                   
 
-                    if (AnimatorIsPlaying("AntJump5"))
+                    if (AnimatorIsPlaying("AntJump5") || AnimatorIsPlaying("AntButtonPress"))
                     {
                         move.canMove = false;
                         jump.canJump = false;

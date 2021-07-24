@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 301
   m_Sprite: {fileID: -3278940501819210670, guid: 1c53456bf12063949a7f97d4e167c719,
     type: 3}
   m_Color: {r: 0.21226418, g: 0.99375606, b: 1, a: 1}
@@ -185,6 +185,8 @@ MonoBehaviour:
   buttonToPress: 101
   scriptsToLoad:
   - {fileID: 2433475121976478567}
+  scoringPlatform: {fileID: 0}
+  targetScore: 0
 --- !u!1 &2433475121976478565
 GameObject:
   m_ObjectHideFlags: 0

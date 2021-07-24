@@ -48,6 +48,7 @@ namespace Splitting
     5: Livello 3
     6: Loading Screen
     7: Win Scene
+    8: Tutorial Scene
     */
 
     public enum InGameScenes
@@ -58,6 +59,7 @@ namespace Splitting
         Level2 = 3,
         Level3 = 4,
         LoadingScreen = 5,
-        WinScene = 6
+        WinScene = 6,
+        TutorialScene = 7
     }
 }

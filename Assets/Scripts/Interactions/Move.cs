@@ -21,7 +21,7 @@ namespace Splitting
 
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             animator = gameObject.GetComponent<Animator>();
             initialScale = transform.localScale;

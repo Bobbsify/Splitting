@@ -351,10 +351,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rbToThrow: {fileID: 0}
   entityThrowing: {fileID: 1197837186119568659}
-  maxPower: 15
-  minPower: -15
-  maxAngle: 90
-  minAngle: -90
+  maxPower: 45
+  minPower: -45
+  maxAngle: 45
+  minAngle: -45
   maxCalculations: 500000
   throwing: 0
 --- !u!1 &460920147809103970
@@ -940,7 +940,7 @@ MonoBehaviour:
   jumpForce: 1300
   jumpMultiplier: 1.6
   jumpDivider: 1
-  jumpKeyDown: 0
+  jumpButton: 0
   timerJump: 2
   elapsedKeyDown: 0
 --- !u!114 &4467002386518633220
@@ -962,8 +962,13 @@ MonoBehaviour:
   shake: 1
   lenght: 1
   jump: {fileID: 9209683297213411197}
+  jumpButton: 0
   move: {fileID: 5057541199975206167}
   pickup: {fileID: 5141993665767243004}
+  ant: {fileID: 0}
+  antUnity: {fileID: 0}
+  tyr: {fileID: 0}
+  tyrUnity: {fileID: 0}
   camera: {fileID: 0}
 --- !u!114 &3512373615381440574
 MonoBehaviour:

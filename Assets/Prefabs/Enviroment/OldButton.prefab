@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8888031539623922240}
   - component: {fileID: 8888031539623922245}
   m_Layer: 0
-  m_Name: DoorButton
+  m_Name: OldButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 301
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7,
     type: 3}
   m_Color: {r: 0.9665694, g: 1, b: 0, a: 1}
@@ -126,3 +126,6 @@ MonoBehaviour:
   targetDoors:
   - {fileID: 0}
   inputButton: 101
+  activationType: 0
+  scoringPlatform: {fileID: 0}
+  targetScore: 0

@@ -51,10 +51,8 @@ namespace Splitting
 
                 if (Input.GetKeyUp(undoThrowButton)) //drop
                 {
+                    entityThrowing.GetComponent<Animator>().SetTrigger("release");
                     rbToThrow.velocity = new Vector2(entityThrowing.GetComponent<Collider2D>().bounds.size.x*2, 0) * -entityThrowing.transform.localScale;
-                    entityThrowing.GetComponent<Animator>().SetBool("release", true);
-                    entityThrowing.GetComponent<Animator>().SetBool("pickUp", false);
-                    entityThrowing.GetComponent<Animator>().SetBool("release", false);
                     resetLr();
                 }
 
@@ -85,7 +83,7 @@ namespace Splitting
 
                 if (Input.GetKeyUp(throwButton))
                 {
-                    entityThrowing.GetComponent<Animator>().SetBool("pickUp", false);
+                    entityThrowing.GetComponent<Animator>().SetTrigger("throw");
                     //Animator will call throw
                 }
             }

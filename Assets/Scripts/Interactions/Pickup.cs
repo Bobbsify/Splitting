@@ -49,7 +49,7 @@ namespace Splitting {
                     if (check.collider != null && check.collider.tag == "Carryable")
                     {
                         grabCheck = check;
-                        animator.SetBool("pickUp", true);
+                        animator.SetTrigger("pickUp");
                         break;
                     }
                 }

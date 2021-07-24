@@ -193,7 +193,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Le piattaforme di questo colore sono ascensori. Premi E per attivarli.
+  m_Text: Platforms with this color are elevators, press E to trigger them
 --- !u!222 &70791844
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -351,8 +351,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Questi bottoni si attivano con il peso. Posizionati su di essi o lasciaci
-    un oggetto sopra per attivarli.
+  m_Text: These buttons are triggered by weight. Place a character or an item onto
+    these in order to trigger them.
 --- !u!222 &162751172
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -431,7 +431,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sia Ant, che Tyr, che Tyrant possono interagire con alcuni oggetti.
+  m_Text: All of the previous characters can interact with certain objects.
 --- !u!222 &179529101
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -510,8 +510,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Ant \xE8 in grado di trasportare oggetti se posizionati sulla sua testa.
-    Premi CTRL per gettare a terra l'oggetto."
+  m_Text: Ant can carry objects if they are put on its head. While holding an object
+    press CTRL to release it.
 --- !u!222 &179695855
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1303,7 +1303,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Usa A e D per muoverti e SPACE per saltare.
+  m_Text: Press A & D to move and SPACE to jump.
 --- !u!222 &429530592
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2476,7 +2476,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 14ace7c8a585a4743ae7276e161ac3a9, type: 3}
-    m_FontSize: 14
+    m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -2487,9 +2487,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Tyr pu\xF2 lanciare oggetti. Avvicinati ad esso e premi CTRL per raccoglierlo.
-    Tieni premuto SHIFT e usa WASD per modificare la traiettoia di lancio. Infine
-    rilascia SHIFT per lanciare."
+  m_Text: Tyr is able to throw certain objects. Approach a carryable object and press
+    CTRL to pick it up. Press CTRL again to release it. While holding an object hold
+    SHIFT to start throwing it press A and D to set the throw angle and Increase
+    and decrease the throw power using respectively W and S, release SHIFT to throw
+    the object.
 --- !u!222 &658521007
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2681,8 +2683,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Tyant \xE8 in grado di trasportare oggetti, ma a differenza di Ant pu\xF2
-    raccoglierli da solo usando CTRL. Ripremi CTRL per gettare l'oggetto a terra."
+  m_Text: Tyrant can carry objects but, unlike Ant, it can pick them up on its own
+    by pressing CTRL. Press CTRL again to release the object.
 --- !u!222 &751822887
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2712,7 +2714,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &842340247
 Transform:
   m_ObjectHideFlags: 0
@@ -3036,7 +3038,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sia Ant, che Tyr, che Tyrant possono interagire con alcuni oggetti.
+  m_Text: All of the previous characters can interact with certain objects.
 --- !u!222 &947300938
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3104,7 +3106,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 14ace7c8a585a4743ae7276e161ac3a9, type: 3}
-    m_FontSize: 14
+    m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -3115,9 +3117,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Tyrant pu\xF2 lanciare oggetti. Avvicinati ad esso e premi CTRL per raccoglierlo.
-    Tieni premuto SHIFT e usa WASD per modificare la traiettoia di lancio. Infine
-    rilascia SHIFT per lanciare."
+  m_Text: Tyrant is able to throw certain objects. Approach an object and press CTRL
+    to pick it up. Release it by pressing CTRL. While holding an object hold SHIFT
+    to start throwing it press A and D to set the throw angle and Increase and decrease
+    the throw power using respectively W and S release SHIFT to throw it.
 --- !u!222 &980621086
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3620,7 +3623,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Usa A e D per muoverti.
+  m_Text: Press A & D to move.
 --- !u!222 &1353726250
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3782,8 +3785,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Questi bottoni posso attivare alcuni oggetti nel mondo di gioco, come ad
-    esempio porte. Premi E per attivarli.
+  m_Text: These buttons activate certain objects in the game world such as doors.
+    Press E to toggle them.
 --- !u!222 &1393512863
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3958,7 +3961,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1494464970
 Transform:
   m_ObjectHideFlags: 0
@@ -4476,7 +4479,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Usa A e D per muoverti e SPACE per saltare.
+  m_Text: Press A & D to Move, SPACE to jump.
 --- !u!222 &1730439914
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4642,8 +4645,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Gli oggetti colorati di viola sono quelli che possono essere sollevati
-    e lanciati da Tyr/Tyrant e trasportati da Ant.
+  m_Text: These purple squares can be picked up by both Tyr and Tyrant and can be
+    carried on Ant's head.
 --- !u!222 &1872525019
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5196,7 +5199,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Usa S per abbassarti e passare nelle strettoie.
+  m_Text: Hold S to crouch to move through small gaps.
 --- !u!222 &2111006538
 CanvasRenderer:
   m_ObjectHideFlags: 0

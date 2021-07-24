@@ -44,7 +44,7 @@ namespace Splitting {
                 //Check if there is a grabbable object
                 BoxCollider2D wallCheckCollider = transform.Find("Wall Check").GetComponent<BoxCollider2D>();
                 Vector2 editedTransform = new Vector2(wallCheckCollider.transform.position.x + (Mathf.Abs(wallCheckCollider.offset.x) + wallCheckCollider.size.x) * -transform.localScale.x, transform.position.y);
-                grabChecks = Physics2D.RaycastAll(editedTransform, Vector2.right * -transform.localScale.x);
+                grabChecks = Physics2D.RaycastAll(editedTransform, Vector2.right * -transform.localScale.x, 1f);
                 foreach (RaycastHit2D check in grabChecks) { 
                     if (check.collider != null && check.collider.tag == "Carryable")
                     {

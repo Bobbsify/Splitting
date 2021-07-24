@@ -7,8 +7,8 @@ namespace Splitting
     public class Carry : MonoBehaviour
     {
         public bool canCarry;
-
-        public bool dropKey;
+                
+        public KeyCode dropButton;
 
         public bool isFixed;
         public bool isFixing;
@@ -29,14 +29,15 @@ namespace Splitting
         // Start is called before the first frame update
         void Start()
         {
-            animator = gameObject.GetComponent<Animator>();            
+            animator = gameObject.GetComponent<Animator>();
+
+            dropButton = new InputSettings().ReleaseItemButton;
         }
 
         // Update is called once per frame
         void Update()
-        {
-            dropKey = Input.GetKeyDown(KeyCode.P);                    
-                        
+        {                         
+                       
             if (canCarry)
             {
                 if (carryedObj != null)
@@ -47,7 +48,7 @@ namespace Splitting
             }
             else
             {
-                if (dropKey && isCarrying)
+                if (Input.GetKeyUp(dropButton) && isCarrying)
                 {                  
 
                     wasCarrying = true;

@@ -179,7 +179,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.056806326, y: -2.923544}
+  m_Offset: {x: 0.056806326, y: -2.6172562}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -190,7 +190,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.1243443, y: 0.05412674}
+  m_Size: {x: 4.1243443, y: 0.6667023}
   m_EdgeRadius: 0
 --- !u!114 &700035414641444087
 MonoBehaviour:
@@ -1396,7 +1396,7 @@ MonoBehaviour:
   jumpForce: 1400
   jumpMultiplier: 1.6
   jumpDivider: 1
-  jumpKeyDown: 0
+  jumpButton: 0
   timerJump: 0.7
   elapsedKeyDown: 0
 --- !u!114 &700035413992777756
@@ -1418,6 +1418,7 @@ MonoBehaviour:
   shake: 0.2
   lenght: 0.5
   jump: {fileID: 700035413992777759}
+  jumpButton: 0
   move: {fileID: 700035413992777758}
   carry: {fileID: 700035413992777734}
   autobotUnityA: {fileID: 1886915357}
@@ -1477,7 +1478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canCarry: 0
-  dropKey: 0
+  dropButton: 0
   isFixed: 0
   isFixing: 0
   isCarrying: 0

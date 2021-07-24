@@ -16,6 +16,7 @@ namespace Splitting
         [SerializeField] private float lenght = 1.0f;
 
         public Jump jump;
+        public KeyCode jumpButton;
         public Move move;
         public Carry carry;
 
@@ -29,6 +30,7 @@ namespace Splitting
         // Start is called before the first frame update
         void Start()
         {
+            jumpButton = new InputSettings().JumpButton;
 
             animator = gameObject.GetComponent<Animator>();
         }
@@ -107,7 +109,7 @@ namespace Splitting
                        
                     }
 
-                    if (jump.jumpKeyDown)
+                    if (Input.GetKey(jumpButton))
                     {
                          move.canMove = false;
                     }

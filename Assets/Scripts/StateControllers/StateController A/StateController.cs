@@ -156,6 +156,7 @@ namespace Splitting
             else
             {                
                 move.enabled = false;
+                jump.canJump = false;
 
                 if (isGrounded && AnimatorIsPlaying("AntIdle"))
                 {

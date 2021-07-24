@@ -11,7 +11,9 @@ namespace Splitting
         [SerializeField] private float speed;
         private float horizontalInput;
         private float verticalInput;
+        private Vector3 initialScale;
 
+        //For state controller
         public bool canCrouch;
         [HideInInspector] public bool isCrouched;
         [HideInInspector] public bool canMove;
@@ -19,9 +21,10 @@ namespace Splitting
 
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             animator = gameObject.GetComponent<Animator>();
+            initialScale = transform.localScale;
         }
 
         // Update is called once per frame
@@ -40,15 +43,18 @@ namespace Splitting
             {
                 if (horizontalInput < 0)
                 {
-                    horizontalInput = -1;
+                    horizontalInput = 1;
                 }
                 else
                 {
-                    horizontalInput = 1;
+                    horizontalInput = -1;
                 }
-                transform.localScale = new Vector3(-horizontalInput, transform.localScale.y, 1);
+                transform.localScale = new Vector3(initialScale.x * horizontalInput, initialScale.y);
             }
-            CallAnimator(Time.deltaTime * speed / (isCrouched ? 2 : 1) * horizontalInput, isCrouched);
+            if (canCrouch || canMove)
+            { 
+                CallAnimator(Time.deltaTime * speed / (isCrouched ? 2 : 1) * horizontalInput, isCrouched);
+            }
         }
 
         //Updates animator velocity

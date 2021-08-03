@@ -8,13 +8,13 @@ namespace Splitting
 {
     public class SwitchCharacter : MonoBehaviour
     {
-        [SerializeField] private GameObject targetEntity;
+        [SerializeField] public GameObject targetEntity;
         [SerializeField] private List<string> ScriptsToDisable;
         [SerializeField] private List<string> ScriptsToEnable;
         private KeyCode swapButton; //Defaults to Q
 
         [Header("Tyrant")]
-        [SerializeField] private GameObject tyrant;
+        [SerializeField] private GameObject tyrantPrefab;
         private AutobotUnity unionCheck;
 
 
@@ -66,8 +66,13 @@ namespace Splitting
             Destroy(targetEntity); //Destroy Other
             Destroy(gameObject); //Destroy This
 
-            Instantiate(tyrant);
+            GameObject tyrant = Instantiate(tyrantPrefab);
             tyrant.transform.position = transform.position;
+
+            bool isThisAnt = gameObject.name.ToUpper().Contains("ANT");
+
+            tyrant.GetComponent<UnlinkTyrAnt>().antScripts = isThisAnt ? ScriptsToDisable : ScriptsToEnable;
+            tyrant.GetComponent<UnlinkTyrAnt>().tyrScripts = isThisAnt ? ScriptsToEnable : ScriptsToDisable;
         }
 
         private void TurnThisOff()

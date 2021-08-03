@@ -8,6 +8,9 @@ namespace Splitting
     {
         [SerializeField] private GameObject tyrPrefab;
         [SerializeField] private GameObject antPrefab;
+
+        [HideInInspector] public List<string> antScripts;
+        [HideInInspector] public List<string> tyrScripts;
     
         private Animator animator;
         private KeyCode unlinkKey;
@@ -35,8 +38,14 @@ namespace Splitting
         {
             Destroy(gameObject); //Destroy This
 
-            Instantiate(tyrPrefab); //Create Ant
-            Instantiate(antPrefab); //Create Tyr
+            GameObject tyr = Instantiate(tyrPrefab); //Create Ant
+            GameObject ant = Instantiate(antPrefab); //Create Tyr
+
+            tyr.transform.position = transform.position;
+            ant.transform.position = transform.position;
+
+            ant.GetComponent<SwitchCharacter>().targetEntity = tyr;
+            tyr.GetComponent<SwitchCharacter>().targetEntity = ant;
         }
     }
 }

@@ -41,8 +41,9 @@ namespace Splitting
             GameObject tyr = Instantiate(tyrPrefab); //Create Ant
             GameObject ant = Instantiate(antPrefab); //Create Tyr
 
-            tyr.transform.position = transform.position;
             ant.transform.position = transform.position;
+            Vector2 lowerTyr = new Vector2(ant.transform.position.x,ant.transform.position.y - 1); //1 --> height difference
+            tyr.transform.position = lowerTyr;
 
             ant.GetComponent<SwitchCharacter>().targetEntity = tyr;
             tyr.GetComponent<SwitchCharacter>().targetEntity = ant;

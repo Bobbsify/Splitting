@@ -30,7 +30,7 @@ namespace Splitting
         new private CameraController camera;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             jumpButton = new InputSettings().JumpButton;
 

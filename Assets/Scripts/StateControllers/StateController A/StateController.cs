@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Splitting
 {
@@ -15,41 +16,76 @@ namespace Splitting
         [SerializeField] private float shake = 1.0f;
         [SerializeField] private float lenght = 1.0f;
 
-        public Jump jump;
-        public KeyCode jumpButton;
-        public Move move;
-        public Carry carry;
 
-        public AutobotUnity autobotUnityA;
-        public AutobotUnity autobotUnityT;
+        private KeyCode jumpButton;
+        private Jump antJump;
+        private Move antMove;
+        private Carry antCarry;
+
+        private AutobotUnity antAutobotUnity;
+        private AutobotUnity tyrAutobotUnity;
 
         private Animator animator;
 
-        new public CameraController camera;
+        new private CameraController camera;
 
         // Start is called before the first frame update
         void Start()
         {
             jumpButton = new InputSettings().JumpButton;
 
+            // Get Move script  
+            antMove = gameObject.GetComponent<Move>();                     
+
+            // Get Jump script            
+            antJump = gameObject.GetComponent<Jump>();
+                        
+            // Get Carry script                        
+            antCarry = gameObject.GetComponent<Carry>();                       
+
+            // Get Animator                        
             animator = gameObject.GetComponent<Animator>();
+                        
+            // Get Ant AutobotUnity script        
+            antAutobotUnity = gameObject.GetComponent<AutobotUnity>();          
+            
+            // Get Tyr AutobotUnity script
+            try
+            {
+                tyrAutobotUnity = GameObject.Find("Tyr").GetComponent<AutobotUnity>();
+            }
+            catch
+            {
+                throw new Exception("Tyr AutobotUnity script not found");
+            }
+
+            // Get CameraController script
+            try
+            {
+                camera = GameObject.Find("Main Camera").GetComponent<CameraController>();
+            }
+            catch
+            {
+                throw new Exception("Camera not found");
+            }
+            
         }
 
         // Update is called once per frame
         void LateUpdate()
         {
             
-            if (jump.isLanded && !AnimatorIsPlaying("AntJump5"))
+            if (antJump.isLanded && !AnimatorIsPlaying("AntJump5"))
             {
-                jump.isLanded = false;
+                antJump.isLanded = false;
             }
             
             if (isGrounded)
             {
-                if (jump.wasJumping && !animator.IsInTransition(0))
+                if (antJump.wasJumping && !animator.IsInTransition(0))
                 {
-                    jump.isLanded = true;
-                    jump.wasJumping = false;
+                    antJump.isLanded = true;
+                    antJump.wasJumping = false;
 
                     ScreenShake(shake, lenght);
                 }
@@ -57,17 +93,17 @@ namespace Splitting
 
             if (hasControl)
             {
-                jump.enabled = true;
-                carry.enabled = true;
-                move.enabled = true;
+                antJump.enabled = true;
+                antCarry.enabled = true;
+                antMove.enabled = true;
 
                 if (isWalled)
                 {
-                     move.canMove = false;
+                     antMove.canMove = false;
                 }
                 else
                 {
-                     move.canMove = true;
+                     antMove.canMove = true;
                 }
 
                 if (isGrounded)
@@ -75,96 +111,96 @@ namespace Splitting
 
                     if (AnimatorIsPlaying("AntJump5") || AnimatorIsPlaying("AntButtonPress"))
                     {
-                        move.canMove = false;
-                        jump.canJump = false;
-                        move.canCrouch = false;
+                        antMove.canMove = false;
+                        antJump.canJump = false;
+                        antMove.canCrouch = false;
                     }                    
                     else if (AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd"))
                     {
-                        jump.canJump = false;
-                        move.canCrouch = false;
-                        move.canMove = false;
+                        antJump.canJump = false;
+                        antMove.canCrouch = false;
+                        antMove.canMove = false;
                     }
                     else 
                     {
-                        if (carry.isCarrying)
+                        if (antCarry.isCarrying)
                         {
-                            jump.canJump = true;
-                            jump.superJump = false;
-                            jump.jumpDivider = jump.jumpMultiplier;
-                            move.canCrouch = false;
+                            antJump.canJump = true;
+                            antJump.superJump = false;
+                            antJump.jumpDivider = antJump.jumpMultiplier;
+                            antMove.canCrouch = false;
 
-                            autobotUnityA.canConnect = false;
-                            autobotUnityT.canConnect = false;
+                            antAutobotUnity.canConnect = false;
+                            tyrAutobotUnity.canConnect = false;
                         }
                         else
                         {
-                            jump.canJump = true;
-                            jump.jumpDivider = 1.0f;                            
-                            move.canCrouch = true;
+                            antJump.canJump = true;
+                            antJump.jumpDivider = 1.0f;                            
+                            antMove.canCrouch = true;
 
-                            autobotUnityA.canConnect = true;
-                            autobotUnityT.canConnect = true;
+                            antAutobotUnity.canConnect = true;
+                            tyrAutobotUnity.canConnect = true;
                         }
                        
                     }
 
                     if (Input.GetKey(jumpButton))
                     {
-                         move.canMove = false;
+                         antMove.canMove = false;
                     }
 
-                    if (move.isCrouched)
+                    if (antMove.isCrouched)
                     {
-                         jump.canJump = false;
-                         jump.superJump = false;
+                         antJump.canJump = false;
+                         antJump.superJump = false;
                     }
 
 
-                    if (isObstructed && move.isCrouched)
+                    if (isObstructed && antMove.isCrouched)
                     {
-                         move.isObstructed = true;
+                         antMove.isObstructed = true;
                     }
                     else
                     {
-                         move.isObstructed = false;
+                         antMove.isObstructed = false;
                     }
 
-                    if (isObstructed || carry.isCarrying)
+                    if (isObstructed || antCarry.isCarrying)
                     {
-                        carry.canCarry = false;
+                        antCarry.canCarry = false;
                     }
                     else
                     {
-                        carry.canCarry = true;
+                        antCarry.canCarry = true;
                     }
                 }
 
                 if (!isGrounded)
                 {
-                    jump.canJump = false;
-                    move.canCrouch = false;
-                    carry.canCarry = false;
+                    antJump.canJump = false;
+                    antMove.canCrouch = false;
+                    antCarry.canCarry = false;
 
                     if (!isWalled)
                     {
-                         move.canMove = true;
+                         antMove.canMove = true;
                     }
                 }               
                 
             }
             else
             {                
-                move.enabled = false;
-                jump.canJump = false;
+                antMove.enabled = false;
+                antJump.canJump = false;
 
                 if (isGrounded && AnimatorIsPlaying("AntIdle"))
                 {
-                    jump.enabled = false;
+                    antJump.enabled = false;
                 }
                 else
                 {
-                    jump.enabled = true;
+                    antJump.enabled = true;
                 }
             }
             
@@ -172,7 +208,7 @@ namespace Splitting
             {
                 hasControl = false;
             }
-            else if (!autobotUnityA.connectionPrep && gameObject.tag == "Player")
+            else if (!antAutobotUnity.connectionPrep && gameObject.tag == "Player")
             {
                 hasControl = true;
             }         

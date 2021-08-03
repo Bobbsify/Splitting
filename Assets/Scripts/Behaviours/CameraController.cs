@@ -23,18 +23,6 @@ namespace Splitting
         void Awake()
         {
             player = findPlayer();
-            xTo = transform.position.x;
-            yTo = transform.position.y;
-        }
-
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-                shakeMagnitude = 4.0f;
-                shakeRemain = 4.0f;
-                shakeLenght = 12.0f;
-            }
         }
 
         // Update is called once per frame
@@ -42,7 +30,7 @@ namespace Splitting
         {
             if (player != null)
             {
-                if (player.tag != "Player")
+                if (player.tag != "Player") //Switching
                 {
                     player = findPlayer();
                 }
@@ -59,6 +47,10 @@ namespace Splitting
                     transform.position = new Vector3(transform.position.x + Random.Range(-shakeRemain, shakeRemain), transform.position.y + Random.Range(-shakeRemain, shakeRemain), transform.position.z);
                     shakeRemain = Mathf.Max(0, shakeRemain - ((1 / shakeLenght) * shakeMagnitude * Time.deltaTime));
                 }
+            }
+            else //Object could be destroyed
+            {
+                player = findPlayer();
             }
             
 

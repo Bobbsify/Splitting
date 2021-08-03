@@ -14,8 +14,7 @@ namespace Splitting
         private KeyCode swapButton; //Defaults to Q
 
         [Header("Tyrant")]
-        [SerializeField] private string tyrantName;
-        private GameObject tyrAnt;
+        [SerializeField] private GameObject tyrant;
         private AutobotUnity unionCheck;
 
 
@@ -55,21 +54,6 @@ namespace Splitting
         private void gatherInfo()
         {
             swapButton = new InputSettings().SwitchCharacterButton;
-            try
-            {
-                tyrAnt = transform.Find(tyrantName).gameObject;
-            }
-            catch
-            {
-                try
-                {
-                    tyrAnt = targetEntity.transform.Find(tyrantName).gameObject;
-                }
-                catch
-                {
-                    throw new Exception("Neither Entity has a TyrAnt attached OR the specified TyrAnt name is incorrect! Please attach a tyrant to either entity and assign its correct name in the \"SwitchCharacter\" module");
-                }
-            }
             unionCheck = GetComponent<AutobotUnity>();
             if (unionCheck == null)
             {
@@ -79,19 +63,11 @@ namespace Splitting
 
         private void Connect()
         {
-            targetEntity.SetActive(false); //Disable Other
-            targetEntity.tag = "Untagged";
-            
-            gameObject.SetActive(false); //Disable This
-            gameObject.tag = "Untagged";
+            Destroy(targetEntity); //Destroy Other
+            Destroy(gameObject); //Destroy This
 
-            tyrAnt.transform.parent = null; //Remove Object from parent
-            
-            targetEntity.transform.parent = tyrAnt.transform; // Set Ant&Tyr as children of TyrAnt
-            transform.parent = tyrAnt.transform;
-            
-            tyrAnt.SetActive(true);
-            tyrAnt.tag = "Player";
+            Instantiate(tyrant);
+            tyrant.transform.position = transform.position;
         }
 
         private void TurnThisOff()

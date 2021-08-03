@@ -7,20 +7,22 @@ namespace Splitting
 
     public class CameraController : MonoBehaviour
     {
-        public GameObject[] players;        
-
         private float xTo;
         private float yTo;
 
+        [Header("Shaking Settings")]
         public float shakeLenght = 0.0f;
         public float shakeMagnitude = 0.0f;
         public float shakeRemain = 0.0f;
 
+        private GameObject player;
+
         [SerializeField] private Vector3 offset = new Vector3(0, 8, 0);
 
         // Start is called before the first frame update
-        void Start()
-        {      
+        void Awake()
+        {
+            player = findPlayer();
             xTo = transform.position.x;
             yTo = transform.position.y;
         }
@@ -38,15 +40,15 @@ namespace Splitting
         // Update is called once per frame
         void LateUpdate()
         {
-
-            // Update destination
-            foreach (GameObject player in players)
+            if (player != null)
             {
-                if (player.tag == "Player")
+                if (player.tag != "Player")
                 {
-                    xTo = player.transform.position.x;
-                    yTo = player.transform.position.y;
+                    player = findPlayer();
                 }
+
+                xTo = player.transform.position.x;
+                yTo = player.transform.position.y;
 
                 // Update position
                 transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x)), transform.position.y + ((yTo - transform.position.y)), transform.position.z) + offset;
@@ -58,7 +60,13 @@ namespace Splitting
                     shakeRemain = Mathf.Max(0, shakeRemain - ((1 / shakeLenght) * shakeMagnitude * Time.deltaTime));
                 }
             }
+            
 
+        }
+
+        private GameObject findPlayer()
+        {
+            return GameObject.FindGameObjectWithTag("Player");
         }
     }
 }

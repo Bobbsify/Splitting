@@ -780,11 +780,11 @@ GameObject:
   - component: {fileID: 6246131808769302956}
   m_Layer: 0
   m_Name: TyrAnt
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1323024487686538124
 Transform:
   m_ObjectHideFlags: 0
@@ -793,7 +793,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1197837186119568659}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -229.72464, y: -197.05963, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7794788183945937107}
@@ -965,9 +965,9 @@ MonoBehaviour:
   jumpButton: 0
   move: {fileID: 5057541199975206167}
   pickup: {fileID: 5141993665767243004}
-  ant: {fileID: 0}
+  ant: {fileID: 7246107592126878312, guid: 64f293b15e2128e4c8536dd0a6409d02, type: 3}
   antUnity: {fileID: 0}
-  tyr: {fileID: 0}
+  tyr: {fileID: 3107717179103924200, guid: d5e5d6ed14486e04fa217c9c42c353fb, type: 3}
   tyrUnity: {fileID: 0}
   camera: {fileID: 0}
 --- !u!114 &3512373615381440574
@@ -982,8 +982,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e94073a91a0fe4c4790a16fb60eb5577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tyrName: Tyr
-  antName: Ant
+  tyrPrefab: {fileID: 3107717179103924200, guid: d5e5d6ed14486e04fa217c9c42c353fb,
+    type: 3}
+  antPrefab: {fileID: 7246107592126878312, guid: 64f293b15e2128e4c8536dd0a6409d02,
+    type: 3}
 --- !u!114 &5141993665767243004
 MonoBehaviour:
   m_ObjectHideFlags: 0

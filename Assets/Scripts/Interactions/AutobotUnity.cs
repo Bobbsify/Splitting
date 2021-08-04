@@ -49,28 +49,7 @@ namespace Splitting
             catch
             {
                 throw new Exception("Could not get state controllers");
-            }
-            
-
-            /*
-            try
-            {
-                antStateController = GameObject.Find("Ant").GetComponent<StateController>();
-            }
-            catch
-            {
-                throw new Exception("Ant StateController script not found");
-            }
-
-            try
-            {
-                tyrStateController = GameObject.Find("Tyr").GetComponent<StateControllerT>();
-            }
-            catch
-            {
-                throw new Exception("Tyr StateController script not found");
-            }
-            */
+            }            
 
             initialScale = transform.localScale;
         }
@@ -194,11 +173,15 @@ namespace Splitting
             {
                 antStateController = switchCharacter.targetEntity.GetComponent<StateController>();
                 tyrStateController = gameObject.GetComponent<StateControllerT>();
+
+                ant = switchCharacter.targetEntity;
             }
             else
             {
                 antStateController = gameObject.GetComponent<StateController>();
                 tyrStateController = switchCharacter.targetEntity.GetComponent<StateControllerT>();
+
+                ant = gameObject;
             }
         }
     }

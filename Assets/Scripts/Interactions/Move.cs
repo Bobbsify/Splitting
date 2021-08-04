@@ -34,7 +34,7 @@ namespace Splitting
             verticalInput = Input.GetAxis("Vertical");
             isCrouched = (verticalInput < 0 || isObstructed) && canCrouch;
 
-            if (canMove)
+            if (canMove) // If a wall is encountered this bool will let it move again instead of disabling the script which wont
             {
                 transform.position = new Vector2(transform.position.x + (Time.deltaTime * speed / (isCrouched ? 2 : 1) * horizontalInput), transform.position.y); //halves speed if is crouchings                
             }
@@ -52,8 +52,10 @@ namespace Splitting
                 transform.localScale = new Vector3(initialScale.x * horizontalInput, initialScale.y);
             }
             if (canCrouch || canMove)
-            { 
-                CallAnimator(Time.deltaTime * speed / (isCrouched ? 2 : 1) * horizontalInput, isCrouched);
+            {
+                if (tag == "Player") { 
+                    CallAnimator(Time.deltaTime * speed / (isCrouched ? 2 : 1) * horizontalInput, isCrouched);
+                }
             }
         }
 

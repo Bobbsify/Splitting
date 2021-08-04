@@ -25,6 +25,8 @@ namespace Splitting
         private AutobotUnity antAutobotUnity;
         private AutobotUnity tyrAutobotUnity;
 
+        private SwitchCharacter switchCharacter;
+
         private Animator animator;
 
         new private CameraController camera;
@@ -47,12 +49,15 @@ namespace Splitting
             animator = gameObject.GetComponent<Animator>();
                         
             // Get Ant AutobotUnity script        
-            antAutobotUnity = gameObject.GetComponent<AutobotUnity>();          
-            
+            antAutobotUnity = gameObject.GetComponent<AutobotUnity>();
+
+            // Get SwitchCharacter script
+            switchCharacter = gameObject.GetComponent<SwitchCharacter>();
+
             // Get Tyr AutobotUnity script
             try
             {
-                tyrAutobotUnity = GameObject.Find("Tyr").GetComponent<AutobotUnity>();
+                tyrAutobotUnity = switchCharacter.targetEntity.GetComponent<AutobotUnity>();
             }
             catch
             {
@@ -67,8 +72,7 @@ namespace Splitting
             catch
             {
                 throw new Exception("Camera not found");
-            }
-            
+            }            
         }
 
         // Update is called once per frame

@@ -60,12 +60,10 @@ public class DoorActivator : MonoBehaviour
             if (col.gameObject.tag == "Player")
             {
                 playerIsInZone = true;
-                Debug.Log("In - "+ col.name);
             }
             else
             {
                 playerIsInZone = false;
-                Debug.Log("Out" + col.name);
             }
         }
     }
@@ -77,7 +75,6 @@ public class DoorActivator : MonoBehaviour
             if (col.gameObject.tag == "Player")
             {
                 playerIsInZone = false;
-                Debug.Log("Out2" + col.name);
             }
         }
     }

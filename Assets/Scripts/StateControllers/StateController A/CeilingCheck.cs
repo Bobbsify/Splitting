@@ -6,8 +6,8 @@ namespace Splitting
 {
     public class CeilingCheck : MonoBehaviour
     {
-        public StateController stateController;
-        public Carry carry;
+        private StateController stateController;
+        private Carry carry;
 
         private Rigidbody2D objRig;
 
@@ -15,6 +15,10 @@ namespace Splitting
         void Start()
         {
             objRig = gameObject.GetComponent<Rigidbody2D>();
+
+            stateController = gameObject.GetComponentInParent<StateController>();
+
+            carry = gameObject.GetComponentInParent<Carry>();
         }
 
         // Update is called once per frame

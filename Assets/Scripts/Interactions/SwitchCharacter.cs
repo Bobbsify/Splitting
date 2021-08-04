@@ -42,7 +42,10 @@ namespace Splitting
                 }
                 else
                 {
-                    throw new Exception("Unknown State Exception: unionCheck should be assigned but is instead " + unionCheck);
+                    gatherInfo();
+                    if (unionCheck == null) { 
+                        throw new Exception("Unknown State Exception: unionCheck should be assigned but is instead " + unionCheck+"\n");
+                    }
                 }
             }
         }

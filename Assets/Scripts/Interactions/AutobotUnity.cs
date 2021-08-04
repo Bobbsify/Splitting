@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Splitting
 {
@@ -14,8 +15,9 @@ namespace Splitting
         [SerializeField] private float connectDistance = 5.0f;
         [SerializeField] private float approachSpeed;
 
-        public StateController stateController;
-        public StateControllerT stateControllerT;
+        public StateController antStateController;
+        public StateControllerT tyrStateController;
+        public SwitchCharacter switchCharacter;
         private Animator animator;
 
         private Rigidbody2D targetRig;
@@ -29,7 +31,7 @@ namespace Splitting
         private Vector3 initialScale;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             connectButton = new InputSettings().SwitchCharacterButton;
 
@@ -37,6 +39,38 @@ namespace Splitting
             capsuleCol = gameObject.GetComponent<CapsuleCollider2D>();
 
             animator = gameObject.GetComponent<Animator>();
+
+            switchCharacter = gameObject.GetComponent<SwitchCharacter>();
+
+            try
+            {
+                GetStateControllers();
+            }
+            catch
+            {
+                throw new Exception("Could not get state controllers");
+            }
+            
+
+            /*
+            try
+            {
+                antStateController = GameObject.Find("Ant").GetComponent<StateController>();
+            }
+            catch
+            {
+                throw new Exception("Ant StateController script not found");
+            }
+
+            try
+            {
+                tyrStateController = GameObject.Find("Tyr").GetComponent<StateControllerT>();
+            }
+            catch
+            {
+                throw new Exception("Tyr StateController script not found");
+            }
+            */
 
             initialScale = transform.localScale;
         }
@@ -76,11 +110,11 @@ namespace Splitting
             {
                 if (gameObject.layer == 9)
                 {
-                    stateController.hasControl = false;
+                    antStateController.hasControl = false;
                 }
                 else if (gameObject.layer == 8)
                 {
-                    stateControllerT.hasControl = false;
+                    tyrStateController.hasControl = false;
                 }                
                 connectionPrep = true;
             }
@@ -151,6 +185,20 @@ namespace Splitting
             if (animator != null) //is null falsey?
             {
                 animator.SetFloat("velocityX", Mathf.Abs(speed));                
+            }
+        }
+
+        public void GetStateControllers()
+        {
+            if (switchCharacter.targetEntity.name.ToUpper().Contains("ANT"))
+            {
+                antStateController = switchCharacter.targetEntity.GetComponent<StateController>();
+                tyrStateController = gameObject.GetComponent<StateControllerT>();
+            }
+            else
+            {
+                antStateController = gameObject.GetComponent<StateController>();
+                tyrStateController = switchCharacter.targetEntity.GetComponent<StateControllerT>();
             }
         }
     }

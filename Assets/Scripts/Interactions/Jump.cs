@@ -18,7 +18,7 @@ namespace Splitting
         public float jumpMultiplier = 2.0f;
         public float jumpDivider = 1.0f;
 
-        public KeyCode jumpButton;
+        private KeyCode jumpButton;
 
         [SerializeField] private float timerJump = 2.0f;
         [SerializeField] private float elapsedKeyDown;       

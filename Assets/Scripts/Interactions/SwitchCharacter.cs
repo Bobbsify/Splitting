@@ -17,14 +17,10 @@ namespace Splitting
         [SerializeField] private GameObject tyrantPrefab;
         private AutobotUnity unionCheck;
 
-
-        private void Awake()
-        {
-            gatherInfo();
-        }
-
+        
         private void OnEnable()
         {
+            StopMovementX();
             gatherInfo();
         }
 
@@ -79,7 +75,6 @@ namespace Splitting
         {
             foreach (string script in ScriptsToDisable) //Get Scripts and disable them one by one
             {
-                StopMovementX();
                 (gameObject.GetComponent(script) as MonoBehaviour).enabled = false;
             }
             gameObject.tag = "Untagged";
@@ -97,7 +92,7 @@ namespace Splitting
 
         private void StopMovementX()
         {
-            GetComponent<Animator>().SetFloat("velocityX", 0.0f);
+            targetEntity.GetComponent<Animator>().SetFloat("velocityX",0);
         }
     }
 }

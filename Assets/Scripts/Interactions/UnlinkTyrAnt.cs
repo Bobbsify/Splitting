@@ -47,6 +47,8 @@ namespace Splitting
 
             ant.GetComponent<SwitchCharacter>().targetEntity = tyr;
             tyr.GetComponent<SwitchCharacter>().targetEntity = ant;
+
+            ant.GetComponent<AutobotUnity>().enabled = true;
         }
     }
 }

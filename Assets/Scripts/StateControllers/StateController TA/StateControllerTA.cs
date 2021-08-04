@@ -45,8 +45,8 @@ namespace Splitting
             ant = gameObject.transform.Find("Ant").gameObject;
             tyr = gameObject.transform.Find("Tyr").gameObject;
 
-            antUnity = ant.GetComponent<AutobotUnity>();
-            tyrUnity = tyr.GetComponent<AutobotUnity>();
+            //antUnity = ant.GetComponent<AutobotUnity>();
+            //tyrUnity = tyr.GetComponent<AutobotUnity>();
 
             jumpButton = new InputSettings().JumpButton;
         }
@@ -61,6 +61,7 @@ namespace Splitting
 
             if (hasControl)
             {
+
                 jump.enabled = true;
                 move.enabled = true;
 
@@ -126,8 +127,9 @@ namespace Splitting
             {
                 hasControl = true;
 
-                antUnity.readyForConnection = false;
-                tyrUnity.readyForConnection = false;
+
+                //antUnity.readyForConnection = false;
+                //tyrUnity.readyForConnection = false;
             }
         }
 

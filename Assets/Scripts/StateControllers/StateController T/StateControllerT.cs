@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Splitting
 {
@@ -12,16 +13,19 @@ namespace Splitting
         public bool isWalled;
         public bool isObstructed;
 
-        public Move move;
-        public Jump jump;
-        public Pickup pickup;
+        private Move tyrMove;
+        private Jump tyrJump;
+        private Pickup tyrPickup;
 
-        public AutobotUnity autobotUnity;
+        private AutobotUnity tyrAutobotUnity;
+        private AutobotUnity antAutobotUnity;
+
+        private SwitchCharacter switchCharacter;
 
         private GameObject trajectPred;
         private Throw getThrow;
 
-        new public CameraController camera;
+        new private CameraController camera;
         [SerializeField] private float shake = 1.0f;
         [SerializeField] private float lenght = 1.0f;
 
@@ -30,6 +34,42 @@ namespace Splitting
         // Start is called before the first frame update
         void Start()
         {
+            // Get Move script  
+            tyrMove = gameObject.GetComponent<Move>();
+
+            // Get Jump script            
+            tyrJump = gameObject.GetComponent<Jump>();
+
+            // Get Pickup script
+            tyrPickup = gameObject.GetComponent<Pickup>();
+
+            // Get Tyr AutobotUnity script        
+            tyrAutobotUnity = gameObject.GetComponent<AutobotUnity>();
+
+            // Get SwitchCharacter script
+            switchCharacter = gameObject.GetComponent<SwitchCharacter>();
+
+            // Get Ant AutobotUnity script
+            try
+            {
+                antAutobotUnity = switchCharacter.targetEntity.GetComponent<AutobotUnity>();
+            }
+            catch
+            {
+                throw new Exception("Ant AutobotUnity script not found");
+            }
+
+            // Get CameraController script
+            try
+            {
+                camera = GameObject.Find("Main Camera").GetComponent<CameraController>();
+            }
+            catch
+            {
+                throw new Exception("Camera not found");
+            }
+
+            // Get animator
             animator = gameObject.GetComponent<Animator>();
 
             trajectPred = GameObject.Find("TrajectoryPrediction");
@@ -40,17 +80,17 @@ namespace Splitting
         void LateUpdate()
         {
 
-            if (jump.isLanded && !AnimatorIsPlaying("Tyr falling2"))
+            if (tyrJump.isLanded && !AnimatorIsPlaying("Tyr falling2"))
             {
-                jump.isLanded = false;
+                tyrJump.isLanded = false;
             }
 
             if (isGrounded)
             {
-                if (jump.wasJumping && !animator.IsInTransition(0))
+                if (tyrJump.wasJumping && !animator.IsInTransition(0))
                 {
-                    jump.isLanded = true;
-                    jump.wasJumping = false;
+                    tyrJump.isLanded = true;
+                    tyrJump.wasJumping = false;
 
                     ScreenShake(shake, lenght);
                 }
@@ -60,57 +100,63 @@ namespace Splitting
             {
                 hasControl = false;
             }
-            else if (!autobotUnity.connectionPrep && gameObject.tag == "Player")
+            else if (!tyrAutobotUnity.connectionPrep && gameObject.tag == "Player")
             {
                 hasControl = true;
             }
 
             if (hasControl)
             {
-                jump.enabled = true;
-                move.enabled = true;                       
+                tyrJump.enabled = true;
+                tyrMove.enabled = true;                       
 
-                jump.canJump = false;
+                tyrJump.canJump = false;
 
                 if (isWalled)
                 {
-                    move.canMove = false;
+                    tyrMove.canMove = false;
                 }
                 else
                 {
-                    move.canMove = true;
+                    tyrMove.canMove = true;
                 }
 
                 if (getThrow.rbToThrow || AnimatorIsPlaying("Tyr throw1") || AnimatorIsPlaying("Tyr throw4"))
                 {
-                    move.enabled = false;
+                    tyrMove.enabled = false;
+
+                    antAutobotUnity.canConnect = false;
+                    tyrAutobotUnity.canConnect = false;
                 }
                 else
                 {
-                    move.enabled = true;
+                    tyrMove.enabled = true;
+
+                    antAutobotUnity.canConnect = true;
+                    tyrAutobotUnity.canConnect = true;
                 }
 
                 if (isGrounded)
                 {
-                    pickup.enabled = true;
+                    tyrPickup.enabled = true;
                 }
                 else
                 {
-                    pickup.enabled = false;
+                    tyrPickup.enabled = false;
                 }
             }
             else
             {                
-                pickup.enabled = false;
-                move.enabled = false;
+                tyrPickup.enabled = false;
+                tyrMove.enabled = false;
 
                 if (isGrounded && AnimatorIsPlaying("Tyr idle"))
                 {
-                    jump.enabled = false;
+                    tyrJump.enabled = false;
                 }
                 else
                 {
-                    jump.enabled = true;
+                    tyrJump.enabled = true;
                 }
             }
 

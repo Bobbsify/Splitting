@@ -60,7 +60,7 @@ namespace Splitting {
         {
             Rigidbody2D objRigidbody = grabCheck.collider.gameObject.GetComponent<Rigidbody2D>();
             grabCheck.collider.gameObject.transform.parent = transform;
-            grabCheck.collider.gameObject.transform.position = new Vector2(transform.position.x, transform.position.y + col.bounds.size.y * 2);
+            grabCheck.collider.gameObject.transform.position = fetchCorrectPosition(grabCheck.collider.gameObject);
             objRigidbody.isKinematic = true;
             throwScript.rbToThrow = objRigidbody;
         }
@@ -70,12 +70,37 @@ namespace Splitting {
             trajectoryPrediction.GetComponent<Throw>().ThrowEntity();
         }
 
+        private Vector2 fetchCorrectPosition(GameObject box)
+        {
+            Vector2 result;
+
+            try
+            {
+                Vector2 boxColliderSize = box.GetComponent<BoxCollider2D>().size; // x --> width | y --> height
+                BoxCollider2D playerBoxCollider = GetComponent<BoxCollider2D>();
+                
+                //Get top ( Y + 1/2 size + offset)
+                float top = playerBoxCollider.transform.position.y + playerBoxCollider.size.y / 2 + playerBoxCollider.offset.y;
+
+                //offsetY is distance from top to bottom + boxColliderSize/2 
+                float offsetY = boxColliderSize.y;
+                
+                result = new Vector2(playerBoxCollider.transform.position.x, top + offsetY); // center , center + offset to height + box
+            }
+            catch
+            {
+                Debug.LogWarning("Could not find collider, resorting to default formula");
+                result = new Vector2(transform.position.x, transform.position.y + col.bounds.size.y * 2);
+            }
+
+            return result;
+        }
+
         private void OnDrawGizmosSelected()
         {
             col = gameObject.GetComponent<CapsuleCollider2D>();
             BoxCollider2D wallCheckCollider = transform.Find("Wall Check").GetComponent<BoxCollider2D>();
             Gizmos.color = Color.red;
-            //Gizmos.DrawRay(new Vector2((wallCheckCollider.transform.position.x + wallCheckCollider.offset.x - wallCheckCollider.size.x), transform.position.y), Vector2.right * -transform.localScale.x);
             Gizmos.DrawRay(new Vector2(wallCheckCollider.transform.position.x + (Mathf.Abs(wallCheckCollider.offset.x) + wallCheckCollider.size.x ) * -transform.localScale.x, transform.position.y), Vector2.right * -transform.localScale.x);
         }
     }

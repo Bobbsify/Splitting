@@ -269,7 +269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da72cb6ff4c0e9245aef5db05076a911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateController: {fileID: 609878403404720499}
 --- !u!1 &609878404420161131
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,7 +339,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3442abb08e3a52945852eb9541bc99c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateController: {fileID: 609878403404720499}
 --- !u!1 &609878404466623088
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +409,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5e235ea3f84174da744ee42af20657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateController: {fileID: 609878403404720499}
 --- !u!1 &948313961462416741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,7 +1007,7 @@ Transform:
   m_GameObject: {fileID: 3107717179103924200}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
+  m_LocalScale: {x: 1.15, y: 1.15, z: 1}
   m_Children:
   - {fileID: 1443692432254731052}
   - {fileID: 2837547841956245069}
@@ -1146,7 +1143,6 @@ MonoBehaviour:
   jumpForce: 1000
   jumpMultiplier: 2
   jumpDivider: 1
-  jumpButton: 0
   timerJump: 2
   elapsedKeyDown: 0
 --- !u!114 &609878403404720499
@@ -1165,11 +1161,6 @@ MonoBehaviour:
   isGrounded: 0
   isWalled: 0
   isObstructed: 0
-  move: {fileID: 609878403404720496}
-  jump: {fileID: 2044338324}
-  pickup: {fileID: 7944306211986232739}
-  autobotUnity: {fileID: 2044338323}
-  camera: {fileID: 0}
   shake: 1
   lenght: 1
 --- !u!114 &609878403404720498
@@ -1211,8 +1202,9 @@ MonoBehaviour:
   readyForConnection: 0
   connectDistance: 5
   approachSpeed: 5
-  stateController: {fileID: 0}
-  stateControllerT: {fileID: 609878403404720499}
+  antStateController: {fileID: 0}
+  tyrStateController: {fileID: 0}
+  switchCharacter: {fileID: 0}
   ant: {fileID: 0}
 --- !u!114 &7944306211986232739
 MonoBehaviour:

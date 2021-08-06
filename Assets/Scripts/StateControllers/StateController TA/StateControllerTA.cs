@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Splitting
 {
@@ -15,38 +16,56 @@ namespace Splitting
         [SerializeField] private float shake = 1.0f;
         [SerializeField] private float lenght = 1.0f;
 
-        public Jump jump;
-        public KeyCode jumpButton;
-        public Move move;
-        public Pickup pickup;
+        private Jump tyrantJump;
+        private KeyCode jumpButton;
+        private Move tyrantMove;
+        private Pickup tyrantPickup;
 
         private GameObject trajectPred;
         private Throw getThrow;
 
+        /*
         public GameObject ant;
         public AutobotUnity antUnity;
         public GameObject tyr;
         public AutobotUnity tyrUnity;
+        */
 
         private Animator animator;
 
-        new public CameraController camera;
+        new private CameraController camera;
 
         // Start is called before the first frame update
         void Start()
         {
-            hasControl = true;
+            // Get Move script  
+            tyrantMove = gameObject.GetComponent<Move>();
+
+            // Get Jump script            
+            tyrantJump = gameObject.GetComponent<Jump>();
+
+            // Get Pickup script
+            tyrantPickup = gameObject.GetComponent<Pickup>();
 
             animator = gameObject.GetComponent<Animator>();
 
             trajectPred = GameObject.Find("TrajectoryPredictionTA");
             getThrow = trajectPred.GetComponentInChildren<Throw>();
 
+            // Get CameraController script
+            try
+            {
+                camera = GameObject.Find("Main Camera").GetComponent<CameraController>();
+            }
+            catch
+            {
+                throw new Exception("Camera not found");
+            }
+
+            /*
             ant = gameObject.transform.Find("Ant").gameObject;
             tyr = gameObject.transform.Find("Tyr").gameObject;
-
-            //antUnity = ant.GetComponent<AutobotUnity>();
-            //tyrUnity = tyr.GetComponent<AutobotUnity>();
+            */
 
             jumpButton = new InputSettings().JumpButton;
         }
@@ -54,69 +73,69 @@ namespace Splitting
         // Update is called once per frame
         void Update()
         {
-            if (jump.isLanded && !AnimatorIsPlaying("Tyrant Jump 4"))
+            if (tyrantJump.isLanded && !AnimatorIsPlaying("Tyrant Jump 4"))
             {
-                jump.isLanded = false;
+                tyrantJump.isLanded = false;
             }
 
             if (hasControl)
             {
 
-                jump.enabled = true;
-                move.enabled = true;
+                tyrantJump.enabled = true;
+                tyrantMove.enabled = true;
 
-                move.canCrouch = false;
+                tyrantMove.canCrouch = false;
 
                 if (isWalled || Input.GetKey(jumpButton))
                 {
-                    move.canMove = false;
+                    tyrantMove.canMove = false;
                 }
                 else
                 {
-                    move.canMove = true;
+                    tyrantMove.canMove = true;
                 }
 
                 if (isGrounded)
                 {
-                    pickup.enabled = true;                    
+                    tyrantPickup.enabled = true;                    
 
-                    if (jump.wasJumping && !animator.IsInTransition(0))
+                    if (tyrantJump.wasJumping && !animator.IsInTransition(0))
                     {
-                        jump.isLanded = true;
-                        jump.wasJumping = false;
+                        tyrantJump.isLanded = true;
+                        tyrantJump.wasJumping = false;
 
                         ScreenShake(shake, lenght);
                     }
 
                     if (AnimatorIsPlaying("Tyrant Jump 4") || getThrow.throwing || AnimatorIsPlaying("TyrantUnity") || AnimatorIsPlaying("TyrantUnlink"))
                     {
-                        move.enabled = false;
-                        jump.canJump = false;                        
+                        tyrantMove.enabled = false;
+                        tyrantJump.canJump = false;                        
                     }
                     else if (getThrow.rbToThrow)
                     {
-                        move.enabled = true;
-                        jump.canJump = false;
+                        tyrantMove.enabled = true;
+                        tyrantJump.canJump = false;
                     }
                     else
                     {
-                        move.enabled = true;
-                        jump.jumpDivider = jump.jumpMultiplier;
-                        jump.canJump = true;
+                        tyrantMove.enabled = true;
+                        tyrantJump.jumpDivider = tyrantJump.jumpMultiplier;
+                        tyrantJump.canJump = true;
                     }
 
                 }
                 else
                 {
-                    pickup.enabled = false;
+                    tyrantPickup.enabled = false;
                 }
 
             }
             else
             {
-                jump.enabled = false;
-                pickup.enabled = false;
-                move.enabled = false;
+                tyrantJump.enabled = false;
+                tyrantPickup.enabled = false;
+                tyrantMove.enabled = false;
             }
 
             if (gameObject.tag != "Player")
@@ -126,10 +145,6 @@ namespace Splitting
             else if (gameObject.tag == "Player")
             {
                 hasControl = true;
-
-
-                //antUnity.readyForConnection = false;
-                //tyrUnity.readyForConnection = false;
             }
         }
 

@@ -6,12 +6,12 @@ namespace Splitting
 {
     public class WallCheckTA : MonoBehaviour
     {
-        public StateControllerTA stateControllerTA;
+        private StateControllerTA stateControllerTA;
 
         // Start is called before the first frame update
         void Start()
         {
-
+            stateControllerTA = gameObject.GetComponentInParent<StateControllerTA>();
         }
 
         // Update is called once per frame

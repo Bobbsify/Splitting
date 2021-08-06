@@ -76,16 +76,16 @@ namespace Splitting {
 
             try
             {
-                Vector2 boxColliderSize = box.GetComponent<BoxCollider2D>().size; // x --> width | y --> height
+                Vector2 boxColliderSize = box.GetComponent<BoxCollider2D>().bounds.extents; // x --> width | y --> height
                 BoxCollider2D playerBoxCollider = GetComponent<BoxCollider2D>();
-                
+
                 //Get top ( Y + 1/2 size + offset)
-                float top = playerBoxCollider.transform.position.y + playerBoxCollider.size.y / 2 + playerBoxCollider.offset.y;
+                float top = playerBoxCollider.bounds.center.y + playerBoxCollider.bounds.extents.y;
 
                 //offsetY is distance from top to bottom + boxColliderSize/2 
                 float offsetY = boxColliderSize.y;
                 
-                result = new Vector2(playerBoxCollider.transform.position.x, top + offsetY); // center , center + offset to height + box
+                result = new Vector2(playerBoxCollider.transform.position.x, top + offsetY); // center , top + box
             }
             catch
             {

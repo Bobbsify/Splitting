@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /* slow to fast to slow non funziona la metterò a posto se servira :^)*/
 
@@ -25,15 +26,11 @@ public class Patrol : MonoBehaviour
     private int whereToX;
     private int whereToY;
 
-    private int travelMode = 1;
+    private int travelMode = 1; //Going forward or backwards
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        startPoint = transform.position;
-        StartCalculations();
-    }
+    [Header("Determines whether this platform carries any objects colliding on top of it with itself")]
+    [SerializeField] private bool elevator = false;
+    [SerializeField] private int expectedCarriedUnits = 5;
 
     private void OnEnable()
     {
@@ -173,6 +170,17 @@ public class Patrol : MonoBehaviour
 
         whereToX = transform.position.x < path[nextPoint].x ? 1 : -1; //Left or Right
         whereToY = transform.position.y < path[nextPoint].y ? 1 : -1; //Up or down
+        
+        if (elevator)
+        {
+            Collider2D col = FetchElevatorCollider();
+            Collider2D[] contacts = new Collider2D[expectedCarriedUnits];
+            col.GetContacts(contacts);
+            Debug.Log(contacts);
+            if (contacts != null) { 
+                attachObjectsToThis(contacts);
+            }
+        }
     }
 
     private void Disable()
@@ -255,6 +263,9 @@ public class Patrol : MonoBehaviour
         {
             nextPoint += (travelMode);
         }
+
+        removeAttachedObjects();
+
         if (patrolType == PatrolTypes.NextPointOnAwake || patrolType == PatrolTypes.NextPointOnAwakeNeverRepeat || patrolType == PatrolTypes.NextPointOnAwakeSwing)
         {
             this.enabled = false;
@@ -263,7 +274,54 @@ public class Patrol : MonoBehaviour
         {
             StartCalculations();
         }
-        Debug.Log("Next Point: "+nextPoint);
+    }
+
+    private Collider2D FetchElevatorCollider()
+    {
+        Collider2D result;
+
+        result = GetComponent<Collider2D>();
+
+        if(result == null || result.isTrigger) //No collider was found or it's wrong
+        {
+            Collider2D[] cols = GetComponentsInChildren<Collider2D>();
+            foreach (Collider2D col in cols)
+            {
+                if (!col.isTrigger && result == null)
+                {
+                    result = col;
+                }
+                else if (!col.isTrigger && result != null)
+                {
+                    throw new Exception("Multiple valid colliders were found!! First fetched collider: " + result + "\nOther: " + col);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private void attachObjectsToThis(Collider2D[] cols)
+    {
+        foreach (Collider2D col in cols)
+        {
+            if (col.tag == "Player" || col.tag == "Carryable" || col.name.ToLower() == "tyr" || col.name.ToLower() == "ant")
+            { 
+                col.gameObject.transform.parent = transform;
+            }
+        }
+    }
+
+    private void removeAttachedObjects()
+    {
+        foreach (Transform child in transform)
+        {
+            Debug.Log(child);
+            if (child.tag == "Player" || child.tag == "Carryable" || child.name.ToLower() == "tyr" || child.name.ToLower() == "ant")
+            {
+                child.gameObject.transform.parent = null;
+            }
+        }
     }
 
 }

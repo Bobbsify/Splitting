@@ -15,9 +15,9 @@ namespace Splitting
         [SerializeField] private float connectDistance = 5.0f;
         [SerializeField] private float approachSpeed;
 
-        public StateController antStateController;
-        public StateControllerT tyrStateController;
-        public SwitchCharacter switchCharacter;
+        private StateController antStateController;
+        private StateControllerT tyrStateController;
+        private SwitchCharacter switchCharacter;
         private Animator animator;
 
         private Rigidbody2D targetRig;
@@ -26,7 +26,7 @@ namespace Splitting
         private RaycastHit2D connectCheck;
         private int layerMask;
 
-        public GameObject ant;
+        private GameObject ant;
 
         private Vector3 initialScale;
 
@@ -44,7 +44,10 @@ namespace Splitting
 
             try
             {
-                GetStateControllers();
+                if (switchCharacter.targetEntity != null)
+                {
+                    GetStateControllers();
+                }                
             }
             catch
             {
@@ -66,13 +69,14 @@ namespace Splitting
                 layerMask = LayerMask.GetMask("Gameplay-Back");
             }
 
-            connectDistance = Mathf.Sqrt(Mathf.Pow(boxCol.bounds.size.y + (capsuleCol.bounds.size.y / 2), 2.0f) + Mathf.Pow(boxCol.bounds.size.x, 2.0f));
+            // La gizmo che si vede una volta avviato il gioco non è la reale connect distance necessaria per l'unione tra ant e tyr
+            connectDistance = Mathf.Sqrt(Mathf.Pow(boxCol.bounds.extents.y, 2.0f) + Mathf.Pow(boxCol.bounds.extents.x, 2.0f)) * 2;
 
-            Vector2 editedTransform = new Vector2(boxCol.bounds.center.x - (boxCol.bounds.size.x / 2), boxCol.bounds.center.y + (boxCol.bounds.size.y / 2));
+            Vector2 editedTransform = new Vector2(boxCol.bounds.center.x - ((capsuleCol.bounds.extents.x) * -gameObject.transform.localScale.x), boxCol.bounds.center.y + (boxCol.bounds.extents.y));
 
             if (canConnect)
             {
-                connectCheck = Physics2D.Raycast(editedTransform, Vector2.down + Vector2.right, connectDistance, layerMask);
+                connectCheck = Physics2D.Raycast(editedTransform, Vector2.down + (Vector2.right * -gameObject.transform.localScale.x), connectDistance, layerMask);
             }
 
             if (connectCheck.collider != null)
@@ -156,7 +160,7 @@ namespace Splitting
             capsuleCol = gameObject.GetComponent<CapsuleCollider2D>();
 
             Gizmos.color = Color.red;
-            Gizmos.DrawRay(new Vector2(boxCol.bounds.center.x - (boxCol.bounds.size.x / 2), boxCol.bounds.center.y + (boxCol.bounds.size.y / 2)), (Vector2.down + Vector2.right) * 5);
+            Gizmos.DrawRay(new Vector2(boxCol.bounds.center.x - ((capsuleCol.bounds.extents.x ) * - gameObject.transform.localScale.x), boxCol.bounds.center.y + (boxCol.bounds.extents.y)), (Vector2.down + (Vector2.right * -gameObject.transform.localScale.x)) * connectDistance);
         }
 
         private void CallAnimator(float speed)

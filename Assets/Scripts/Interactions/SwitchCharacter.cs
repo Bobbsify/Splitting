@@ -95,7 +95,9 @@ namespace Splitting
 
         private void StopMovementX()
         {
-            targetEntity.GetComponent<Animator>().SetFloat("velocityX",0);
+            if (targetEntity != null) { 
+                targetEntity.GetComponent<Animator>().SetFloat("velocityX",0);
+            }
         }
     }
 }

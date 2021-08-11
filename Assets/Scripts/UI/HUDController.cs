@@ -6,43 +6,35 @@ namespace Splitting
 {
     public class HUDController : MonoBehaviour
     {
-        public GameObject[] players;              
-
-        public GameObject[] abilities = new GameObject[3];
-        public GameObject[] currentAbilities = new GameObject[5];
+        private GameObject player;
+                
+        private GameObject[] abilities = new GameObject[3];
+        private GameObject[] currentAbilities = new GameObject[5];
          
         // ant
-        Move antMove;
-        Jump antJump;
-        Carry antCarry;
+        private Move antMove;
+        private Jump antJump;
+        private Carry antCarry;        
 
         // tyr
-        public GameObject tyrTrajectPred;
-        public Throw tyrThrow;
-
+        private GameObject tyrTrajectPred;
+        private Throw tyrThrow;
+        
         // tyrant
-        public GameObject tyrantTrajectPred;
-        public Throw tyrantThrow;
+        private GameObject tyrantTrajectPred;
+        private Throw tyrantThrow;
+
+        private AutobotUnity autobotUnity;
 
         [SerializeField] private int currentPlayer;
 
         // Start is called before the first frame update
         void Start()
         {
+            
             currentPlayer = ControlWhoIsPlayer();            
 
-            // ant
-            antMove = players[0].GetComponent<Move>();
-            antJump = players[0].GetComponent<Jump>();
-            antCarry = players[0].GetComponent<Carry>();
-
-            // tyr
-            tyrTrajectPred = players[1].transform.Find("TrajectoryPrediction").gameObject;
-            tyrThrow = tyrTrajectPred.GetComponent<Throw>();
-
-            // tyrant
-            tyrantTrajectPred = players[2].transform.Find("TrajectoryPredictionTA").gameObject;
-            tyrantThrow = tyrantTrajectPred.GetComponent<Throw>();
+            GetComponentsFromCurrentPlayer();
 
             // Get abilities
             for (int i = 0; i < abilities.Length; i++)
@@ -58,8 +50,7 @@ namespace Splitting
         // Update is called once per frame
         void Update()
         {
-            
-            if (players[currentPlayer].tag != "Player")
+            if (player == null)
             {
                 for (int i = 0; i < currentAbilities.Length; i++)
                 {
@@ -68,9 +59,28 @@ namespace Splitting
 
                 currentPlayer = ControlWhoIsPlayer();
 
+                GetComponentsFromCurrentPlayer();
+
                 GetCurrentAbilities();
+
             }
-            
+            else
+            {
+                if (player.tag != "Player")
+                {
+                    for (int i = 0; i < currentAbilities.Length; i++)
+                    {
+                        currentAbilities[i] = null;
+                    }
+
+                    currentPlayer = ControlWhoIsPlayer();
+
+                    GetComponentsFromCurrentPlayer();
+
+                    GetCurrentAbilities();
+                }
+            }            
+
             // Ant
             if (currentPlayer == 0)
             {          
@@ -190,21 +200,63 @@ namespace Splitting
         {
             int x = 0;
 
-            for (int i = 0; i < players.Length; i++)
-            {
+            bool ant = false;
+            bool tyr = false;
+            
+            player = GameObject.FindGameObjectWithTag("Player");
 
-                if (players[i].tag == "Player")
+            ant = player.name.ToUpper().Contains("ANT");
+            tyr = player.name.ToUpper().Contains("TYR");
+
+            if (ant && !tyr)
+            {
+                x = 0; // ant
+            }
+            else if (tyr && !ant)
+            {
+                x = 1; // tyr
+            }
+            else if (ant && tyr)
+            {                
+                x = 2; // tyrant
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                transform.GetChild(i).gameObject.SetActive(false);
+
+                if (i == x)
                 {
                     transform.GetChild(i).gameObject.SetActive(true);
-                    x = i;
-                }
-                else
-                {
-                    transform.GetChild(i).gameObject.SetActive(false);
                 }
             }
 
             return x;
+        }
+
+        void GetComponentsFromCurrentPlayer()
+        {
+            
+            if (currentPlayer == 0) // ant
+            {
+                antMove = player.GetComponent<Move>();
+                antJump = player.GetComponent<Jump>();
+                antCarry = player.GetComponent<Carry>();
+
+                autobotUnity = player.GetComponent<AutobotUnity>();
+            }
+            else if (currentPlayer == 1) // tyr
+            {
+                tyrTrajectPred = player.transform.Find("TrajectoryPrediction").gameObject;
+                tyrThrow = tyrTrajectPred.GetComponent<Throw>();
+
+                autobotUnity = player.GetComponent<AutobotUnity>();
+            }
+            else if (currentPlayer == 2) // tyrant
+            {
+                tyrantTrajectPred = player.transform.Find("TrajectoryPredictionTA").gameObject;
+                tyrantThrow = tyrantTrajectPred.GetComponent<Throw>();
+            }          
         }
         
         public void GetCurrentAbilities()

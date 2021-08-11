@@ -12,7 +12,7 @@ namespace Splitting {
         private AudioSource audioToPlay;
         private Collider2D objCollider; //Player collider
 
-        private float maxVolume; // settings Master Volume - Sound Volume
+        private float maxVolume = 1; // settings Master Volume - Sound Volume
 
         private float maxY = 1;
         private float maxX = 1;
@@ -25,7 +25,7 @@ namespace Splitting {
             {
                 Collider2D col = GetComponent<Collider2D>();
                 maxX = col.bounds.extents.x;
-                maxY = col.bounds.extents.y;
+                maxY = col.bounds.extents.y * 2; //Total Height
             }
         }
 
@@ -44,6 +44,10 @@ namespace Splitting {
             { 
                 objCollider = collision;
             }
+            if (!directional && !alwaysPlaying) //Se il suono non è direzionale, una volta uscito dall'area il volume deve partire;
+            {
+                audioToPlay.volume = 1;
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -51,6 +55,10 @@ namespace Splitting {
             if (collision.tag == "Player")
             { 
                 objCollider = null;
+            }
+            if (!directional && !alwaysPlaying) //Se il suono non è direzionale, una volta uscito dall'area il volume deve azzerarsi;
+            {
+                audioToPlay.volume = 0;
             }
         }
 
@@ -67,14 +75,21 @@ namespace Splitting {
 
         private float ProcessVolume(float incomingX, float incomingY)
         {
-            float currX = transform.position.x;
-            float currY = transform.position.y;
+            Vector2 curr = transform.position;
 
-            float distanceX = Mathf.Abs(currX - incomingX); //detect distance X
-            float distanceY = Mathf.Abs(currY - incomingY); //detect distance X
+            float distanceX = Mathf.Abs(curr.x - incomingX); //detect distance X
+            float distanceY = Mathf.Abs(curr.y - incomingY); //detect distance Y
+            
+            return 1 - Mathf.Sqrt(Mathf.Pow(distanceX / maxX, 2) + Mathf.Pow(distanceY / maxY, 2)) * maxVolume;
+        }
 
-
-            return 1 - Mathf.Sqrt(Mathf.Pow(distanceX / maxX, 2) + Mathf.Pow(distanceY / maxY, 2));
+        private void OnDrawGizmos()
+        {
+            if (objCollider != null)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawLine(objCollider.transform.position, transform.position);
+            }
         }
 
         private enum SoundTypes

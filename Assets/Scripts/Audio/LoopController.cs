@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class LoopController : MonoBehaviour
 {
-
-    private AudioSource audioToLoop;
-
     [Header("Settings")]
     [SerializeField] private float loopDelayInSeconds;
+
+    [Header("Randomization")]
+    [SerializeField] private bool randomizeDelay;
+    [SerializeField] private float randomizationLessenRange = -1;
+    [SerializeField] private float randomizationIncreaseRange = 1;
+
+    private AudioSource audioToLoop;
+    private bool coroutineStarted = false;
+
 
     void OnEnable()
     {
@@ -21,18 +27,22 @@ public class LoopController : MonoBehaviour
 
     void Update()
     {
-        if(!audioToLoop.isPlaying)
+        if(!audioToLoop.isPlaying && !coroutineStarted)
         {
             StartCoroutine(AudioLoopCorutine());
+            coroutineStarted = true;
         }
     }
 
     IEnumerator AudioLoopCorutine()
     {
-        yield return new WaitForSeconds(loopDelayInSeconds); // Wait
+        float loopDelay = Mathf.Max(loopDelayInSeconds + (randomizeDelay ? Random.Range(randomizationLessenRange, randomizationIncreaseRange) : 0),0);
+
+        yield return new WaitForSeconds(loopDelay); // Wait
 
         audioToLoop.Play();
 
         StopCoroutine(AudioLoopCorutine()); //Stop couroutine when ended;
+        coroutineStarted = false;
     }
 }

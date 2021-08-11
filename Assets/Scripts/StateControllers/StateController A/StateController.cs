@@ -91,8 +91,11 @@ namespace Splitting
                     antJump.isLanded = true;
                     antJump.wasJumping = false;
 
-                    ScreenShake(shake, lenght);
-                }
+                    if (antJump.bigFall)
+                    {
+                        ScreenShake(shake, lenght);
+                    }                   
+                }                
             }
 
             if (hasControl)
@@ -113,7 +116,7 @@ namespace Splitting
                 if (isGrounded)
                 {                   
 
-                    if (AnimatorIsPlaying("AntJump5") || AnimatorIsPlaying("AntButtonPress"))
+                    if (AnimatorIsPlaying("AntButtonPress"))
                     {
                         antMove.canMove = false;
                         antJump.canJump = false;

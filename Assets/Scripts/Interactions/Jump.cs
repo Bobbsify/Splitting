@@ -21,7 +21,12 @@ namespace Splitting
         private KeyCode jumpButton;
 
         [SerializeField] private float timerJump = 2.0f;
-        [SerializeField] private float elapsedKeyDown;       
+        [SerializeField] private float elapsedKeyDown;
+
+        [SerializeField] private float timerFall = 2.0f;
+        [SerializeField] private float elapsedFall;
+
+        public bool bigFall;
 
         private float velocityY;
 
@@ -75,6 +80,10 @@ namespace Splitting
             {
                 elapsedKeyDown = 0.0f;
             }
+            else
+            {
+                elapsedFall = 0.0f;
+            }
 
             velocityY = rigidbody2D.velocity.y;
 
@@ -82,7 +91,20 @@ namespace Splitting
             {          
                 wasJumping = true;
             }
-            
+
+            if (velocityY < 0)
+            {
+                elapsedFall += Time.deltaTime;
+            }
+
+            if (elapsedFall > timerFall)
+            {
+                bigFall = true;
+            }
+            else
+            {
+                bigFall = false;
+            }
 
             CallAnimator(Input.GetKey(jumpButton), velocityY, isLanded);
             
@@ -94,7 +116,7 @@ namespace Splitting
             {
                 animator.SetBool("jumpPrep", isPreparing);
                 animator.SetFloat("velocityY", verticalSpeed);
-                animator.SetBool("land", isLanded);
+                animator.SetBool("land", isLanded);                
             }
         }
 

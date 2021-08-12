@@ -104,10 +104,13 @@ namespace Splitting
                         tyrantJump.isLanded = true;
                         tyrantJump.wasJumping = false;
 
-                        ScreenShake(shake, lenght);
+                        if (tyrantJump.bigFall)
+                        {
+                            ScreenShake(shake, lenght);
+                        }                        
                     }
 
-                    if (AnimatorIsPlaying("Tyrant Jump 4") || getThrow.throwing || AnimatorIsPlaying("TyrantUnity") || AnimatorIsPlaying("TyrantUnlink"))
+                    if (getThrow.throwing || AnimatorIsPlaying("TyrantUnity") || AnimatorIsPlaying("TyrantUnlink"))
                     {
                         tyrantMove.enabled = false;
                         tyrantJump.canJump = false;                        

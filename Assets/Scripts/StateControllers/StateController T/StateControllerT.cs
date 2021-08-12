@@ -92,7 +92,10 @@ namespace Splitting
                     tyrJump.isLanded = true;
                     tyrJump.wasJumping = false;
 
-                    ScreenShake(shake, lenght);
+                    if (tyrJump.bigFall)
+                    {
+                        ScreenShake(shake, lenght);
+                    }                    
                 }
             }
 

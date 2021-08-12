@@ -36,7 +36,6 @@ public class PlatformController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(entityFalling);
         if (entityFalling != null)
         {
             if (Input.GetKeyDown(KeyCode.Space) && Input.GetAxis("Vertical") < 0)

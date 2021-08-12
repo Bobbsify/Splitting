@@ -16,13 +16,16 @@ namespace Splitting
         public bool isCarrying;
         public bool wasCarrying;
 
+        private BoxCollider2D boxCol;
+        private BoxCollider2D carryedObjCol;
+
         public GameObject carryedObj;
         public GameObject lastObj;
        
         public Rigidbody2D carryedRig;
 
         [SerializeField] private float horizontalForce = 750.0f;
-        [SerializeField] private float verticalForce = 250.0f;
+        [SerializeField] private float verticalForce = 100.0f;
 
         private Animator animator;
         
@@ -30,6 +33,8 @@ namespace Splitting
         void Start()
         {
             animator = gameObject.GetComponent<Animator>();
+
+            boxCol = gameObject.GetComponent<BoxCollider2D>();
 
             dropButton = new InputSettings().ReleaseItemButton;
         }
@@ -40,10 +45,15 @@ namespace Splitting
                        
             if (canCarry)
             {
-                if (carryedObj != null)
-                {                                        
-                    isFixing = true;
-                    lastObj = carryedObj;
+                if (carryedObj != null )
+                {
+                    carryedObjCol = carryedObj.GetComponent<BoxCollider2D>();
+
+                    if (ControlCarryableObjPos(carryedObjCol, boxCol))
+                    {
+                        isFixing = true;
+                        lastObj = carryedObj;
+                    }                    
                 }
             }
             else
@@ -79,7 +89,7 @@ namespace Splitting
                 }
 
                 carryedObj.transform.SetParent(transform);
-                carryedObj.transform.position = new Vector2(carryedObj.transform.position.x, carryedObj.transform.position.y);
+                carryedObj.transform.position = new Vector2(carryedObj.transform.position.x, (boxCol.bounds.center.y + boxCol.bounds.extents.y + carryedObjCol.bounds.extents.y));
 
                 isFixed = true;
             }
@@ -96,7 +106,7 @@ namespace Splitting
 
             if (isCarrying)
             {
-                lastObj.transform.position = new Vector2(transform.position.x, lastObj.transform.position.y);
+                lastObj.transform.position = new Vector2(transform.position.x, (boxCol.bounds.center.y + boxCol.bounds.extents.y + carryedObjCol.bounds.extents.y));
             }
 
             if (wasCarrying && canCarry)
@@ -123,7 +133,22 @@ namespace Splitting
         bool AnimatorIsPlaying(string stateName)
         {
             return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
-        }       
+        }
+        
+        bool ControlCarryableObjPos(BoxCollider2D carryedObjCol, BoxCollider2D antCol)
+        {
+            bool isCarryable;
+
+            if (((carryedObjCol.bounds.center.y - carryedObjCol.bounds.extents.y) > (antCol.bounds.center.y + antCol.bounds.extents.y)) && (carryedObjCol.bounds.center.x < (antCol.bounds.center.x + antCol.bounds.extents.x)) && (carryedObjCol.bounds.center.x > (antCol.bounds.center.x - antCol.bounds.extents.x)))
+            {
+                isCarryable = true;
+            }
+            else
+            {
+                isCarryable = false;
+            }
+            return isCarryable;
+        }
     }
     
 }

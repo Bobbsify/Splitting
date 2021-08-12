@@ -168,9 +168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f43d4cb0113a2d42ae8c5ac972d4d86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alwaysActive: 0
+  alwaysPlaying: 0
   directional: 1
   soundType: 1
+  settings: {fileID: 11400000, guid: cc174a6ba20c97a40ad487530a2f5af5, type: 2}
 --- !u!114 &-4472699848955359205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,3 +185,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loopDelayInSeconds: 0
+  randomizeDelay: 0
+  randomizationLessenRange: -1
+  randomizationIncreaseRange: 1

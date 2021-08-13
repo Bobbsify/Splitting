@@ -46,7 +46,7 @@ namespace Splitting {
             }
             if (!directional && !alwaysPlaying) //Se il suono non è direzionale, una volta uscito dall'area il volume deve partire;
             {
-                audioToPlay.volume = 1;
+                audioToPlay.volume = 1 * GetMaxVolume();
             }
         }
 
@@ -80,7 +80,7 @@ namespace Splitting {
             float distanceX = Mathf.Abs(curr.x - incomingX); //detect distance X
             float distanceY = Mathf.Abs(curr.y - incomingY); //detect distance Y
             
-            return 1 - Mathf.Sqrt(Mathf.Pow(distanceX / maxX, 2) + Mathf.Pow(distanceY / maxY, 2)) * GetMaxVolume();
+            return (1 - Mathf.Sqrt(Mathf.Pow(distanceX / maxX, 2) + Mathf.Pow(distanceY / maxY, 2))) * GetMaxVolume();
         }
 
         private float GetMaxVolume()
@@ -92,16 +92,16 @@ namespace Splitting {
             switch (soundType)
             {
                 case (SoundTypes.music):
-                    result = masterVolume * musicVolume / 100; // Master volume divided by music volume percentage
+                    result = masterVolume * musicVolume;
                     break;
                 case (SoundTypes.soundEffect):
-                    result = masterVolume * soundEffectsVolume / 100; // Master volume divided by sound effects volume percentage
+                    result = masterVolume * soundEffectsVolume;
                     break;
                 default:
                     throw new System.Exception("Unspecified sound effect type!");
             }
             //since max volume is 1 divide by 100
-            return result / 100;
+            return result;
         }
 
         private void OnDrawGizmos()

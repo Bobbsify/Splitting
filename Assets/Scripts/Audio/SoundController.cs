@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Splitting { 
     public class SoundController : MonoBehaviour
@@ -9,7 +10,7 @@ namespace Splitting {
         [SerializeField] bool directional = true;
         [SerializeField] private SoundTypes soundType;
         
-        public Settings settings;
+        public AudioMixer mixer;
 
         private AudioSource audioToPlay;
         private Collider2D objCollider; //Player collider
@@ -46,7 +47,7 @@ namespace Splitting {
             }
             if (!directional && !alwaysPlaying) //Se il suono non è direzionale, una volta uscito dall'area il volume deve partire;
             {
-                audioToPlay.volume = 1 * GetMaxVolume();
+                audioToPlay.volume = 1;
             }
         }
 
@@ -80,28 +81,7 @@ namespace Splitting {
             float distanceX = Mathf.Abs(curr.x - incomingX); //detect distance X
             float distanceY = Mathf.Abs(curr.y - incomingY); //detect distance Y
             
-            return (1 - Mathf.Sqrt(Mathf.Pow(distanceX / maxX, 2) + Mathf.Pow(distanceY / maxY, 2))) * GetMaxVolume();
-        }
-
-        private float GetMaxVolume()
-        {
-            float result = 0;
-            float masterVolume = settings.currentSettings.masterVolume;
-            float musicVolume = settings.currentSettings.musicVolume;
-            float soundEffectsVolume = settings.currentSettings.soundEffectsVolume;
-            switch (soundType)
-            {
-                case (SoundTypes.music):
-                    result = masterVolume * musicVolume;
-                    break;
-                case (SoundTypes.soundEffect):
-                    result = masterVolume * soundEffectsVolume;
-                    break;
-                default:
-                    throw new System.Exception("Unspecified sound effect type!");
-            }
-            //since max volume is 1 divide by 100
-            return result;
+            return 1 - Mathf.Sqrt(Mathf.Pow(distanceX / maxX, 2) + Mathf.Pow(distanceY / maxY, 2));
         }
 
         private void OnDrawGizmos()

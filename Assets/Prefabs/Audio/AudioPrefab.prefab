@@ -171,7 +171,7 @@ MonoBehaviour:
   alwaysPlaying: 0
   directional: 1
   soundType: 1
-  settings: {fileID: 11400000, guid: cc174a6ba20c97a40ad487530a2f5af5, type: 2}
+  mixer: {fileID: 24100000, guid: 818a5bb12115e824aa57b46cfb7d2c1a, type: 2}
 --- !u!114 &-4472699848955359205
 MonoBehaviour:
   m_ObjectHideFlags: 0

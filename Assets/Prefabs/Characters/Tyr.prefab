@@ -1039,6 +1039,7 @@ Transform:
   m_Children:
   - {fileID: 6768975379903002641}
   - {fileID: 4108887312700593860}
+  - {fileID: 6270959153569638840}
   m_Father: {fileID: 1443692432254731052}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1094,7 +1095,6 @@ Transform:
   - {fileID: 609878403036989970}
   - {fileID: 609878404420161128}
   - {fileID: 5642578346440968395}
-  - {fileID: 6270959153569638840}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1875,14 +1875,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7702347055302109249}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.99, y: 1.6, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0.95149237, w: -0.30767247}
+  m_LocalPosition: {x: -0.017920718, y: 0.42080733, z: 0}
   m_LocalScale: {x: 4, y: 1, z: 1}
   m_Children:
   - {fileID: 2302903890941729626}
   - {fileID: 660976016960650329}
-  m_Father: {fileID: 3337251345036382522}
-  m_RootOrder: 13
+  m_Father: {fileID: 7203333753640071400}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5075866108855233850
 MonoBehaviour:
@@ -1897,7 +1897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationAmount: 50
-  canMoveFlashlight: 0
+  canUseFlashlight: 0
 --- !u!1 &7847014303403932991
 GameObject:
   m_ObjectHideFlags: 0

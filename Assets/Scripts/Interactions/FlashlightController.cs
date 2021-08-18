@@ -8,7 +8,7 @@ namespace Splitting {
     {
         public float rotationAmount = 1.0f;
         
-        [HideInInspector] public bool canUseFlashlight;
+        [HideInInspector] public bool canUseFlashlight = true;
 
         private List<Light2D> flashlights = new List<Light2D>();
         private float angle;

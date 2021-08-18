@@ -51,7 +51,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 7023325643832984280}
   m_Bounds:
-    m_Center: {x: 0.041610688, y: -5.2306976, z: 0}
+    m_Center: {x: 0.041595906, y: -5.2306952, z: 0}
     m_Extent: {x: 0.495, y: 0.76499987, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -204,7 +204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b34f6113401f7d241a2e6e929719ccff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateController: {fileID: 700035413992777756}
 --- !u!1 &700035415146053998
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,8 +274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c466431185af6ac4b86a17c720035dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateController: {fileID: 700035413992777756}
-  carry: {fileID: 700035413992777734}
 --- !u!1 &700035415506869894
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,8 +344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 945681c246cc5904bb7c4865ec06e834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateController: {fileID: 700035413992777756}
-  carry: {fileID: 700035413992777734}
 --- !u!1 &769320745123790970
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,7 +395,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -449,7 +444,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 328668533147712480}
   m_Bounds:
-    m_Center: {x: 0.04345584, y: -5.2294374, z: 0}
+    m_Center: {x: 0.04344082, y: -5.2294497, z: 0}
     m_Extent: {x: 0.73815536, y: 0.8587556, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -504,7 +499,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -553,8 +548,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 2536978773388307378}
   m_Bounds:
-    m_Center: {x: 0.04162532, y: -5.2324677, z: 0}
-    m_Extent: {x: 0.494955, y: 1.5872197, z: 0}
+    m_Center: {x: 0.041641027, y: -5.2324657, z: 0}
+    m_Extent: {x: 0.49495503, y: 1.5872197, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &938044642382783889
@@ -638,7 +633,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -687,8 +682,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 3031290318047035775}
   m_Bounds:
-    m_Center: {x: 0.04159546, y: -5.232733, z: 0}
-    m_Extent: {x: 0.3850001, y: 0.7879801, z: 0}
+    m_Center: {x: 0.041595906, y: -5.232715, z: 0}
+    m_Extent: {x: 0.38500014, y: 0.7879801, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &2606030800982247071
@@ -742,7 +737,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -791,7 +786,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 6809701173966564235}
   m_Bounds:
-    m_Center: {x: 0.04159546, y: -5.228587, z: 0}
+    m_Center: {x: 0.041595995, y: -5.2286005, z: 0}
     m_Extent: {x: 0.5750003, y: 0.78290534, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -846,7 +841,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -895,7 +890,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 5878818248302729848}
   m_Bounds:
-    m_Center: {x: 0.04151535, y: -5.2306128, z: 0}
+    m_Center: {x: 0.04151559, y: -5.2306104, z: 0}
     m_Extent: {x: 1.2888597, y: 1.0836749, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1014,7 +1009,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1063,8 +1058,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 8438996953225600991}
   m_Bounds:
-    m_Center: {x: 0.039850533, y: -5.2322626, z: 0}
-    m_Extent: {x: 0.5675851, y: 1.6376649, z: 0}
+    m_Center: {x: 0.039850533, y: -5.23226, z: 0}
+    m_Extent: {x: 0.5675851, y: 1.6376652, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &5444696155038233831
@@ -1395,9 +1390,11 @@ MonoBehaviour:
   jumpForce: 1400
   jumpMultiplier: 1.6
   jumpDivider: 1
-  jumpButton: 0
   timerJump: 0.7
   elapsedKeyDown: 0
+  timerFall: 2
+  elapsedFall: 0
+  bigFall: 0
 --- !u!114 &700035413992777756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1416,13 +1413,6 @@ MonoBehaviour:
   isObstructed: 0
   shake: 0.2
   lenght: 0.5
-  jump: {fileID: 700035413992777759}
-  jumpButton: 0
-  move: {fileID: 700035413992777758}
-  carry: {fileID: 700035413992777734}
-  autobotUnityA: {fileID: 1886915357}
-  autobotUnityT: {fileID: 0}
-  camera: {fileID: 0}
 --- !u!114 &700035413992777735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1462,9 +1452,6 @@ MonoBehaviour:
   readyForConnection: 0
   connectDistance: 5
   approachSpeed: 5
-  stateController: {fileID: 700035413992777756}
-  stateControllerT: {fileID: 0}
-  ant: {fileID: 7246107592126878312}
 --- !u!114 &700035413992777734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1563,7 +1550,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1612,7 +1599,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 347332157902760452}
   m_Bounds:
-    m_Center: {x: 0.039505422, y: -5.2290373, z: 0}
+    m_Center: {x: 0.03950578, y: -5.2290344, z: 0}
     m_Extent: {x: 0.73791015, y: 0.8583405, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1667,7 +1654,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1716,7 +1703,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 7212956241067931969}
   m_Bounds:
-    m_Center: {x: 0.04305035, y: -5.2318625, z: 0}
+    m_Center: {x: 0.043050587, y: -5.2318606, z: 0}
     m_Extent: {x: 0.5679753, y: 1.6381655, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1771,7 +1758,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1820,7 +1807,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 2738701638082902732}
   m_Bounds:
-    m_Center: {x: 0.04159546, y: -5.2280827, z: 0}
+    m_Center: {x: 0.04159558, y: -5.2280803, z: 0}
     m_Extent: {x: 0.575, y: 0.7823849, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1

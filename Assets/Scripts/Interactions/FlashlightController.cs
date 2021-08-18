@@ -8,10 +8,11 @@ namespace Splitting {
     {
         public float rotationAmount = 1.0f;
         
-        [HideInInspector] public bool canMoveFlashlight;
+        [HideInInspector] public bool canUseFlashlight;
 
-        private float angle;
         private List<Light2D> flashlights = new List<Light2D>();
+        private float angle;
+        private bool lightsAre = true;
 
         private KeyCode rotateClockwise;
         private KeyCode rotateCounterClockwise;
@@ -37,22 +38,29 @@ namespace Splitting {
 
         private void Update()
         {
-            if (Input.GetKeyUp(toggleFlashlight))
-            {
-                foreach (Light2D light in flashlights)
+            if (canUseFlashlight) { 
+                if (Input.GetKeyUp(toggleFlashlight))
                 {
-                    light.enabled = !light.enabled;
+                    foreach (Light2D light in flashlights)
+                    {
+                        light.enabled = !light.enabled;
+                    }
+                    lightsAre = flashlights[0].enabled;
+                }
+                if (lightsAre == true) //ON?
+                { 
+
+                    if (Input.GetKey(rotateClockwise))
+                    {
+                        angle += rotationAmount * Time.deltaTime;
+                    }
+                    else if (Input.GetKey(rotateCounterClockwise))
+                    {
+                        angle -= rotationAmount * Time.deltaTime;
+                    }
+                    transform.eulerAngles = new Vector3(0, 0, angle);
                 }
             }
-            if (Input.GetKey(rotateClockwise))
-            {
-                angle += rotationAmount * Time.deltaTime;
-            }
-            else if (Input.GetKey(rotateCounterClockwise))
-            {
-                angle -= rotationAmount * Time.deltaTime;
-            }
-            transform.eulerAngles = new Vector3(0, 0, angle);
         }
     }
 }

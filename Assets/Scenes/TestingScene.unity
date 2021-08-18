@@ -175,7 +175,7 @@ MonoBehaviour:
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
-  m_UseNormalMap: 0
+  m_UseNormalMap: 1
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
   m_ShadowIntensity: 0
@@ -189,13 +189,15 @@ MonoBehaviour:
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 10
+  m_ShapeLightFalloffSize: 3
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: -13.480915, y: -0.47145578, z: 0}
-  - {x: 0.63496494, y: -0.29755402, z: 0}
-  - {x: 0.53374195, y: 0.3987751, z: 0}
-  - {x: -13.193777, y: 2.0980597, z: 0}
+  - {x: -7.861947, y: -5.830217, z: 0}
+  - {x: -1.0805386, y: -3.0680776, z: 0}
+  - {x: 0.2508994, y: -0.10552214, z: 0}
+  - {x: 0.18168172, y: 0.39877588, z: 0}
+  - {x: -1.0954196, y: 4.3139887, z: 0}
+  - {x: -7.945723, y: 6.9176474, z: 0}
 --- !u!1 &204752721
 GameObject:
   m_ObjectHideFlags: 0
@@ -13594,8 +13596,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 536576705}
+  - component: {fileID: 536576706}
   m_Layer: 0
-  m_Name: Torch
+  m_Name: Flashlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13610,13 +13613,26 @@ Transform:
   m_GameObject: {fileID: 536576704}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.95, y: 1.66, z: 0}
-  m_LocalScale: {x: 0.8695652, y: 0.8695652, z: 1}
+  m_LocalScale: {x: 4, y: 1, z: 1}
   m_Children:
   - {fileID: 199067768}
   - {fileID: 1450393711}
   m_Father: {fileID: 2044338326}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &536576706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536576704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc27bf32e12bc5f4095159bc3727aefd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationAmount: 50
 --- !u!1 &611959787
 GameObject:
   m_ObjectHideFlags: 0
@@ -14383,12 +14399,12 @@ PrefabInstance:
     - target: {fileID: 3337251345036382522, guid: d5e5d6ed14486e04fa217c9c42c353fb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.46
+      value: 30.3
       objectReference: {fileID: 0}
     - target: {fileID: 3337251345036382522, guid: d5e5d6ed14486e04fa217c9c42c353fb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -43.04
+      value: -30.7
       objectReference: {fileID: 0}
     - target: {fileID: 3337251345036382522, guid: d5e5d6ed14486e04fa217c9c42c353fb,
         type: 3}

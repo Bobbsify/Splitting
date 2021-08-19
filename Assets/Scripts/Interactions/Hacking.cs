@@ -75,6 +75,7 @@ namespace Splitting {
                 if (i == hackableObjIndex)
                 {
                     hackableObj[i].transform.Find("InteractionOn").gameObject.SetActive(true);
+                    hackableObj[i].transform.Find("InteractionOff").gameObject.SetActive(false);
                 }
                 else
                 {

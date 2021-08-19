@@ -7,12 +7,12 @@ namespace Splitting {
     public class FlashlightController : MonoBehaviour
     {
         public float rotationAmount = 1.0f;
-        
+
         [HideInInspector] public bool canUseFlashlight = true;
+        [HideInInspector] public bool lightsAre = true;
 
         private List<Light2D> flashlights = new List<Light2D>();
         private float angle;
-        private bool lightsAre = true;
 
         private KeyCode rotateClockwise;
         private KeyCode rotateCounterClockwise;
@@ -41,15 +41,10 @@ namespace Splitting {
             if (canUseFlashlight) { 
                 if (Input.GetKeyUp(toggleFlashlight))
                 {
-                    foreach (Light2D light in flashlights)
-                    {
-                        light.enabled = !light.enabled;
-                    }
-                    lightsAre = flashlights[0].enabled;
+                    ToggleLights();
                 }
                 if (lightsAre == true) //ON?
                 { 
-
                     if (Input.GetKey(rotateClockwise))
                     {
                         angle += rotationAmount * Time.deltaTime;
@@ -61,6 +56,24 @@ namespace Splitting {
                     transform.eulerAngles = new Vector3(0, 0, angle);
                 }
             }
+        }
+
+        public void SetLightsToState(bool state)
+        {
+            foreach (Light2D light in flashlights)
+            {
+                light.enabled = state;
+            }
+            lightsAre = state;
+        }
+
+        private void ToggleLights()
+        {
+            foreach (Light2D light in flashlights)
+            {
+                light.enabled = !light.enabled;
+            }
+            lightsAre = flashlights[0].enabled;
         }
     }
 }

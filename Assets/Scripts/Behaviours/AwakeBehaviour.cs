@@ -62,6 +62,9 @@ public class AwakeBehaviour : MonoBehaviour
                     awakeScripts();
                 }
                 break;
+            case ActivationTypes.onTurnOn:
+                awakeScripts();
+                break;
             default:
                 Debug.Log("Error, unknown activation Type for " + gameObject);
                 break;
@@ -109,7 +112,8 @@ enum ActivationTypes
     onEnter,
     onClick,
     enterAndClick,
-    score
+    score,
+    onTurnOn
 }
 
 enum Turn

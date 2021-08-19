@@ -18,7 +18,7 @@ namespace Splitting {
         private KeyCode rotateCounterClockwise;
         private KeyCode toggleFlashlight;
 
-        private void Start()
+        private void OnEnable()
         {
             rotateClockwise = new InputSettings().TorchAngleUpButton;
             rotateCounterClockwise = new InputSettings().TorchAngleDownButton;
@@ -38,6 +38,10 @@ namespace Splitting {
 
         private void Update()
         {
+            if (flashlights[0].enabled != lightsAre)
+            {
+                SetLightsToState(lightsAre);
+            }
             if (canUseFlashlight) { 
                 if (Input.GetKeyUp(toggleFlashlight))
                 {
@@ -55,10 +59,6 @@ namespace Splitting {
                     }
                     transform.eulerAngles = new Vector3(0, 0, angle);
                 }
-            }
-            if (flashlights[0].enabled != lightsAre)
-            {
-                SetLightsToState(lightsAre);
             }
         }
 

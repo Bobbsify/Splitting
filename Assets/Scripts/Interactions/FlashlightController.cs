@@ -9,7 +9,7 @@ namespace Splitting {
         public float rotationAmount = 1.0f;
 
         [HideInInspector] public bool canUseFlashlight = true;
-        [HideInInspector] public bool lightsAre = true;
+         public bool lightsAre = true;
 
         private List<Light2D> flashlights = new List<Light2D>();
         private float angle;
@@ -56,6 +56,10 @@ namespace Splitting {
                     transform.eulerAngles = new Vector3(0, 0, angle);
                 }
             }
+            if (flashlights[0].enabled != lightsAre)
+            {
+                SetLightsToState(lightsAre);
+            }
         }
 
         public void SetLightsToState(bool state)
@@ -69,11 +73,7 @@ namespace Splitting {
 
         private void ToggleLights()
         {
-            foreach (Light2D light in flashlights)
-            {
-                light.enabled = !light.enabled;
-            }
-            lightsAre = flashlights[0].enabled;
+            lightsAre = !lightsAre;
         }
     }
 }

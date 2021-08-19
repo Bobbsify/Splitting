@@ -48,20 +48,23 @@ namespace Splitting
 
             ant.GetComponent<SwitchCharacter>().targetEntity = tyr;
             tyr.GetComponent<SwitchCharacter>().targetEntity = ant;
+            
+            //Toggle flashlight correctly
+            tyr.transform.Find("bone_1/bone_14/Flashlight").GetComponent<FlashlightController>().SetLightsToState(transform.Find("bone_1/bone_2/bone_3/bone_13/Flashlight").GetComponent<FlashlightController>().lightsAre);
 
-            setupTyr(tyr);
-            setupAnt(ant);
+            SetupTyr(tyr);
+            SetupAnt(ant);
  
         }
 
-        private void setupAnt(GameObject ant)
+        private void SetupAnt(GameObject ant)
         {
             ant.GetComponent<AutobotUnity>().enabled = true;
             ant.GetComponent<AutobotUnity>().GetStateControllers();
             ant.GetComponent<SwitchCharacter>().enabled = true;
         }
 
-        private void setupTyr(GameObject tyr)
+        private void SetupTyr(GameObject tyr)
         {
             tyr.GetComponent<AutobotUnity>().enabled = true;
             tyr.GetComponent<AutobotUnity>().GetStateControllers();

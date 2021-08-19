@@ -62,13 +62,20 @@ namespace Splitting
 
         private void Connect()
         {
+            bool isThisAnt = gameObject.name.ToUpper().Contains("ANT");
+
             Destroy(targetEntity); //Destroy Other
             Destroy(gameObject); //Destroy This
 
             GameObject tyrant = Instantiate(tyrantPrefab);
             tyrant.transform.position = transform.position;
 
-            bool isThisAnt = gameObject.name.ToUpper().Contains("ANT");
+            Transform tyrFlashlight = isThisAnt ? targetEntity.transform.Find("bone_1/bone_14/Flashlight") : transform.Find("bone_1/bone_14/Flashlight");
+            Transform tyrantFlashlight = tyrant.transform.Find("bone_1/bone_2/bone_3/bone_13/Flashlight");
+
+            //Turn flashlight correctly
+            tyrantFlashlight.GetComponent<FlashlightController>().SetLightsToState(tyrFlashlight.GetComponent<FlashlightController>().lightsAre);
+
 
             tyrant.GetComponent<UnlinkTyrAnt>().antScripts = isThisAnt ? ScriptsToDisable : ScriptsToEnable;
             tyrant.GetComponent<UnlinkTyrAnt>().tyrScripts = isThisAnt ? ScriptsToEnable : ScriptsToDisable;

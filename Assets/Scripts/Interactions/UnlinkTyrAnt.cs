@@ -62,12 +62,14 @@ namespace Splitting
             ant.GetComponent<AutobotUnity>().enabled = true;
             ant.GetComponent<AutobotUnity>().GetStateControllers();
             ant.GetComponent<SwitchCharacter>().enabled = true;
+            ant.transform.localScale = ant.transform.localScale.z * transform.localScale;
         }
 
         private void SetupTyr(GameObject tyr)
         {
             tyr.GetComponent<AutobotUnity>().enabled = true;
             tyr.GetComponent<AutobotUnity>().GetStateControllers();
+            tyr.transform.localScale = new Vector3(tyr.transform.localScale.x * transform.localScale.x, tyr.transform.localScale.y, 1);
         }
     }
 }

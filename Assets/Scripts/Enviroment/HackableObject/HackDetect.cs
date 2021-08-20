@@ -1,26 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Splitting
 {
     public class HackDetect : MonoBehaviour
     {
-        public GameObject hacker;
+        private GameObject hacker;
 
-        public bool onHack;
+        private bool onHack;        
+        private bool hackerIsHacking;
 
-        public Hacking hacking;
+        public bool hacked;        
+
+        private Hacking hacking;       
+
+        private Animator animator;
+
+        [Header("Other Actions")]
+        [SerializeField] UnityEvent subsequentEvents;
 
         // Start is called before the first frame update
         void Start()
         {
-
+            
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (hacked)
+            {
+                WhoIsTheHacker();
+
+                if (hacker != null)
+                {
+                    animator = hacker.GetComponent<Animator>();
+                }
+
+                if (animator != null)
+                {
+                    hackerIsHacking = true;
+                }
+            }                      
+
+            if (hackerIsHacking && onHack && AnimatorIsPlaying("Tyr hacking2"))
+            {
+                ExecuteHackingAction();                
+            }
+
+            CallAnimator(hackerIsHacking);
 
         }
 
@@ -77,6 +107,34 @@ namespace Splitting
                 hacking = hacker.GetComponentInChildren<Hacking>();
             }
 
+        }
+
+        void ExecuteHackingAction()
+        {
+            hackerIsHacking = false;
+            hacked = false;
+
+            DoEvents();
+
+            this.enabled = false;
+        }
+
+        private void CallAnimator(bool isHacking)
+        {
+            if (animator != null)
+            {
+                animator.SetBool("isHacking", isHacking);
+            }
+        }
+
+        bool AnimatorIsPlaying(string stateName)
+        {
+            return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+        }
+
+        private void DoEvents()
+        {
+            subsequentEvents.Invoke();
         }
     }
 }

@@ -10,16 +10,22 @@ namespace Splitting {
 
         public List<GameObject> hackableObj = new List<GameObject>();
 
-        public int hackableObjIndex = 0;
+        public HackDetect hackDetect;
+
+        public int hackableObjIndex = 0;        
 
         private KeyCode switchForHackUpButton;
         private KeyCode switchForHackDownButton;
+
+        private KeyCode hackingButton;        
 
         // Start is called before the first frame update
         void Start()
         {
             switchForHackUpButton = new InputSettings().SwitchForHackUpButton;
             switchForHackDownButton = new InputSettings().SwitchForHackDownButton;
+
+            hackingButton = new InputSettings().HackingButton;
         }
 
         // Update is called once per frame
@@ -35,7 +41,17 @@ namespace Splitting {
                 hackableObjIndex = ManageHackableTarget(hackableObjIndex);
 
                 SwitchHackInteractionBalloon();
-            }          
+            }
+            
+            if (Input.GetKeyUp(hackingButton))
+            {
+                hackDetect = hackableObj[hackableObjIndex].GetComponent<HackDetect>();
+
+                if (hackDetect != null)
+                {
+                    hackDetect.hacked = true;
+                }
+            }
         }      
                 
         int ManageHackableTarget(int x)
@@ -72,18 +88,32 @@ namespace Splitting {
         {
             for (int i = 0; i < hackableObj.Count; i++)
             {
-                if (i == hackableObjIndex)
+                hackDetect = hackableObj[i].GetComponent<HackDetect>();
+
+                if (hackDetect.enabled)
                 {
-                    hackableObj[i].transform.Find("InteractionOn").gameObject.SetActive(true);
-                    hackableObj[i].transform.Find("InteractionOff").gameObject.SetActive(false);
+                    if (i == hackableObjIndex)
+                    {
+
+                        hackableObj[i].transform.Find("InteractionOn").gameObject.SetActive(true);
+                        hackableObj[i].transform.Find("InteractionOff").gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        hackableObj[i].transform.Find("InteractionOn").gameObject.SetActive(false);
+                        hackableObj[i].transform.Find("InteractionOff").gameObject.SetActive(true);
+                    }
                 }
                 else
                 {
                     hackableObj[i].transform.Find("InteractionOn").gameObject.SetActive(false);
-                    hackableObj[i].transform.Find("InteractionOff").gameObject.SetActive(true);
-                }
+                    hackableObj[i].transform.Find("InteractionOff").gameObject.SetActive(false);
+
+                    hackableObj.Remove(hackableObj[i]);
+                }               
+
             }
-        }
-        
+        }        
+
     }
 }

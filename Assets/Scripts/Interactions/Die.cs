@@ -4,10 +4,23 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 //Should be enhanced with death transition & other stuff..
-public class Die : MonoBehaviour
-{
-    public void ReloadLevel()
+namespace Splitting { 
+    public class Die : MonoBehaviour
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        [SerializeField] private LastCheckpointInfo lastCheckpointInfo;
+
+        private void OnLevelWasLoaded(int level)
+        {
+            foreach (GameObject savedObject in lastCheckpointInfo.savedObjects)
+            {
+                GameObject temp = GameObject.Find(savedObject.name);
+                temp = savedObject;
+            }
+        }
+
+        public void ReloadLevel()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }

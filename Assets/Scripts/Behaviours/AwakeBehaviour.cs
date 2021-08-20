@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System;
 
 public class AwakeBehaviour : MonoBehaviour
@@ -11,8 +12,12 @@ public class AwakeBehaviour : MonoBehaviour
     [SerializeField] private KeyCode buttonToPress; //Not compulsory
     [SerializeField] private MonoBehaviour[] scriptsToLoad;
 
+    [Header("Scoring Settings")]
     [SerializeField] private Platform scoringPlatform;
     [SerializeField] private int targetScore;
+
+    [Header("Other Actions")]
+    [SerializeField] UnityEvent subsequentEvents;
 
     private bool isPlayerHere = false;
     private Collider2D objCollider;
@@ -41,30 +46,35 @@ public class AwakeBehaviour : MonoBehaviour
         {
             case ActivationTypes.onEnter:
                 if (isPlayerHere) {
-                    awakeScripts();
+                    AwakeScripts();
                 }
                 break;
+
             case ActivationTypes.onClick:
                 if (Input.GetKey(buttonToPress))
                 {
-                    awakeScripts();
+                    AwakeScripts();
                 }
                 break;
+
             case ActivationTypes.enterAndClick:
                 if (isPlayerHere && Input.GetKey(buttonToPress))
                 {
-                    awakeScripts();
+                    AwakeScripts();
                 }
                 break;
+
             case ActivationTypes.score:
                 if (scoringPlatform.score >= targetScore)
                 {
-                    awakeScripts();
+                    AwakeScripts();
                 }
                 break;
+
             case ActivationTypes.onTurnOn:
-                awakeScripts();
+                AwakeScripts();
                 break;
+
             default:
                 Debug.Log("Error, unknown activation Type for " + gameObject);
                 break;
@@ -97,13 +107,20 @@ public class AwakeBehaviour : MonoBehaviour
         }
     }
 
-    private void awakeScripts()
+    private void AwakeScripts()
     {
         bool action = actionType == Turn.on;
         foreach (MonoBehaviour script in scriptsToLoad)
         {
             script.enabled = actionType == Turn.toggle ? !script.enabled : action;
         }
+        DoEvents();
+        this.enabled = false;
+    }
+
+    private void DoEvents()
+    {
+        subsequentEvents.Invoke();
     }
 }
 

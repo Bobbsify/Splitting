@@ -16,6 +16,8 @@ namespace Splitting
         private Move tyrMove;
         private Jump tyrJump;
         private Pickup tyrPickup;
+        private Hacking tyrHacking;
+        private FlashlightController tyrFlashlight;
 
         private AutobotUnity tyrAutobotUnity;
         private AutobotUnity antAutobotUnity;
@@ -42,6 +44,12 @@ namespace Splitting
 
             // Get Pickup script
             tyrPickup = gameObject.GetComponent<Pickup>();
+
+            // Get Hacking script
+            tyrHacking = gameObject.GetComponentInChildren<Hacking>();
+
+            // Get FlashlightController script
+            tyrFlashlight = gameObject.GetComponentInChildren<FlashlightController>();
 
             // Get Tyr AutobotUnity script        
             tyrAutobotUnity = gameObject.GetComponent<AutobotUnity>();
@@ -102,6 +110,7 @@ namespace Splitting
             if (gameObject.tag != "Player")
             {
                 hasControl = false;
+                
             }
             else if (!tyrAutobotUnity.connectionPrep && gameObject.tag == "Player")
             {
@@ -111,7 +120,10 @@ namespace Splitting
             if (hasControl)
             {
                 tyrJump.enabled = true;
-                tyrMove.enabled = true;                       
+                tyrMove.enabled = true;
+                tyrHacking.enabled = true;
+
+                tyrFlashlight.canUseFlashlight = true;
 
                 tyrJump.canJump = false;
 
@@ -124,9 +136,12 @@ namespace Splitting
                     tyrMove.canMove = true;
                 }
 
-                if (getThrow.rbToThrow || AnimatorIsPlaying("Tyr throw1") || AnimatorIsPlaying("Tyr throw4"))
+                if (getThrow.rbToThrow || AnimatorIsPlaying("Tyr throw1") || AnimatorIsPlaying("Tyr throw4") || AnimatorIsPlaying("Tyr hacking") || AnimatorIsPlaying("Tyr hacking2") || !isGrounded)
                 {
                     tyrMove.enabled = false;
+                    tyrPickup.enabled = false;
+
+                    tyrHacking.canHack = false;
 
                     antAutobotUnity.canConnect = false;
                     tyrAutobotUnity.canConnect = false;
@@ -134,24 +149,22 @@ namespace Splitting
                 else
                 {
                     tyrMove.enabled = true;
+                    tyrPickup.enabled = true;
+
+                    tyrHacking.canHack = true;
 
                     antAutobotUnity.canConnect = true;
                     tyrAutobotUnity.canConnect = true;
                 }
 
-                if (isGrounded)
-                {
-                    tyrPickup.enabled = true;
-                }
-                else
-                {
-                    tyrPickup.enabled = false;
-                }
             }
             else
             {                
                 tyrPickup.enabled = false;
                 tyrMove.enabled = false;
+                tyrHacking.enabled = false;
+
+                tyrFlashlight.canUseFlashlight = false;
 
                 if (isGrounded && AnimatorIsPlaying("Tyr idle"))
                 {

@@ -23,13 +23,8 @@ namespace Splitting
 
         private GameObject trajectPred;
         private Throw getThrow;
-
-        /*
-        public GameObject ant;
-        public AutobotUnity antUnity;
-        public GameObject tyr;
-        public AutobotUnity tyrUnity;
-        */
+        private Hacking tyrantHacking;
+        private FlashlightController tyrantFlashlight;
 
         private Animator animator;
 
@@ -47,6 +42,12 @@ namespace Splitting
             // Get Pickup script
             tyrantPickup = gameObject.GetComponent<Pickup>();
 
+            // Get Hacking script
+            tyrantHacking = gameObject.GetComponentInChildren<Hacking>();
+
+            // Get FlashlightController script
+            tyrantFlashlight = gameObject.GetComponentInChildren<FlashlightController>();
+
             animator = gameObject.GetComponent<Animator>();
 
             trajectPred = GameObject.Find("TrajectoryPredictionTA");
@@ -61,11 +62,6 @@ namespace Splitting
             {
                 throw new Exception("Camera not found");
             }
-
-            /*
-            ant = gameObject.transform.Find("Ant").gameObject;
-            tyr = gameObject.transform.Find("Tyr").gameObject;
-            */
 
             jumpButton = new InputSettings().JumpButton;
         }
@@ -83,7 +79,9 @@ namespace Splitting
 
                 tyrantJump.enabled = true;
                 tyrantMove.enabled = true;
+                tyrantHacking.enabled = true;
 
+                tyrantFlashlight.canUseFlashlight = true;
                 tyrantMove.canCrouch = false;
 
                 if (isWalled || Input.GetKey(jumpButton))
@@ -139,6 +137,9 @@ namespace Splitting
                 tyrantJump.enabled = false;
                 tyrantPickup.enabled = false;
                 tyrantMove.enabled = false;
+                tyrantHacking.enabled = false;
+
+                tyrantFlashlight.canUseFlashlight = false;
             }
 
             if (gameObject.tag != "Player")

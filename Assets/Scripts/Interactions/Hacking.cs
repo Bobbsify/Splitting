@@ -12,6 +12,8 @@ namespace Splitting {
 
         public HackDetect hackDetect;
 
+        public bool canHack;
+
         public int hackableObjIndex = 0;        
 
         private KeyCode switchForHackUpButton;
@@ -43,15 +45,18 @@ namespace Splitting {
                 SwitchHackInteractionBalloon();
             }
             
-            if (Input.GetKeyUp(hackingButton))
+            if (canHack)
             {
-                hackDetect = hackableObj[hackableObjIndex].GetComponent<HackDetect>();
-
-                if (hackDetect != null)
+                if (Input.GetKeyUp(hackingButton))
                 {
-                    hackDetect.hacked = true;
+                    hackDetect = hackableObj[hackableObjIndex].GetComponent<HackDetect>();
+
+                    if (hackDetect != null)
+                    {
+                        hackDetect.hacked = true;
+                    }
                 }
-            }
+            }            
         }      
                 
         int ManageHackableTarget(int x)

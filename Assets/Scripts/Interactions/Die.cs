@@ -7,17 +7,6 @@ using UnityEngine.SceneManagement;
 namespace Splitting { 
     public class Die : MonoBehaviour
     {
-        [SerializeField] private LastCheckpointInfo lastCheckpointInfo;
-
-        private void OnLevelWasLoaded(int level)
-        {
-            foreach (GameObject savedObject in lastCheckpointInfo.savedObjects)
-            {
-                GameObject temp = GameObject.Find(savedObject.name);
-                temp = savedObject;
-            }
-        }
-
         public void ReloadLevel()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

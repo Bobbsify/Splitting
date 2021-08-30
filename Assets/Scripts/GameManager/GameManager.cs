@@ -4,11 +4,28 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+    public List<GameObject> checkpointSavedObjects = new List<GameObject>();
+
     public GameObject[] conditions;
 
     public bool[] flag;
     private bool flagControl;
     private bool flagReset;
+
+    private void Awake()
+    {
+        Debug.Log(instance);
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
+        else
+        {
+            LoadInstance();
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -55,5 +72,23 @@ public class GameManager : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         flagReset = true;
+    }
+
+    private void LoadInstance() //Loads instance into the preferred variables
+    {
+        Debug.Log("Loading Instance " + instance);
+        this.checkpointSavedObjects = instance.checkpointSavedObjects;
+        LoadCheckpoint();
+    }
+
+    private void LoadCheckpoint()
+    {
+        foreach(GameObject obj in checkpointSavedObjects)
+        {
+            Debug.Log("Sub: " + obj.name);
+            GameObject currSceneObj = GameObject.Find(obj.name);
+            Debug.Log(currSceneObj);
+            currSceneObj = obj;
+        }
     }
 }

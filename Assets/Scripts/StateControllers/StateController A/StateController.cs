@@ -11,7 +11,9 @@ namespace Splitting
 
         public bool isGrounded;
         public bool isWalled;
-        public bool isObstructed;        
+        public bool isObstructed;
+        public bool isNotScared;
+        public bool isIlluminated;
 
         [SerializeField] private float shake = 1.0f;
         [SerializeField] private float lenght = 1.0f;
@@ -98,8 +100,15 @@ namespace Splitting
                 }                
             }
 
-            if (hasControl)
+            AntIsNotAfraid();
+
+            if (!isNotScared)
             {
+                hasControl = false;
+            }
+
+            if (hasControl)
+            {                
                 antJump.enabled = true;
                 antCarry.enabled = true;
                 antMove.enabled = true;
@@ -218,7 +227,9 @@ namespace Splitting
             else if (!antAutobotUnity.connectionPrep && gameObject.tag == "Player")
             {
                 hasControl = true;
-            }         
+            }
+
+            CallAnimator(isNotScared);
 
         }
 
@@ -237,5 +248,24 @@ namespace Splitting
             return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
         }
 
+        void AntIsNotAfraid()
+        {
+            if (isIlluminated)
+            {
+                isNotScared = true;
+            }
+            else if (!isIlluminated && isGrounded)
+            {
+                isNotScared = false;
+            }
+        }
+
+        private void CallAnimator(bool isNotScared)
+        {
+            if (animator != null)
+            {
+                animator.SetBool("isNotScared", isNotScared);
+            }
+        }
     }
 }

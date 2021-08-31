@@ -131,8 +131,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 317979651061577933}
   m_Bounds:
-    m_Center: {x: -0.0014436245, y: -4.1407022, z: 0}
-    m_Extent: {x: 0.48499998, y: 0.10457516, z: 0}
+    m_Center: {x: -0.0014438629, y: -4.1407022, z: 0}
+    m_Extent: {x: 0.485, y: 0.10457516, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &287562612344024473
@@ -570,7 +570,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 5901481022570277174}
   m_Bounds:
-    m_Center: {x: 0.0031604767, y: -4.141163, z: 0}
+    m_Center: {x: 0.003160417, y: -4.141163, z: 0}
     m_Extent: {x: 0.53039515, y: 0.13912511, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -734,8 +734,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 7745901007663328199}
   m_Bounds:
-    m_Center: {x: -0.001444459, y: -4.1408024, z: 0}
-    m_Extent: {x: 0.46499997, y: 0.109475136, z: 0}
+    m_Center: {x: -0.0014445484, y: -4.1408024, z: 0}
+    m_Extent: {x: 0.46500003, y: 0.109475136, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &2267065808485163899
@@ -890,6 +890,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hackableObj: []
+  hackDetect: {fileID: 0}
+  canHack: 0
   hackableObjIndex: 0
 --- !u!1 &2974337793815265316
 GameObject:
@@ -996,8 +998,8 @@ MonoBehaviour:
   - {fileID: 3231299480469633267}
   - {fileID: 1838138652335233041}
   m_Bounds:
-    m_Center: {x: -0.00043678284, y: -4.140388, z: 0}
-    m_Extent: {x: 1.1066478, y: 2.16153, z: 0}
+    m_Center: {x: -0.00043690205, y: -4.140388, z: 0}
+    m_Extent: {x: 1.1066481, y: 2.1615305, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &3040743065514218523
@@ -1443,8 +1445,8 @@ MonoBehaviour:
   - {fileID: 288579815312479026}
   - {fileID: 2290418253837847466}
   m_Bounds:
-    m_Center: {x: -0.0031645298, y: -4.1402884, z: 0}
-    m_Extent: {x: 1.1382799, y: 2.15, z: 0}
+    m_Center: {x: -0.0031644106, y: -4.1402884, z: 0}
+    m_Extent: {x: 1.1382799, y: 2.1500003, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &4180274504905672216
@@ -1577,8 +1579,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 305906849111206644}
   m_Bounds:
-    m_Center: {x: -0.0016246438, y: -4.140283, z: 0}
-    m_Extent: {x: 0.72438, y: 0.40498495, z: 0}
+    m_Center: {x: -0.0016247034, y: -4.140283, z: 0}
+    m_Extent: {x: 0.7243801, y: 0.40498495, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &5399269486467245751
@@ -1932,8 +1934,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 5179899206455735793}
   m_Bounds:
-    m_Center: {x: -0.002389431, y: -4.1423235, z: 0}
-    m_Extent: {x: 2.7476947, y: 2.2779648, z: 0}
+    m_Center: {x: -0.002389431, y: -4.142323, z: 0}
+    m_Extent: {x: 2.747695, y: 2.277965, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &9175190140723448285
@@ -2193,8 +2195,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 2376659255351089597}
   m_Bounds:
-    m_Center: {x: -0.0014443398, y: -4.140823, z: 0}
-    m_Extent: {x: 0.56999993, y: 0.1294651, z: 0}
+    m_Center: {x: -0.0014441013, y: -4.140823, z: 0}
+    m_Extent: {x: 0.57, y: 0.1294651, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1001 &4308921856535988730
@@ -2303,6 +2305,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Flashlight
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706828609020310834, guid: 9aa1c110b0f3b5a4cab44a0312f96291,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.74509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706828609020310834, guid: 9aa1c110b0f3b5a4cab44a0312f96291,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.8627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706828609020310834, guid: 9aa1c110b0f3b5a4cab44a0312f96291,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.8627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706828609020310834, guid: 9aa1c110b0f3b5a4cab44a0312f96291,
+        type: 3}
+      propertyPath: m_PointLightDistance
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9aa1c110b0f3b5a4cab44a0312f96291, type: 3}

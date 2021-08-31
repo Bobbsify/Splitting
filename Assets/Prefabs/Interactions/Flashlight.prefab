@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 253598474939339840}
   - component: {fileID: 4157201756876385958}
   - component: {fileID: 3116407908945492615}
+  - component: {fileID: 494248829807453194}
   m_Layer: 0
   m_Name: Flashlight
-  m_TagString: Untagged
+  m_TagString: Light
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65,6 +66,18 @@ CapsuleCollider2D:
   m_Offset: {x: 7.704482, y: -0.47245893}
   m_Size: {x: 15.265869, y: 8.352603}
   m_Direction: 1
+--- !u!114 &494248829807453194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4517871634883311127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47366ed3699f8ba488cdc68da55c25d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5364166186103584530
 GameObject:
   m_ObjectHideFlags: 0

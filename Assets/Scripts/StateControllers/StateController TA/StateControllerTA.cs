@@ -12,6 +12,8 @@ namespace Splitting
         public bool isGrounded;
         public bool isWalled;
         public bool isObstructed;
+        public bool isNotScared;
+        public bool isIlluminated;
 
         [SerializeField] private float shake = 1.0f;
         [SerializeField] private float lenght = 1.0f;
@@ -74,6 +76,27 @@ namespace Splitting
                 tyrantJump.isLanded = false;
             }
 
+            TyrantIsNotAfraid();
+
+            if (!isNotScared)
+            {
+                hasControl = false;
+            }
+
+            if (isGrounded)
+            {
+                if (tyrantJump.wasJumping && !animator.IsInTransition(0))
+                {
+                    tyrantJump.isLanded = true;
+                    tyrantJump.wasJumping = false;
+
+                    if (tyrantJump.bigFall)
+                    {
+                        ScreenShake(shake, lenght);
+                    }
+                }
+            }
+
             if (hasControl)
             {
 
@@ -95,18 +118,7 @@ namespace Splitting
 
                 if (isGrounded)
                 {
-                    tyrantPickup.enabled = true;                    
-
-                    if (tyrantJump.wasJumping && !animator.IsInTransition(0))
-                    {
-                        tyrantJump.isLanded = true;
-                        tyrantJump.wasJumping = false;
-
-                        if (tyrantJump.bigFall)
-                        {
-                            ScreenShake(shake, lenght);
-                        }                        
-                    }
+                    tyrantPickup.enabled = true;                                   
 
                     if (getThrow.throwing || AnimatorIsPlaying("TyrantUnity") || AnimatorIsPlaying("TyrantUnlink"))
                     {
@@ -133,13 +145,31 @@ namespace Splitting
 
             }
             else
-            {
-                tyrantJump.enabled = false;
+            {                
                 tyrantPickup.enabled = false;
                 tyrantMove.enabled = false;
                 tyrantHacking.enabled = false;
 
-                tyrantFlashlight.canUseFlashlight = false;
+                tyrantJump.canJump = false;
+
+                if (isGrounded && AnimatorIsPlaying("Tyrant idle"))
+                {
+                    tyrantJump.enabled = false;
+                }
+                else
+                {
+                    tyrantJump.enabled = true;
+                }
+
+                if (gameObject.tag == "Player")
+                {
+                    tyrantFlashlight.canUseFlashlight = true;
+                }
+                else
+                {
+                    tyrantFlashlight.canUseFlashlight = false;
+                }
+                
             }
 
             if (gameObject.tag != "Player")
@@ -150,6 +180,8 @@ namespace Splitting
             {
                 hasControl = true;
             }
+
+            CallAnimator(isNotScared);
         }
 
         private void ScreenShake(float shake, float lenght)
@@ -165,6 +197,26 @@ namespace Splitting
         bool AnimatorIsPlaying(string stateName)
         {
             return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+        }
+
+        void TyrantIsNotAfraid()
+        {
+            if (tyrantFlashlight.lightsAre || isIlluminated)
+            {              
+                isNotScared = true;
+            }
+            else if ((!isIlluminated || !tyrantFlashlight.lightsAre) && isGrounded)
+            {
+                isNotScared = false;
+            }
+        }
+
+        private void CallAnimator(bool isNotScared)
+        {
+            if (animator != null)
+            {
+                animator.SetBool("isNotScared", isNotScared);
+            }
         }
     }
 }

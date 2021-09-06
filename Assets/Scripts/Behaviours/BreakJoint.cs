@@ -9,6 +9,5 @@ public class BreakJoint : MonoBehaviour
     public void Break()
     {
         target.breakForce = 0;
-        Debug.Log(target.breakForce);
     }
 }

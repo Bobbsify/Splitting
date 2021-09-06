@@ -9,16 +9,20 @@ namespace Splitting
         private StateController antStateController;
         private StateControllerTA tyrantStateController;
 
+        public FlashlightController flashlightController;
+        public CapsuleCollider2D lightAreaCol;
+
         // Start is called before the first frame update
         void Start()
         {
-
+            gameObject.TryGetComponent<FlashlightController>(out flashlightController);
+            gameObject.TryGetComponent<CapsuleCollider2D>(out lightAreaCol);
         }
 
         // Update is called once per frame
         void Update()
         {
-
+            ControlLightStatus();
         }
 
         private void OnTriggerStay2D(Collider2D collision)
@@ -59,6 +63,21 @@ namespace Splitting
             {              
                 tyrantStateController.isIlluminated = false;
             }
-        }        
+        }
+        
+        void ControlLightStatus()
+        {
+            if (flashlightController != null && lightAreaCol != null)
+            {
+                if (flashlightController.lightsAre)
+                {
+                    lightAreaCol.enabled = true;
+                }
+                else
+                {
+                    lightAreaCol.enabled = false;
+                }
+            }
+        }
     }
 }

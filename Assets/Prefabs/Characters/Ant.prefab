@@ -1237,6 +1237,7 @@ GameObject:
   - component: {fileID: 700035413992777734}
   - component: {fileID: 9132564662669934093}
   - component: {fileID: -768708338597490307}
+  - component: {fileID: 9025161665435580720}
   m_Layer: 9
   m_Name: Ant
   m_TagString: Player
@@ -1411,8 +1412,12 @@ MonoBehaviour:
   isGrounded: 0
   isWalled: 0
   isObstructed: 0
+  isNotScared: 0
+  isIlluminated: 0
   shake: 0.2
   lenght: 0.5
+  antExtend: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &700035413992777735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1465,14 +1470,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canCarry: 0
+  canDrop: 0
   dropButton: 0
+  forcedDrop: 0
   isFixed: 0
   isFixing: 0
   isCarrying: 0
   wasCarrying: 0
   carryedObj: {fileID: 0}
   lastObj: {fileID: 0}
-  carryedRig: {fileID: 0}
   horizontalForce: 1000
   verticalForce: 700
 --- !u!114 &9132564662669934093
@@ -1487,7 +1493,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3718cf61c7957bb47afff28e4e11781c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastCheckpointInfo: {fileID: 11400000, guid: 5a38a6f2e64293a48b44a19f14a831e8, type: 2}
 --- !u!114 &-768708338597490307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1500,6 +1505,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c63bbc6fc7b4c409896a05049dd891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9025161665435580720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7246107592126878312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb65a1030b4b33146bfc843bda9d7b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isExtended: 0
+  canExtend: 1
 --- !u!1 &7919752602983841060
 GameObject:
   m_ObjectHideFlags: 0

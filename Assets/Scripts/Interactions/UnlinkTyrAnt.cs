@@ -43,8 +43,10 @@ namespace Splitting
             GameObject tyr = Instantiate(tyrPrefab); //Create Tyr
 
             ant.transform.position = transform.position;
+            ant.transform.localScale = transform.localScale;
             Vector2 lowerTyr = new Vector2(ant.transform.position.x,ant.transform.position.y - 1); //1 --> height difference
             tyr.transform.position = lowerTyr;
+            tyr.transform.localScale = GetTyrScale();
 
             ant.GetComponent<SwitchCharacter>().targetEntity = tyr;
             tyr.GetComponent<SwitchCharacter>().targetEntity = ant;
@@ -68,6 +70,16 @@ namespace Splitting
         {
             tyr.GetComponent<AutobotUnity>().enabled = true;
             tyr.GetComponent<AutobotUnity>().GetStateControllers();
+        }
+
+        private Vector3 GetTyrScale()
+        {
+            Vector3 scale = new Vector3();
+
+            scale = tyrPrefab.transform.localScale;
+            scale.x *= transform.localScale.x;
+
+            return scale;
         }
     }
 }

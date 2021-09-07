@@ -15,8 +15,15 @@ namespace Splitting
         [SerializeField] private float connectDistance = 5.0f;
         [SerializeField] private float approachSpeed;
 
+        // ant components
         private StateController antStateController;
+        private Carry antCarry;
+
+        // tyr components
         private StateControllerT tyrStateController;
+        private GameObject tyrTrajectPred;
+        private Throw tyrGetThrow;
+        
         private SwitchCharacter switchCharacter;
         private Animator animator;
 
@@ -60,6 +67,8 @@ namespace Splitting
         // Update is called once per frame
         void Update()
         {
+            ControlIfCanConnet();
+
             if (gameObject.layer == 8)
             {
                 layerMask = LayerMask.GetMask("Gameplay-Middle");
@@ -176,16 +185,36 @@ namespace Splitting
             if (switchCharacter.targetEntity.name.ToUpper().Contains("ANT"))
             {
                 antStateController = switchCharacter.targetEntity.GetComponent<StateController>();
-                tyrStateController = gameObject.GetComponent<StateControllerT>();
+                antCarry = switchCharacter.targetEntity.GetComponent<Carry>();
 
+                tyrStateController = gameObject.GetComponent<StateControllerT>();
+                tyrTrajectPred = transform.Find("TrajectoryPrediction").gameObject;
+                tyrGetThrow = tyrTrajectPred.GetComponentInChildren<Throw>();
+                                
                 ant = switchCharacter.targetEntity;
             }
             else
             {
                 antStateController = gameObject.GetComponent<StateController>();
+                antCarry = gameObject.GetComponent<Carry>();
+
                 tyrStateController = switchCharacter.targetEntity.GetComponent<StateControllerT>();
+                tyrTrajectPred = GameObject.Find("TrajectoryPrediction");
+                tyrGetThrow = tyrTrajectPred.GetComponentInChildren<Throw>();
 
                 ant = gameObject;
+            }
+        }
+
+        void ControlIfCanConnet()
+        {
+            if (!antStateController.isNotScared || antCarry.isCarrying || tyrGetThrow.rbToThrow)
+            {
+                canConnect = false;
+            }
+            else
+            {
+                canConnect = true;
             }
         }
     }

@@ -10,13 +10,13 @@ namespace Splitting
         private StateControllerTA tyrantStateController;
 
         public FlashlightController flashlightController;
-        public CapsuleCollider2D lightAreaCol;
+        public Collider2D lightAreaCol;
 
         // Start is called before the first frame update
         void Start()
         {
             gameObject.TryGetComponent<FlashlightController>(out flashlightController);
-            gameObject.TryGetComponent<CapsuleCollider2D>(out lightAreaCol);
+            gameObject.TryGetComponent<Collider2D>(out lightAreaCol);
         }
 
         // Update is called once per frame

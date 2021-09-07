@@ -16,7 +16,7 @@ namespace Splitting
         //For state controller
         public bool canCrouch;
         [HideInInspector] public bool isCrouched;
-        [HideInInspector] public bool canMove;
+        /* [HideInInspector] */ public bool canMove;
         [HideInInspector] public bool isObstructed;
 
 

@@ -7,8 +7,10 @@ namespace Splitting
     public class Carry : MonoBehaviour
     {
         public bool canCarry;
+        public bool canDrop;
                 
         public KeyCode dropButton;
+        public bool forcedDrop;
 
         public bool isFixed;
         public bool isFixing;
@@ -73,7 +75,7 @@ namespace Splitting
             }
             else
             {
-                if (Input.GetKeyUp(dropButton) && isCarrying)
+                if ((Input.GetKeyUp(dropButton) || forcedDrop) && isCarrying && canDrop)
                 {                  
 
                     wasCarrying = true;

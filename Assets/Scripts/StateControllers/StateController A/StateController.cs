@@ -15,6 +15,8 @@ namespace Splitting
         public bool isNotScared;
         public bool isIlluminated;
 
+        [SerializeField] private float speedInAir = 2.0f;
+
         [SerializeField] private float shake = 1.0f;
         [SerializeField] private float lenght = 1.0f;
 
@@ -90,6 +92,8 @@ namespace Splitting
 
             AntIsNotAfraid(); // Controlla se Ant è spaventato o no
             PrepareToBeScared(); // Se Ant è spaventato gli vengono disabilitati i comandi
+
+            ModifySpeedWhenJump();
 
             //ControlWhenForceDrop();
             CallAnimator(isNotScared);
@@ -218,7 +222,7 @@ namespace Splitting
         {            
             antMove.enabled = true;
 
-            if (isWalled  || (Input.GetKey(jumpButton) && !antMove.isCrouched) || antExtend.isExtended || AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd") || AnimatorIsPlaying("AntButtonPress"))
+            if (isWalled  || (Input.GetKey(jumpButton) && !antMove.isCrouched) || antExtend.isExtended || AnimatorIsPlaying("AntLift3") || AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd") || AnimatorIsPlaying("AntButtonPress"))
             {
                 
                 antMove.canMove = false;
@@ -331,6 +335,18 @@ namespace Splitting
             else
             {
                 antMove.isObstructed = false;
+            }
+        }
+
+        void ModifySpeedWhenJump()
+        {
+            if (!isGrounded)
+            {
+                antMove.speedModifierWhenJump = speedInAir;
+            }
+            else
+            {
+                antMove.speedModifierWhenJump = 1.0f;
             }
         }
     }

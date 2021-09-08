@@ -1368,6 +1368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 13
+  speedModifierWhenJump: 1
   canCrouch: 0
   isCrouched: 0
   canMove: 0
@@ -1414,10 +1415,9 @@ MonoBehaviour:
   isObstructed: 0
   isNotScared: 0
   isIlluminated: 0
+  speedInAir: 2
   shake: 0.2
   lenght: 0.5
-  antExtend: {fileID: 0}
-  animator: {fileID: 0}
 --- !u!114 &700035413992777735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1479,8 +1479,8 @@ MonoBehaviour:
   wasCarrying: 0
   carryedObj: {fileID: 0}
   lastObj: {fileID: 0}
-  horizontalForce: 1000
-  verticalForce: 700
+  horizontalForce: 12
+  verticalForce: 5
 --- !u!114 &9132564662669934093
 MonoBehaviour:
   m_ObjectHideFlags: 0

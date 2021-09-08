@@ -13,6 +13,8 @@ namespace Splitting
         public bool isWalled;
         public bool isObstructed;
 
+        [SerializeField] private float speedInAir = 2.0f;
+
         private Move tyrMove;
         private Jump tyrJump;
         private Pickup tyrPickup;
@@ -51,11 +53,11 @@ namespace Splitting
             // Get FlashlightController script
             tyrFlashlight = gameObject.GetComponentInChildren<FlashlightController>();
 
-            // Get Tyr AutobotUnity script        
-            tyrAutobotUnity = gameObject.GetComponent<AutobotUnity>();
-
             // Get SwitchCharacter script
             switchCharacter = gameObject.GetComponent<SwitchCharacter>();
+
+            // Get Tyr AutobotUnity script        
+            tyrAutobotUnity = gameObject.GetComponent<AutobotUnity>();                     
 
             // Get Ant AutobotUnity script
             try
@@ -80,102 +82,43 @@ namespace Splitting
             // Get animator
             animator = gameObject.GetComponent<Animator>();
 
-            trajectPred = GameObject.Find("TrajectoryPrediction");
+            trajectPred = transform.Find("TrajectoryPrediction").gameObject;
             getThrow = trajectPred.GetComponentInChildren<Throw>();
         }
 
         // Update is called once per frame
         void LateUpdate()
         {
+            ControlIfHasControl();
 
-            if (tyrJump.isLanded && !AnimatorIsPlaying("Tyr falling2"))
-            {
-                tyrJump.isLanded = false;
-            }
+            CheckIfHasFallen();
+            ResetLandBoolAfterHasFallen();
 
-            if (isGrounded)
-            {
-                if (tyrJump.wasJumping && !animator.IsInTransition(0))
-                {
-                    tyrJump.isLanded = true;
-                    tyrJump.wasJumping = false;
-
-                    if (tyrJump.bigFall)
-                    {
-                        ScreenShake(shake, lenght);
-                    }                    
-                }
-            }
-
-            if (gameObject.tag != "Player")
-            {
-                hasControl = false;
-                
-            }
-            else if (!tyrAutobotUnity.connectionPrep && gameObject.tag == "Player")
-            {
-                hasControl = true;
-            }
+            ModifySpeedWhenFall();
 
             if (hasControl)
             {
-                tyrJump.enabled = true;
-                tyrMove.enabled = true;
-                tyrHacking.enabled = true;
+                ControlWhenCanMove();
+
+                ControlWhenCanPickup();
+
+                ControlWhenCanHack();
 
                 tyrFlashlight.canUseFlashlight = true;
 
                 tyrJump.canJump = false;
 
-                if (isWalled)
-                {
-                    tyrMove.canMove = false;
-                }
-                else
-                {
-                    tyrMove.canMove = true;
-                }
-
-                if (getThrow.rbToThrow || AnimatorIsPlaying("Tyr throw1") || AnimatorIsPlaying("Tyr throw4") || AnimatorIsPlaying("Tyr hacking") || AnimatorIsPlaying("Tyr hacking2") || !isGrounded)
-                {
-                    tyrMove.enabled = false;
-                    tyrPickup.enabled = false;
-
-                    tyrHacking.canHack = false;
-
-                    antAutobotUnity.canConnect = false;
-                    tyrAutobotUnity.canConnect = false;
-                }
-                else
-                {
-                    tyrMove.enabled = true;
-                    tyrPickup.enabled = true;
-
-                    tyrHacking.canHack = true;
-
-                    antAutobotUnity.canConnect = true;
-                    tyrAutobotUnity.canConnect = true;
-                }
-
             }
             else
-            {                
-                tyrPickup.enabled = false;
+            {
                 tyrMove.enabled = false;
+                tyrPickup.enabled = false;                
                 tyrHacking.enabled = false;
 
                 tyrFlashlight.canUseFlashlight = false;
 
-                if (isGrounded && AnimatorIsPlaying("Tyr idle"))
-                {
-                    tyrJump.enabled = false;
-                }
-                else
-                {
-                    tyrJump.enabled = true;
-                }
-            }
-
+                ControlIfDisableJump();
+            }           
         }
 
         private void ScreenShake(float shake, float lenght)
@@ -192,5 +135,115 @@ namespace Splitting
         {
             return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
         }
+
+        void CheckIfHasFallen()
+        {
+            if (isGrounded)
+            {
+                if (tyrJump.wasJumping && !animator.IsInTransition(0)) // Controlla se Tyr è a terra dopo un salto/caduta
+                {
+
+                    tyrJump.isLanded = true; // Conferma l'atterraggio
+                    tyrJump.wasJumping = false;
+
+                    if (tyrJump.bigFall) // Se Tyr è atterrato dopo una caduta lunga più di un tot verrà considerata bigFall ed avverrà uno ScreenShake
+                    {
+                        ScreenShake(shake, lenght);
+                    }
+                }
+            }
+        }
+
+        void ControlIfHasControl()
+        {
+            if (gameObject.tag != "Player" || AnimatorIsPlaying("Tyr death"))
+            {
+                hasControl = false;
+            }
+            else if (!tyrAutobotUnity.connectionPrep && gameObject.tag == "Player" && !AnimatorIsPlaying("tyr death")) // Viene controllato che connectionPrep sia false perché altrimenti il giocatore potrebbe muovere Ant
+            {                                                                                                         // mentre sta avvenendo l'unione in Tyrant
+                hasControl = true;
+            }
+        }
+
+        void ResetLandBoolAfterHasFallen()
+        {
+            if (tyrJump.isLanded && (AnimatorIsPlaying("Tyr idle") || AnimatorIsPlaying("Tyr Walking")))
+            {
+                tyrJump.isLanded = false;
+            }
+        }
+
+        void ControlIfDisableJump()
+        {
+            if (isGrounded && AnimatorIsPlaying("Tyr idle"))
+            {
+                tyrJump.enabled = false;
+            }
+            else
+            {
+                tyrJump.enabled = true;
+            }
+        }
+
+        void ControlWhenCanMove()
+        {
+            if (getThrow.rbToThrow)
+            {
+                tyrMove.enabled = false;
+            }
+            else
+            {
+                tyrMove.enabled = true;
+            }            
+
+            if (isWalled || AnimatorIsPlaying("Tyr hacking") || AnimatorIsPlaying("Tyr hacking2") || getThrow.rbToThrow || AnimatorIsPlaying("Tyr throw1") || AnimatorIsPlaying("Tyr throw4"))
+            {
+                tyrMove.canMove = false;
+            }
+            else
+            {
+                tyrMove.canMove = true;
+            }
+        }
+
+        void ControlWhenCanPickup()
+        {
+            if (!isGrounded || AnimatorIsPlaying("Tyr hacking") || AnimatorIsPlaying("Tyr hacking2") || getThrow.rbToThrow || AnimatorIsPlaying("Tyr throw1") || AnimatorIsPlaying("Tyr throw4"))
+            {
+                tyrPickup.enabled = false;
+            }
+            else
+            {
+                tyrPickup.enabled = true;
+            }
+        }
+
+        void ControlWhenCanHack()
+        {
+            tyrHacking.enabled = true;
+
+            if (!isGrounded || getThrow.rbToThrow || AnimatorIsPlaying("Tyr throw1") || AnimatorIsPlaying("Tyr throw4"))
+            {
+                tyrHacking.canHack = false;
+            }
+            else
+            {
+                tyrHacking.canHack = true;
+            }
+        }
+
+        void ModifySpeedWhenFall()
+        {
+            if (!isGrounded)
+            {
+                tyrMove.speedModifierWhenJump = speedInAir;
+            }
+            else
+            {
+                tyrMove.speedModifierWhenJump = 1.0f;
+            }
+        }
+
     }
 }

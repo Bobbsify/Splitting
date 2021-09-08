@@ -9,6 +9,7 @@ namespace Splitting
         private Animator animator;
 
         [SerializeField] private float speed;
+        [HideInInspector] public float speedModifierWhenJump = 1.0f;
         private float horizontalInput;
         private float verticalInput;
         private Vector3 initialScale;
@@ -32,11 +33,11 @@ namespace Splitting
         {
             horizontalInput = Input.GetAxis("Horizontal");
             verticalInput = Input.GetAxis("Vertical");
-            isCrouched = (verticalInput < 0 || isObstructed) && canCrouch;
+            isCrouched = (verticalInput < 0 || isObstructed) && canCrouch;            
 
             if (canMove) // If a wall is encountered this bool will let it move again instead of disabling the script which wont
             {
-                transform.position = new Vector2(transform.position.x + (Time.deltaTime * speed / (isCrouched ? 2 : 1) * horizontalInput), transform.position.y); //halves speed if is crouchings                
+                transform.position = new Vector2(transform.position.x + (Time.deltaTime * (speed / speedModifierWhenJump) / (isCrouched ? 2 : 1) * horizontalInput), transform.position.y); //halves speed if is crouchings                
             }
             //Invertscale
             if (horizontalInput != 0)

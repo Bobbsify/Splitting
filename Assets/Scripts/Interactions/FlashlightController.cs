@@ -18,6 +18,8 @@ namespace Splitting {
         private KeyCode rotateCounterClockwise;
         private KeyCode toggleFlashlight;
 
+        private float flipped;
+
         private void OnEnable()
         {
             rotateClockwise = new InputSettings().TorchAngleUpButton;
@@ -33,7 +35,8 @@ namespace Splitting {
                 }
             }
 
-            angle = transform.localRotation.z;
+            flipped = getTyr(transform).localScale.x;
+            angle = 180; //boh
         }
 
         private void Update()
@@ -57,6 +60,7 @@ namespace Splitting {
                     {
                         angle -= rotationAmount * Time.deltaTime;
                     }
+                    flipPositionCheck();
                     transform.eulerAngles = new Vector3(0, 0, angle);
                 }
             }
@@ -75,5 +79,49 @@ namespace Splitting {
         {
             lightsAre = !lightsAre;
         }
+
+        private void flipPositionCheck()
+        {
+            Transform player = getTyr(transform);
+            if (positiveOrNegative(flipped) != positiveOrNegative(player.localScale.x))
+            {
+                flipped = player.localScale.x;
+
+                float posOrNeg = positiveOrNegative(angle);
+
+                angle = (180 - Mathf.Abs(angle)) * posOrNeg;
+                InvertX();
+            }
+        }
+
+        //Returns tyr or tyrant if it is within 10 transforms
+        private Transform getTyr(Transform originalTransform)
+        {
+            Transform result = originalTransform;
+            int exitCond = 0;
+            while (!result.name.ToUpper().Contains("TYR"))
+            {
+                result = result.parent;
+
+                if (exitCond == 10) break;
+
+                exitCond++;
+            }
+            return result;
+        }
+
+        //Returns -1 if target is negative, +1 if positive
+        private float positiveOrNegative(float value)
+        {
+            return value >= 0 ? 1 : -1;
+        }
+
+        private void InvertX()
+        {
+            Vector3 scale = transform.localScale;
+            scale.x = -scale.x;
+            transform.localScale = scale;
+        }
+
     }
 }

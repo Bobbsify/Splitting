@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Events;
 
 /* slow to fast to slow non funziona la metterò a posto se servira :^)*/
 
@@ -31,6 +32,10 @@ public class Patrol : MonoBehaviour
     [Header("Determines whether this platform carries any objects colliding on top of it with itself")]
     [SerializeField] private bool elevator = false;
     [SerializeField] private int expectedCarriedUnits = 5;
+
+    [Header("Events upon point arrival")]
+    [SerializeField] private UnityEvent checkpointEvents;
+    [SerializeField] private bool doOnPathCompletionInstead;
 
     private void OnEnable()
     {
@@ -258,6 +263,10 @@ public class Patrol : MonoBehaviour
             {
                 nextPoint = 0;
             }
+            if (doOnPathCompletionInstead)
+            {
+                checkpointEvents.Invoke();
+            }
         }
         else
         {
@@ -265,6 +274,12 @@ public class Patrol : MonoBehaviour
         }
 
         removeAttachedObjects();
+
+        //Execute checkpoint events
+        if (!doOnPathCompletionInstead)
+        {
+            checkpointEvents.Invoke();
+        }
 
         if (patrolType == PatrolTypes.NextPointOnAwake || patrolType == PatrolTypes.NextPointOnAwakeNeverRepeat || patrolType == PatrolTypes.NextPointOnAwakeSwing)
         {

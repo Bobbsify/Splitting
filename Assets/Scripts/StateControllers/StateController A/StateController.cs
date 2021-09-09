@@ -15,7 +15,7 @@ namespace Splitting
         public bool isNotScared;
         public bool isIlluminated;
 
-        [SerializeField] private float speedInAir = 2.0f;
+        [SerializeField] private float speedInAir = 0.5f;
 
         [SerializeField] private float shake = 1.0f;
         [SerializeField] private float lenght = 1.0f;
@@ -90,8 +90,7 @@ namespace Splitting
             CheckIfHasFallen(); // Controlla se Ant è atterrato dopo un salto/caduta
             ResetLandBoolAfterHasFallen(); // Controlla se l'animazione di atterraggio di Ant è terminata e resetta la booleana per una prossima caduta
 
-            AntIsNotAfraid(); // Controlla se Ant è spaventato o no
-            PrepareToBeScared(); // Se Ant è spaventato gli vengono disabilitati i comandi
+            AntIsNotAfraid(); // Controlla se Ant è spaventato o no          
 
             ModifySpeedWhenJump();
 
@@ -161,7 +160,7 @@ namespace Splitting
             }
         }
 
-        
+        /*
         void PrepareToBeScared() // da aggiustare
         {
             if (!isNotScared)
@@ -169,15 +168,16 @@ namespace Splitting
                 hasControl = false;                
             }
         }
+        */
         
 
         void ControlIfHasControl()
         {
-            if (gameObject.tag != "Player" || AnimatorIsPlaying("AntDeath"))
+            if (gameObject.tag != "Player" || AnimatorIsPlaying("AntDeath") || !isNotScared)
             {
                 hasControl = false;
             }
-            else if (!antAutobotUnity.connectionPrep && gameObject.tag == "Player" && !AnimatorIsPlaying("AntDeath")) // Viene controllato che connectionPrep sia false perché altrimenti il giocatore potrebbe muovere Ant
+            else if (!antAutobotUnity.connectionPrep && gameObject.tag == "Player" && !AnimatorIsPlaying("AntDeath") && isNotScared) // Viene controllato che connectionPrep sia false perché altrimenti il giocatore potrebbe muovere Ant
             {                                                                                                         // mentre sta avvenendo l'unione in Tyrant
                 hasControl = true;
             }
@@ -222,7 +222,7 @@ namespace Splitting
         {            
             antMove.enabled = true;
 
-            if (isWalled  || (Input.GetKey(jumpButton) && !antMove.isCrouched) || antExtend.isExtended || AnimatorIsPlaying("AntLift3") || AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd") || AnimatorIsPlaying("AntButtonPress"))
+            if (isWalled || (Input.GetKey(jumpButton) && !antMove.isCrouched) || antExtend.isExtended || AnimatorIsPlaying("AntLift3") || AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd") || AnimatorIsPlaying("AntButtonPress"))
             {
                 
                 antMove.canMove = false;
@@ -316,7 +316,7 @@ namespace Splitting
 
         void ControlIfDisableJump()
         {
-            if (isGrounded && AnimatorIsPlaying("AntIdle"))
+            if (isGrounded && AnimatorIsPlaying("AntIdle") || AnimatorIsPlaying("AntCarryingIdle"))
             {
                 antJump.enabled = false;
             }
@@ -342,11 +342,11 @@ namespace Splitting
         {
             if (!isGrounded)
             {
-                antMove.speedModifierWhenJump = speedInAir;
+                antMove.speedModifier = speedInAir;
             }
             else
             {
-                antMove.speedModifierWhenJump = 1.0f;
+                antMove.speedModifier = 1.0f;
             }
         }
     }

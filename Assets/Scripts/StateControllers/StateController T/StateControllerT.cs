@@ -13,7 +13,7 @@ namespace Splitting
         public bool isWalled;
         public bool isObstructed;
 
-        [SerializeField] private float speedInAir = 2.0f;
+        [SerializeField] private float speedInAir = 0.5f;
 
         private Move tyrMove;
         private Jump tyrJump;
@@ -101,6 +101,7 @@ namespace Splitting
                 ControlWhenCanMove();
 
                 ControlWhenCanPickup();
+                ControlWhenCanThrow();
 
                 ControlWhenCanHack();
 
@@ -112,7 +113,8 @@ namespace Splitting
             else
             {
                 tyrMove.enabled = false;
-                tyrPickup.enabled = false;                
+                tyrPickup.enabled = false;
+                getThrow.enabled = false;
                 tyrHacking.enabled = false;
 
                 tyrFlashlight.canUseFlashlight = false;
@@ -219,6 +221,19 @@ namespace Splitting
             }
         }
 
+        void ControlWhenCanThrow()
+        {
+            if (!isGrounded || AnimatorIsPlaying("Tyr hacking") || AnimatorIsPlaying("Tyr hacking2"))
+            {
+                getThrow.enabled = false;
+            }
+            else
+            {
+                getThrow.enabled = true;
+            }
+
+        }
+
         void ControlWhenCanHack()
         {
             tyrHacking.enabled = true;
@@ -237,11 +252,11 @@ namespace Splitting
         {
             if (!isGrounded)
             {
-                tyrMove.speedModifierWhenJump = speedInAir;
+                tyrMove.speedModifier = speedInAir;
             }
             else
             {
-                tyrMove.speedModifierWhenJump = 1.0f;
+                tyrMove.speedModifier = 1.0f;
             }
         }
 

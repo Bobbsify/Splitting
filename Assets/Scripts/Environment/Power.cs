@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Power : MonoBehaviour
 {
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         Powered pow;
         if (collision.gameObject.TryGetComponent(out pow))
         {
+            Debug.Log("Entering");
             pow.SetPower(true);
         }
     }
@@ -18,6 +19,7 @@ public class Power : MonoBehaviour
         Powered pow;
         if (collision.gameObject.TryGetComponent(out pow))
         {
+            Debug.Log("Exiting");
             pow.SetPower(false);
         }
 

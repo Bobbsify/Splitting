@@ -9,7 +9,7 @@ namespace Splitting
         private Animator animator;
 
         [SerializeField] private float speed;
-        [HideInInspector] public float speedModifierWhenJump = 1.0f;
+        public float speedModifier = 1.0f;
         private float horizontalInput;
         private float verticalInput;
         private Vector3 initialScale;
@@ -37,7 +37,7 @@ namespace Splitting
 
             if (canMove) // If a wall is encountered this bool will let it move again instead of disabling the script which wont
             {
-                transform.position = new Vector2(transform.position.x + (Time.deltaTime * (speed / speedModifierWhenJump) / (isCrouched ? 2 : 1) * horizontalInput), transform.position.y); //halves speed if is crouchings                
+                transform.position = new Vector2(transform.position.x + (Time.deltaTime * (speed * speedModifier) / (isCrouched ? 2 : 1) * horizontalInput), transform.position.y); //halves speed if is crouchings                
             }
             //Invertscale
             if (horizontalInput != 0)

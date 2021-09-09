@@ -34,8 +34,8 @@ public class Patrol : MonoBehaviour
     [SerializeField] private int expectedCarriedUnits = 5;
 
     [Header("Events upon point arrival")]
-    [SerializeField] private UnityEvent checkpointEvents;
     [SerializeField] private bool doOnPathCompletionInstead;
+    [SerializeField] private UnityEvent checkpointEvents;
 
     private void OnEnable()
     {

@@ -943,6 +943,8 @@ MonoBehaviour:
   jumpForce: 1300
   jumpMultiplier: 1.6
   jumpDivider: 1
+  timerChargeJump: 0.2
+  chargeJump: 0
   timerJump: 2
   elapsedKeyDown: 0
   timerFall: 2

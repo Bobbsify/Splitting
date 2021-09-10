@@ -1368,7 +1368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 13
-  speedModifierWhenJump: 1
+  speedModifier: 1
   canCrouch: 0
   isCrouched: 0
   canMove: 0
@@ -1392,6 +1392,8 @@ MonoBehaviour:
   jumpForce: 1400
   jumpMultiplier: 1.6
   jumpDivider: 1
+  timerChargeJump: 0.2
+  chargeJump: 0
   timerJump: 0.7
   elapsedKeyDown: 0
   timerFall: 2
@@ -1415,7 +1417,7 @@ MonoBehaviour:
   isObstructed: 0
   isNotScared: 0
   isIlluminated: 0
-  speedInAir: 1
+  speedInAir: 0.5
   shake: 0.2
   lenght: 0.5
 --- !u!114 &700035413992777735

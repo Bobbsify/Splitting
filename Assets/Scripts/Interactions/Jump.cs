@@ -20,6 +20,9 @@ namespace Splitting
 
         private KeyCode jumpButton;
 
+        [SerializeField] private float timerChargeJump = 1.0f;
+        public bool chargeJump;
+
         [SerializeField] private float timerJump = 2.0f;
         [SerializeField] private float elapsedKeyDown;
 
@@ -52,6 +55,16 @@ namespace Splitting
                 {
                     elapsedKeyDown += Time.deltaTime;
                 }
+
+                if (elapsedKeyDown >= timerChargeJump)
+                {
+                    chargeJump = true;
+                }
+                else
+                {
+                    chargeJump = false;
+                }
+
 
                 if (elapsedKeyDown >= timerJump)
                 {

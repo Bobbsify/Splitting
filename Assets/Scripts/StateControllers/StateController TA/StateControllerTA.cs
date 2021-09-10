@@ -346,7 +346,7 @@ namespace Splitting
                 tyrantMove.enabled = true;
             }              
             
-            if (isWalled || (Input.GetKey(jumpButton) && !getThrow.rbToThrow) || tyrantExtend.isExtended || AnimatorIsPlaying("Tyrant grab3") || AnimatorIsPlaying("Tyrant grab") || getThrow.throwing) //  bisogna controllare anche le animazioni di hacking e lift che ancora non ci sono
+            if (isWalled || (tyrantJump.chargeJump && !getThrow.rbToThrow) || tyrantExtend.isExtended || AnimatorIsPlaying("Tyrant grab3") || AnimatorIsPlaying("Tyrant grab") || getThrow.throwing) //  bisogna controllare anche le animazioni di hacking e lift che ancora non ci sono
             {
                 tyrantMove.canMove = false;
             }

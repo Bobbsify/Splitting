@@ -222,7 +222,7 @@ namespace Splitting
         {            
             antMove.enabled = true;
 
-            if (isWalled || (Input.GetKey(jumpButton) && !antMove.isCrouched) || antExtend.isExtended || AnimatorIsPlaying("AntLift3") || AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd") || AnimatorIsPlaying("AntButtonPress"))
+            if (isWalled || (antJump.chargeJump && !antMove.isCrouched) || antExtend.isExtended || AnimatorIsPlaying("AntLift3") || AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd") || AnimatorIsPlaying("AntButtonPress"))
             {
                 
                 antMove.canMove = false;

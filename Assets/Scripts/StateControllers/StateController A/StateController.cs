@@ -89,6 +89,7 @@ namespace Splitting
 
             CheckIfHasFallen(); // Controlla se Ant è atterrato dopo un salto/caduta
             ResetLandBoolAfterHasFallen(); // Controlla se l'animazione di atterraggio di Ant è terminata e resetta la booleana per una prossima caduta
+            ResetFallTime();
 
             AntIsNotAfraid(); // Controlla se Ant è spaventato o no          
 
@@ -347,6 +348,14 @@ namespace Splitting
             else
             {
                 antMove.speedModifier = 1.0f;
+            }
+        }
+
+        void ResetFallTime()
+        {
+            if (isGrounded)
+            {
+                antJump.elapsedFall = 0.0f;
             }
         }
     }

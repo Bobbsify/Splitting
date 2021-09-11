@@ -94,6 +94,8 @@ namespace Splitting
             CheckIfHasFallen();
             ResetLandBoolAfterHasFallen();
 
+            ResetFallTime();
+            
             ModifySpeedWhenFall();
 
             if (hasControl)
@@ -146,7 +148,7 @@ namespace Splitting
                 {
 
                     tyrJump.isLanded = true; // Conferma l'atterraggio
-                    tyrJump.wasJumping = false;
+                    tyrJump.wasJumping = false;                    
 
                     if (tyrJump.bigFall) // Se Tyr è atterrato dopo una caduta lunga più di un tot verrà considerata bigFall ed avverrà uno ScreenShake
                     {
@@ -172,7 +174,7 @@ namespace Splitting
         {
             if (tyrJump.isLanded && (AnimatorIsPlaying("Tyr idle") || AnimatorIsPlaying("Tyr Walking")))
             {
-                tyrJump.isLanded = false;
+                tyrJump.isLanded = false;                
             }
         }
 
@@ -257,6 +259,14 @@ namespace Splitting
             else
             {
                 tyrMove.speedModifier = 1.0f;
+            }
+        }
+
+        void ResetFallTime()
+        {
+            if (isGrounded)
+            {
+                tyrJump.elapsedFall = 0.0f;
             }
         }
 

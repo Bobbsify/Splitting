@@ -81,6 +81,7 @@ namespace Splitting
 
             CheckIfHasFallen();
             ResetLandBoolAfterHasFallen();
+            ResetFallTime();
 
             TyrantIsNotAfraid();
 
@@ -420,7 +421,15 @@ namespace Splitting
             {
                 tyrantHacking.canHack = true;
             }
-        }       
+        }
+
+        void ResetFallTime()
+        {
+            if (isGrounded)
+            {
+                tyrantJump.elapsedFall = 0.0f;
+            }
+        }
 
     }
 }

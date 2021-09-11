@@ -27,7 +27,10 @@ namespace Splitting
         [SerializeField] private float elapsedKeyDown;
 
         [SerializeField] private float timerFall = 2.0f;
-        [SerializeField] private float elapsedFall;
+        public float elapsedFall;
+
+        [SerializeField] private float timerStartFall = 1.0f;
+        public bool startFall;
 
         public bool bigFall;
 
@@ -110,6 +113,16 @@ namespace Splitting
                 elapsedFall += Time.deltaTime;
             }
 
+            if (elapsedFall >= timerStartFall)
+            {
+                startFall = true;
+                wasJumping = true;
+            }
+            else
+            {
+                startFall = false;
+            }
+
             if (elapsedFall > timerFall)
             {
                 bigFall = true;
@@ -119,17 +132,18 @@ namespace Splitting
                 bigFall = false;
             }
 
-            CallAnimator(Input.GetKey(jumpButton), velocityY, isLanded);
+            CallAnimator(Input.GetKey(jumpButton), velocityY, isLanded, startFall);
             
         }
 
-        private void CallAnimator(bool isPreparing, float verticalSpeed, bool isLanded)
+        private void CallAnimator(bool isPreparing, float verticalSpeed, bool isLanded, bool startingFall)
         {
             if (animator != null)
             {
                 animator.SetBool("jumpPrep", isPreparing);
                 animator.SetFloat("velocityY", verticalSpeed);
-                animator.SetBool("land", isLanded);                
+                animator.SetBool("land", isLanded);
+                animator.SetBool("startFall", startingFall);
             }
         }
 

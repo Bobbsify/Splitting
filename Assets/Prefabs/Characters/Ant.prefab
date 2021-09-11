@@ -1398,6 +1398,8 @@ MonoBehaviour:
   elapsedKeyDown: 0
   timerFall: 2
   elapsedFall: 0
+  timerStartFall: 0.15
+  startFall: 0
   bigFall: 0
 --- !u!114 &700035413992777756
 MonoBehaviour:

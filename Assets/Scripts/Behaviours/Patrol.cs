@@ -322,7 +322,7 @@ public class Patrol : MonoBehaviour
             foreach (Collider2D col in cols)
             {
                 if (col != null) { 
-                    if (col.tag == "Player" || col.tag == "Carryable" || col.name.ToLower() == "tyr" || col.name.ToLower() == "ant")
+                    if (col.tag == "Player" || col.tag == "Carryable" || col.name.ToLower().Contains("tyr") || col.name.ToLower().Contains("ant"))
                     {
                         col.gameObject.transform.parent = transform;
                     }

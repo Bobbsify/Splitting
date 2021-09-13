@@ -299,7 +299,7 @@ public class Patrol : MonoBehaviour
 
         if(result == null || result.isTrigger) //No collider was found or it's wrong
         {
-            Collider2D[] cols = GetComponentsInChildren<Collider2D>();
+            Collider2D[] cols = GetComponentsInChildren<Collider2D>(); //search in children
             foreach (Collider2D col in cols)
             {
                 if (!col.isTrigger && result == null)
@@ -318,11 +318,15 @@ public class Patrol : MonoBehaviour
 
     private void attachObjectsToThis(Collider2D[] cols)
     {
-        foreach (Collider2D col in cols)
-        {
-            if (col.tag == "Player" || col.tag == "Carryable" || col.name.ToLower() == "tyr" || col.name.ToLower() == "ant")
-            { 
-                col.gameObject.transform.parent = transform;
+        if (cols != null) { 
+            foreach (Collider2D col in cols)
+            {
+                if (col != null) { 
+                    if (col.tag == "Player" || col.tag == "Carryable" || col.name.ToLower() == "tyr" || col.name.ToLower() == "ant")
+                    {
+                        col.gameObject.transform.parent = transform;
+                    }
+                }
             }
         }
     }

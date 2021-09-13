@@ -8,7 +8,7 @@ public class Powered : MonoBehaviour
     [SerializeField] private UnityEvent turnOnEvents;
     [SerializeField] private UnityEvent turnOffEvents;
 
-    public void SetPower(bool pow)
+    private void SetPower(bool pow)
     {
         if (pow)
         {
@@ -17,6 +17,24 @@ public class Powered : MonoBehaviour
         else
         {
             turnOffEvents.Invoke();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Power pow;
+        if (collision.TryGetComponent(out pow))
+        {
+            SetPower(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Power pow;
+        if (collision.TryGetComponent(out pow))
+        {
+            SetPower(false);
         }
     }
 }

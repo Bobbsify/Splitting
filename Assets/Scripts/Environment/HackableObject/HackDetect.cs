@@ -9,6 +9,7 @@ namespace Splitting
     {
         private GameObject hacker;
 
+        public bool flagHack;
         private bool onHack;        
         private bool hackerIsHacking;
 
@@ -41,7 +42,8 @@ namespace Splitting
 
                 if (animator != null)
                 {
-                    hackerIsHacking = true;
+                    flagHack = false;
+                    hackerIsHacking = true;                    
                 }
             }                      
 
@@ -54,18 +56,22 @@ namespace Splitting
 
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerStay2D(Collider2D collision)
         {
 
             if (collision.gameObject.tag == "HackArea")
-            {
+            {                
                 onHack = true;
 
                 WhoIsTheHacker();
 
-                if (hacker != null)
+                if (hacker != null && hacking != null && !flagHack)
                 {
                     hacking.hackableObj.Add(gameObject);
+                    if (this.enabled == true)
+                    {
+                        flagHack = true;
+                    }                    
                 }
             }
         }
@@ -74,6 +80,7 @@ namespace Splitting
         {
             if (collision.gameObject.tag == "HackArea")
             {
+                flagHack = false;
                 onHack = false;
 
                 WhoIsTheHacker();
@@ -112,7 +119,7 @@ namespace Splitting
         void ExecuteHackingAction()
         {
             hackerIsHacking = false;
-            hacked = false;
+            hacked = false;  
 
             DoEvents();
 

@@ -182,11 +182,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionType: 0
   activationType: 2
-  buttonToPress: 101
   scriptsToLoad:
   - {fileID: 2433475121976478567}
   scoringPlatform: {fileID: 0}
   targetScore: 0
+  subsequentEvents:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2433475121976478565
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,3 +240,9 @@ MonoBehaviour:
   patrolType: 1
   speed: 15
   movementType: 0
+  elevator: 1
+  expectedCarriedUnits: 5
+  doOnPathCompletionInstead: 0
+  checkpointEvents:
+    m_PersistentCalls:
+      m_Calls: []

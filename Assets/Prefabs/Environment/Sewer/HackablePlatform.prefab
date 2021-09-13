@@ -4958,7 +4958,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a84c8873811ce5439afec7e27df253f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: []
+  path:
+  - {x: 0, y: 0, z: 0}
   patrolType: 1
   speed: 5
   movementType: 0

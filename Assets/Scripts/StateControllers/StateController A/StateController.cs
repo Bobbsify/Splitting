@@ -188,7 +188,7 @@ namespace Splitting
         {
             if (animator != null)
             {
-                animator.SetBool("isNotScared", isNotScared);
+                animator.SetBool("isNotScared", isNotScared);                
             }
         }       
 

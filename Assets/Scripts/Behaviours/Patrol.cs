@@ -13,7 +13,7 @@ public class Patrol : MonoBehaviour
     [SerializeField] private PatrolTypes patrolType;
 
     [Header("Movement Properties")]
-    [SerializeField] private float speed;
+    [SerializeField] public float speed;
     [Header("Slow to fast to Slow non funziona, la metterò a posto se servirà :^)")]
     [SerializeField] private MovementTypes movementType;
 

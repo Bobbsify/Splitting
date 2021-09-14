@@ -9,7 +9,8 @@ namespace Splitting
     {
         private GameObject hacker;
 
-        public bool flagHack;
+        public bool flagHack;        
+
         private bool onHack;        
         private bool hackerIsHacking;
 
@@ -17,7 +18,7 @@ namespace Splitting
 
         private Hacking hacking;       
 
-        private Animator animator;
+        public Animator animator;
 
         [Header("Other Actions")]
         [SerializeField] UnityEvent subsequentEvents;
@@ -41,14 +42,13 @@ namespace Splitting
                 }
 
                 if (animator != null)
-                {
-                    flagHack = false;
+                {                    
                     hackerIsHacking = true;                    
                 }
             }                      
 
-            if (hackerIsHacking && onHack && AnimatorIsPlaying("Tyr hacking2"))
-            {
+            if (hackerIsHacking && onHack && (AnimatorIsPlaying("Tyr hacking2") || AnimatorIsPlaying("Tyrant hacking2")))
+            {                
                 ExecuteHackingAction();                
             }
 
@@ -67,11 +67,13 @@ namespace Splitting
 
                 if (hacker != null && hacking != null && !flagHack)
                 {
-                    hacking.hackableObj.Add(gameObject);
+                    hacking.hackableObj.Add(gameObject);                    
+                                        
                     if (this.enabled == true)
                     {
                         flagHack = true;
-                    }                    
+                    }
+                    
                 }
             }
         }
@@ -87,7 +89,7 @@ namespace Splitting
 
                 if (hacker != null)
                 {
-                    hacking.hackableObj.Remove(gameObject);
+                    hacking.hackableObj.Remove(gameObject);                    
                 }
 
                 gameObject.transform.Find("InteractionOff").gameObject.SetActive(false);

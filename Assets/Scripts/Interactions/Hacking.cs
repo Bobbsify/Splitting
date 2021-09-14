@@ -33,6 +33,8 @@ namespace Splitting {
         // Update is called once per frame
         void Update()
         {
+            ControlHackingStuff();        
+
             if (hackableObj.Count > 0)
             {
                 if (hackableObjIndex > (hackableObj.Count - 1))
@@ -45,7 +47,7 @@ namespace Splitting {
                 SwitchHackInteractionBalloon();
             }
             
-            if (canHack)
+            if (canHack && hackableObj.Count > 0)
             {
                 if (Input.GetKeyUp(hackingButton))
                 {
@@ -54,7 +56,7 @@ namespace Splitting {
                     if (hackDetect != null)
                     {
                         hackDetect.hacked = true;
-                    }
+                    }                    
                 }
             }            
         }      
@@ -112,13 +114,24 @@ namespace Splitting {
                 else
                 {
                     hackableObj[i].transform.Find("InteractionOn").gameObject.SetActive(false);
-                    hackableObj[i].transform.Find("InteractionOff").gameObject.SetActive(false);
+                    hackableObj[i].transform.Find("InteractionOff").gameObject.SetActive(false);                    
 
                     hackableObj.Remove(hackableObj[i]);
                 }               
 
             }
-        }        
+        }
+        
+        void ControlHackingStuff()
+        {
+            if (hackDetect != null)
+            {              
+                if (hackDetect.enabled == false)
+                {
+                    hackDetect.flagHack = false;
+                }
+            }
+        }
 
     }
 }

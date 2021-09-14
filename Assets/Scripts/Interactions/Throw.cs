@@ -100,7 +100,7 @@ namespace Splitting
             float drag = 1f - timestep * rigibody.drag;
             Vector2 moveStep = velocity * timestep;
 
-            RaycastHit2D hitRay = Physics2D.Raycast(pos, Vector2.down, 0.1f);
+            RaycastHit2D hitRay = Physics2D.Raycast(pos, Vector2.down);
 
             for(int i = 0; i < maxCalculations; i++) { 
                 moveStep += gravityAccel;
@@ -109,7 +109,7 @@ namespace Splitting
                 Vector3 newPos = pos;
                 newPos.z = -2;
                 results.Add(newPos);
-                hitRay = Physics2D.Raycast(pos, Vector2.down, 0.1f);
+                hitRay = Physics2D.Raycast(pos, Vector2.down);
                 if (hitRay.collider != null)
                 {
                     if(hitRay.collider.tag.ToUpper() == "GROUND")

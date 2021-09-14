@@ -6,15 +6,23 @@ public class DoorSetActive : MonoBehaviour, IDoor
 {
 
     public bool isOpen = false; //Stato iniziale della porta: False = Chiusa, 
+    private Animator anim;
+
+    private void Awake()
+    {
+        anim = gameObject.GetComponent<Animator>();
+    }
 
     public void CloseDoor()
     {
-        gameObject.SetActive(true);
+        //gameObject.SetActive(true);
+        anim.SetBool("isOpen", false);
     }
 
     public void OpenDoor()
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        anim.SetBool("isOpen", true);
     }
 
     public void ToggleDoor()

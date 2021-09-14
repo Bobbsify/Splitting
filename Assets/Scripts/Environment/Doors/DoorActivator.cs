@@ -25,9 +25,9 @@ public class DoorActivator : MonoBehaviour
                     {
                         IDoor door = d.GetComponent<IDoor>();
                         door.ToggleDoor();
-                        Animator anim = GetComponent<Animator>();
-                        anim.SetBool("lit",!anim.GetBool("lit"));
                     }
+                    Animator anim = GetComponent<Animator>();
+                    anim.SetBool("lit", !anim.GetBool("lit"));
                 }
                 break;
             case ActivationTypes.Score:

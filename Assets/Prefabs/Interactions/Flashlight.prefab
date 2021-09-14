@@ -64,6 +64,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashlightController: {fileID: 0}
   lightAreaCol: {fileID: 0}
+  antInDark: 0
+  tyrantInDark: 0
+  elapsedInDark: 0
+  timerInDark: 0.5
 --- !u!60 &394408939001793322
 PolygonCollider2D:
   m_ObjectHideFlags: 0

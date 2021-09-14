@@ -12,6 +12,8 @@ namespace Splitting
         public FlashlightController flashlightController;
         public Collider2D lightAreaCol;
 
+        public bool antInDark;
+        public bool tyrantInDark;
         [SerializeField] private float elapsedInDark;
         [SerializeField] private float timerInDark = 1.5f;
 
@@ -26,12 +28,12 @@ namespace Splitting
         void Update()
         {
             ControlLightStatus();
+
+            ControlIfIlluminated();
         }
 
         private void OnTriggerStay2D(Collider2D collision)
-        {
-            elapsedInDark = 0.0f;
-
+        {                    
             bool ant = false;
             bool tyr = false;          
 
@@ -40,12 +42,18 @@ namespace Splitting
 
             if (ant && !tyr)
             {
+                elapsedInDark = 0.0f;
+                antInDark = false;
+
                 antStateController = collision.GetComponent<StateController>();
 
                 antStateController.isIlluminated = true;
             }
             else if (ant && tyr)
             {
+                elapsedInDark = 0.0f;
+                tyrantInDark = false;
+
                 tyrantStateController = collision.GetComponent<StateControllerTA>();
 
                 tyrantStateController.isIlluminated = true;
@@ -53,29 +61,22 @@ namespace Splitting
         }
 
         private void OnTriggerExit2D(Collider2D collision)
-        {
-            elapsedInDark += Time.deltaTime;
-
+        {            
             bool ant = false;
             bool tyr = false;
 
             ant = collision.name.ToUpper().Contains("ANT");
             tyr = collision.name.ToUpper().Contains("TYR");
-
-            if (elapsedInDark >= timerInDark)
+                        
+            if (ant && !tyr)
             {
-                if (ant && !tyr)
-                {
-                    antStateController.isIlluminated = false;
-                }
-                else if (ant && tyr)
-                {
-                    tyrantStateController.isIlluminated = false;
-                }
-
-                elapsedInDark = 0.0f;
+                antInDark = true;
             }
-           
+            else if (ant && tyr)
+            {
+                tyrantInDark = true;
+            }
+
         }
         
         void ControlLightStatus()
@@ -89,6 +90,26 @@ namespace Splitting
                 else
                 {
                     lightAreaCol.enabled = false;
+                }
+            }
+        }
+
+        void ControlIfIlluminated()
+        {
+            if (antInDark || tyrantInDark)
+            {
+                elapsedInDark += Time.deltaTime;
+            }
+
+            if (elapsedInDark >= timerInDark)
+            {
+                if (antInDark)
+                {
+                    antStateController.isIlluminated = false;
+                }
+                else if (tyrantInDark)
+                {
+                    tyrantStateController.isIlluminated = false;
                 }
             }
         }

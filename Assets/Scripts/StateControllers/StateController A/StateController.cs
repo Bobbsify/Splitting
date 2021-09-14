@@ -15,6 +15,9 @@ namespace Splitting
         public bool isNotScared;
         public bool isIlluminated;
 
+        [SerializeField] private float elapsedInDark;
+        [SerializeField] private float timerInDark = 0.5f;
+
         [SerializeField] private float speedInAir = 0.5f;
 
         [SerializeField] private float shake = 1.0f;
@@ -153,11 +156,17 @@ namespace Splitting
         {
             if (isIlluminated || !isGrounded)
             {
+                elapsedInDark = 0.0f;
                 isNotScared = true;
             }
             else
             {
-                isNotScared = false;
+                elapsedInDark += Time.deltaTime;
+
+                if (elapsedInDark >= timerInDark)
+                {
+                    isNotScared = false;
+                }                
             }
         }
 

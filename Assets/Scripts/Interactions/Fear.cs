@@ -10,13 +10,8 @@ namespace Splitting
         private StateControllerTA tyrantStateController;
 
         public FlashlightController flashlightController;
-        public Collider2D lightAreaCol;
-
-        public bool antInDark;
-        public bool tyrantInDark;
-        [SerializeField] private float elapsedInDark;
-        [SerializeField] private float timerInDark = 1.5f;
-
+        public Collider2D lightAreaCol;              
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -28,8 +23,6 @@ namespace Splitting
         void Update()
         {
             ControlLightStatus();
-
-            ControlIfIlluminated();
         }
 
         private void OnTriggerStay2D(Collider2D collision)
@@ -41,19 +34,13 @@ namespace Splitting
             tyr = collision.name.ToUpper().Contains("TYR");
 
             if (ant && !tyr)
-            {
-                elapsedInDark = 0.0f;
-                antInDark = false;
-
+            {                
                 antStateController = collision.GetComponent<StateController>();
 
                 antStateController.isIlluminated = true;
             }
             else if (ant && tyr)
-            {
-                elapsedInDark = 0.0f;
-                tyrantInDark = false;
-
+            {                
                 tyrantStateController = collision.GetComponent<StateControllerTA>();
 
                 tyrantStateController.isIlluminated = true;
@@ -70,11 +57,11 @@ namespace Splitting
                         
             if (ant && !tyr)
             {
-                antInDark = true;
+                antStateController.isIlluminated = false;
             }
             else if (ant && tyr)
             {
-                tyrantInDark = true;
+                tyrantStateController.isIlluminated = false;
             }
 
         }
@@ -93,25 +80,6 @@ namespace Splitting
                 }
             }
         }
-
-        void ControlIfIlluminated()
-        {
-            if (antInDark || tyrantInDark)
-            {
-                elapsedInDark += Time.deltaTime;
-            }
-
-            if (elapsedInDark >= timerInDark)
-            {
-                if (antInDark)
-                {
-                    antStateController.isIlluminated = false;
-                }
-                else if (tyrantInDark)
-                {
-                    tyrantStateController.isIlluminated = false;
-                }
-            }
-        }
+        
     }
 }

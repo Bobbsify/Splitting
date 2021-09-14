@@ -7,6 +7,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1435880672, guid: 01024847775d53147b70ce123a5aef33, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 832b2bcf05450ab45b3313e476b762e9, type: 2}
+    - target: {fileID: 628767094763816767, guid: 01024847775d53147b70ce123a5aef33,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d9e412099e49d784a83847c841d9ef35,
+        type: 3}
+    - target: {fileID: 4392678903616597626, guid: 01024847775d53147b70ce123a5aef33,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 9.998051
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392678903616597626, guid: 01024847775d53147b70ce123a5aef33,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.0012600422
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392678903616597626, guid: 01024847775d53147b70ce123a5aef33,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6582399478775049092, guid: 01024847775d53147b70ce123a5aef33,
         type: 3}
       propertyPath: m_Sprite
@@ -81,7 +106,7 @@ PrefabInstance:
     - target: {fileID: 6582399478775049115, guid: 01024847775d53147b70ce123a5aef33,
         type: 3}
       propertyPath: m_Name
-      value: Door2
+      value: Door2 Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01024847775d53147b70ce123a5aef33, type: 3}

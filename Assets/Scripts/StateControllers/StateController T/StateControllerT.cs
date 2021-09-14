@@ -109,6 +109,7 @@ namespace Splitting
 
                 tyrFlashlight.canUseFlashlight = true;
 
+                tyrJump.enabled = true;
                 tyrJump.canJump = false;
 
             }

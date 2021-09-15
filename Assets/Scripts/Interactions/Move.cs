@@ -10,7 +10,7 @@ namespace Splitting
 
         [SerializeField] private float speed;
         public float speedModifier = 1.0f;
-        private float horizontalInput;
+        public float horizontalInput;
         private float verticalInput;
         private Vector3 initialScale;
 
@@ -39,6 +39,10 @@ namespace Splitting
             {
                 transform.position = new Vector2(transform.position.x + (Time.deltaTime * (speed * speedModifier) / (isCrouched ? 2 : 1) * horizontalInput), transform.position.y); //halves speed if is crouchings                
             }
+            else
+            {
+                // horizontalInput = 0;
+            }
             //Invertscale
             if (horizontalInput != 0)
             {
@@ -52,12 +56,20 @@ namespace Splitting
                 }
                 transform.localScale = new Vector3(initialScale.x * horizontalInput, initialScale.y);
             }
+
+            if (tag == "Player")
+            {
+                CallAnimator(Time.deltaTime * speed / (isCrouched ? 2 : 1) * horizontalInput, isCrouched);
+            }
+
+            /*
             if (canCrouch || canMove)
             {
                 if (tag == "Player") { 
                     CallAnimator(Time.deltaTime * speed / (isCrouched ? 2 : 1) * horizontalInput, isCrouched);
                 }
             }
+            */
         }
 
         //Updates animator velocity

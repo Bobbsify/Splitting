@@ -271,7 +271,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4000
   m_Positions: []
   m_Parameters:
     serializedVersion: 3
@@ -355,7 +355,7 @@ MonoBehaviour:
   minPower: -45
   maxAngle: 45
   minAngle: -45
-  maxCalculations: 500000
+  maxCalculations: 8000
   throwing: 0
 --- !u!1 &460920147809103970
 GameObject:

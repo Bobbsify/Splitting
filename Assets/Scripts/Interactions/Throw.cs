@@ -6,6 +6,8 @@ namespace Splitting
 {
     public class Throw : MonoBehaviour
     {
+        private static string[] tagsToCheck = {"GROUND","PLATFORM"};
+
         public Rigidbody2D rbToThrow;
         public GameObject entityThrowing;
         private KeyCode throwButton;
@@ -20,7 +22,7 @@ namespace Splitting
         [SerializeField] private float minAngle = -90f;
         private float angle = 0f;
 
-        [SerializeField] private float maxCalculations = 500000;
+        [SerializeField] private float maxCalculations = 8000;
 
         private float horizontalInput;
         private float verticalInput;
@@ -100,22 +102,23 @@ namespace Splitting
             float drag = 1f - timestep * rigibody.drag;
             Vector2 moveStep = velocity * timestep;
 
-            RaycastHit2D hitRay = Physics2D.Raycast(pos, Vector2.down);
+            RaycastHit2D[] hitRay;
 
             for(int i = 0; i < maxCalculations; i++) { 
                 moveStep += gravityAccel;
                 moveStep *= drag;
                 pos += moveStep;
-                Vector3 newPos = pos;
-                newPos.z = -2;
-                results.Add(newPos);
-                hitRay = Physics2D.Raycast(pos, Vector2.down);
-                if (hitRay.collider != null)
+                results.Add(pos);
+                hitRay = Physics2D.RaycastAll(pos, Vector2.down, 0.1f);
+                foreach (RaycastHit2D ray in hitRay)
                 {
-                    if(hitRay.collider.tag.ToUpper() == "GROUND")
-                    {
-                        break;
-                    }
+                        foreach (string tagToCheck in tagsToCheck)
+                        {
+                            if (ray.collider.tag.ToUpper() == tagToCheck)
+                            {
+                                return results.ToArray();
+                            }
+                        }
                 }
             }
 

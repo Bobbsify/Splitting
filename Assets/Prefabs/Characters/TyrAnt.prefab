@@ -920,6 +920,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   speedModifier: 1
+  horizontalInput: 0
   canCrouch: 0
   isCrouched: 0
   canMove: 0
@@ -970,6 +971,8 @@ MonoBehaviour:
   isObstructed: 0
   isNotScared: 0
   isIlluminated: 0
+  elapsedInDark: 0
+  timerInDark: 0.05
   speedInAir: 1
   shake: 1
   lenght: 1

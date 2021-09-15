@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class Powered : MonoBehaviour
 {
+    [SerializeField] private bool absorbBattery = false;
+
     [SerializeField] private UnityEvent turnOnEvents;
     [SerializeField] private UnityEvent turnOffEvents;
 
@@ -22,19 +24,33 @@ public class Powered : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Power pow;
-        if (collision.TryGetComponent(out pow))
+        if (!absorbBattery)
         {
-            SetPower(true);
+            Power pow;
+            if (collision.TryGetComponent(out pow))
+            {
+                SetPower(true);
+            }
+        }
+        else
+        {
+            Power pow;
+            if (collision.TryGetComponent(out pow))
+            {
+                Destroy(collision.gameObject); //remove object
+                SetPower(true);
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Power pow;
-        if (collision.TryGetComponent(out pow))
-        {
-            SetPower(false);
+        if (!absorbBattery) { 
+            Power pow;
+            if (collision.TryGetComponent(out pow))
+            {
+                SetPower(false);
+            }
         }
     }
 }

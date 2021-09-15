@@ -420,12 +420,12 @@ PrefabInstance:
     - target: {fileID: 3337251345036382522, guid: d5e5d6ed14486e04fa217c9c42c353fb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.1
+      value: 61.7
       objectReference: {fileID: 0}
     - target: {fileID: 3337251345036382522, guid: d5e5d6ed14486e04fa217c9c42c353fb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -30.3
+      value: -24.5
       objectReference: {fileID: 0}
     - target: {fileID: 3337251345036382522, guid: d5e5d6ed14486e04fa217c9c42c353fb,
         type: 3}
@@ -20887,9 +20887,15 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 15.844788, y: 6.9556646}
       - {x: 16.153503, y: 31.906536}
-      - {x: -79.60659, y: 31.88189}
-      - {x: -79.745544, y: -25.62373}
-      - {x: 36.23198, y: -26.2705}
+      - {x: 35.42415, y: 32.11587}
+      - {x: 35.714195, y: 6.7473164}
+      - {x: 228.18536, y: 4.525112}
+      - {x: 235.2775, y: 112.284454}
+      - {x: -200.58871, y: 114.605835}
+      - {x: -212.94919, y: -104.42388}
+      - {x: -49.115543, y: -103.2708}
+      - {x: 231.52306, y: -98.92801}
+      - {x: 228.1294, y: 4.2949753}
       - {x: 35.771484, y: 6.6586323}
 --- !u!114 &1899692890
 MonoBehaviour:
@@ -20928,13 +20934,18 @@ MonoBehaviour:
   m_ShapeLightFalloffSize: 3
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: -77.39667, y: 29.689064, z: 0}
-  - {x: -77.57782, y: -23.547121, z: 0}
-  - {x: 34.106674, y: -24.138607, z: 0}
-  - {x: 34.57345, y: 5.600608, z: 0}
-  - {x: 14.205719, y: 5.645009, z: 0}
-  - {x: 14.364708, y: 29.715733, z: 0}
-  - {x: -16.630085, y: 29.426144, z: 0}
+  - {x: -206.55981, y: 32.221676, z: 0}
+  - {x: -211.80621, y: -102.058075, z: 0}
+  - {x: 231.01724, y: -99.483795, z: 0}
+  - {x: 225.552, y: 6.866912, z: 0}
+  - {x: 13.661247, y: 5.567481, z: 0}
+  - {x: 13.394859, y: 31.805, z: 0.0000076293945}
+  - {x: 35.302788, y: 31.573174, z: 0.0000076293945}
+  - {x: 35.191605, y: 19.823196, z: 0.0000076293945}
+  - {x: 35.372932, y: 6.4051867, z: 0.0000076293945}
+  - {x: 225.3305, y: 6.244729, z: 0.0000076293945}
+  - {x: 234.59283, y: 110.162254, z: 0}
+  - {x: -199.70746, y: 112.094086, z: 0}
 --- !u!1001 &1951201743
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20955,12 +20966,12 @@ PrefabInstance:
     - target: {fileID: 6480119040817032863, guid: 64f293b15e2128e4c8536dd0a6409d02,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.63484
+      value: 83.6
       objectReference: {fileID: 0}
     - target: {fileID: 6480119040817032863, guid: 64f293b15e2128e4c8536dd0a6409d02,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -27.849924
+      value: -4.3
       objectReference: {fileID: 0}
     - target: {fileID: 6480119040817032863, guid: 64f293b15e2128e4c8536dd0a6409d02,
         type: 3}

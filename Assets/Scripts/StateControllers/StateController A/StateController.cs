@@ -114,7 +114,7 @@ namespace Splitting
 
                 ControlWhenCanCarry();
                 ControlWhenCanDrop();
-                                             
+
             }
             else // Questo è ciò che avviene quando hasControl == false
             {                

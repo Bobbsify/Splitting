@@ -86,9 +86,9 @@ namespace Splitting
             if (canConnect)
             {
                 connectCheck = Physics2D.Raycast(editedTransform, Vector2.down + (Vector2.right * -gameObject.transform.localScale.x), connectDistance, layerMask);
-            }
+            }            
 
-            if (connectCheck.collider != null)
+            if (connectCheck.collider != null && canConnect)
             {
                 targetRig = connectCheck.collider.gameObject.GetComponent<Rigidbody2D>();
                 connectable = true;

@@ -10,7 +10,7 @@ namespace Splitting
 
         [SerializeField] private float speed;
         public float speedModifier = 1.0f;
-        public float horizontalInput;
+        private float horizontalInput;
         private float verticalInput;
         private Vector3 initialScale;
 

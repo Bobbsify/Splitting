@@ -9,6 +9,8 @@ public class DoorActivator : MonoBehaviour
     public KeyCode inputButton;
     public ActivationTypes activationType = ActivationTypes.PressWhenInArea;
 
+    [SerializeField] private bool pressOnlyOnce = false;
+
     [SerializeField] private GameObject scoringPlatform;
     [SerializeField] private int targetScore;
 
@@ -29,6 +31,7 @@ public class DoorActivator : MonoBehaviour
                     Animator anim = GetComponent<Animator>();
                     anim.SetBool("lit", !anim.GetBool("lit"));
                 }
+                if (pressOnlyOnce) turnOff();
                 break;
             case ActivationTypes.Score:
                 if (scoringPlatform.GetComponent<Platform>().score >= targetScore)
@@ -38,6 +41,7 @@ public class DoorActivator : MonoBehaviour
                         IDoor door = d.GetComponent<IDoor>();
                         door.OpenDoor();
                     }
+                    if (pressOnlyOnce) turnOff();
                 }
                 else
                 {
@@ -46,6 +50,7 @@ public class DoorActivator : MonoBehaviour
                         IDoor door = d.GetComponent<IDoor>();
                         door.CloseDoor();
                     }
+                    if (pressOnlyOnce) turnOff();
                 }
                 break;
             default:
@@ -77,6 +82,11 @@ public class DoorActivator : MonoBehaviour
                 playerIsInZone = false;
             }
         }
+    }
+
+    private void turnOff()
+    {
+        this.enabled = false;
     }
 
 

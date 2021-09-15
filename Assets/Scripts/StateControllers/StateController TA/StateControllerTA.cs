@@ -15,6 +15,9 @@ namespace Splitting
         public bool isNotScared;
         public bool isIlluminated;
 
+        [SerializeField] private float elapsedInDark;
+        [SerializeField] private float timerInDark = 0.5f;
+
         [SerializeField] private float speedInAir = 0.5f;
 
         [SerializeField] private float shake = 1.0f;
@@ -121,121 +124,7 @@ namespace Splitting
                 tyrantJump.canJump = false;
                 ControlIfDisableJump();
             }
-
-            /*
-            if (tyrantJump.isLanded && !AnimatorIsPlaying("Tyrant Jump 4"))
-            {
-                tyrantJump.isLanded = false;
-            }
-
-            TyrantIsNotAfraid();
-
-            if (!isNotScared)
-            {
-                hasControl = false;
-            }
-
-            if (isGrounded)
-            {
-                if (tyrantJump.wasJumping && !animator.IsInTransition(0))
-                {
-                    tyrantJump.isLanded = true;
-                    tyrantJump.wasJumping = false;
-
-                    if (tyrantJump.bigFall)
-                    {
-                        ScreenShake(shake, lenght);
-                    }
-                }
-            }
-
-            if (hasControl)
-            {
-
-                tyrantJump.enabled = true;
-                tyrantMove.enabled = true;
-                tyrantHacking.enabled = true;
-
-                tyrantFlashlight.canUseFlashlight = true;
-                tyrantMove.canCrouch = false;
-
-                if (isWalled || Input.GetKey(jumpButton))
-                {
-                    tyrantMove.canMove = false;
-                }
-                else
-                {
-                    tyrantMove.canMove = true;
-                }
-
-                if (isGrounded)
-                {
-                    tyrantPickup.enabled = true;                                   
-
-                    if (getThrow.throwing || AnimatorIsPlaying("TyrantUnity") || AnimatorIsPlaying("TyrantUnlink"))
-                    {
-                        tyrantMove.enabled = false;
-                        tyrantJump.canJump = false;                        
-                    }
-                    else if (getThrow.rbToThrow)
-                    {
-                        tyrantMove.enabled = true;
-                        tyrantJump.canJump = false;
-                    }
-                    else
-                    {
-                        tyrantMove.enabled = true;
-                        tyrantJump.jumpDivider = tyrantJump.jumpMultiplier;
-                        tyrantJump.canJump = true;
-                    }
-
-                }
-                else
-                {
-                    tyrantPickup.enabled = false;
-                }
-
-            }
-            else
-            {                
-                tyrantPickup.enabled = false;
-                tyrantMove.enabled = false;
-                tyrantHacking.enabled = false;
-
-                tyrantJump.canJump = false;
-
-                if (isGrounded && AnimatorIsPlaying("Tyrant idle"))
-                {
-                    tyrantJump.enabled = false;
-                }
-                else
-                {
-                    tyrantJump.enabled = true;
-                }
-
-                if (gameObject.tag == "Player")
-                {
-                    tyrantFlashlight.canUseFlashlight = true;
-                }
-                else
-                {
-                    tyrantFlashlight.canUseFlashlight = false;
-                }
-                
-            }
-
-            if (gameObject.tag != "Player")
-            {
-                hasControl = false;
-            }
-            else if (gameObject.tag == "Player")
-            {
-                hasControl = true;
-            }
-
-            CallAnimator(isNotScared);
-
-            */
+            
         }
 
         private void ScreenShake(float shake, float lenght)
@@ -256,12 +145,18 @@ namespace Splitting
         void TyrantIsNotAfraid()
         {
             if (tyrantFlashlight.lightsAre || isIlluminated || isGrounded)
-            {              
+            {
+                elapsedInDark = 0.0f;
                 isNotScared = true;
             }
             else if ((!isIlluminated || !tyrantFlashlight.lightsAre) && isGrounded)
             {
-                isNotScared = false;
+                elapsedInDark += Time.deltaTime;
+                
+                if (elapsedInDark >= timerInDark)
+                {
+                    isNotScared = false;
+                }                
             }
         }
 

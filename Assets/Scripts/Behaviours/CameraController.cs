@@ -17,7 +17,7 @@ namespace Splitting
 
         private GameObject player;
 
-        [SerializeField] private Vector3 offset = new Vector3(0, 8, 0);
+        [SerializeField] public Vector3 offset = new Vector3(0, 8, 0);
 
         // Start is called before the first frame update
         void Awake()

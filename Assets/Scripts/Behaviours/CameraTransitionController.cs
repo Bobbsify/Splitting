@@ -37,7 +37,14 @@ namespace Splitting
             if (doZoom)
             {
                 Zoom();
-                if (gameCamera.orthographicSize >= targetSize) doZoom = false;
+                if (modifier == 1)
+                {
+                    if (gameCamera.orthographicSize >= targetSize) doZoom = false;
+                }
+                else
+                {
+                    if (gameCamera.orthographicSize <= targetSize) doZoom = false;
+                }
             }
             if (doOffset)
             {

@@ -57,10 +57,14 @@ namespace Splitting
                         
             if (ant && !tyr)
             {
+                antStateController = collision.GetComponent<StateController>();
+
                 antStateController.isIlluminated = false;
             }
             else if (ant && tyr)
             {
+                tyrantStateController = collision.GetComponent<StateControllerTA>();
+
                 tyrantStateController.isIlluminated = false;
             }
 

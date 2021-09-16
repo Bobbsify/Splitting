@@ -52,7 +52,7 @@ namespace Splitting
         void Update()
         {            
 
-            if (canJump && !isLanded && !wasJumping)
+            if (canJump && !wasJumping)
             {
                 if (Input.GetKey(jumpButton))
                 {

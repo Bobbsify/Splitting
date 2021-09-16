@@ -39,10 +39,7 @@ namespace Splitting
             {
                 transform.position = new Vector2(transform.position.x + (Time.deltaTime * (speed * speedModifier) / (isCrouched ? 2 : 1) * horizontalInput), transform.position.y); //halves speed if is crouchings                
             }
-            else
-            {
-                // horizontalInput = 0;
-            }
+            
             //Invertscale
             if (horizontalInput != 0)
             {

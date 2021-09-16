@@ -30,8 +30,8 @@ public class DoorActivator : MonoBehaviour
                     }
                     Animator anim = GetComponent<Animator>();
                     anim.SetBool("lit", !anim.GetBool("lit"));
+                    if (pressOnlyOnce) turnOff();
                 }
-                if (pressOnlyOnce) turnOff();
                 break;
             case ActivationTypes.Score:
                 if (scoringPlatform.GetComponent<Platform>().score >= targetScore)

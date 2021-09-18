@@ -17,6 +17,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: d9e412099e49d784a83847c841d9ef35,
         type: 3}
+    - target: {fileID: 628767094763816767, guid: 01024847775d53147b70ce123a5aef33,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 4392678903616597626, guid: 01024847775d53147b70ce123a5aef33,
         type: 3}
       propertyPath: m_Size.y
@@ -56,12 +61,12 @@ PrefabInstance:
     - target: {fileID: 6582399478775049095, guid: 01024847775d53147b70ce123a5aef33,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 308.1
+      value: 190.03
       objectReference: {fileID: 0}
     - target: {fileID: 6582399478775049095, guid: 01024847775d53147b70ce123a5aef33,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.8
+      value: -6.05
       objectReference: {fileID: 0}
     - target: {fileID: 6582399478775049095, guid: 01024847775d53147b70ce123a5aef33,
         type: 3}
@@ -106,7 +111,7 @@ PrefabInstance:
     - target: {fileID: 6582399478775049115, guid: 01024847775d53147b70ce123a5aef33,
         type: 3}
       propertyPath: m_Name
-      value: Door2 Variant
+      value: Door2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01024847775d53147b70ce123a5aef33, type: 3}

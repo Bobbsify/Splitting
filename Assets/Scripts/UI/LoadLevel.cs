@@ -42,24 +42,18 @@ namespace Splitting
 
     /*
     1: Main Menu
-    2: Livello 0
-    3: Livello 1
-    4: Livello 2
-    5: Livello 3
-    6: Loading Screen
-    7: Win Scene
-    8: Tutorial Scene
+    2: Livello 5
+    3: Loading Screen
+    4: Win Scene
+    5: Tutorial Scene
     */
 
     public enum InGameScenes
     {
         MainMenu = 0,
-        Level0 = 1,
-        Level1 = 2,
-        Level2 = 3,
-        Level3 = 4,
-        LoadingScreen = 5,
-        WinScene = 6,
-        TutorialScene = 7
+        Level5 = 1,
+        LoadingScreen = 2,
+        WinScene = 3,
+        TutorialScene = 4
     }
 }

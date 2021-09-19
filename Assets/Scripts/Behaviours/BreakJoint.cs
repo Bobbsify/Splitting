@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class BreakJoint : MonoBehaviour
 {
-    [SerializeField] private Joint2D target;
+    [SerializeField] private Joint2D[] targets;
 
     public void Break()
     {
-        target.breakForce = 0;
+        foreach (Joint2D joint in targets)
+        {
+            joint.breakForce = 0;
+        }
     }
 }

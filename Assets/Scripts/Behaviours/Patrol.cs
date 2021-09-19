@@ -9,7 +9,7 @@ using UnityEngine.Events;
 public class Patrol : MonoBehaviour
 {
     [Header("Path Properties")]
-    [SerializeField] private Vector3[] path;
+    [SerializeField] private TravelSetting[] path;
     [SerializeField] private PatrolTypes patrolType;
 
     [Header("Movement Properties")]
@@ -53,7 +53,7 @@ public class Patrol : MonoBehaviour
     private void TravelToNextPoint()
     {
         if (movementType == MovementTypes.Teleport) {
-            transform.position = path[nextPoint];
+            transform.position = path[nextPoint].position;
         }
         else {
             CalculateMovement();
@@ -64,44 +64,44 @@ public class Patrol : MonoBehaviour
     {
         if (whereToX == 1 && whereToY == 1) //Moving Top Right
         {
-            if (transform.position.y < path[nextPoint].y)
+            if (transform.position.y < path[nextPoint].position.y)
             {
                 AdvanceY();
             }
-            if (transform.position.x < path[nextPoint].x)
+            if (transform.position.x < path[nextPoint].position.x)
             {
                 AdvanceX();
             }
         }
         if (whereToX == 1 && whereToY == -1) //Moving Top Left
         {
-            if (transform.position.y > path[nextPoint].y)
+            if (transform.position.y > path[nextPoint].position.y)
             {
                 AdvanceY();
             }
-            if (transform.position.x < path[nextPoint].x)
+            if (transform.position.x < path[nextPoint].position.x)
             {
                 AdvanceX();
             }
         }
         if (whereToX == -1 && whereToY == 1) //Moving Bottom Right
         {
-            if (transform.position.y < path[nextPoint].y)
+            if (transform.position.y < path[nextPoint].position.y)
             {
                 AdvanceY();
             }
-            if (transform.position.x > path[nextPoint].x)
+            if (transform.position.x > path[nextPoint].position.x)
             {
                 AdvanceX();
             }
         }
         if (whereToX == -1 && whereToY == -1) //Moving Bottom Left
         {
-            if (transform.position.y > path[nextPoint].y)
+            if (transform.position.y > path[nextPoint].position.y)
             {
                 AdvanceY();
             }
-            if (transform.position.x > path[nextPoint].x)
+            if (transform.position.x > path[nextPoint].position.x)
             {
                 AdvanceX();
             }
@@ -141,21 +141,21 @@ public class Patrol : MonoBehaviour
     {
         if (x)
         {
-            /*if (isInRange(transform.position.x, startPoint.x, distanceX / 4) || isInRange(transform.position.x, path[nextPoint].x, -(distanceX / 4)))
+            /*if (isInRange(transform.position.x, startPoint.x, distanceX / 4) || isInRange(transform.position.x, path[nextPoint].position.x, -(distanceX / 4)))
             {
-                Debug.Log("SpeedX = " + (speed * Mathf.Max(((distanceX - Mathf.Abs(transform.position.x - path[nextPoint].x)) / distanceX), 0.1f)));              */
-            float currentDistance = Mathf.Abs(transform.position.x - path[nextPoint].x);
+                Debug.Log("SpeedX = " + (speed * Mathf.Max(((distanceX - Mathf.Abs(transform.position.x - path[nextPoint].position.x)) / distanceX), 0.1f)));              */
+            float currentDistance = Mathf.Abs(transform.position.x - path[nextPoint].position.x);
             return speed * Mathf.Max(((distanceX - currentDistance) / (distanceX / 2)),0.1f);
             /*}
                 return speed;*/
         }
         else
         {
-            /*   if (isInRange(transform.position.y, startPoint.y, distanceY / 4) || isInRange(transform.position.y, path[nextPoint].y, -(distanceY / 4)))
+            /*   if (isInRange(transform.position.y, startPoint.y, distanceY / 4) || isInRange(transform.position.y, path[nextPoint].position.y, -(distanceY / 4)))
                {
-            Debug.Log("SpeedY = " + (speed * Mathf.Max(((distanceY - Mathf.Abs(transform.position.y - path[nextPoint].y)) / distanceY), 0.1f)));
+            Debug.Log("SpeedY = " + (speed * Mathf.Max(((distanceY - Mathf.Abs(transform.position.y - path[nextPoint].position.y)) / distanceY), 0.1f)));
             */
-            float currentDistance = Mathf.Abs(transform.position.y - path[nextPoint].y);
+            float currentDistance = Mathf.Abs(transform.position.y - path[nextPoint].position.y);
             return speed * Mathf.Max(((distanceY - currentDistance) / (distanceY / 2)), 0.1f);
             /*    }
                return speed;*/
@@ -169,12 +169,12 @@ public class Patrol : MonoBehaviour
     
     private void StartCalculations()
     {
-        distanceY = Mathf.Abs(transform.position.y - path[nextPoint].y);
-        distanceX = Mathf.Abs(transform.position.x - path[nextPoint].x);
+        distanceY = Mathf.Abs(transform.position.y - path[nextPoint].position.y);
+        distanceX = Mathf.Abs(transform.position.x - path[nextPoint].position.x);
         totalDistance = Mathf.Sqrt(Mathf.Pow(distanceX, 2) + Mathf.Pow(distanceX, 2));
 
-        whereToX = transform.position.x < path[nextPoint].x ? 1 : -1; //Left or Right
-        whereToY = transform.position.y < path[nextPoint].y ? 1 : -1; //Up or down
+        whereToX = transform.position.x < path[nextPoint].position.x ? 1 : -1; //Left or Right
+        whereToY = transform.position.y < path[nextPoint].position.y ? 1 : -1; //Up or down
         
         if (elevator)
         {
@@ -193,18 +193,18 @@ public class Patrol : MonoBehaviour
         switch (whereToX)
         {
             case 1:
-                if (transform.position.x >= path[nextPoint].x)
+                if (transform.position.x >= path[nextPoint].position.x)
                 {
                     switch (whereToY)
                     {
                         case 1:
-                            if (transform.position.y >= path[nextPoint].y)
+                            if (transform.position.y >= path[nextPoint].position.y)
                             {
                                 HandleNextPoint();
                             }
                             break;
                         case -1:
-                            if (transform.position.y <= path[nextPoint].y)
+                            if (transform.position.y <= path[nextPoint].position.y)
                             {
                                 HandleNextPoint();
                             }
@@ -216,18 +216,18 @@ public class Patrol : MonoBehaviour
                 }
                 break;
             case -1:
-                if (transform.position.x <= path[nextPoint].x)
+                if (transform.position.x <= path[nextPoint].position.x)
                 {
                     switch (whereToY)
                     {
                         case 1:
-                            if (transform.position.y >= path[nextPoint].y)
+                            if (transform.position.y >= path[nextPoint].position.y)
                             {
                                 HandleNextPoint();
                             }
                             break;
                         case -1:
-                            if (transform.position.y <= path[nextPoint].y)
+                            if (transform.position.y <= path[nextPoint].position.y)
                             {
                                 HandleNextPoint();
                             }
@@ -250,7 +250,7 @@ public class Patrol : MonoBehaviour
         {
             if (patrolType == PatrolTypes.ContinuousNeverRepeat || patrolType == PatrolTypes.NextPointOnAwakeNeverRepeat)
             {
-                path = new Vector3[0];
+                path = new TravelSetting[0];
                 nextPoint = 0;
                 this.enabled = false; //Disable to not get errors in the console
             }
@@ -271,6 +271,7 @@ public class Patrol : MonoBehaviour
         else
         {
             nextPoint += (travelMode);
+            speed = path[nextPoint].speed;
         }
 
         removeAttachedObjects();
@@ -360,4 +361,10 @@ enum MovementTypes
     FixedSpeed,
     SlowToFastToSlow,
     Teleport,
+}
+
+class TravelSetting
+{
+    public Vector3 position;
+    public float speed;
 }

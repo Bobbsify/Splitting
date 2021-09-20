@@ -34,7 +34,7 @@ namespace Splitting
 
         public bool bigFall;
 
-        private float velocityY;
+        public float velocityY;
 
         new private Rigidbody2D rigidbody2D;
 
@@ -100,8 +100,7 @@ namespace Splitting
             {
                 elapsedFall = 0.0f;
             }
-
-            velocityY = rigidbody2D.velocity.y;
+                        
 
             if (Mathf.Abs(velocityY) > 4 && Mathf.Abs(velocityY) < 100)
             {          
@@ -130,7 +129,7 @@ namespace Splitting
             else
             {
                 bigFall = false;
-            }
+            }            
 
             CallAnimator(Input.GetKey(jumpButton), velocityY, isLanded, startFall);
             
@@ -145,8 +144,13 @@ namespace Splitting
                 animator.SetBool("land", isLanded);
                 animator.SetBool("startFall", startingFall);
             }
+        }       
+
+        bool AnimatorIsPlaying(string stateName)
+        {
+            return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
         }
 
-       
+
     }
 }

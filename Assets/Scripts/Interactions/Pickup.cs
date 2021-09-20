@@ -28,8 +28,6 @@ namespace Splitting {
         public GameObject trajectoryPrediction;
 
         private Animator animator;
-
-        private bool changed = false;
         
         void Awake()
         {

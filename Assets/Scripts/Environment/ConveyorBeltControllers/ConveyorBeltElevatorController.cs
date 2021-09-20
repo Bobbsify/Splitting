@@ -48,6 +48,7 @@ public class ConveyorBeltElevatorController : MonoBehaviour
             }
             catch (Exception e)
             {
+                Debug.LogError("platform does not exist\n"+ e);
                 generatedPlatforms.Remove(platform);
             }
         }

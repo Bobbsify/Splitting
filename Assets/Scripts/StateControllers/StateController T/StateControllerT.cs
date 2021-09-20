@@ -13,6 +13,8 @@ namespace Splitting
         public bool isWalled;
         public bool isObstructed;
 
+        public bool isPushing;
+
         [SerializeField] private float speedInAir = 0.5f;
 
         private Move tyrMove;
@@ -32,6 +34,8 @@ namespace Splitting
         new private CameraController camera;
         [SerializeField] private float shake = 1.0f;
         [SerializeField] private float lenght = 1.0f;
+
+        private Rigidbody2D tyrRigidBody;
 
         private Animator animator;
 
@@ -79,6 +83,16 @@ namespace Splitting
                 throw new Exception("Camera not found");
             }
 
+            // Get RigidBody
+            try
+            {
+                tyrRigidBody = gameObject.GetComponent<Rigidbody2D>();
+            }
+            catch
+            {
+                throw new Exception("RigidBody not found");
+            }
+
             // Get animator
             animator = gameObject.GetComponent<Animator>();
 
@@ -97,6 +111,8 @@ namespace Splitting
             ResetFallTime();
             
             ModifySpeedWhenFall();
+
+            ResetVerticalSpeedWhenPushing();
 
             if (hasControl)
             {
@@ -268,6 +284,18 @@ namespace Splitting
             if (isGrounded)
             {
                 tyrJump.elapsedFall = 0.0f;
+            }
+        }
+
+        void ResetVerticalSpeedWhenPushing()
+        {
+            if (isGrounded && isPushing)
+            {
+                tyrJump.velocityY = 0.0f;
+            }
+            else
+            {
+                tyrJump.velocityY = tyrRigidBody.velocity.y;
             }
         }
 

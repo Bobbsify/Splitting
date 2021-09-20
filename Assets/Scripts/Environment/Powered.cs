@@ -35,7 +35,7 @@ public class Powered : MonoBehaviour
         else
         {
             Power pow;
-            if (collision.TryGetComponent(out pow))
+            if (collision.TryGetComponent(out pow) && collision.transform.parent == null)
             {
                 Destroy(collision.gameObject); //remove object
                 SetPower(true);

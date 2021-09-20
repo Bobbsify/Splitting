@@ -33,7 +33,12 @@ namespace Splitting
             if (collision.gameObject.tag == "Ground")
             {
                 stateController.isWalled = true;
-            }           
+            }  
+            
+            if (collision.gameObject.tag == "Carryable")
+            {
+                stateController.isPushing = true;
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)

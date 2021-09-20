@@ -18,7 +18,7 @@ public class Patrol : MonoBehaviour
     [Header("Slow to fast to Slow non funziona, la metterò a posto se servirà :^)")]
     [SerializeField] private MovementTypes movementType;
 
-    [SerializeField] private int nextPoint = 0;
+    private int nextPoint = 0;
     private Vector2 startPoint;
 
     private float distanceX;

@@ -28,6 +28,8 @@ namespace Splitting {
         public GameObject trajectoryPrediction;
 
         private Animator animator;
+
+        private bool changed = false;
         
         void Awake()
         {
@@ -58,9 +60,11 @@ namespace Splitting {
 
         public void PickUp()
         {
+            string TyrFingerBone = "bone_1/bone_5/bone_6/bone_18/bone_7/bone_17/bone_8/bone_9";
+            string TyrantFingerBone = "bone_1/bone_2/bone_3/bone_14/bone_15/bone_16/bone_17/bone_18/bone_19/bone_20";
             Rigidbody2D objRigidbody = grabCheck.collider.gameObject.GetComponent<Rigidbody2D>();
-            grabCheck.collider.gameObject.transform.parent = transform;
-            grabCheck.collider.gameObject.transform.position = fetchCorrectPosition(grabCheck.collider.gameObject);
+            grabCheck.collider.gameObject.transform.parent = transform.Find(name.ToUpper().Contains("ANT") ? TyrantFingerBone : TyrFingerBone);
+            grabCheck.collider.gameObject.transform.localPosition = fetchCorrectPosition(grabCheck.collider.gameObject);
             objRigidbody.isKinematic = true;
             throwScript.rbToThrow = objRigidbody;
         }
@@ -77,15 +81,17 @@ namespace Splitting {
             try
             {
                 Vector2 boxColliderSize = box.GetComponent<BoxCollider2D>().bounds.extents; // x --> width | y --> height
-                BoxCollider2D playerBoxCollider = GetComponent<BoxCollider2D>();
+                                                                                            //BoxCollider2D playerBoxCollider = GetComponent<BoxCollider2D>();
 
                 //Get top ( Y + 1/2 size + offset)
-                float top = playerBoxCollider.bounds.center.y + playerBoxCollider.bounds.extents.y;
+                //float top = playerBoxCollider.bounds.center.y + playerBoxCollider.bounds.extents.y;
 
                 //offsetY is distance from top to bottom + boxColliderSize/2 
-                float offsetY = boxColliderSize.y;
-                
-                result = new Vector2(playerBoxCollider.transform.position.x, top + offsetY); // center , top + box
+                //float offsetY = boxColliderSize.y;
+
+                //result = new Vector2(playerBoxCollider.transform.position.x, top + offsetY); // center , top + box
+                box.transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
+                result = new Vector2(boxColliderSize.x/2,-boxColliderSize.y);
             }
             catch
             {

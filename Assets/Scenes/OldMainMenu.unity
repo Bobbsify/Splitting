@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948b0dbd5c85cf5448f357a22a608f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: 7
+  sceneToLoad: 1
   transition: 0
 --- !u!4 &358251958
 Transform:
@@ -391,7 +391,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1e2d8712c02f2ad40a78918c3a0efc37,
+      objectReference: {fileID: 21300000, guid: 025f1638a1e4c7d4f959f5621b5c8163,
         type: 3}
     - target: {fileID: 3984368120384173061, guid: 353b0f0da6500484bb98a492de79d08a,
         type: 3}

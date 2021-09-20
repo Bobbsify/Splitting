@@ -166,7 +166,7 @@ namespace Splitting
 
         //Resets Linerenderer so it may be used once more
         private void resetLr()
-        {
+        {            
             lr.positionCount = 0;
             throwing = false;
             if (rbToThrow.gameObject != null && rbToThrow.gameObject.tag == "Carryable")

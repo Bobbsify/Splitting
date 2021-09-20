@@ -60,7 +60,7 @@ namespace Splitting {
         {
             Rigidbody2D objRigidbody = grabCheck.collider.gameObject.GetComponent<Rigidbody2D>();
             grabCheck.collider.gameObject.transform.parent = transform;
-            grabCheck.collider.gameObject.transform.position = fetchCorrectPosition(grabCheck.collider.gameObject);
+            grabCheck.collider.gameObject.transform.position = fetchCorrectPosition(grabCheck.collider.gameObject);            
             objRigidbody.isKinematic = true;
             throwScript.rbToThrow = objRigidbody;
         }

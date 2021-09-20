@@ -15,6 +15,10 @@ namespace Splitting
         public bool isNotScared;
         public bool isIlluminated;
 
+        public bool isPushing;
+
+        private bool stopChargingJump;
+
         [SerializeField] private float elapsedInDark;
         [SerializeField] private float timerInDark = 0.5f;
 
@@ -35,6 +39,8 @@ namespace Splitting
         private FlashlightController tyrantFlashlight;
 
         private Animator animator;
+
+        private Rigidbody2D tyrantRigidBody;
 
         new private CameraController camera;
 
@@ -74,6 +80,16 @@ namespace Splitting
                 throw new Exception("Camera not found");
             }
 
+            // Get RigidBody
+            try
+            {
+                tyrantRigidBody = gameObject.GetComponent<Rigidbody2D>();
+            }
+            catch
+            {
+                throw new Exception("RigidBody not found");
+            }
+
             jumpButton = new InputSettings().JumpButton;
         }
 
@@ -90,7 +106,11 @@ namespace Splitting
 
             ModifySpeedWhenJump();
 
-            CallAnimator(isNotScared, getThrow.throwing);
+            ControlWhenStopChargingJump();
+
+            ResetVerticalSpeedWhenPushing();
+
+            CallAnimator(isNotScared, getThrow.throwing, stopChargingJump);
 
             if (hasControl)
             {
@@ -160,12 +180,13 @@ namespace Splitting
             }
         }
 
-        private void CallAnimator(bool isNotScared, bool throwingMode)
+        private void CallAnimator(bool isNotScared, bool throwingMode, bool stopJump)
         {
             if (animator != null)
             {
                 animator.SetBool("isNotScared", isNotScared);
                 animator.SetBool("isThrowing", throwingMode);
+                animator.SetBool("stopJump", stopJump);
             }
         }
 
@@ -323,6 +344,30 @@ namespace Splitting
             if (isGrounded)
             {
                 tyrantJump.elapsedFall = 0.0f;
+            }
+        }
+
+        void ControlWhenStopChargingJump()
+        {
+            if ((AnimatorIsPlaying("TyrantJump1") || AnimatorIsPlaying("AntJump2")) && !Input.GetKey(jumpButton) && isGrounded)
+            {
+                stopChargingJump = true;
+            }
+            else
+            {
+                stopChargingJump = false;
+            }
+        }
+
+        void ResetVerticalSpeedWhenPushing()
+        {
+            if (isGrounded && isPushing)
+            {
+                tyrantJump.velocityY = 0.0f;
+            }
+            else
+            {
+                tyrantJump.velocityY = tyrantRigidBody.velocity.y;
             }
         }
 

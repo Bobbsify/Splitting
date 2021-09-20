@@ -63,13 +63,8 @@ namespace Splitting {
             string TyrFingerBone = "bone_1/bone_5/bone_6/bone_18/bone_7/bone_17/bone_8/bone_9";
             string TyrantFingerBone = "bone_1/bone_2/bone_3/bone_14/bone_15/bone_16/bone_17/bone_18/bone_19/bone_20";
             Rigidbody2D objRigidbody = grabCheck.collider.gameObject.GetComponent<Rigidbody2D>();
-<<<<<<< HEAD
             grabCheck.collider.gameObject.transform.parent = transform.Find(name.ToUpper().Contains("ANT") ? TyrantFingerBone : TyrFingerBone);
             grabCheck.collider.gameObject.transform.localPosition = fetchCorrectPosition(grabCheck.collider.gameObject);
-=======
-            grabCheck.collider.gameObject.transform.parent = transform;
-            grabCheck.collider.gameObject.transform.position = fetchCorrectPosition(grabCheck.collider.gameObject);            
->>>>>>> f8a47c5666267f2fdb2dd74ec77a1b3daeb7c977
             objRigidbody.isKinematic = true;
             throwScript.rbToThrow = objRigidbody;
         }

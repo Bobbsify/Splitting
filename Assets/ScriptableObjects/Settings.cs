@@ -15,8 +15,14 @@ namespace Splitting
     public class GameSettings
     {
         public Resolution resolution;
+
+        [Header("Sound")]
         public float masterVolume;
         public float musicVolume;
         public float soundEffectsVolume;
+
+        [Header("Video")]
+        public bool filmGrain;
+        public float gamma;
     }
 }

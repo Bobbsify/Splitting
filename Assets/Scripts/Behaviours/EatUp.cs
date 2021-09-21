@@ -23,7 +23,7 @@ namespace Splitting {
         private bool arePatrolsDisabled = false;
         private bool doApproach = false;
         private bool bite = false;
-        [SerializeField] private float speed = 10;
+        [SerializeField] private float jumpSpeed = 10;
 
 
         private void Awake()
@@ -75,7 +75,7 @@ namespace Splitting {
         {
             if (!bite)
             {
-                transform.position = new Vector2(transform.position.x, transform.position.y + (speed * Time.deltaTime)); //Jump up
+                transform.position = new Vector2(transform.position.x, transform.position.y + (jumpSpeed * Time.deltaTime)); //Jump up
 
                 RaycastHit2D[] stuffBitten = Physics2D.RaycastAll(raystart,Vector2.down); // get all things he bites
                 foreach (RaycastHit2D hit in stuffBitten)
@@ -96,6 +96,12 @@ namespace Splitting {
             { 
                 target.GetComponent<Animator>().SetTrigger("Death");
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(raystart, Vector2.down);
         }
     }
 }

@@ -952,6 +952,7 @@ MonoBehaviour:
   timerStartFall: 0.15
   startFall: 0
   bigFall: 0
+  velocityY: 0
 --- !u!114 &4467002386518633220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -970,6 +971,7 @@ MonoBehaviour:
   isObstructed: 0
   isNotScared: 0
   isIlluminated: 0
+  isPushing: 0
   elapsedInDark: 0
   timerInDark: 0.05
   speedInAir: 1
@@ -3619,31 +3621,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Flashlight
-      objectReference: {fileID: 0}
-    - target: {fileID: 4706828609020310834, guid: 9aa1c110b0f3b5a4cab44a0312f96291,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.74509805
-      objectReference: {fileID: 0}
-    - target: {fileID: 4706828609020310834, guid: 9aa1c110b0f3b5a4cab44a0312f96291,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.8627451
-      objectReference: {fileID: 0}
-    - target: {fileID: 4706828609020310834, guid: 9aa1c110b0f3b5a4cab44a0312f96291,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.8627451
-      objectReference: {fileID: 0}
-    - target: {fileID: 4706828609020310834, guid: 9aa1c110b0f3b5a4cab44a0312f96291,
-        type: 3}
-      propertyPath: m_LightOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4706828609020310834, guid: 9aa1c110b0f3b5a4cab44a0312f96291,
-        type: 3}
-      propertyPath: m_PointLightDistance
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9aa1c110b0f3b5a4cab44a0312f96291, type: 3}

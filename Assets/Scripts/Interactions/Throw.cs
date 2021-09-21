@@ -86,6 +86,7 @@ namespace Splitting
                 if (Input.GetKeyUp(throwButton))
                 {
                     entityThrowing.GetComponent<Animator>().SetTrigger("throw");
+                    entityThrowing.GetComponent<Rigidbody2D>().isKinematic = false;
                     //Animator will call throw
                 }
             }

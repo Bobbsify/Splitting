@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationAmount: 50
   canUseFlashlight: 1
-  lightsAre: 1
+  lightsAre: 0
 --- !u!114 &494248829807453194
 MonoBehaviour:
   m_ObjectHideFlags: 0

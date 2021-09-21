@@ -53,14 +53,18 @@ namespace Splitting
 
         private void UpdateGamma(float amount)
         {
-            Vector4Parameter gamma = volumeProfile.GetComponent<LiftGammaGain>().gamma;
+            LiftGammaGain gammaComponent;
+            volumeProfile.profile.TryGet(out gammaComponent);
+            Vector4Parameter gamma = gammaComponent.gamma;
             Vector4 updatedGamma = new Vector4(gamma.value.x, gamma.value.y, gamma.value.z, amount);
             gamma.SetValue(new Vector4Parameter(updatedGamma,gamma.overrideState));
         }
 
         private void UpdateFilmGrain(bool state)
         {
-            volumeProfile.GetComponent<FilmGrain>().active = state;
+            FilmGrain filmGrain;
+            volumeProfile.profile.TryGet(out filmGrain);
+            filmGrain.active = state;
         }
 
         private void UpdateAll()

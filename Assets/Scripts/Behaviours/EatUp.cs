@@ -19,6 +19,7 @@ namespace Splitting {
 
         private GameObject target;
         private Vector3 raystart;
+        private Animator crocoAnim;
 
         private bool arePatrolsDisabled = false;
         private bool doApproach = false;
@@ -28,7 +29,8 @@ namespace Splitting {
 
         private void Awake()
         {
-             raystart = transform.Find("bone_1").position;
+            raystart = transform.parent.Find("bone_1").position;
+            transform.parent.TryGetComponent(out crocoAnim);
         }
 
         private void Update()
@@ -66,7 +68,7 @@ namespace Splitting {
                 {
                     patrol.enabled = false;
                 }
-                GetComponent<Animator>().SetTrigger("Jump");
+                transform.parent.GetComponent<Animator>().SetTrigger("Jump");
             }
             arePatrolsDisabled = true;
         }
@@ -83,7 +85,7 @@ namespace Splitting {
                     if (hit.collider.tag == "Player") //if he bites the player apply bite
                     {
                         bite = true;
-                        GetComponent<Animator>().SetTrigger("Bite");
+                        transform.parent.GetComponent<Animator>().SetTrigger("Bite");
                         break;
                     }
                 }

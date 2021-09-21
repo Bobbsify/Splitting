@@ -459,7 +459,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b879aca9ea387ff43aa3344e241bc87a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settingsScriptableObject: {fileID: 11400000, guid: cc174a6ba20c97a40ad487530a2f5af5,
+    type: 2}
   mixer: {fileID: 24100000, guid: 818a5bb12115e824aa57b46cfb7d2c1a, type: 2}
+  volumeProfile: {fileID: 0}
 --- !u!1 &5559383620802814039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,6 +1138,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: ContinueButton
       objectReference: {fileID: 0}
+    - target: {fileID: 5421150151824868896, guid: f6c7b284010412c4b9c1c95174e95911,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -2654081831824899256, guid: 818a5bb12115e824aa57b46cfb7d2c1a,
+        type: 2}
+    - target: {fileID: 8412316074122783929, guid: f6c7b284010412c4b9c1c95174e95911,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -2654081831824899256, guid: 818a5bb12115e824aa57b46cfb7d2c1a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6c7b284010412c4b9c1c95174e95911, type: 3}
 --- !u!224 &4685807470683313069 stripped
@@ -1355,11 +1370,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5559383621075218129}
     m_Modifications:
-    - target: {fileID: 874174294697684642, guid: f6c7b284010412c4b9c1c95174e95911,
-        type: 3}
-      propertyPath: m_Text
-      value: Quit
-      objectReference: {fileID: 0}
     - target: {fileID: 874174295704951232, guid: f6c7b284010412c4b9c1c95174e95911,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1467,21 +1477,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
-        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2998233585328433245}
@@ -1490,56 +1485,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 6987968123886625546}
-    - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: set_enabled
-      objectReference: {fileID: 0}
-    - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: TaskOnClick
-      objectReference: {fileID: 0}
-    - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UnityEngine.Behaviour, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: Splitting.PauseController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 874174295704951233, guid: f6c7b284010412c4b9c1c95174e95911,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 874174295704951239, guid: f6c7b284010412c4b9c1c95174e95911,
         type: 3}
       propertyPath: m_Name
@@ -1875,6 +1820,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingsButton
       objectReference: {fileID: 0}
+    - target: {fileID: 5421150151824868896, guid: f6c7b284010412c4b9c1c95174e95911,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -2654081831824899256, guid: 818a5bb12115e824aa57b46cfb7d2c1a,
+        type: 2}
+    - target: {fileID: 8412316074122783929, guid: f6c7b284010412c4b9c1c95174e95911,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -2654081831824899256, guid: 818a5bb12115e824aa57b46cfb7d2c1a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6c7b284010412c4b9c1c95174e95911, type: 3}
 --- !u!224 &4685807469180574437 stripped

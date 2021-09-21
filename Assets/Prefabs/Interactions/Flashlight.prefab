@@ -64,10 +64,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashlightController: {fileID: 0}
   lightAreaCol: {fileID: 0}
-  antInDark: 0
-  tyrantInDark: 0
-  elapsedInDark: 0
-  timerInDark: 0.5
 --- !u!60 &394408939001793322
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -146,8 +142,8 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 0.98397243, g: 1, b: 0.7018868, a: 1}
-  m_Intensity: 3
+  m_Color: {r: 0.99925524, g: 1, b: 0.9858491, a: 1}
+  m_Intensity: 2.5
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
@@ -226,8 +222,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 0.627451, g: 0.67058825, b: 0.49803925, a: 1}
-  m_Intensity: 2
+  m_Color: {r: 1, g: 1, b: 0.9843137, a: 1}
+  m_Intensity: 1
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}

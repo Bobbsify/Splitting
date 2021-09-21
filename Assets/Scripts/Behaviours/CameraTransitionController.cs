@@ -15,9 +15,10 @@ namespace Splitting
         [SerializeField] private Vector3 targetOffset;
         [SerializeField] private Vector3 offsetSpeeds = new Vector3(1, 1, 1);
 
+        [HideInInspector] public bool doZoom = false;
+        [HideInInspector] public bool doOffset = false;
+
         private float modifier = 1;
-        private bool doZoom = false;
-        private bool doOffset = false;
         private bool reachedX = false, reachedY = false, reachedZ = false;
 
         private void Awake()

@@ -76,7 +76,7 @@ namespace Splitting
             UpdateFilmGrain(settingsScriptableObject.currentSettings.filmGrain);
         }
 
-        private void OnLevelWasLoaded(int level)
+        private void Awake()
         {
             GameObject.Find("Global Volume").TryGetComponent(out volumeProfile);
             UpdateAll();

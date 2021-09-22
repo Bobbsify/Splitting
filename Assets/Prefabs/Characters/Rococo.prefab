@@ -101,6 +101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 612157791879276278}
+  - component: {fileID: 1613039043318804822}
   m_Layer: 0
   m_Name: Rococo
   m_TagString: Untagged
@@ -131,6 +132,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1613039043318804822
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829015841317362128}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b6e0d41b4896deb488fe5cb2344732e3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1500543531031158880
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,8 +282,8 @@ MonoBehaviour:
   - {fileID: 2815678145086009958}
   - {fileID: 8108867297507077189}
   m_Bounds:
-    m_Center: {x: 0.000002861023, y: 0, z: 0}
-    m_Extent: {x: 2.0099998, y: 1.74, z: 0}
+    m_Center: {x: 0.0000038146973, y: -0.00000047683716, z: 0}
+    m_Extent: {x: 2.0100045, y: 1.7400005, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &1815524284997863700
@@ -366,7 +386,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 8157226370918372435}
   m_Bounds:
-    m_Center: {x: -0.0000038146973, y: -0.002170086, z: 0}
+    m_Center: {x: 0, y: -0.002170086, z: 0}
     m_Extent: {x: 3.4200013, y: 0.69635004, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -473,8 +493,8 @@ MonoBehaviour:
   - {fileID: 5026119078683379660}
   - {fileID: 2443030637053788264}
   m_Bounds:
-    m_Center: {x: 0.0019817352, y: -0.0003193617, z: 0}
-    m_Extent: {x: 13.522081, y: 1.8466, z: 0}
+    m_Center: {x: 0.0019798279, y: -0.00031793118, z: 0}
+    m_Extent: {x: 13.522079, y: 1.8466015, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &2092171794774969534
@@ -578,8 +598,8 @@ MonoBehaviour:
   - {fileID: 2466747287998726553}
   - {fileID: 5787168061840287469}
   m_Bounds:
-    m_Center: {x: 0.0069003105, y: -0.00000035762787, z: 0}
-    m_Extent: {x: 2.0061808, y: 1.7399993, z: 0}
+    m_Center: {x: 0.0069003105, y: 0.0000015497208, z: 0}
+    m_Extent: {x: 2.0061808, y: 1.7400022, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &2597153117660267192
@@ -747,7 +767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathAreaTrigger: {fileID: 1008736081056846848}
-  speed: 10
+  jumpSpeed: 10
 --- !u!1 &4866451808576721664
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,8 +934,8 @@ MonoBehaviour:
   - {fileID: 3888763767655633584}
   - {fileID: 3364930034042791442}
   m_Bounds:
-    m_Center: {x: -0.004239917, y: -0.003080368, z: 0}
-    m_Extent: {x: 1.3657613, y: 1.6869209, z: 0}
+    m_Center: {x: -0.004238963, y: -0.0030798912, z: 0}
+    m_Extent: {x: 1.3657603, y: 1.6869204, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &6399772498137345163
@@ -1172,8 +1192,8 @@ MonoBehaviour:
   - {fileID: 6819604415646700900}
   - {fileID: 5366904373170989212}
   m_Bounds:
-    m_Center: {x: 0.009070396, y: 0.000038981438, z: 0}
-    m_Extent: {x: 1.3690712, y: 1.6899607, z: 0}
+    m_Center: {x: 0.009069443, y: 0.00004041195, z: 0}
+    m_Extent: {x: 1.3690703, y: 1.6899602, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &8241098156796399718
@@ -1276,7 +1296,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 2577296203670767343}
   m_Bounds:
-    m_Center: {x: -0.00033020973, y: 0.00015094876, z: 0}
+    m_Center: {x: -0.00033020973, y: 0.00014999509, z: 0}
     m_Extent: {x: 0.5280499, y: 0.4193699, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1

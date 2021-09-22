@@ -7,6 +7,8 @@ using UnityEngine;
 public class AnimationTriggerEvent : MonoBehaviour, CutsceneEvent
 {
     [Header("General Settings")]
+    [Tooltip("only needed if this is the last object of the cutscene")]
+    [SerializeField] private GameObject originalCutsceneController;
     [SerializeField] private GameObject nextEvent;
     [SerializeField] private int nextEventDelay;
     
@@ -54,14 +56,7 @@ public class AnimationTriggerEvent : MonoBehaviour, CutsceneEvent
                 }
             }
         }
-        if (nextEventDelay > 0)
-        {
-            delayNextEvent();
-        }
-        else
-        {
-            nextEventCutsceneEvent.Execute();
-        }
+        DoNextEvent();
     }
 
     private async void delayNextEvent()
@@ -103,6 +98,25 @@ public class AnimationTriggerEvent : MonoBehaviour, CutsceneEvent
         catch (FormatException e)
         {
             throw new FormatException("variable value " + currVariable + " is unparsable\n" + e);
+        }
+    }
+
+    private void DoNextEvent()
+    {
+        if (nextEvent != null)
+        {
+            if (nextEventDelay > 0)
+            {
+                delayNextEvent();
+            }
+            else
+            {
+                nextEventCutsceneEvent.Execute();
+            }
+        }
+        else
+        {
+            originalCutsceneController.GetComponent<CutsceneController>().isInCutscene = false;
         }
     }
 }

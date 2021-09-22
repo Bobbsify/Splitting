@@ -18,7 +18,7 @@ public class GameObjectAlterationEvent : MonoBehaviour, CutsceneEvent
 
     public void Execute()
     {
-        nextEvent.TryGetComponent(out nextEventCutsceneEvent);
+        GetEvent();
         alterations.Invoke();
         DoNextEvent();
     }
@@ -45,6 +45,14 @@ public class GameObjectAlterationEvent : MonoBehaviour, CutsceneEvent
         else
         {
             originalCutsceneController.GetComponent<CutsceneController>().isInCutscene = false;
+        }
+    }
+
+    private void GetEvent()
+    {
+        if (nextEvent != null)
+        {
+            nextEvent.TryGetComponent(out nextEventCutsceneEvent);
         }
     }
 }

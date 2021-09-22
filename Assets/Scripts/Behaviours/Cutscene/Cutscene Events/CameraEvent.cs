@@ -19,7 +19,7 @@ namespace Splitting {
 
         public void Execute()
         {
-            nextEvent.TryGetComponent(out nextEventCutsceneEvent);
+            GetEvent();
             transition.StartZoomOut();
             transition.StartOffset();
             waitForCompletion();
@@ -55,6 +55,14 @@ namespace Splitting {
             else
             {
                 originalCutsceneController.GetComponent<CutsceneController>().isInCutscene = false;
+            }
+        }
+
+        private void GetEvent()
+        {
+            if (nextEvent != null)
+            {
+                nextEvent.TryGetComponent(out nextEventCutsceneEvent);
             }
         }
     }

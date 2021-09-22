@@ -55,6 +55,7 @@ namespace Splitting
                 {
                     entityThrowing.GetComponent<Animator>().SetTrigger("release");
                     rbToThrow.velocity = new Vector2(entityThrowing.GetComponent<Collider2D>().bounds.size.x*2, 0) * -entityThrowing.transform.localScale;
+                    rbToThrow.gameObject.GetComponent<Collider2D>().enabled = true;
                     resetLr();
                 }
 

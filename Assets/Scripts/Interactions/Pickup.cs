@@ -64,14 +64,20 @@ namespace Splitting {
             grabCheck.collider.gameObject.transform.parent = transform.Find(name.ToUpper().Contains("ANT") ? TyrantFingerBone : TyrFingerBone);
             grabCheck.collider.gameObject.transform.localPosition = fetchCorrectPosition(grabCheck.collider.gameObject);
             objRigidbody.isKinematic = true;
-            grabCheck.collider.enabled = false;
+            foreach (Collider2D col in grabCheck.collider.GetComponents<Collider2D>()) //Disable Colliders
+            {
+                col.enabled = false;
+            }
             throwScript.rbToThrow = objRigidbody;
         }
 
         public void Throw()
         {
             trajectoryPrediction.GetComponent<Throw>().ThrowEntity();
-            grabCheck.collider.enabled = true;
+            foreach (Collider2D col in grabCheck.collider.GetComponents<Collider2D>()) //Enable Colliders
+            {
+                col.enabled = true;
+            }
         }
 
         private Vector2 fetchCorrectPosition(GameObject box)

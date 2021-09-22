@@ -25,7 +25,7 @@ public class AnimationTriggerEvent : MonoBehaviour, CutsceneEvent
 
     public void Execute()
     {
-        nextEvent.TryGetComponent(out nextEventCutsceneEvent);
+        GetEvent();
         if (animationVariableNames.Length != animationVariableValues.Length)
         {
             throw new System.IndexOutOfRangeException("animation event arrays are of different size");
@@ -57,12 +57,6 @@ public class AnimationTriggerEvent : MonoBehaviour, CutsceneEvent
             }
         }
         DoNextEvent();
-    }
-
-    private async void delayNextEvent()
-    {
-        await Task.Delay(nextEventDelay);
-        nextEventCutsceneEvent.Execute();
     }
 
     private int parseInt(string currVariable)
@@ -117,6 +111,20 @@ public class AnimationTriggerEvent : MonoBehaviour, CutsceneEvent
         else
         {
             originalCutsceneController.GetComponent<CutsceneController>().isInCutscene = false;
+        }
+    }
+
+    private async void delayNextEvent()
+    {
+        await Task.Delay(nextEventDelay);
+        nextEventCutsceneEvent.Execute();
+    }
+
+    private void GetEvent()
+    {
+        if (nextEvent != null)
+        {
+            nextEvent.TryGetComponent(out nextEventCutsceneEvent);
         }
     }
 }

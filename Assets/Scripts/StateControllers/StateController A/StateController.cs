@@ -249,7 +249,7 @@ namespace Splitting
         {            
             antMove.enabled = true;
 
-            if (isWalled || (antJump.chargeJump && !antMove.isCrouched) || antExtend.isExtended || AnimatorIsPlaying("AntLift3") || AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd") || AnimatorIsPlaying("AntButtonPress"))
+            if (isWalled || (antJump.chargeJump && !antMove.isCrouched) || AnimatorIsPlaying("AntLift1") || AnimatorIsPlaying("AntLift2") || AnimatorIsPlaying("AntLift3") || AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd") || AnimatorIsPlaying("AntButtonPress"))
             {
                 
                 antMove.canMove = false;

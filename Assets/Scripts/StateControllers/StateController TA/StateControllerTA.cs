@@ -106,7 +106,7 @@ namespace Splitting
 
             ResetVerticalSpeedWhenPushing();
 
-            CallAnimator(isNotScared, getThrow.throwing, isGrounded);
+            CallAnimator(isNotScared, getThrow.throwing, isGrounded, getThrow.rbToThrow);
 
             if (hasControl)
             {
@@ -135,7 +135,7 @@ namespace Splitting
 
                 tyrantHacking.enabled = false;
 
-                tyrantFlashlight.canUseFlashlight = false;
+                tyrantFlashlight.canUseFlashlight = true;
 
                 tyrantJump.canJump = false;
                 ControlIfDisableJump();
@@ -160,8 +160,8 @@ namespace Splitting
 
         void TyrantIsNotAfraid()
         {
-            if (tyrantFlashlight.lightsAre || isIlluminated || isGrounded)
-            {
+            if (tyrantFlashlight.lightsAre || isIlluminated || !isGrounded)
+            {                
                 elapsedInDark = 0.0f;
                 isNotScared = true;
             }
@@ -176,13 +176,14 @@ namespace Splitting
             }
         }
 
-        private void CallAnimator(bool isNotScared, bool throwingMode, bool isGrounded)
+        private void CallAnimator(bool isNotScared, bool throwingMode, bool isGrounded, bool isCarrying)
         {
             if (animator != null)
             {
                 animator.SetBool("isNotScared", isNotScared);
                 animator.SetBool("isThrowing", throwingMode);
                 animator.SetBool("isGrounded", isGrounded);
+                animator.SetBool("isCarrying", isCarrying);
             }
         }
 
@@ -259,7 +260,7 @@ namespace Splitting
                 tyrantMove.enabled = true;
             }              
             
-            if (isWalled || (tyrantJump.chargeJump && !getThrow.rbToThrow) || tyrantExtend.isExtended || AnimatorIsPlaying("Tyrant grab3") || AnimatorIsPlaying("Tyrant grab") || getThrow.throwing) //  bisogna controllare anche le animazioni di hacking e lift che ancora non ci sono
+            if (isWalled || (tyrantJump.chargeJump && !getThrow.rbToThrow) || AnimatorIsPlaying("Tyrant grab3") || AnimatorIsPlaying("Tyrant grab") || getThrow.throwing || AnimatorIsPlaying("TyrantHacking") || AnimatorIsPlaying("TyrantLift1") || AnimatorIsPlaying("TyrantLift2") || AnimatorIsPlaying("TyrantLift3"))
             {
                 tyrantMove.canMove = false;
             }
@@ -273,7 +274,7 @@ namespace Splitting
         {
             tyrantJump.enabled = true;
 
-            if (isGrounded && !tyrantExtend.isExtended && !getThrow.rbToThrow && !isObstructed && (!AnimatorIsPlaying("Tyrant grab3") && !AnimatorIsPlaying("Tyrant grab"))) // manca il controllo sulla discesa da extend e sull'hacking
+            if (isGrounded && !tyrantExtend.isExtended && !getThrow.rbToThrow && !isObstructed && (!AnimatorIsPlaying("Tyrant grab3") && !AnimatorIsPlaying("Tyrant grab")) && !AnimatorIsPlaying("TyrantLift3") && !AnimatorIsPlaying("TyrantHacking"))
             {
                 tyrantJump.canJump = true;
             }
@@ -287,7 +288,7 @@ namespace Splitting
         {
             tyrantExtend.enabled = true;
 
-            if (!isGrounded || getThrow.rbToThrow || AnimatorIsPlaying("Tyrant grab3") || AnimatorIsPlaying("Tyrant grab") || isObstructed) // manca il controllo sull'hacking
+            if (!isGrounded || getThrow.rbToThrow || AnimatorIsPlaying("Tyrant grab3") || AnimatorIsPlaying("Tyrant grab") || isObstructed || AnimatorIsPlaying("TyrantHacking"))
             {
                 tyrantExtend.canExtend = false;
             }
@@ -299,7 +300,7 @@ namespace Splitting
 
         void ControlWhenCanPickup()
         {
-            if (!isGrounded || getThrow.rbToThrow || AnimatorIsPlaying("Tyrant grab3") || tyrantExtend.isExtended) // manca il controllo sull'hacking e sul lift in discesa
+            if (!isGrounded || getThrow.rbToThrow || AnimatorIsPlaying("Tyrant grab3") || tyrantExtend.isExtended || AnimatorIsPlaying("TyrantHacking") || AnimatorIsPlaying("TyrantLift3"))
             {
                 tyrantPickup.enabled = false;
             }
@@ -311,7 +312,7 @@ namespace Splitting
 
         void ControlWhenCanThrow()
         {
-            if (!isGrounded) // Manca il controllo sull'hacking
+            if (!isGrounded || AnimatorIsPlaying("TyrantHacking"))
             {
                 getThrow.enabled = false;
             }
@@ -325,7 +326,7 @@ namespace Splitting
         {
             tyrantHacking.enabled = true;
 
-            if (!isGrounded || getThrow.rbToThrow || AnimatorIsPlaying("Tyrant grab3") || AnimatorIsPlaying("Tyrant grab") || tyrantExtend.isExtended) // manca il controllo sulla discesa dal lift 
+            if (!isGrounded || getThrow.rbToThrow || AnimatorIsPlaying("Tyrant grab3") || AnimatorIsPlaying("Tyrant grab") || tyrantExtend.isExtended || AnimatorIsPlaying("TyrantLift3"))
             {
                 tyrantHacking.canHack = false;
             }

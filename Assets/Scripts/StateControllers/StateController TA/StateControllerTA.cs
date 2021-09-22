@@ -17,8 +17,6 @@ namespace Splitting
 
         public bool isPushing;
 
-        private bool stopChargingJump;
-
         [SerializeField] private float elapsedInDark;
         [SerializeField] private float timerInDark = 0.5f;
 
@@ -106,11 +104,9 @@ namespace Splitting
 
             ModifySpeedWhenJump();
 
-            ControlWhenStopChargingJump();
-
             ResetVerticalSpeedWhenPushing();
 
-            CallAnimator(isNotScared, getThrow.throwing, stopChargingJump);
+            CallAnimator(isNotScared, getThrow.throwing, isGrounded);
 
             if (hasControl)
             {
@@ -180,13 +176,13 @@ namespace Splitting
             }
         }
 
-        private void CallAnimator(bool isNotScared, bool throwingMode, bool stopJump)
+        private void CallAnimator(bool isNotScared, bool throwingMode, bool isGrounded)
         {
             if (animator != null)
             {
                 animator.SetBool("isNotScared", isNotScared);
                 animator.SetBool("isThrowing", throwingMode);
-                animator.SetBool("stopJump", stopJump);
+                animator.SetBool("isGrounded", isGrounded);
             }
         }
 
@@ -345,19 +341,7 @@ namespace Splitting
             {
                 tyrantJump.elapsedFall = 0.0f;
             }
-        }
-
-        void ControlWhenStopChargingJump()
-        {
-            if ((AnimatorIsPlaying("TyrantJump1") || AnimatorIsPlaying("AntJump2")) && !Input.GetKey(jumpButton) && isGrounded)
-            {
-                stopChargingJump = true;
-            }
-            else
-            {
-                stopChargingJump = false;
-            }
-        }
+        }        
 
         void ResetVerticalSpeedWhenPushing()
         {

@@ -51,7 +51,6 @@ namespace Splitting
             {
                 Offset();
             }
-            Debug.Log("Zoom? " + doZoom + "\nReachedX? " + reachedX + "\nReachedY? " + reachedY + "\nReachedZ? " + reachedZ + "\ndoOffset? " + doOffset);
         }
 
         public void StartZoomOut()

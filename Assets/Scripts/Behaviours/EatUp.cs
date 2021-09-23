@@ -87,7 +87,7 @@ namespace Splitting {
                 RaycastHit2D[] stuffBitten = Physics2D.RaycastAll(raystart,Vector2.down); // get all things he bites
                 foreach (RaycastHit2D hit in stuffBitten)
                 {
-                    if (hit.collider.tag == "Player") //if he bites the player apply bite
+                    if (hit.collider.name.ToLower().Contains("ant") || hit.collider.name.ToLower().Contains("tyr")) //if he bites the player apply bite
                     {
                         bite = true;
                         break;
@@ -100,6 +100,7 @@ namespace Splitting {
         {
             if (bite)
             {
+                target.transform.parent = transform.parent.Find("bone_1");
                 transform.parent.GetComponent<Animator>().SetTrigger("Bite");
                 target.GetComponent<Animator>().SetTrigger("Death");
             }

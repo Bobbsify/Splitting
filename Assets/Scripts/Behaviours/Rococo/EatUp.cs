@@ -35,14 +35,14 @@ namespace Splitting {
                 Vector3 playerPos = collision.transform.position;
                 if (playerPos.y >= rococoTransform.position.y - skipToBiteOffset && playerPos.y <= rococoTransform.position.y + skipToBiteOffset)
                 {
-                    transform.Find(rococoIdleAttackName).transform.parent = null; //remove from this obj
-                    transform.Find(rococoIdleAttackName).gameObject.SetActive(true); //activate obj
+                    originalRococo.Find(rococoIdleAttackName).transform.parent = null; //remove from this obj
+                    originalRococo.Find(rococoIdleAttackName).gameObject.SetActive(true); //activate obj
                     Destroy(originalRococo.gameObject);
                 }
                 else
                 {
-                    transform.Find(rococoJumpAttackName).transform.parent = null; //remove from this obj
-                    transform.Find(rococoJumpAttackName).gameObject.SetActive(true); // activate obj
+                    originalRococo.Find(rococoJumpAttackName).transform.parent = null; //remove from this obj
+                    originalRococo.Find(rococoJumpAttackName).gameObject.SetActive(true); // activate obj
                     Destroy(originalRococo.gameObject);
                 }
             }

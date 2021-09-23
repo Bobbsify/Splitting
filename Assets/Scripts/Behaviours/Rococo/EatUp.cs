@@ -35,6 +35,8 @@ namespace Splitting {
                 Vector3 playerPos = collision.transform.position;
                 if (playerPos.y >= rococoTransform.position.y - skipToBiteOffset && playerPos.y <= rococoTransform.position.y + skipToBiteOffset)
                 {
+                    Debug.Log("original rococo " + originalRococo);
+                    Debug.Log("rococo's dad " + originalRococo.transform.parent);
                     originalRococo.Find(rococoIdleAttackName).transform.parent = null; //remove from this obj
                     originalRococo.Find(rococoIdleAttackName).gameObject.SetActive(true); //activate obj
                     Destroy(originalRococo.gameObject);

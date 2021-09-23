@@ -249,7 +249,7 @@ namespace Splitting
         {            
             antMove.enabled = true;
 
-            if (isWalled || (antJump.chargeJump && !antMove.isCrouched) || AnimatorIsPlaying("AntLift1") || AnimatorIsPlaying("AntLift2") || AnimatorIsPlaying("AntLift3") || AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd") || AnimatorIsPlaying("AntButtonPress"))
+            if (isWalled || (isPushing && Input.GetKey(jumpButton)) || (antJump.chargeJump && !antMove.isCrouched) || AnimatorIsPlaying("AntLift1") || AnimatorIsPlaying("AntLift2") || AnimatorIsPlaying("AntLift3") || AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd") || AnimatorIsPlaying("AntButtonPress")) //  || (isPushing && Input.GetKey(jumpButton))
             {
                 
                 antMove.canMove = false;
@@ -387,7 +387,7 @@ namespace Splitting
 
         void ResetVerticalSpeedWhenPushing()
         {
-            if (isGrounded && isPushing)
+            if (isPushing)
             {                
                 antJump.velocityY = 0.0f;
             }

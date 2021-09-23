@@ -46,7 +46,12 @@ namespace Splitting
             if (collision.gameObject.tag == "Ground")
             {
                 stateController.isWalled = false;
-            }           
+            }
+
+            if (collision.gameObject.tag == "Carryable")
+            {
+                stateController.isPushing = false;
+            }
         }
 
         private void CallAnimator(bool isCarrying)

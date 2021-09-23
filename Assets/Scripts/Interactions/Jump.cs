@@ -92,6 +92,7 @@ namespace Splitting
                 }
             }
 
+            
             if (!canJump)
             {
                 elapsedKeyDown = 0.0f;
@@ -100,6 +101,7 @@ namespace Splitting
             {
                 elapsedFall = 0.0f;
             }
+            
                         
 
             if (Mathf.Abs(velocityY) > 4 && Mathf.Abs(velocityY) < 100)

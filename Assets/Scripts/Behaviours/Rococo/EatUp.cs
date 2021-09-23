@@ -25,7 +25,7 @@ namespace Splitting {
         private void Awake()
         {
             originalRococo = transform.parent;
-            rococoTransform = transform.Find("bone_1");
+            rococoTransform = transform.parent.Find("bone_1");
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

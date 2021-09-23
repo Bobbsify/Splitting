@@ -73,11 +73,8 @@ namespace Splitting
                 {
                     xTo = player.transform.position.x;
                     yTo = player.transform.position.y;
-                }
-                
-
-                // Update position
-                transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x)), transform.position.y + ((yTo - transform.position.y)), transform.position.z) + offset;
+                }              
+                                
 
                 // Screen shake 
                 if (shakeLenght > 0)
@@ -89,7 +86,10 @@ namespace Splitting
             else //Object could be destroyed
             {
                 player = findPlayer();
-            }           
+            }
+
+            // Update position
+            transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x)), transform.position.y + ((yTo - transform.position.y)), transform.position.z) + offset;
         }
 
         private GameObject findPlayer()

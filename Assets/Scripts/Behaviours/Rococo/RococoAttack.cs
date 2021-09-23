@@ -1,0 +1,46 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class RococoAttack : MonoBehaviour
+{
+    [SerializeField] private RococoAtkType rococoType = RococoAtkType.Idle;
+    [SerializeField] private float jumpSpeed;
+
+    private Animator rococoAnim;
+    private Vector3 mouthStart;
+    private RaycastHit2D[] mouthRange;
+
+    private bool bitten = false;
+
+
+    private void Awake()
+    {
+        TryGetComponent(out rococoAnim);
+        mouthStart = transform.parent.Find("bone_1").position;
+    }
+
+    private void Update()
+    {
+        if (rococoType == RococoAtkType.Jump && !bitten)
+        {
+            transform.position = new Vector2(transform.position.x, transform.position.y + jumpSpeed * Time.deltaTime);
+        }
+        mouthRange = Physics2D.RaycastAll(mouthStart, Vector2.down);
+        foreach (RaycastHit2D ray in mouthRange)
+        {
+            if (ray.collider.name.ToLower().Contains("ant") || ray.collider.name.ToLower().Contains("tyr"))
+            {
+                bitten = true;
+                ray.collider.GetComponent<Animator>().SetTrigger("death");
+            }
+        }
+    }
+
+}
+
+public enum RococoAtkType
+{
+    Jump,
+    Idle
+}

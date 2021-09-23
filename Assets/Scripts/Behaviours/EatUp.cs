@@ -102,7 +102,7 @@ namespace Splitting {
             {
                 target.transform.parent = transform.parent.Find("bone_1");
                 transform.parent.GetComponent<Animator>().SetTrigger("Bite");
-                target.GetComponent<Animator>().SetTrigger("Death");
+                target.GetComponent<Animator>().SetTrigger("death");
             }
         }
 

@@ -24,9 +24,9 @@ public class Powered : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Power pow;
         if (!absorbBattery)
         {
-            Power pow;
             if (collision.TryGetComponent(out pow))
             {
                 SetPower(true);
@@ -34,11 +34,21 @@ public class Powered : MonoBehaviour
         }
         else
         {
-            Power pow;
-            if (collision.TryGetComponent(out pow) && !collision.transform.parent.name.ToLower().Contains("bone"))
+            if (collision.transform.parent != null)
             {
-                Destroy(collision.gameObject); //remove object
-                SetPower(true);
+                if (collision.TryGetComponent(out pow) && !collision.transform.parent.name.ToLower().Contains("bone_"))
+                {
+                    Destroy(collision.gameObject); //remove object
+                    SetPower(true);
+                }
+            }
+            else
+            {
+                if (collision.TryGetComponent(out pow))
+                {
+                    Destroy(collision.gameObject); //remove object
+                    SetPower(true);
+                }
             }
         }
     }

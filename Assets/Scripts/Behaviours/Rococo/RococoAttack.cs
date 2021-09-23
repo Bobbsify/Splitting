@@ -17,7 +17,7 @@ public class RococoAttack : MonoBehaviour
     private void Awake()
     {
         TryGetComponent(out rococoAnim);
-        mouthStart = transform.parent.Find("bone_1").position;
+        mouthStart = transform.Find("bone_1").position;
     }
 
     private void Update()

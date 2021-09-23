@@ -42327,9 +42327,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 502ccb7ac82361042ab5d1ab00560f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xTo: 0
+  yTo: 0
   shakeLenght: 0
   shakeMagnitude: 0
   shakeRemain: 0
+  boundsX: 0
+  checkColX: 0
+  boundsY: 0
+  checkColY: 0
+  timerAbleBounds: 1
+  elapsedFromSwap: 0
   offset: {x: 0, y: 16, z: 0}
 --- !u!1 &1792637415
 GameObject:
@@ -42347,7 +42355,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1792637416
 MonoBehaviour:
   m_ObjectHideFlags: 0

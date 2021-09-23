@@ -31,8 +31,11 @@ public class RococoAttack : MonoBehaviour
         {
             if (ray.collider.name.ToLower().Contains("ant") || ray.collider.name.ToLower().Contains("tyr"))
             {
+                if (!bitten)
+                { 
+                    ray.collider.GetComponent<Animator>().SetTrigger("death");
+                }
                 bitten = true;
-                ray.collider.GetComponent<Animator>().SetTrigger("death");
             }
         }
     }

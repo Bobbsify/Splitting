@@ -16,6 +16,7 @@ namespace Splitting {
     public class EatUp : MonoBehaviour
     {
         [SerializeField] private Collider2D deathAreaTrigger;
+        [SerializeField] private float skipToBiteOffset = 5.0f;
 
         private GameObject target;
         private Vector3 raystart;
@@ -37,8 +38,8 @@ namespace Splitting {
         {
             if (doApproach)
             {
-                DisablePatrols();
                 Jump();
+                Bite();
             }
         }
 
@@ -58,6 +59,10 @@ namespace Splitting {
         {
             target = player;
             doApproach = true;
+            if (player.transform.position.y >= raystart.y - skipToBiteOffset && player.transform.position.y <= raystart.y + skipToBiteOffset)
+            {
+                bite = true;
+            }
         }
 
         private void DisablePatrols()
@@ -85,7 +90,6 @@ namespace Splitting {
                     if (hit.collider.tag == "Player") //if he bites the player apply bite
                     {
                         bite = true;
-                        transform.parent.GetComponent<Animator>().SetTrigger("Bite");
                         break;
                     }
                 }
@@ -95,7 +99,8 @@ namespace Splitting {
         private void Bite()
         {
             if (bite)
-            { 
+            {
+                transform.parent.GetComponent<Animator>().SetTrigger("Bite");
                 target.GetComponent<Animator>().SetTrigger("Death");
             }
         }

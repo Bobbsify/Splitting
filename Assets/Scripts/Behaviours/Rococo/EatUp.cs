@@ -37,6 +37,7 @@ namespace Splitting {
                 {
                     Transform activatedRococo = originalRococo.Find(rococoIdleAttackName);
                     activatedRococo.transform.parent = null; //remove from this obj
+                    activatedRococo.transform.position = originalRococo.position; // move to current rococo pos
                     activatedRococo.gameObject.SetActive(true); //activate obj
                     Destroy(originalRococo.gameObject);
                 }
@@ -44,6 +45,7 @@ namespace Splitting {
                 {
                     Transform activatedRococo = originalRococo.Find(rococoJumpAttackName);
                     activatedRococo.transform.parent = null; //remove from this obj
+                    activatedRococo.transform.position = originalRococo.position; // move to current rococo pos
                     activatedRococo.gameObject.SetActive(true); //activate obj
                     Destroy(originalRococo.gameObject);
                 }

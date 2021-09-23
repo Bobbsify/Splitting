@@ -28,7 +28,14 @@ using System;
     {
         foreach (ObjectTransform objToEdit in ParseCoordinates(coordinates))
         {
-            transform.Find(objToEdit.objectPath).position = objToEdit.position;
+            if (objToEdit.objectPath.ToLower() == "transform")
+            {
+                transform.position = objToEdit.position;
+            }
+            else
+            {
+                transform.Find(objToEdit.objectPath).position = objToEdit.position;
+            }
         }
     }
 

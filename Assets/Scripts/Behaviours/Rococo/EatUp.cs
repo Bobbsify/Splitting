@@ -28,6 +28,10 @@ namespace Splitting {
             rococoTransform = originalRococo.Find("bone_1");
         }
 
+        private void Update()
+        {
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.tag == "Player")
@@ -35,14 +39,18 @@ namespace Splitting {
                 Vector3 playerPos = collision.transform.position;
                 if (playerPos.y >= rococoTransform.position.y - skipToBiteOffset && playerPos.y <= rococoTransform.position.y + skipToBiteOffset)
                 {
-                    GameObject.Find(rococoIdleAttackName).transform.parent = null; //remove from this obj
-                    GameObject.Find(rococoIdleAttackName).SetActive(true); //remove from this obj
+                    Transform activatedRococo = originalRococo.Find(rococoIdleAttackName);
+                    activatedRococo.transform.parent = null; //remove from this obj
+                    activatedRococo.transform.position = transform.parent.position; // move to current rococo pos
+                    activatedRococo.gameObject.SetActive(true); //activate obj
                     Destroy(originalRococo.gameObject);
                 }
                 else
                 {
-                    GameObject.Find(rococoJumpAttackName).transform.parent = null; //remove from this obj
-                    GameObject.Find(rococoJumpAttackName).SetActive(true); //remove from this obj
+                    Transform activatedRococo = originalRococo.Find(rococoJumpAttackName);
+                    activatedRococo.transform.parent = null; //remove from this obj
+                    activatedRococo.transform.localPosition = transform.parent.position; // move to current rococo pos
+                    activatedRococo.gameObject.SetActive(true); //activate obj
                     Destroy(originalRococo.gameObject);
                 }
             }

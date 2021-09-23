@@ -44,7 +44,7 @@ public class GameObjectAlterationEvent : MonoBehaviour, CutsceneEvent
         }
         else
         {
-            originalCutsceneController.GetComponent<CutsceneController>().isInCutscene = false;
+            originalCutsceneController.GetComponent<CutsceneController>().turnOffCutscene();
         }
     }
 

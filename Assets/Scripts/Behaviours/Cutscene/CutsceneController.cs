@@ -5,12 +5,29 @@ using UnityEngine;
 
 public class CutsceneController : MonoBehaviour
 {
-    public bool isInCutscene = false;
 
     [SerializeField] private GameObject firstEvent;
+    [SerializeField] private bool removePlayerControl = true;
+
+    private GameObject player;
+    private bool isInCutscene = false;
 
     public void startCutscene()
     {
+        if (removePlayerControl) { 
+            player = GameObject.FindGameObjectWithTag("Player");
+            player.tag = "Untagged";
+        }
+        isInCutscene = true;
         firstEvent.GetComponent<CutsceneEvent>().Execute();
+    }
+
+    public void turnOffCutscene()
+    {
+        isInCutscene = false;
+        if (removePlayerControl)
+        {
+            player.tag = "Player";
+        }
     }
 }

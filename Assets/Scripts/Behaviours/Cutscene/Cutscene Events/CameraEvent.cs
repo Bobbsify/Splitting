@@ -54,7 +54,7 @@ namespace Splitting {
             }
             else
             {
-                originalCutsceneController.GetComponent<CutsceneController>().isInCutscene = false;
+                originalCutsceneController.GetComponent<CutsceneController>().turnOffCutscene();
             }
         }
 

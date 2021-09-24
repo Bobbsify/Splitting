@@ -16,6 +16,7 @@ namespace Splitting
         public bool isIlluminated;
 
         public bool isPushing;
+        public bool isPressingButton;
 
         [SerializeField] private float elapsedInDark;
         [SerializeField] private float timerInDark = 0.5f;
@@ -106,7 +107,9 @@ namespace Splitting
 
             ResetVerticalSpeedWhenPushing();
 
-            CallAnimator(isNotScared, getThrow.throwing, isGrounded, getThrow.rbToThrow);
+            ControlWhenResetPressingButton();
+
+            CallAnimator(isNotScared, getThrow.throwing, isGrounded, getThrow.rbToThrow, isPressingButton);
 
             if (hasControl)
             {
@@ -176,7 +179,7 @@ namespace Splitting
             }
         }
 
-        private void CallAnimator(bool isNotScared, bool throwingMode, bool isGrounded, bool isCarrying)
+        private void CallAnimator(bool isNotScared, bool throwingMode, bool isGrounded, bool isCarrying, bool isPressingButtonss)
         {
             if (animator != null)
             {
@@ -184,6 +187,7 @@ namespace Splitting
                 animator.SetBool("isThrowing", throwingMode);
                 animator.SetBool("isGrounded", isGrounded);
                 animator.SetBool("isCarrying", isCarrying);
+                animator.SetBool("buttonPress", isPressingButton);
             }
         }
 
@@ -260,7 +264,7 @@ namespace Splitting
                 tyrantMove.enabled = true;
             }              
             
-            if (isWalled || (tyrantJump.chargeJump && !getThrow.rbToThrow) || AnimatorIsPlaying("Tyrant grab3") || AnimatorIsPlaying("Tyrant grab") || getThrow.throwing || AnimatorIsPlaying("TyrantHacking") || AnimatorIsPlaying("TyrantLift1") || AnimatorIsPlaying("TyrantLift2") || AnimatorIsPlaying("TyrantLift3"))
+            if (isWalled || (isPushing && Input.GetKey(jumpButton)) || (tyrantJump.chargeJump && !getThrow.rbToThrow) || AnimatorIsPlaying("Tyrant grab3") || AnimatorIsPlaying("Tyrant grab") || getThrow.throwing || AnimatorIsPlaying("TyrantHacking") || AnimatorIsPlaying("TyrantLift1") || AnimatorIsPlaying("TyrantLift2") || AnimatorIsPlaying("TyrantLift3") || AnimatorIsPlaying("TyrantButtonPress") || isPressingButton)
             {
                 tyrantMove.canMove = false;
             }
@@ -353,6 +357,14 @@ namespace Splitting
             else
             {
                 tyrantJump.velocityY = tyrantRigidBody.velocity.y;
+            }
+        }
+
+        void ControlWhenResetPressingButton()
+        {
+            if (AnimatorIsPlaying("TyrantButtonPress"))
+            {
+                isPressingButton = false;
             }
         }
 

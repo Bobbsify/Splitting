@@ -151,18 +151,14 @@ namespace Splitting
         }
 
         void DisableCameraBounds()
-        {
-            if (Input.GetKeyDown(swapButton))
+        {            
+
+            if (Input.GetKeyUp(swapButton))
             {
                 cameraBounds = GameObject.FindGameObjectWithTag("CameraBounds");
 
                 cameraBounds.transform.Find("XBounds").gameObject.SetActive(false);
                 cameraBounds.transform.Find("YBounds").gameObject.SetActive(false);
-            }
-
-            if (Input.GetKeyUp(swapButton))
-            {
-                cameraBounds = GameObject.FindGameObjectWithTag("CameraBounds");
 
                 cameraBounds.transform.Find("XBounds").gameObject.SetActive(true);
                 cameraBounds.transform.Find("YBounds").gameObject.SetActive(true);

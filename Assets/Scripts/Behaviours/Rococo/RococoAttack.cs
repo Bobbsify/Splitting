@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class RococoAttack : MonoBehaviour
 {
+
     [SerializeField] private RococoAtkType rococoType = RococoAtkType.Idle;
-    [SerializeField] private float jumpSpeed;
+    [SerializeField] private float jumpSpeed = 20.0f;
 
     private Animator rococoAnim;
     private Transform mouthStart;
     private RaycastHit2D[] mouthRange;
 
     private bool bitten = false;
+    private bool savedPos = false;
 
 
     private void Awake()
     {
+        Destroy(GameObject.Find("Rococo"));
         TryGetComponent(out rococoAnim);
         mouthStart = transform.Find("bone_1");
     }
@@ -26,11 +29,15 @@ public class RococoAttack : MonoBehaviour
         {
             transform.position = new Vector2(transform.position.x, transform.position.y + jumpSpeed * Time.deltaTime);
         }
-        mouthRange = Physics2D.RaycastAll(mouthStart.position, Vector2.down);
+        mouthRange = rococoType == RococoAtkType.Idle ? Physics2D.RaycastAll(mouthStart.position, Vector2.down) : Physics2D.RaycastAll(mouthStart.position, Vector2.right * 8);
         foreach (RaycastHit2D ray in mouthRange)
         {
             if (ray.collider.name.ToLower().Contains("ant") || ray.collider.name.ToLower().Contains("tyr"))
             {
+                if(rococoType == RococoAtkType.Jump)
+                {
+                    rococoAnim.SetTrigger("Bite");
+                }
                 if (!bitten)
                 {
                     ray.collider.GetComponent<Animator>().SetTrigger("death");

@@ -15,8 +15,10 @@ using UnityEngine;
 namespace Splitting { 
     public class EatUp : MonoBehaviour
     {
-        [SerializeField] private string rococoJumpAttackName = "RococoJump";
-        [SerializeField] private string rococoIdleAttackName = "RococoAttack";
+        public Vector3 currentTransform;
+
+        [SerializeField] private GameObject rococoJumpAttackPrefab;
+        [SerializeField] private GameObject rococoIdleAttackPrefab;
         [SerializeField] private float skipToBiteOffset = 5.0f;
 
         private Transform rococoTransform;
@@ -30,7 +32,7 @@ namespace Splitting {
 
         private void Update()
         {
-            Debug.Log(transform.parent.position);
+            currentTransform = transform.parent.position;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -40,19 +42,15 @@ namespace Splitting {
                 Vector3 playerPos = collision.transform.position;
                 if (playerPos.y >= rococoTransform.position.y - skipToBiteOffset && playerPos.y <= rococoTransform.position.y + skipToBiteOffset)
                 {
-                    Transform activatedRococo = originalRococo.Find(rococoIdleAttackName);
-                    activatedRococo.transform.parent = null; //remove from this obj
-                    activatedRococo.transform.localPosition = transform.parent.localPosition; // move to current rococo pos
-                    activatedRococo.gameObject.SetActive(true); //activate obj
-                    Destroy(originalRococo.gameObject);
+                    GameObject activatedRococo = Instantiate(rococoIdleAttackPrefab);
+                    activatedRococo.transform.position = transform.parent.position;
+                    GameObject.FindGameObjectWithTag("Player").tag = "Untagged"; //Stop player from moving
                 }
                 else
                 {
-                    Transform activatedRococo = originalRococo.Find(rococoJumpAttackName);
-                    activatedRococo.transform.parent = null; //remove from this obj
-                    activatedRococo.transform.localPosition = transform.parent.localPosition; // move to current rococo pos
-                    activatedRococo.gameObject.SetActive(true); //activate obj
-                    Destroy(originalRococo.gameObject);
+                    GameObject activatedRococo = Instantiate(rococoJumpAttackPrefab);
+                    activatedRococo.transform.position = transform.parent.position;
+                    GameObject.FindGameObjectWithTag("Player").tag = "Untagged"; //Stop player from moving
                 }
             }
         }

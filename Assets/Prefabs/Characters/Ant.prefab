@@ -1920,7 +1920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneCheckpoint: 0
-  checkpoint: {fileID: 0}
+  checkpoint: {fileID: 11400000, guid: 5a38a6f2e64293a48b44a19f14a831e8, type: 2}
 --- !u!114 &-768708338597490307
 MonoBehaviour:
   m_ObjectHideFlags: 0

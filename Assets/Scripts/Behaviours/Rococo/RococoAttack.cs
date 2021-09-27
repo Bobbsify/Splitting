@@ -8,7 +8,7 @@ public class RococoAttack : MonoBehaviour
     [SerializeField] private float jumpSpeed;
 
     private Animator rococoAnim;
-    private Vector3 mouthStart;
+    private Transform mouthStart;
     private RaycastHit2D[] mouthRange;
 
     private bool bitten = false;
@@ -17,7 +17,7 @@ public class RococoAttack : MonoBehaviour
     private void Awake()
     {
         TryGetComponent(out rococoAnim);
-        mouthStart = transform.Find("bone_1").position;
+        mouthStart = transform.Find("bone_1");
     }
 
     private void Update()
@@ -26,13 +26,13 @@ public class RococoAttack : MonoBehaviour
         {
             transform.position = new Vector2(transform.position.x, transform.position.y + jumpSpeed * Time.deltaTime);
         }
-        mouthRange = Physics2D.RaycastAll(mouthStart, Vector2.down);
+        mouthRange = Physics2D.RaycastAll(mouthStart.position, Vector2.down);
         foreach (RaycastHit2D ray in mouthRange)
         {
             if (ray.collider.name.ToLower().Contains("ant") || ray.collider.name.ToLower().Contains("tyr"))
             {
                 if (!bitten)
-                { 
+                {
                     ray.collider.GetComponent<Animator>().SetTrigger("death");
                 }
                 bitten = true;

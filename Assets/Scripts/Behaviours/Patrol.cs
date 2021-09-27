@@ -10,7 +10,6 @@ public class Patrol : MonoBehaviour
 {
     [Header("Path Properties")]
     [SerializeField] private Vector3[] path;
-    [SerializeField] private float[] speeds;
     [SerializeField] private PatrolTypes patrolType;
 
     [Header("Movement Properties")]
@@ -265,7 +264,6 @@ public class Patrol : MonoBehaviour
             {
                 travelMode = -travelMode;
                 nextPoint += travelMode;
-                speed = speeds[nextPoint];
             }
             else
             {
@@ -279,7 +277,6 @@ public class Patrol : MonoBehaviour
         else
         {
             nextPoint += (travelMode);
-            speed = speeds[nextPoint];
         }
 
         removeAttachedObjects();

@@ -30,6 +30,7 @@ namespace Splitting {
 
         private void Update()
         {
+            Debug.Log(transform.parent.position);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -41,7 +42,7 @@ namespace Splitting {
                 {
                     Transform activatedRococo = originalRococo.Find(rococoIdleAttackName);
                     activatedRococo.transform.parent = null; //remove from this obj
-                    activatedRococo.transform.position = transform.parent.position; // move to current rococo pos
+                    activatedRococo.transform.localPosition = transform.parent.localPosition; // move to current rococo pos
                     activatedRococo.gameObject.SetActive(true); //activate obj
                     Destroy(originalRococo.gameObject);
                 }
@@ -49,7 +50,7 @@ namespace Splitting {
                 {
                     Transform activatedRococo = originalRococo.Find(rococoJumpAttackName);
                     activatedRococo.transform.parent = null; //remove from this obj
-                    activatedRococo.transform.localPosition = transform.parent.position; // move to current rococo pos
+                    activatedRococo.transform.localPosition = transform.parent.localPosition; // move to current rococo pos
                     activatedRococo.gameObject.SetActive(true); //activate obj
                     Destroy(originalRococo.gameObject);
                 }

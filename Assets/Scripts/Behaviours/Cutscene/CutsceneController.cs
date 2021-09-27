@@ -9,7 +9,7 @@ public class CutsceneController : MonoBehaviour
     [SerializeField] private GameObject firstEvent;
     [SerializeField] private bool removePlayerControl = true;
 
-    private GameObject player;
+    [HideInInspector] public GameObject player;
     private bool isInCutscene = false;
 
     public void startCutscene()

@@ -8,7 +8,7 @@ public class GameObjectAlterationEvent : MonoBehaviour, CutsceneEvent
 {
     [Header("General Settings")]
     [Tooltip("only needed if this is the last object of the cutscene")]
-    [SerializeField] private GameObject originalCutsceneController;
+    [SerializeField] private CutsceneController originalCutsceneController;
     [SerializeField] private GameObject nextEvent;
     [SerializeField] private int nextEventDelay;
     

@@ -4,31 +4,38 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Splitting { 
-    public class CameraEvent : MonoBehaviour, CutsceneEvent
+    public class ForceConnectEvent : MonoBehaviour, CutsceneEvent
     {
         [Header("General Settings")]
-        [Tooltip("only needed if this is the last object of the cutscene")]
         [SerializeField] private CutsceneController originalCutsceneController;
         [SerializeField] private GameObject nextEvent;
         [SerializeField] private int nextEventDelay;
 
-        [Header("Camera Event")]
-        [SerializeField] private CameraTransitionController transition;
-        
+        [Header("When called forces player to connect into TyrAnt")]
+
         private CutsceneEvent nextEventCutsceneEvent;
+
+        private GameObject target;
+
+        private void Awake()
+        {
+            if (originalCutsceneController == null)
+            {
+                throw new System.MissingFieldException(this + " is missing original cutscene controller");
+            }
+        }
 
         public void Execute()
         {
-            GetEvent();
-            transition.StartZoomOut();
-            transition.StartOffset();
-            waitForCompletion();
-        }
+            target = originalCutsceneController.GetComponent<CutsceneController>().player;
+            nextEvent.TryGetComponent(out nextEventCutsceneEvent);
 
-        private async void waitForCompletion()
-        {
-            while (transition.doOffset || transition.doZoom) { 
-                await Task.Delay(1);
+            if (!(target.name.ToLower().Contains("ant") && target.name.ToLower().Contains("tyr")))
+            {
+                if (target.TryGetComponent(out SwitchCharacter sw))
+                { 
+                    sw.Connect();
+                }
             }
             DoNextEvent();
         }

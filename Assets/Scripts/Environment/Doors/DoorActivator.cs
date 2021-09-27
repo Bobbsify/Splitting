@@ -36,8 +36,7 @@ namespace Splitting
             {
                 case ActivationTypes.PressWhenInArea:
                     if (Input.GetKeyDown(inputButton) && playerIsInZone && (currentPlayer == 0 || currentPlayer == 2))
-                    {
-                        UpdateStateController();
+                    {                       
 
                         foreach (GameObject d in targetDoors)
                         {
@@ -60,26 +59,7 @@ namespace Splitting
                         if (pressOnlyOnce) turnOff();
                     }
                     else
-                    {
-                        if (currentPlayer == 0)
-                        {
-                            antStateController = player.GetComponent<StateController>();
-
-                            if (antStateController != null)
-                            {
-                                antStateController.isPressingButton = false;
-                            }
-                        }
-                        else if (currentPlayer == 2)
-                        {
-                            tyrantStateController = player.GetComponent<StateControllerTA>();
-
-                            if (tyrantStateController != null)
-                            {
-                                tyrantStateController.isPressingButton = false;
-                            }
-                        }
-
+                    {                       
                         foreach (GameObject d in targetDoors)
                         {
                             IDoor door = d.GetComponent<IDoor>();
@@ -162,28 +142,6 @@ namespace Splitting
             }
 
             return x;
-        }
-
-        void UpdateStateController()
-        {
-            if (currentPlayer == 0)
-            {
-                antStateController = player.GetComponent<StateController>();
-
-                if (antStateController != null)
-                {
-                    antStateController.isPressingButton = true;
-                }
-            }
-            else if (currentPlayer == 2)
-            {
-                tyrantStateController = player.GetComponent<StateControllerTA>();
-
-                if (tyrantStateController != null)
-                {
-                    tyrantStateController.isPressingButton = true;
-                }
-            }
-        }
+        }        
     }
 }

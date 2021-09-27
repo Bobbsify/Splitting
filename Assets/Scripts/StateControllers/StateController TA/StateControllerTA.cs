@@ -23,11 +23,7 @@ namespace Splitting
         [SerializeField] private float speedInAir = 0.5f;
 
         [SerializeField] private float shake = 1.0f;
-        [SerializeField] private float lenght = 1.0f;
-
-        private float camOffsetY = 8.0f;
-        private float camMinOffsetY = 0.0f;
-        private float camMaxOffsetY = 8.0f;
+        [SerializeField] private float lenght = 1.0f;       
 
         private KeyCode jumpButton;
         private Jump tyrantJump;        
@@ -45,6 +41,10 @@ namespace Splitting
         private Rigidbody2D tyrantRigidBody;
 
         new private CameraController camera;
+        private float camOffsetY = 8.0f;
+        private float camMinOffsetY = 0.0f;
+        private float camMaxOffsetY = 8.0f;
+        private bool checkCamOffsetY;
 
         // Start is called before the first frame update
         void Start()
@@ -367,10 +367,15 @@ namespace Splitting
             if (camera.boundsY && isGrounded)
             {
                 camOffsetY = camMinOffsetY;
+                checkCamOffsetY = true;
             }
-            else
+            else if (!isGrounded && !checkCamOffsetY)
             {
                 camOffsetY = camMaxOffsetY;
+            }
+            else if (!camera.boundsY)
+            {
+                checkCamOffsetY = false;
             }
 
             camera.offset = new Vector3(0, camOffsetY, 0);

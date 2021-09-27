@@ -8,6 +8,6 @@ namespace Splitting
     [CreateAssetMenu(fileName = "LastCheckpointInfo", menuName = "ScriptableObjects/LastCheckpointInfo", order = 1)]
     public class LastCheckpointInfo : ScriptableObject
     {
-        public List<GameObject> savedObjects = new List<GameObject>();
+        public int levelCheckpoint = 0;
     }
 }

@@ -60,7 +60,7 @@ namespace Splitting
             }
         }
 
-        private void Connect()
+        public void Connect()
         {
             bool isThisAnt = gameObject.name.ToUpper().Contains("ANT");
 

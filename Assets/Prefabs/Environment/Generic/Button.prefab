@@ -249,6 +249,7 @@ GameObject:
   - component: {fileID: 6385718451695700603}
   - component: {fileID: 7889000063166214571}
   - component: {fileID: 1272363000265237007}
+  - component: {fileID: 4814356131297368286}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -332,5 +333,20 @@ MonoBehaviour:
   targetDoors: []
   inputButton: 101
   activationType: 0
+  pressOnlyOnce: 0
   scoringPlatform: {fileID: 0}
   targetScore: 0
+--- !u!114 &4814356131297368286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7221147928767170801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3bd1270216a449499bee51c860ad3d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionPrefab: {fileID: 5549565147677149767, guid: 7006dfdb63fdf6e4790f272e56c774dc,
+    type: 3}

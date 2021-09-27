@@ -15,9 +15,7 @@ namespace Splitting
         public bool isNotScared;
         public bool isIlluminated;
 
-        public bool isPushing;
-        public bool isPressingButton;
-        public bool checkIfPressing;
+        public bool isPushing;        
 
         [SerializeField] private float elapsedInDark;
         [SerializeField] private float timerInDark = 0.5f;
@@ -114,12 +112,10 @@ namespace Splitting
 
             ModifySpeedWhenJump();            
 
-            ResetVerticalSpeedWhenPushing();
-
-            ControlWhenResetPressingButton();
+            ResetVerticalSpeedWhenPushing();            
 
             //ControlWhenForceDrop();
-            CallAnimator(isNotScared, isGrounded, isPressingButton);
+            CallAnimator(isNotScared, isGrounded);
 
             if (hasControl)
             {
@@ -212,13 +208,12 @@ namespace Splitting
             }
         }
 
-        private void CallAnimator(bool isNotScared, bool isGrounded, bool isPressingButton)
+        private void CallAnimator(bool isNotScared, bool isGrounded)
         {
             if (animator != null)
             {
                 animator.SetBool("isNotScared", isNotScared);
-                animator.SetBool("isGrounded", isGrounded);
-                animator.SetBool("buttonPress", isPressingButton);
+                animator.SetBool("isGrounded", isGrounded);                
             }
         }       
 
@@ -253,7 +248,7 @@ namespace Splitting
         {            
             antMove.enabled = true;
 
-            if (isWalled || (isPushing && Input.GetKey(jumpButton)) || (antJump.chargeJump && !antMove.isCrouched) || AnimatorIsPlaying("AntLift1") || AnimatorIsPlaying("AntLift2") || AnimatorIsPlaying("AntLift3") || AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd") || AnimatorIsPlaying("AntButtonPress") || isPressingButton) //  || (isPushing && Input.GetKey(jumpButton))
+            if (isWalled || (isPushing && Input.GetKey(jumpButton)) || (antJump.chargeJump && !antMove.isCrouched) || AnimatorIsPlaying("AntLift1") || AnimatorIsPlaying("AntLift2") || AnimatorIsPlaying("AntLift3") || AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd") || AnimatorIsPlaying("AntButtonPress")) //  || (isPushing && Input.GetKey(jumpButton))
             {
                 
                 antMove.canMove = false;
@@ -399,15 +394,7 @@ namespace Splitting
             {
                 antJump.velocityY = antRigidBody.velocity.y;
             }
-        } 
-        
-        void ControlWhenResetPressingButton()
-        {
-            if (AnimatorIsPlaying("AntButtonPress"))
-            {
-                isPressingButton = false;
-            }
-        }
-
+        }        
+       
     }
 }

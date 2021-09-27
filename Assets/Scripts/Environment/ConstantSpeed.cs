@@ -36,7 +36,7 @@ namespace Splitting {
         {
             Vector3 pos = collision.collider.transform.position;
             Vector2 newVec = new Vector3(pos.x + speed * speedDirectionMultiplier * Time.deltaTime, pos.y, pos.z);
-            collision.collider.transform.position = pos;
+            collision.collider.transform.position = newVec;
         }
     }
 

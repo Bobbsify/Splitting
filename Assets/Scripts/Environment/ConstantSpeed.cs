@@ -34,7 +34,9 @@ namespace Splitting {
 
         private void OnCollisionStay2D(Collision2D collision)
         {
-            collision.collider.attachedRigidbody.AddForce(new Vector2(speed * speedDirectionMultiplier * Time.deltaTime, 0));
+            Vector3 pos = collision.collider.transform.position;
+            Vector2 newVec = new Vector3(pos.x + speed * speedDirectionMultiplier * Time.deltaTime, pos.y, pos.z);
+            collision.collider.transform.position = pos;
         }
     }
 

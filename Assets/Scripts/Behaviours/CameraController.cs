@@ -14,11 +14,24 @@ namespace Splitting
         public float shakeLenght = 0.0f;
         public float shakeMagnitude = 0.0f;
         public float shakeRemain = 0.0f;
+
+        private float boundsOffset = 0.5f;
+
+        public bool debug;
                 
         public bool boundsX;
         public bool checkColX;
+        private bool pushRight;
+        private bool checkPushRight;
+        private bool pushLeft;
+        private bool checkPushLeft;
+
         public bool boundsY;
         public bool checkColY;
+        public bool pushUp;
+        public bool checkPushUp;
+        public bool pushDown;
+        private bool checkPushDown;
 
         private KeyCode swapButton;
         private GameObject cameraBounds;
@@ -60,21 +73,47 @@ namespace Splitting
                 {
                     player = findPlayer();                                        
                 }
-
-                ControlBoundsXContacts();
+                                
+                ControlBoundsXContacts();                             
                 ControlBoundsYContacts();
 
                 CheckCameraBoundsX();
                 CheckCameraBoundsY();
                 CheckCameraBoundsXY();
 
-                                
-                if (contactsX.Count == 0 && contactsY.Count == 0)
+                Debug.Log("yTo = " + yTo);                              
+
+                if (boundsX)
                 {
-                    xTo = player.transform.position.x;
+                    PushOutFromBoundsX();
+                }
+                else
+                {
+                    pushRight = false;
+                    pushLeft = false;
+                }
+
+                if (boundsY)
+                {
+                    PushOutFromBoundsY();
+                }
+                else
+                {
+                    pushUp = false;
+                    pushDown = false;
+                }
+                
+                           
+                if (contactsX.Count == 0 && contactsY.Count == 0 && !pushRight && !pushLeft)
+                {                    
+                    xTo = player.transform.position.x;                    
+                }                
+                
+                if (contactsX.Count == 0 && contactsY.Count == 0 && !pushUp && !pushDown)
+                {                    
                     yTo = player.transform.position.y;
-                }              
-                                
+                    Debug.Log("player yTo = " + yTo);
+                }               
 
                 // Screen shake 
                 if (shakeLenght > 0)
@@ -89,7 +128,16 @@ namespace Splitting
             }
 
             // Update position
-            transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x)), transform.position.y + ((yTo - transform.position.y)), transform.position.z) + offset;
+            if (!pushRight && !pushLeft && !pushUp && !pushDown)
+            {
+                transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x)), transform.position.y + ((yTo - transform.position.y)), transform.position.z);
+
+                if (!boundsY)
+                {
+                    transform.position = transform.position + offset;
+                }               
+            }           
+           
         }
 
         private GameObject findPlayer()
@@ -103,18 +151,14 @@ namespace Splitting
         }
 
         void DisableCameraBounds()
-        {
-            if (Input.GetKeyDown(swapButton))
+        {            
+
+            if (Input.GetKeyUp(swapButton))
             {
                 cameraBounds = GameObject.FindGameObjectWithTag("CameraBounds");
 
                 cameraBounds.transform.Find("XBounds").gameObject.SetActive(false);
                 cameraBounds.transform.Find("YBounds").gameObject.SetActive(false);
-            }
-
-            if (Input.GetKeyUp(swapButton))
-            {
-                cameraBounds = GameObject.FindGameObjectWithTag("CameraBounds");
 
                 cameraBounds.transform.Find("XBounds").gameObject.SetActive(true);
                 cameraBounds.transform.Find("YBounds").gameObject.SetActive(true);
@@ -124,27 +168,22 @@ namespace Splitting
 
         void ControlBoundsXContacts()
         {
-            if (boundsX && checkColX)
-            {
+            if (boundsX && (checkColX))
+            {                
                 checkColX = false;
-                cameraCollider.GetContacts(contactsX);
-
-                Debug.Log("Xcollision " + contactsX.Count);
+                cameraCollider.GetContacts(contactsX);                
 
                 var copyContactsX = new List<ContactPoint2D>(contactsX);
 
                 for (int i = 0; i < copyContactsX.Count; i++)
                 {
                     if (copyContactsX.ToArray()[i].collider.name.ToUpper().Contains("Y"))
-                    {
-                        Debug.Log("Remove 1 from contactsY");
+                    {                        
                         contactsX.Remove(copyContactsX.ToArray()[i]);
-                    }
+                    }                    
                 }
 
-                copyContactsX.Clear();
-
-                Debug.Log("New Xcollision " + contactsX.Count);
+                copyContactsX.Clear();              
 
             }
             else if (!boundsX)
@@ -158,24 +197,20 @@ namespace Splitting
             if (boundsY && checkColY)
             {
                 checkColY = false;
-                cameraCollider.GetContacts(contactsY);
-
-                Debug.Log("Ycollision " + contactsY.Count);
+                cameraCollider.GetContacts(contactsY);               
 
                 var copyContactsY = new List<ContactPoint2D>(contactsY);
 
                 for (int i = 0; i < copyContactsY.Count; i++)
                 {
                     if (copyContactsY.ToArray()[i].collider.name.ToUpper().Contains("X"))
-                    {
-                        Debug.Log("Remove 1 from contactsY");
+                    {                        
                         contactsY.Remove(copyContactsY.ToArray()[i]);
                     }
+
                 }
 
-                copyContactsY.Clear();
-
-                Debug.Log("New Ycollision " + contactsY.Count);
+                copyContactsY.Clear();              
 
             }
             else if (!boundsY)
@@ -309,7 +344,145 @@ namespace Splitting
                 }
             }
         }
+
+
         
+        void PushOutFromBoundsX()
+        {
+            if (contactsX.Count > 0)
+            {
+                if ((contactsX.ToArray()[0].point.x <= (contactsX.ToArray()[0].collider.bounds.center.x + contactsX.ToArray()[0].collider.bounds.extents.x - boundsOffset)) && (contactsX.ToArray()[0].point.x >= (contactsX.ToArray()[0].collider.bounds.center.x - contactsX.ToArray()[0].collider.bounds.extents.x + boundsOffset)))
+                {                    
+                    if (contactsX.ToArray()[0].point.x < cameraCollider.bounds.center.x)
+                    {
+                        pushRight = true;
+                        checkPushRight = false;
+                    }
+                    else
+                    {
+                        pushLeft = true;
+                        checkPushLeft = false;
+                    }
+                }
+                else
+                {
+                    pushRight = false;
+                    pushLeft = false;
+                }
+            }
+            else
+            {
+                cameraCollider.GetContacts(contactsX);
+
+                var copyContactsX = new List<ContactPoint2D>(contactsX);
+
+                for (int i = 0; i < copyContactsX.Count; i++)
+                {
+                    if (copyContactsX.ToArray()[i].collider.name.ToUpper().Contains("Y"))
+                    {
+                        contactsX.Remove(copyContactsX.ToArray()[i]);
+                    }
+                }
+
+                copyContactsX.Clear();
+            }          
+
+            if (pushRight && !checkPushRight)
+            {
+                float distanceToPush = ((contactsX.ToArray()[0].collider.bounds.center.x) + contactsX.ToArray()[0].collider.bounds.extents.x) - (contactsX.ToArray()[0].point.x);                              
+
+                transform.position  = new Vector3(transform.position.x + (distanceToPush * 2), transform.position.y, transform.position.z);
+                xTo = transform.position.x;
+
+                checkPushRight = true;
+
+                contactsX.Clear();
+            }
+            else if (pushLeft && !checkPushLeft)
+            {
+                float distanceToPush = (contactsX.ToArray()[0].point.x) - ((contactsX.ToArray()[0].collider.bounds.center.x) - contactsX.ToArray()[0].collider.bounds.extents.x);
+
+                transform.position = new Vector3(transform.position.x - (distanceToPush * 2), transform.position.y, transform.position.z);
+                xTo = transform.position.x;
+
+                checkPushLeft = true;
+
+                contactsX.Clear();
+            }
+            
+        }
+        
+        void PushOutFromBoundsY()
+        {
+            if (contactsY.Count > 0)
+            {
+                Debug.Log("Y contact point = " + contactsY.ToArray()[0].point.y);
+
+                if ((contactsY.ToArray()[0].point.y <= (contactsY.ToArray()[0].collider.bounds.center.y + contactsY.ToArray()[0].collider.bounds.extents.y - boundsOffset)) && (contactsY.ToArray()[0].point.y >= (contactsY.ToArray()[0].collider.bounds.center.y - contactsY.ToArray()[0].collider.bounds.extents.y + boundsOffset)))
+                {                 
+
+                    if (contactsY.ToArray()[0].point.y < cameraCollider.bounds.center.y)
+                    {
+                        pushUp = true;
+                        checkPushUp = false;                        
+                    }
+                    else
+                    {                        
+                        pushDown = true;
+                        checkPushDown = false;
+                    }
+                }
+                else
+                {
+                    pushUp = false;
+                    pushDown = false;
+                }
+            }
+            else
+            {
+                cameraCollider.GetContacts(contactsY);
+
+                var copyContactsY = new List<ContactPoint2D>(contactsY);
+
+                for (int i = 0; i < copyContactsY.Count; i++)
+                {
+                    if (copyContactsY.ToArray()[i].collider.name.ToUpper().Contains("X"))
+                    {
+                        contactsY.Remove(copyContactsY.ToArray()[i]);
+                    }
+
+                }
+
+                copyContactsY.Clear();
+            }
+
+            if (pushUp && !checkPushUp)
+            {
+                float distanceToPush = ((contactsY.ToArray()[0].collider.bounds.center.y) + contactsY.ToArray()[0].collider.bounds.extents.y) - (contactsY.ToArray()[0].point.y);
+
+                transform.position = new Vector3(transform.position.x, transform.position.y + (distanceToPush * 2), transform.position.z);
+                yTo = transform.position.y;
+
+                Debug.Log("distanceToPush = " + distanceToPush);
+
+                checkPushUp = true;
+
+                debug = true;
+
+                contactsY.Clear();
+            }
+            else if (pushDown && !checkPushDown)
+            {
+                float distanceToPush = (contactsY.ToArray()[0].point.y) - ((contactsY.ToArray()[0].collider.bounds.center.y) - contactsY.ToArray()[0].collider.bounds.extents.y);
+
+                transform.position = new Vector3(transform.position.x, transform.position.y - (distanceToPush * 2), transform.position.z);
+                yTo = transform.position.y;
+
+                checkPushDown = true;
+
+                contactsY.Clear();
+            }
+        }
 
     }
 }

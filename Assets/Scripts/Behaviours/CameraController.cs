@@ -15,10 +15,9 @@ namespace Splitting
         public float shakeMagnitude = 0.0f;
         public float shakeRemain = 0.0f;
 
-        private float boundsOffset = 0.5f;
+        private float boundsOffsetX = 0.5f;
+        private float boundsOffsetY = 1.5f;
 
-        public bool debug;
-                
         public bool boundsX;
         public bool checkColX;
         private bool pushRight;
@@ -62,23 +61,22 @@ namespace Splitting
         {
             FixCameraColliderSize();
 
-            DisableCameraBounds();
+            DisableCameraBounds();      
+                           
 
             if (player != null)
             {
                 if (player.tag != "Player") //Switching
                 {
                     player = findPlayer();                                        
-                }
-                                
+                }                                        
+
                 ControlBoundsXContacts();                             
                 ControlBoundsYContacts();
 
                 CheckCameraBoundsX();
                 CheckCameraBoundsY();
-                CheckCameraBoundsXY();
-
-                Debug.Log("yTo = " + yTo);                              
+                CheckCameraBoundsXY();                                          
 
                 if (boundsX)
                 {
@@ -108,8 +106,7 @@ namespace Splitting
                 
                 if (contactsX.Count == 0 && contactsY.Count == 0 && !pushUp && !pushDown)
                 {                    
-                    yTo = player.transform.position.y;
-                    Debug.Log("player yTo = " + yTo);
+                    yTo = player.transform.position.y;                   
                 }               
 
                 // Screen shake 
@@ -127,12 +124,7 @@ namespace Splitting
             // Update position
             if (!pushRight && !pushLeft && !pushUp && !pushDown)
             {
-                transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x)), transform.position.y + ((yTo - transform.position.y)), transform.position.z);
-
-                if (!boundsY)
-                {
-                    transform.position = transform.position + offset;
-                }               
+                transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x)), transform.position.y + ((yTo - transform.position.y)), transform.position.z) + offset;                                
             }           
            
         }
@@ -250,6 +242,8 @@ namespace Splitting
             {
                 if (contactsY.ToArray()[0].point.y < yTo)
                 {
+                    Debug.Log("fra");
+
                     if (player.transform.position.y > yTo)
                     {
                         yTo = player.transform.position.y;
@@ -257,6 +251,7 @@ namespace Splitting
                 }
                 else if (contactsY.ToArray()[0].point.y > yTo)
                 {
+                    Debug.Log("Bro");
                     if (player.transform.position.y < yTo)
                     {
                         yTo = player.transform.position.y;
@@ -348,7 +343,7 @@ namespace Splitting
         {
             if (contactsX.Count > 0)
             {
-                if ((contactsX.ToArray()[0].point.x <= (contactsX.ToArray()[0].collider.bounds.center.x + contactsX.ToArray()[0].collider.bounds.extents.x - boundsOffset)) && (contactsX.ToArray()[0].point.x >= (contactsX.ToArray()[0].collider.bounds.center.x - contactsX.ToArray()[0].collider.bounds.extents.x + boundsOffset)))
+                if ((contactsX.ToArray()[0].point.x <= (contactsX.ToArray()[0].collider.bounds.center.x + contactsX.ToArray()[0].collider.bounds.extents.x - boundsOffsetX)) && (contactsX.ToArray()[0].point.x >= (contactsX.ToArray()[0].collider.bounds.center.x - contactsX.ToArray()[0].collider.bounds.extents.x + boundsOffsetX)))
                 {                    
                     if (contactsX.ToArray()[0].point.x < cameraCollider.bounds.center.x)
                     {
@@ -412,10 +407,9 @@ namespace Splitting
         void PushOutFromBoundsY()
         {
             if (contactsY.Count > 0)
-            {
-                Debug.Log("Y contact point = " + contactsY.ToArray()[0].point.y);
+            {               
 
-                if ((contactsY.ToArray()[0].point.y <= (contactsY.ToArray()[0].collider.bounds.center.y + contactsY.ToArray()[0].collider.bounds.extents.y - boundsOffset)) && (contactsY.ToArray()[0].point.y >= (contactsY.ToArray()[0].collider.bounds.center.y - contactsY.ToArray()[0].collider.bounds.extents.y + boundsOffset)))
+                if ((contactsY.ToArray()[0].point.y <= (contactsY.ToArray()[0].collider.bounds.center.y + contactsY.ToArray()[0].collider.bounds.extents.y - boundsOffsetY)) && (contactsY.ToArray()[0].point.y >= (contactsY.ToArray()[0].collider.bounds.center.y - contactsY.ToArray()[0].collider.bounds.extents.y + boundsOffsetY)))
                 {                 
 
                     if (contactsY.ToArray()[0].point.y < cameraCollider.bounds.center.y)
@@ -458,13 +452,9 @@ namespace Splitting
                 float distanceToPush = ((contactsY.ToArray()[0].collider.bounds.center.y) + contactsY.ToArray()[0].collider.bounds.extents.y) - (contactsY.ToArray()[0].point.y);
 
                 transform.position = new Vector3(transform.position.x, transform.position.y + (distanceToPush), transform.position.z);
-                yTo = transform.position.y;
+                yTo = transform.position.y;              
 
-                Debug.Log("distanceToPush = " + distanceToPush);
-
-                checkPushUp = true;
-
-                debug = true;
+                checkPushUp = true;              
 
                 contactsY.Clear();
             }

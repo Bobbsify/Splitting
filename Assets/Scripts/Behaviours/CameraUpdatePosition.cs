@@ -50,7 +50,7 @@ namespace Splitting
                 }
 
                 if (y)
-                {
+                {                    
                     camera.checkColY = true;
                     camera.boundsY = true;                    
                 }

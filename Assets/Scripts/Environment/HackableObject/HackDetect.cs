@@ -47,7 +47,7 @@ namespace Splitting
                 }
             }                      
 
-            if (hackerIsHacking && onHack && (AnimatorIsPlaying("Tyr hacking2") || AnimatorIsPlaying("Tyrant hacking2")))
+            if (hackerIsHacking && onHack && (AnimatorIsPlaying("Tyr hacking2") || AnimatorIsPlaying("TyrantHacking")))
             {                
                 ExecuteHackingAction();                
             }

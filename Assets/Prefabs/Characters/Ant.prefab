@@ -1919,6 +1919,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3718cf61c7957bb47afff28e4e11781c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneCheckpoint: 0
+  checkpoint: {fileID: 0}
 --- !u!114 &-768708338597490307
 MonoBehaviour:
   m_ObjectHideFlags: 0

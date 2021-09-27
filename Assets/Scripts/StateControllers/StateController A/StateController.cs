@@ -41,6 +41,9 @@ namespace Splitting
         private Rigidbody2D antRigidBody;
 
         new private CameraController camera;
+        private float camOffsetY = 8.0f;        
+        private float camMinOffsetY = 0.0f;
+        private float camMaxOffsetY = 8.0f;        
 
         // Start is called before the first frame update
         void Start()
@@ -112,7 +115,7 @@ namespace Splitting
 
             ModifySpeedWhenJump();            
 
-            ResetVerticalSpeedWhenPushing();            
+            ResetVerticalSpeedWhenPushing();           
 
             //ControlWhenForceDrop();
             CallAnimator(isNotScared, isGrounded);
@@ -129,7 +132,9 @@ namespace Splitting
                 ControlIfCanSuperJump();
 
                 ControlWhenCanCarry();
-                ControlWhenCanDrop();             
+                ControlWhenCanDrop();
+
+                ControlCamOffset();
             }
             else // Questo è ciò che avviene quando hasControl == false
             {                
@@ -394,7 +399,21 @@ namespace Splitting
             {
                 antJump.velocityY = antRigidBody.velocity.y;
             }
-        }        
-       
+        }
+        
+        void ControlCamOffset()
+        {
+            if (camera.boundsY && isGrounded)
+            {
+                camOffsetY = camMinOffsetY;
+            }
+            else
+            {
+                camOffsetY = camMaxOffsetY;
+            }
+
+            camera.offset = new Vector3(0, camOffsetY, 0);
+        }
+        
     }
 }

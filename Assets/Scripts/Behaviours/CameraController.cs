@@ -34,10 +34,7 @@ namespace Splitting
         private bool checkPushDown;
 
         private KeyCode swapButton;
-        private GameObject cameraBounds;
-
-        [SerializeField] private float timerAbleBounds = 1.0f;
-        [SerializeField] private float elapsedFromSwap;
+        private GameObject cameraBounds;        
 
         public List<ContactPoint2D> contactsX = new List<ContactPoint2D>();
         public List<ContactPoint2D> contactsY = new List<ContactPoint2D>();
@@ -460,7 +457,7 @@ namespace Splitting
             {
                 float distanceToPush = ((contactsY.ToArray()[0].collider.bounds.center.y) + contactsY.ToArray()[0].collider.bounds.extents.y) - (contactsY.ToArray()[0].point.y);
 
-                transform.position = new Vector3(transform.position.x, transform.position.y + (distanceToPush * 2), transform.position.z);
+                transform.position = new Vector3(transform.position.x, transform.position.y + (distanceToPush), transform.position.z);
                 yTo = transform.position.y;
 
                 Debug.Log("distanceToPush = " + distanceToPush);
@@ -475,7 +472,7 @@ namespace Splitting
             {
                 float distanceToPush = (contactsY.ToArray()[0].point.y) - ((contactsY.ToArray()[0].collider.bounds.center.y) - contactsY.ToArray()[0].collider.bounds.extents.y);
 
-                transform.position = new Vector3(transform.position.x, transform.position.y - (distanceToPush * 2), transform.position.z);
+                transform.position = new Vector3(transform.position.x, transform.position.y - (distanceToPush), transform.position.z);
                 yTo = transform.position.y;
 
                 checkPushDown = true;

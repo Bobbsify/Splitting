@@ -8,6 +8,8 @@ namespace Splitting
 { 
     public class LoadLevel : MonoBehaviour
     {
+        public LastCheckpointInfo lastCheckpoint;
+
         [SerializeField] private InGameScenes sceneToLoad;
         [SerializeField] private bool transition;
         private List<string> gameScenes = new List<string>();
@@ -27,6 +29,7 @@ namespace Splitting
         }
 
         private void loadLevel(bool goToTransition) {
+            lastCheckpoint.levelCheckpoint = 0;
             if (goToTransition)
             {
                 lvlInfoObj.levelInfo.levelToLoad = (int)sceneToLoad;

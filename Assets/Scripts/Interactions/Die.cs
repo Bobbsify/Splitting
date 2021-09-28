@@ -11,7 +11,10 @@ Building:
  Level 1 : 2
  Second Cutscene : 3
  Level 5.1 : 4
- Level 5 checkpoint 1;
+ Level 5 checkpoint 1 : 5;
+ Level 5.2 : 6
+ Third Cutscene: 7
+ Loading Screen: 8
 
 
 */

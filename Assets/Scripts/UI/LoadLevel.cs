@@ -39,24 +39,39 @@ namespace Splitting
             {
                 SceneManager.LoadScene(gameScenes.ToArray()[(int)sceneToLoad]);
             }
-            //TODO implement transition
         }
     }
 
     /*
-    1: Main Menu
-    2: Livello 5
-    3: Loading Screen
-    4: Win Scene
-    5: Tutorial Scene
+    Building:
+
+     Main Menu: 0
+     First Cutscene : 1
+     Level 1 : 2
+     Second Cutscene : 3
+     Level 5.1 : 4
+     Level 5 checkpoint 1 : 5
+     Level 5.2 : 6
+     Level 5.2 checkpoint 1 : 7
+     Level 5.2 checkpoint 2 : 8
+     Third Cutscene: 9
+     Loading Screen: 10
+
+
     */
 
     public enum InGameScenes
     {
         MainMenu = 0,
-        Level5 = 1,
-        LoadingScreen = 2,
-        WinScene = 3,
-        TutorialScene = 4
+        FirstCutscene = 1,
+        Tutorial = 2,
+        SecondCutscene = 3,
+        Level5part1 = 4,
+        Level5part1checkpoint1 = 5,
+        Level5part2 = 6,
+        Level5part2checkpoint1 = 7,
+        Level5part2checkpoint2 = 8,
+        ThirdCutscene = 9,
+        LoadingScreen = 10
     }
 }

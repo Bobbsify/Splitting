@@ -88,6 +88,8 @@ namespace Splitting
                 {
                     entityThrowing.GetComponent<Animator>().SetTrigger("throw");
                     entityThrowing.GetComponent<Rigidbody2D>().isKinematic = false;
+                    entityThrowing.layer = 8; //Gameplay-back
+                    rbToThrow.gameObject.layer = 13; //Boxes
                     //Animator will call throw
                 }
             }

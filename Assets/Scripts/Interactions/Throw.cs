@@ -55,6 +55,11 @@ namespace Splitting
                 {
                     entityThrowing.GetComponent<Animator>().SetTrigger("release");
                     rbToThrow.velocity = new Vector2(entityThrowing.GetComponent<Collider2D>().bounds.size.x*2, 0) * -entityThrowing.transform.localScale;
+                    foreach (Collider2D col in rbToThrow.gameObject.GetComponents<Collider2D>()) //Enable Colliders
+                    {
+                        col.enabled = true;
+                    }
+                    entityThrowing.layer = 8; //Gameplay-back
                     rbToThrow.gameObject.layer = 13; //Boxes
                     resetLr();
                 }
@@ -163,6 +168,10 @@ namespace Splitting
         public void ThrowEntity()
         {
             rbToThrow.velocity = _velocity;
+            foreach (Collider2D col in rbToThrow.gameObject.GetComponents<Collider2D>()) //Enable Colliders
+            {
+                col.enabled = true;
+            }
             resetLr();
         }
 
@@ -176,8 +185,8 @@ namespace Splitting
                 rbToThrow.gameObject.transform.parent = null;
                 rbToThrow.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
             }
-            rbToThrow.gameObject.layer = 13; //Boxes
             entityThrowing.layer = 8; //Gameplay-back
+            rbToThrow.gameObject.layer = 13; //Boxes
             rbToThrow = null; //remove object
         }
     }

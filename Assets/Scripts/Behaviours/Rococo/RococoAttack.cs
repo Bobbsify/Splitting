@@ -13,8 +13,7 @@ public class RococoAttack : MonoBehaviour
     private RaycastHit2D[] mouthRange;
 
     private bool bitten = false;
-
-
+    
     private void Awake()
     {
         Destroy(GameObject.Find("Rococo"));

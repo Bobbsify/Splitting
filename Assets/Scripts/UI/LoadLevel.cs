@@ -9,11 +9,11 @@ namespace Splitting
     public class LoadLevel : MonoBehaviour
     {
         public LastCheckpointInfo lastCheckpoint;
+        public LevelLoadingInfo lvlInfoObj;
 
         [SerializeField] private InGameScenes sceneToLoad;
         [SerializeField] private bool transition;
         private List<string> gameScenes = new List<string>();
-        private LevelLoadingInfo lvlInfoObj;
 
         private void Start()
         {

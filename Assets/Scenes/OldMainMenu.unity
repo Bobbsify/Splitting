@@ -235,6 +235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948b0dbd5c85cf5448f357a22a608f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastCheckpoint: {fileID: 11400000, guid: 5a38a6f2e64293a48b44a19f14a831e8, type: 2}
+  lvlInfoObj: {fileID: 11400000, guid: 47e208f7c3b57ad4295d6cc6e6b0ce17, type: 2}
   sceneToLoad: 1
   transition: 0
 --- !u!4 &358251958

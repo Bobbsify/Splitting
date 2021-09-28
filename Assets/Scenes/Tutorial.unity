@@ -38628,7 +38628,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 314322079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 391.2, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 397551254}
@@ -47402,6 +47402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastCheckpoint: {fileID: 11400000, guid: 5a38a6f2e64293a48b44a19f14a831e8, type: 2}
+  lvlInfoObj: {fileID: 11400000, guid: 47e208f7c3b57ad4295d6cc6e6b0ce17, type: 2}
   sceneToLoad: 3
   transition: 0
 --- !u!4 &1420610648 stripped

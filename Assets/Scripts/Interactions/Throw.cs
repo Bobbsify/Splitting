@@ -163,8 +163,6 @@ namespace Splitting
         public void ThrowEntity()
         {
             rbToThrow.velocity = _velocity;
-            entityThrowing.layer = 8; //Gameplay-back
-            rbToThrow.gameObject.layer = 13; //Boxes
             resetLr();
         }
 
@@ -178,6 +176,8 @@ namespace Splitting
                 rbToThrow.gameObject.transform.parent = null;
                 rbToThrow.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
             }
+            entityThrowing.layer = 8; //Gameplay-back
+            rbToThrow.gameObject.layer = 13; //Boxes
             rbToThrow = null; //remove object
         }
     }

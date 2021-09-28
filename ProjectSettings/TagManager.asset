@@ -13,6 +13,7 @@ TagManager:
   - HackArea
   - Light
   - Platform
+  - CameraBounds
   layers:
   - Default
   - TransparentFX
@@ -27,8 +28,8 @@ TagManager:
   - Gameplay-Front
   - Camera
   - CameraBounds
-  - 
-  - 
+  - Boxes
+  - BoxesBounds
   - 
   - 
   - 

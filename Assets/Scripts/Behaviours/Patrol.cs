@@ -30,7 +30,7 @@ public class Patrol : MonoBehaviour
 
     private int travelMode = 1; //Going forward or backwards
 
-    [Header("Determines whether this platform carries any objects colliding on top of it with itself")]
+    [Header("Determines whether this platform carries any objects colliding on top of itself")]
     [SerializeField] private bool elevator = false;
     [SerializeField] private int expectedCarriedUnits = 5;
 
@@ -342,7 +342,7 @@ public class Patrol : MonoBehaviour
         foreach (Transform child in transform)
         {
             Debug.Log(child);
-            if (child.tag == "Player" || child.tag == "Carryable" || child.name.ToLower() == "tyr" || child.name.ToLower() == "ant")
+            if (child.tag == "Player" || child.tag == "Carryable" || child.name.ToLower().Contains("tyr") || child.name.ToLower().Contains("ant"))
             {
                 child.gameObject.transform.parent = null;
             }

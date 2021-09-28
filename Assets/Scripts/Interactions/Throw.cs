@@ -176,8 +176,8 @@ namespace Splitting
                 rbToThrow.gameObject.transform.parent = null;
                 rbToThrow.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
             }
-            entityThrowing.layer = 8; //Gameplay-back
             rbToThrow.gameObject.layer = 13; //Boxes
+            entityThrowing.layer = 8; //Gameplay-back
             rbToThrow = null; //remove object
         }
     }

@@ -13,7 +13,6 @@ public class RococoAttack : MonoBehaviour
     private RaycastHit2D[] mouthRange;
 
     private bool bitten = false;
-    private bool savedPos = false;
 
 
     private void Awake()

@@ -64,6 +64,7 @@ namespace Splitting {
             grabCheck.collider.gameObject.transform.parent = transform.Find(name.ToUpper().Contains("ANT") ? TyrantFingerBone : TyrFingerBone);
             grabCheck.collider.gameObject.transform.localPosition = fetchCorrectPosition(grabCheck.collider.gameObject);
             objRigidbody.isKinematic = true;
+            gameObject.layer = 13; //Boxes
             grabCheck.collider.gameObject.layer = 14; //Boxes Bounds
             throwScript.rbToThrow = objRigidbody;
         }

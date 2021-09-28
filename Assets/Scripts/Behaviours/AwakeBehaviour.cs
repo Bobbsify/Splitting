@@ -32,7 +32,10 @@ namespace Splitting {
                     objCollider = gameObject.GetComponent<Collider2D>();
                     break;
                 case ActivationTypes.onClick:
-
+                    break;
+                case ActivationTypes.score:
+                    break;
+                case ActivationTypes.onTurnOn:
                     break;
                 case ActivationTypes.enterAndClick:
                     objCollider = gameObject.GetComponent<Collider2D>();

@@ -41,10 +41,10 @@ namespace Splitting
         private Rigidbody2D tyrantRigidBody;
 
         new private CameraController camera;
-        private float camOffsetY = 8.0f;
         private float camMinOffsetY = 0.0f;
         private float camMaxOffsetY = 8.0f;
-        private bool checkCamOffsetY;
+
+        private float offsetModifier = 3.0f;
 
         // Start is called before the first frame update
         void Start()
@@ -364,21 +364,39 @@ namespace Splitting
 
         void ControlCamOffset()
         {
-            if (camera.boundsY && isGrounded)
+
+            if (camera.boundsY && camera.pushDown)
             {
-                camOffsetY = camMinOffsetY;
-                checkCamOffsetY = true;
-            }
-            else if (!isGrounded && !checkCamOffsetY)
-            {
-                camOffsetY = camMaxOffsetY;
-            }
-            else if (!camera.boundsY)
-            {
-                checkCamOffsetY = false;
+                if (camera.camOffsetY > camMinOffsetY)
+                {
+                    camera.camOffsetY -= offsetModifier * Time.deltaTime;
+                }
+                else
+                {
+                    camera.camOffsetY = camMinOffsetY;
+                }
             }
 
-            camera.offset = new Vector3(0, camOffsetY, 0);
+            if (camera.checkPushUp)
+            {
+                camera.camOffsetY = camMinOffsetY;
+            }
+
+            if (camera.updateCamOffset)
+            {
+                if (camera.camOffsetY < camMaxOffsetY)
+                {
+                    camera.camOffsetY += offsetModifier * Time.deltaTime;
+                }
+                else
+                {
+                    camera.camOffsetY = camMaxOffsetY;
+                }
+            }
+
+
+            camera.offset = new Vector3(0, camera.camOffsetY, 0);
+
         }
 
     }

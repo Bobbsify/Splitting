@@ -68,7 +68,7 @@ namespace Splitting {
         {
             float currX = transform.position.x;
 
-            int direction = (currX > incomingX) ? -1 : 1; //comes from left or right
+            int direction = (currX < incomingX) ? -1 : 1; //comes from left or right
             float distanceX = Mathf.Abs(currX - incomingX); //detect distance X
 
             return (distanceX / maxX * direction);

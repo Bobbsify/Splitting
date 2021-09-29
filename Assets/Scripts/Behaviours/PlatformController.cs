@@ -40,7 +40,9 @@ public class PlatformController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space) && Input.GetAxis("Vertical") < 0)
             {
-                StartFall();
+                if (entityFalling.tag == "Player") { 
+                    StartFall();
+                }
             }
         }
         if (isFalling)
@@ -59,6 +61,14 @@ public class PlatformController : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             entityFalling = collision.gameObject;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            entityFalling = null;
         }
     }
 

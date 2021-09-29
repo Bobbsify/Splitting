@@ -30,7 +30,7 @@ namespace Splitting
         public bool pushUp;
         public bool checkPushUp;
         public bool pushDown;
-        private bool checkPushDown;
+        public bool checkPushDown;     
 
         private KeyCode swapButton;
         private GameObject cameraBounds;        
@@ -42,8 +42,13 @@ namespace Splitting
 
         private Camera cameraComponent;
         private BoxCollider2D cameraCollider;
+        public BoxCollider2D offsetCollider;
 
         [SerializeField] public Vector3 offset = new Vector3(0, 8, 0);
+        public float camOffsetY = 8.0f;
+        private float camCheckOffesetY = 0.0f;
+
+        public bool updateCamOffset;
 
         // Start is called before the first frame update
         void Awake()
@@ -54,6 +59,7 @@ namespace Splitting
 
             cameraComponent = gameObject.GetComponent<Camera>();
             cameraCollider = gameObject.GetComponent<BoxCollider2D>();
+            offsetCollider = GameObject.Find("OffsetCol").GetComponent<BoxCollider2D>();
         }
 
         // Update is called once per frame
@@ -61,8 +67,9 @@ namespace Splitting
         {
             FixCameraColliderSize();
 
-            DisableCameraBounds();      
-                           
+            DisableCameraBounds();
+
+            UpdateOffsetCollider();                           
 
             if (player != null)
             {
@@ -240,9 +247,9 @@ namespace Splitting
         {
             if (boundsY && !boundsX && contactsY.Count > 0)
             {
+
                 if (contactsY.ToArray()[0].point.y < yTo)
-                {
-                    Debug.Log("fra");
+                {                  
 
                     if (player.transform.position.y > yTo)
                     {
@@ -250,8 +257,7 @@ namespace Splitting
                     }
                 }
                 else if (contactsY.ToArray()[0].point.y > yTo)
-                {
-                    Debug.Log("Bro");
+                {                    
                     if (player.transform.position.y < yTo)
                     {
                         yTo = player.transform.position.y;
@@ -460,15 +466,30 @@ namespace Splitting
             }
             else if (pushDown && !checkPushDown)
             {
-                float distanceToPush = (contactsY.ToArray()[0].point.y) - ((contactsY.ToArray()[0].collider.bounds.center.y) - contactsY.ToArray()[0].collider.bounds.extents.y);
+                Debug.Log("dai");
+                transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x)), transform.position.y + ((yTo - transform.position.y)), transform.position.z) + offset;
 
-                transform.position = new Vector3(transform.position.x, transform.position.y - (distanceToPush), transform.position.z);
-                yTo = transform.position.y;
+                if (camOffsetY == 0)
+                {
+                    float distanceToPush = (contactsY.ToArray()[0].point.y) - ((contactsY.ToArray()[0].collider.bounds.center.y) - contactsY.ToArray()[0].collider.bounds.extents.y);
 
-                checkPushDown = true;
+                    transform.position = new Vector3(transform.position.x, transform.position.y - (distanceToPush), transform.position.z);
+                    yTo = transform.position.y;
 
-                contactsY.Clear();
+                    checkPushDown = true;
+
+                    contactsY.Clear();
+                }                
             }
+        }       
+        
+
+        void UpdateOffsetCollider()
+        {
+            camCheckOffesetY = 8.0f - camOffsetY;
+
+            offsetCollider.transform.position = transform.position + new Vector3(0, camCheckOffesetY, 0);
+            offsetCollider.size = cameraCollider.size;
         }
 
     }

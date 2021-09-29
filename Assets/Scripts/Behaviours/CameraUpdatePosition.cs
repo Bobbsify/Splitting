@@ -76,8 +76,47 @@ namespace Splitting
                 
                 if (y)
                 {
+
                     camera.checkColY = false;
-                    camera.boundsY = false;
+                    camera.boundsY = false;                 
+                                    
+
+                }
+
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            bool x = false;
+            bool y = false;
+
+            x = gameObject.name.ToUpper().Contains("X");
+            y = gameObject.name.ToUpper().Contains("Y");
+
+            if (collision.gameObject.tag == "MainCamera")
+            {                
+                if (y)
+                {
+                    camera.updateCamOffset = true;
+                }
+
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            bool x = false;
+            bool y = false;
+
+            x = gameObject.name.ToUpper().Contains("X");
+            y = gameObject.name.ToUpper().Contains("Y");
+
+            if (collision.gameObject.tag == "MainCamera")
+            {
+                if (y)
+                {
+                    camera.updateCamOffset = false;
                 }
 
             }

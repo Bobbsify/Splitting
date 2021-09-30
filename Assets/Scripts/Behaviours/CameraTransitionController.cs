@@ -18,6 +18,7 @@ namespace Splitting
         [HideInInspector] public bool doZoom = false;
         [HideInInspector] public bool doOffset = false;
 
+        private bool tyr;
         private float modifier = 1;
         private bool reachedX = false, reachedY = false, reachedZ = false;
 
@@ -61,6 +62,7 @@ namespace Splitting
 
         public void StopZoomOut()
         {
+            tyr = GameObject.FindGameObjectWithTag("Player").name.ToLower().Contains("tyr") ? true : false;
             doZoom = false;
         }
 
@@ -89,7 +91,14 @@ namespace Splitting
         private void Zoom()
         {
             float zoomAmount = modifier * zoomSpeed * Time.deltaTime;
-            gameCamera.orthographicSize = gameCamera.orthographicSize + zoomAmount;
+            if (tyr)
+            {
+                gameCamera.GetComponent<CameraController>().tyrCameraSize = gameCamera.orthographicSize + zoomAmount;
+            }
+            else
+            {
+                gameCamera.GetComponent<CameraController>().antCameraSize = gameCamera.orthographicSize + zoomAmount;
+            }
         }
 
         private void Offset()

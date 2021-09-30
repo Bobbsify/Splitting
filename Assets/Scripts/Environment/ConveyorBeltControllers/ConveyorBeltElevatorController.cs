@@ -2,97 +2,88 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Threading.Tasks;
 
 public class ConveyorBeltElevatorController : MonoBehaviour
 {
     [Header("Platform Generation Settings")]
     [SerializeField] private GameObject platformSpawned;
-    [SerializeField] private Vector3 platformGenerationCoordinates;
+    [SerializeField] private Transform platformGenerationCoordinates;
+    [Tooltip("In seconds")]
+    [SerializeField] private float platformSpawnDelay = 5;
+    [SerializeField] private bool stopGeneration;
 
     [Header("Platform Movement Settings")]
-    [SerializeField] private Vector2 movementDirectionSpeeds;
-    [SerializeField] private Vector3 destinationCoordinates;
+    [SerializeField] private float movementSpeed;
+    [SerializeField] private Transform destinationCoordinates;
 
     [Header("Generated Platforms (Do not touch)")]
     [SerializeField] private List<GameObject> generatedPlatforms;
 
-    public void generatePlatform()
+    private void Update()
     {
-        GameObject platform = Instantiate(platformSpawned);
-        platform.transform.position = platformGenerationCoordinates;
-        generatedPlatforms.Add(platform);
-
-        try
-        {
-            platform.GetComponent<ConveyorBeltPlatformController>().FadeIn();
-        }
-        catch (Exception e)
-        {
-            Debug.LogError("Platform does not have ConveyorBeltPlatformController \n" + e);
-        }
-    }
-
-    public void Update()
-    {
-        foreach (GameObject platform in generatedPlatforms)
-        {
+        if (generatedPlatforms.Count > 0) {
             try
             {
-                if (platform.GetComponent<ConveyorBeltPlatformController>().move)
+                foreach (GameObject platform in generatedPlatforms)
                 {
-                    MoveX(platform);
-
-                    MoveY(platform);
-
+                    try
+                    {
+                        if (platform.GetComponent<ConveyorBeltPlatformController>().move)
+                        {
+                            MoveY(platform);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError("platform does not exist\n" + e);
+                        generatedPlatforms.Remove(platform);
+                    }
                 }
             }
-            catch (Exception e)
-            {
-                Debug.LogError("platform does not exist\n"+ e);
-                generatedPlatforms.Remove(platform);
-            }
+            catch (InvalidOperationException) { /*Suppress*/  }
         }
     }
 
-    private void MoveX(GameObject platform)
+    public void startGeneration()
     {
-        if (!(platform.transform.position.x >= destinationCoordinates.x && movementDirectionSpeeds.x > 0) || !(platform.transform.position.x <= destinationCoordinates.x && movementDirectionSpeeds.x < 0))
-        {
-            platform.transform.position = new Vector2(platform.transform.position.x + movementDirectionSpeeds.x, platform.transform.position.y); //move X
-        }
-        else
-        {
-            ConveyorBeltPlatformController ctrl;
-            platform.TryGetComponent(out ctrl);
-            if (!ctrl.reachedX)
-            { 
-                ctrl.reachedX = true;
-                if (ctrl.reachedY)
-                {
-                    ctrl.FadeOut();
-                }
-            }
-        }
+        StartCoroutine(generatePlatforms());
     }
 
     private void MoveY(GameObject platform)
     {
-        if (!(platform.transform.position.y >= destinationCoordinates.y && movementDirectionSpeeds.y > 0) || !(platform.transform.position.y <= destinationCoordinates.y && movementDirectionSpeeds.y < 0))
+        if (platform.transform.position.y <= destinationCoordinates.position.y && movementSpeed > 0) //Platform going up check
         {
-            platform.transform.position = new Vector2(platform.transform.position.x, platform.transform.position.y + movementDirectionSpeeds.y); //move Y        
+            platform.transform.position = new Vector2(platform.transform.position.x, platform.transform.position.y + movementSpeed * Time.deltaTime); //move Y   
+        }
+        else if (platform.transform.position.y >= destinationCoordinates.position.y && movementSpeed < 0) //Platform going down check
+        {
+            platform.transform.position = new Vector2(platform.transform.position.x, platform.transform.position.y + movementSpeed * Time.deltaTime); //move Y   
         }
         else
         {
             ConveyorBeltPlatformController ctrl;
             platform.TryGetComponent(out ctrl);
-            ctrl.reachedY = true;
-            if (!ctrl.reachedY)
-            {
-                if (ctrl.reachedX)
-                { 
-                    ctrl.FadeOut();
-                }
-            }
+            ctrl.FadeOut(); //Fade in is done as soon as the platform is generated
+            generatedPlatforms.Remove(platform);
+        }
+    }
+    
+    public void generateAPlatform()
+    {
+        GameObject platform = Instantiate(platformSpawned);
+        platform.transform.parent = this.transform;
+        platform.transform.position = platformGenerationCoordinates.position;
+        generatedPlatforms.Add(platform);
+    }
+
+    private IEnumerator generatePlatforms()
+    {
+        generateAPlatform();
+        yield return new WaitForSeconds(platformSpawnDelay);
+        if (!stopGeneration)
+        {
+            StartCoroutine(generatePlatforms());
         }
     }
 }

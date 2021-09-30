@@ -16,7 +16,8 @@ public class ConveyorBeltPlatformController : MonoBehaviour
     private Animator anim;
 
     [HideInInspector] public bool move = false;
-    [HideInInspector] public bool reachedX = false, reachedY = false;
+    [HideInInspector] public bool reachedY = false;
+
 
     private void Awake()
     {
@@ -27,9 +28,8 @@ public class ConveyorBeltPlatformController : MonoBehaviour
         }
     }
 
-    public void FadeIn()
+    public void StartMovement()
     {
-        anim.SetTrigger("FadeIn");
         move = true;
     }
 
@@ -41,6 +41,6 @@ public class ConveyorBeltPlatformController : MonoBehaviour
 
     public void DestroyPlatform()
     {
-        Destroy(this);
+        Destroy(gameObject);
     }
 }

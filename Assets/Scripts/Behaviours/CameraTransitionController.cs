@@ -18,10 +18,10 @@ namespace Splitting
         [HideInInspector] public bool doZoom = false;
         [HideInInspector] public bool doOffset = false;
 
-        private bool tyr;
-        private bool ant;
         private float modifier = 1;
         private bool reachedX = false, reachedY = false, reachedZ = false;
+        private bool tyr;
+        private bool ant;
 
         private void Awake()
         {
@@ -79,6 +79,9 @@ namespace Splitting
 
         public void StartOffset()
         {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            tyr = player.name.ToLower().Contains("tyr");
+            ant = player.name.ToLower().Contains("ant");
             doOffset = true;
         }
 
@@ -116,53 +119,164 @@ namespace Splitting
             gameCamera.gameObject.TryGetComponent(out cameraCtrl);
 
             float xMod, yMod, zMod;
-            xMod = cameraCtrl.offset.x > targetOffset.x ? -1 : 1;
-            yMod = cameraCtrl.offset.y > targetOffset.y ? -1 : 1;
-            zMod = cameraCtrl.offset.z > targetOffset.z ? -1 : 1;
-
-            if (!reachedX)
-            { 
-                if (xMod == 1)
-                {
-                    cameraCtrl.offset.x += cameraCtrl.offset.x >= targetOffset.x ? cameraCtrl.offset.x : xMod * offsetSpeeds.x * Time.deltaTime;
-                    if (cameraCtrl.offset.x >= targetOffset.x) reachedX = true;
-                }
-                else
-                {
-                cameraCtrl.offset.x += cameraCtrl.offset.x <= targetOffset.x ? cameraCtrl.offset.x : xMod * offsetSpeeds.x * Time.deltaTime;
-                if (cameraCtrl.offset.x <= targetOffset.x) reachedX = true;
-                }
-            }
-            if (!reachedY)
-            { 
-                if (yMod == 1)
-                {
-                    cameraCtrl.offset.y += cameraCtrl.offset.y >= targetOffset.y ? cameraCtrl.offset.y : yMod * offsetSpeeds.y * Time.deltaTime;
-                    if (cameraCtrl.offset.y >= targetOffset.y) reachedY = true;
-                }
-                else
-                {
-                    cameraCtrl.offset.y += cameraCtrl.offset.y <= targetOffset.y ? cameraCtrl.offset.y : yMod * offsetSpeeds.y * Time.deltaTime;
-                    if (cameraCtrl.offset.y <= targetOffset.y) reachedY = true;
-                }
-            }
-            if (!reachedZ)
-            { 
-                if (zMod == 1)
-                {
-                    cameraCtrl.offset.z += cameraCtrl.offset.z >= targetOffset.z ? cameraCtrl.offset.z : zMod * offsetSpeeds.z * Time.deltaTime;
-                    if (cameraCtrl.offset.z >= targetOffset.z) reachedZ = true;
-                }
-                else
-                {
-                    cameraCtrl.offset.z += cameraCtrl.offset.z >= targetOffset.z ? cameraCtrl.offset.z : zMod * offsetSpeeds.z * Time.deltaTime;
-                    if (cameraCtrl.offset.z <= targetOffset.z) reachedZ = true;
-                }
-            }
-            if (reachedX && reachedY && reachedZ)
+            if (ant && tyr)
             {
-                doOffset = false;
-                reachedZ = false; reachedX = false; reachedY = false;
+                xMod = cameraCtrl.tyrCameraOffset.x > targetOffset.x ? -1 : 1;
+                yMod = cameraCtrl.tyrCameraOffset.y > targetOffset.y ? -1 : 1;
+                zMod = cameraCtrl.tyrCameraOffset.z > targetOffset.z ? -1 : 1;
+
+                if (!reachedX)
+                {
+                    if (xMod == 1)
+                    {
+                        cameraCtrl.tyrCameraOffset.x += cameraCtrl.tyrCameraOffset.x >= targetOffset.x ? cameraCtrl.tyrCameraOffset.x : xMod * offsetSpeeds.x * Time.deltaTime;
+                        cameraCtrl.antCameraOffset.x = cameraCtrl.tyrCameraOffset.x;
+                        if (cameraCtrl.tyrCameraOffset.x >= targetOffset.x) reachedX = true;
+                    }
+                    else
+                    {
+                        cameraCtrl.tyrCameraOffset.x += cameraCtrl.tyrCameraOffset.x <= targetOffset.x ? cameraCtrl.tyrCameraOffset.x : xMod * offsetSpeeds.x * Time.deltaTime;
+                        cameraCtrl.antCameraOffset.x = cameraCtrl.tyrCameraOffset.x;
+                        if (cameraCtrl.tyrCameraOffset.x <= targetOffset.x) reachedX = true;
+                    }
+                }
+                if (!reachedY)
+                {
+                    if (yMod == 1)
+                    {
+                        cameraCtrl.tyrCameraOffset.y += cameraCtrl.tyrCameraOffset.y >= targetOffset.y ? cameraCtrl.tyrCameraOffset.y : yMod * offsetSpeeds.y * Time.deltaTime;
+                        cameraCtrl.antCameraOffset.y = cameraCtrl.tyrCameraOffset.y;
+                        if (cameraCtrl.tyrCameraOffset.y >= targetOffset.y) reachedY = true;
+                    }
+                    else
+                    {
+                        cameraCtrl.tyrCameraOffset.y += cameraCtrl.tyrCameraOffset.y <= targetOffset.y ? cameraCtrl.tyrCameraOffset.y : yMod * offsetSpeeds.y * Time.deltaTime;
+                        cameraCtrl.antCameraOffset.y = cameraCtrl.tyrCameraOffset.y;
+                        if (cameraCtrl.tyrCameraOffset.y <= targetOffset.y) reachedY = true;
+                    }
+                }
+                if (!reachedZ)
+                {
+                    if (zMod == 1)
+                    {
+                        cameraCtrl.tyrCameraOffset.z += cameraCtrl.tyrCameraOffset.z >= targetOffset.z ? cameraCtrl.tyrCameraOffset.z : zMod * offsetSpeeds.z * Time.deltaTime;
+                        cameraCtrl.antCameraOffset.z = cameraCtrl.tyrCameraOffset.z;
+                        if (cameraCtrl.tyrCameraOffset.z >= targetOffset.z) reachedZ = true;
+                    }
+                    else
+                    {
+                        cameraCtrl.tyrCameraOffset.z += cameraCtrl.tyrCameraOffset.z >= targetOffset.z ? cameraCtrl.tyrCameraOffset.z : zMod * offsetSpeeds.z * Time.deltaTime;
+                        cameraCtrl.antCameraOffset.z = cameraCtrl.tyrCameraOffset.z;
+                        if (cameraCtrl.tyrCameraOffset.z <= targetOffset.z) reachedZ = true;
+                    }
+                }
+                if (reachedX && reachedY && reachedZ)
+                {
+                    doOffset = false;
+                    reachedZ = false; reachedX = false; reachedY = false;
+                }
+            }
+            else if (tyr)
+            {
+                xMod = cameraCtrl.tyrCameraOffset.x > targetOffset.x ? -1 : 1;
+                yMod = cameraCtrl.tyrCameraOffset.y > targetOffset.y ? -1 : 1;
+                zMod = cameraCtrl.tyrCameraOffset.z > targetOffset.z ? -1 : 1;
+
+                if (!reachedX)
+                {
+                    if (xMod == 1)
+                    {
+                        cameraCtrl.tyrCameraOffset.x += cameraCtrl.tyrCameraOffset.x >= targetOffset.x ? cameraCtrl.tyrCameraOffset.x : xMod * offsetSpeeds.x * Time.deltaTime;
+                        if (cameraCtrl.tyrCameraOffset.x >= targetOffset.x) reachedX = true;
+                    }
+                    else
+                    {
+                        cameraCtrl.tyrCameraOffset.x += cameraCtrl.tyrCameraOffset.x <= targetOffset.x ? cameraCtrl.tyrCameraOffset.x : xMod * offsetSpeeds.x * Time.deltaTime;
+                        if (cameraCtrl.tyrCameraOffset.x <= targetOffset.x) reachedX = true;
+                    }
+                }
+                if (!reachedY)
+                {
+                    if (yMod == 1)
+                    {
+                        cameraCtrl.tyrCameraOffset.y += cameraCtrl.tyrCameraOffset.y >= targetOffset.y ? cameraCtrl.tyrCameraOffset.y : yMod * offsetSpeeds.y * Time.deltaTime;
+                        if (cameraCtrl.tyrCameraOffset.y >= targetOffset.y) reachedY = true;
+                    }
+                    else
+                    {
+                        cameraCtrl.tyrCameraOffset.y += cameraCtrl.tyrCameraOffset.y <= targetOffset.y ? cameraCtrl.tyrCameraOffset.y : yMod * offsetSpeeds.y * Time.deltaTime;
+                        if (cameraCtrl.tyrCameraOffset.y <= targetOffset.y) reachedY = true;
+                    }
+                }
+                if (!reachedZ)
+                {
+                    if (zMod == 1)
+                    {
+                        cameraCtrl.tyrCameraOffset.z += cameraCtrl.tyrCameraOffset.z >= targetOffset.z ? cameraCtrl.tyrCameraOffset.z : zMod * offsetSpeeds.z * Time.deltaTime;
+                        if (cameraCtrl.tyrCameraOffset.z >= targetOffset.z) reachedZ = true;
+                    }
+                    else
+                    {
+                        cameraCtrl.tyrCameraOffset.z += cameraCtrl.tyrCameraOffset.z >= targetOffset.z ? cameraCtrl.tyrCameraOffset.z : zMod * offsetSpeeds.z * Time.deltaTime;
+                        if (cameraCtrl.tyrCameraOffset.z <= targetOffset.z) reachedZ = true;
+                    }
+                }
+                if (reachedX && reachedY && reachedZ)
+                {
+                    doOffset = false;
+                    reachedZ = false; reachedX = false; reachedY = false;
+                }
+            }
+            else
+            { 
+                xMod = cameraCtrl.antCameraOffset.x > targetOffset.x ? -1 : 1;
+                yMod = cameraCtrl.antCameraOffset.y > targetOffset.y ? -1 : 1;
+                zMod = cameraCtrl.antCameraOffset.z > targetOffset.z ? -1 : 1;
+
+                if (!reachedX)
+                { 
+                    if (xMod == 1)
+                    {
+                        cameraCtrl.antCameraOffset.x += cameraCtrl.antCameraOffset.x >= targetOffset.x ? cameraCtrl.antCameraOffset.x : xMod * offsetSpeeds.x * Time.deltaTime;
+                        if (cameraCtrl.antCameraOffset.x >= targetOffset.x) reachedX = true;
+                    }
+                    else
+                    {
+                    cameraCtrl.antCameraOffset.x += cameraCtrl.antCameraOffset.x <= targetOffset.x ? cameraCtrl.antCameraOffset.x : xMod * offsetSpeeds.x * Time.deltaTime;
+                    if (cameraCtrl.antCameraOffset.x <= targetOffset.x) reachedX = true;
+                    }
+                }
+                if (!reachedY)
+                { 
+                    if (yMod == 1)
+                    {
+                        cameraCtrl.antCameraOffset.y += cameraCtrl.antCameraOffset.y >= targetOffset.y ? cameraCtrl.antCameraOffset.y : yMod * offsetSpeeds.y * Time.deltaTime;
+                        if (cameraCtrl.antCameraOffset.y >= targetOffset.y) reachedY = true;
+                    }
+                    else
+                    {
+                        cameraCtrl.antCameraOffset.y += cameraCtrl.antCameraOffset.y <= targetOffset.y ? cameraCtrl.antCameraOffset.y : yMod * offsetSpeeds.y * Time.deltaTime;
+                        if (cameraCtrl.antCameraOffset.y <= targetOffset.y) reachedY = true;
+                    }
+                }
+                if (!reachedZ)
+                { 
+                    if (zMod == 1)
+                    {
+                        cameraCtrl.antCameraOffset.z += cameraCtrl.antCameraOffset.z >= targetOffset.z ? cameraCtrl.antCameraOffset.z : zMod * offsetSpeeds.z * Time.deltaTime;
+                        if (cameraCtrl.antCameraOffset.z >= targetOffset.z) reachedZ = true;
+                    }
+                    else
+                    {
+                        cameraCtrl.antCameraOffset.z += cameraCtrl.antCameraOffset.z >= targetOffset.z ? cameraCtrl.antCameraOffset.z : zMod * offsetSpeeds.z * Time.deltaTime;
+                        if (cameraCtrl.antCameraOffset.z <= targetOffset.z) reachedZ = true;
+                    }
+                }
+                if (reachedX && reachedY && reachedZ)
+                {
+                    doOffset = false;
+                    reachedZ = false; reachedX = false; reachedY = false;
+                }
             }
         }
     }

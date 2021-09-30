@@ -53,6 +53,33 @@ namespace Splitting
             }
         }
 
+        public void StopAll()
+        {
+            StopZoomOut();
+            StopOffset();
+        }
+
+        public void StopZoomOut()
+        {
+            doZoom = false;
+        }
+
+        public void StopOffset()
+        {
+            doOffset = false;
+        }
+
+        public void StartAll()
+        {
+            StartZoomOut();
+            StartOffset();
+        }
+
+        public void StartOffset()
+        {
+            doOffset = true;
+        }
+
         public void StartZoomOut()
         {
             modifier = targetSize > gameCamera.orthographicSize ? 1 : -1;
@@ -63,11 +90,6 @@ namespace Splitting
         {
             float zoomAmount = modifier * zoomSpeed * Time.deltaTime;
             gameCamera.orthographicSize = gameCamera.orthographicSize + zoomAmount;
-        }
-
-        public void StartOffset()
-        {
-            doOffset = true;
         }
 
         private void Offset()

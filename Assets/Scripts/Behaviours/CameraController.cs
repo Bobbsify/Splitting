@@ -186,6 +186,10 @@ namespace Splitting
             {
                 cameraComponent.orthographicSize = tyrCameraSize;
             }
+            else if (ant && tyr)
+            {
+                cameraComponent.orthographicSize = antCameraSize;
+            }
         }
 
         void DisableCameraBounds()

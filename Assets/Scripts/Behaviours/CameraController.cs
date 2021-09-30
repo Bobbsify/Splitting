@@ -18,8 +18,8 @@ namespace Splitting
         private float boundsOffsetX = 0.5f;
         private float boundsOffsetY = 1.5f;
 
-        private float antCameraSize;
-        private float tyrCameraSize;
+        public float antCameraSize;
+        public float tyrCameraSize;
 
         public bool boundsX;
         public bool checkColX;

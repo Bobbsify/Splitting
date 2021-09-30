@@ -40,11 +40,7 @@ namespace Splitting
 
         private Rigidbody2D tyrantRigidBody;
 
-        new private CameraController camera;
-        private float camMinOffsetY = 0.0f;
-        private float camMaxOffsetY = 8.0f;
-
-        private float offsetModifier = 3.0f;
+        new private CameraController camera;        
 
         // Start is called before the first frame update
         void Start()
@@ -123,8 +119,6 @@ namespace Splitting
                 ControlWhenCanThrow();
 
                 ControlWhenCanHack();
-
-                ControlCamOffset();
 
                 tyrantJump.jumpDivider = tyrantJump.jumpMultiplier;
                 tyrantFlashlight.canUseFlashlight = true;
@@ -354,44 +348,7 @@ namespace Splitting
             {
                 tyrantJump.velocityY = tyrantRigidBody.velocity.y;
             }
-        }
-
-        void ControlCamOffset()
-        {
-
-            if (camera.boundsY && camera.pushDown)
-            {
-                if (camera.camOffsetY > camMinOffsetY)
-                {
-                    camera.camOffsetY -= offsetModifier * Time.deltaTime;
-                }
-                else
-                {
-                    camera.camOffsetY = camMinOffsetY;
-                }
-            }
-
-            if (camera.checkPushUp)
-            {
-                camera.camOffsetY = camMinOffsetY;
-            }
-
-            if (camera.updateCamOffset)
-            {
-                if (camera.camOffsetY < camMaxOffsetY)
-                {
-                    camera.camOffsetY += offsetModifier * Time.deltaTime;
-                }
-                else
-                {
-                    camera.camOffsetY = camMaxOffsetY;
-                }
-            }
-
-
-            camera.offset = new Vector3(0, camera.camOffsetY, 0);
-
-        }
+        }        
 
     }
 }

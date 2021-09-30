@@ -40,13 +40,8 @@ namespace Splitting
 
         private Rigidbody2D antRigidBody;
 
-        new private CameraController camera;                
-        private float camMinOffsetY = 0.0f;
-        private float camMaxOffsetY = 8.0f;
-
-        private float offsetModifier = 3.0f;
-
-
+        new private CameraController camera;              
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -134,9 +129,7 @@ namespace Splitting
                 ControlIfCanSuperJump();
 
                 ControlWhenCanCarry();
-                ControlWhenCanDrop();
-
-                ControlCamOffset();
+                ControlWhenCanDrop();                
             }
             else // Questo è ciò che avviene quando hasControl == false
             {                
@@ -190,17 +183,7 @@ namespace Splitting
                     isNotScared = false;
                 }                
             }
-        }
-
-        /*
-        void PrepareToBeScared() // da aggiustare
-        {
-            if (!isNotScared)
-            {
-                hasControl = false;                
-            }
-        }
-        */
+        }       
         
 
         void ControlIfHasControl()
@@ -405,44 +388,7 @@ namespace Splitting
             {
                 antJump.velocityY = antRigidBody.velocity.y;
             }
-        }
-
-        void ControlCamOffset()
-        {           
-
-            if (camera.boundsY && camera.pushDown)
-            {
-                if (camera.camOffsetY > camMinOffsetY)
-                {
-                    camera.camOffsetY -= offsetModifier * Time.deltaTime;
-                }
-                else
-                {
-                    camera.camOffsetY = camMinOffsetY;
-                }
-            }
-
-            if (camera.checkPushUp)
-            {                
-                camera.camOffsetY = camMinOffsetY;
-            }
-
-            if (camera.updateCamOffset)
-            {
-                if (camera.camOffsetY < camMaxOffsetY)
-                {
-                    camera.camOffsetY += offsetModifier * Time.deltaTime;
-                }
-                else
-                {
-                    camera.camOffsetY = camMaxOffsetY;
-                }
-            }          
-            
-
-            camera.offset = new Vector3(0, camera.camOffsetY, 0);
-            
-        }
+        }        
         
     }
 }

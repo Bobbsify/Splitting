@@ -35,11 +35,6 @@ namespace Splitting
         [SerializeField] private float shake = 1.0f;
         [SerializeField] private float lenght = 1.0f;
 
-        private float camMinOffsetY = 0.0f;
-        private float camMaxOffsetY = 8.0f;
-
-        private float offsetModifier = 3.0f;
-
         private Rigidbody2D tyrRigidBody;
 
         private Animator animator;
@@ -127,8 +122,6 @@ namespace Splitting
                 ControlWhenCanThrow();
 
                 ControlWhenCanHack();
-
-                ControlCamOffset();
 
                 tyrFlashlight.canUseFlashlight = true;
 
@@ -308,43 +301,7 @@ namespace Splitting
             {
                 tyrJump.velocityY = tyrRigidBody.velocity.y;
             }
-        }
-        void ControlCamOffset()
-        {
-
-            if (camera.boundsY && camera.pushDown)
-            {
-                if (camera.camOffsetY > camMinOffsetY)
-                {
-                    camera.camOffsetY -= offsetModifier * Time.deltaTime;
-                }
-                else
-                {
-                    camera.camOffsetY = camMinOffsetY;
-                }
-            }
-
-            if (camera.checkPushUp)
-            {
-                camera.camOffsetY = camMinOffsetY;
-            }
-
-            if (camera.updateCamOffset)
-            {
-                if (camera.camOffsetY < camMaxOffsetY)
-                {
-                    camera.camOffsetY += offsetModifier * Time.deltaTime;
-                }
-                else
-                {
-                    camera.camOffsetY = camMaxOffsetY;
-                }
-            }
-
-
-            camera.offset = new Vector3(0, camera.camOffsetY, 0);
-
-        }
+        }       
 
     }
 }

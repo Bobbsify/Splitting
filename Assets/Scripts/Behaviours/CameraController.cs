@@ -18,6 +18,9 @@ namespace Splitting
         private float boundsOffsetX = 0.5f;
         private float boundsOffsetY = 1.5f;
 
+        private float antCameraSize;
+        private float tyrCameraSize;
+
         public bool boundsX;
         public bool checkColX;
         private bool pushRight;
@@ -148,7 +151,8 @@ namespace Splitting
                 Debug.Log("shake is " + shakeRemain);
 
                 transform.position = new Vector3(transform.position.x + Random.Range(-shakeRemain, shakeRemain), transform.position.y + Random.Range(-shakeRemain, shakeRemain), transform.position.z);
-                shakeRemain = Mathf.Max(0, shakeRemain - ((1 / shakeLenght) * shakeMagnitude * Time.deltaTime));                
+                shakeRemain = Mathf.Max(0, shakeRemain - ((1 / shakeLenght) * shakeMagnitude * Time.deltaTime));
+                               
 
                 if (shakeRemain == 0.0f)
                 {

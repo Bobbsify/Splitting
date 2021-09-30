@@ -5,9 +5,10 @@ using System;
 
 namespace Splitting
 {
-    public class StateController : MonoBehaviour
+    public class StateController : MonoBehaviour, StateControllerInterface
     {
         public bool hasControl;
+        public bool forcedStop;
 
         public bool isGrounded;
         public bool isWalled;
@@ -150,17 +151,7 @@ namespace Splitting
                 }                
             }
 
-        }
-
-        private void ScreenShake(float shake, float lenght)
-        {
-            if (shake > camera.shakeRemain)
-            {
-                camera.shakeMagnitude = shake;
-                camera.shakeRemain = shake;
-                camera.shakeLenght = lenght;
-            }
-        }
+        }       
 
         bool AnimatorIsPlaying(string stateName)
         {
@@ -188,11 +179,11 @@ namespace Splitting
 
         void ControlIfHasControl()
         {
-            if (gameObject.tag != "Player" || AnimatorIsPlaying("AntDeath") || !isNotScared)
+            if (gameObject.tag != "Player" || AnimatorIsPlaying("AntDeath") || !isNotScared || forcedStop)
             {
                 hasControl = false;
             }
-            else if (!antAutobotUnity.connectionPrep && gameObject.tag == "Player" && !AnimatorIsPlaying("AntDeath") && isNotScared) // Viene controllato che connectionPrep sia false perché altrimenti il giocatore potrebbe muovere Ant
+            else if (!antAutobotUnity.connectionPrep && gameObject.tag == "Player" && !AnimatorIsPlaying("AntDeath") && isNotScared && !forcedStop) // Viene controllato che connectionPrep sia false perché altrimenti il giocatore potrebbe muovere Ant
             {                                                                                                         // mentre sta avvenendo l'unione in Tyrant
                 hasControl = true;
             }
@@ -388,7 +379,16 @@ namespace Splitting
             {
                 antJump.velocityY = antRigidBody.velocity.y;
             }
-        }        
-        
+        }
+
+        public void DisableControl()
+        {
+            forcedStop = true;
+        }
+
+        public void EnableControl()
+        {
+            forcedStop = false;
+        }
     }
 }

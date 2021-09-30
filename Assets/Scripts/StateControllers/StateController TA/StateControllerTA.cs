@@ -5,9 +5,10 @@ using System;
 
 namespace Splitting
 {
-    public class StateControllerTA : MonoBehaviour
+    public class StateControllerTA : MonoBehaviour, StateControllerInterface
     {
         public bool hasControl;
+        public bool forcedStop;
 
         public bool isGrounded;
         public bool isWalled;
@@ -155,7 +156,7 @@ namespace Splitting
                 elapsedInDark = 0.0f;
                 isNotScared = true;
             }
-            else if ((!isIlluminated || !tyrantFlashlight.lightsAre) && isGrounded)
+            else if ((!isIlluminated || !tyrantFlashlight.lightsAre) && isGrounded) 
             {
                 elapsedInDark += Time.deltaTime;
                 
@@ -348,7 +349,16 @@ namespace Splitting
             {
                 tyrantJump.velocityY = tyrantRigidBody.velocity.y;
             }
-        }        
+        }
 
+        public void DisableControl()
+        {
+            forcedStop = true;
+        }
+
+        public void EnableControl()
+        {
+            forcedStop = false;
+        }
     }
 }

@@ -193,6 +193,8 @@ MonoBehaviour:
   shakeLenght: 0
   shakeMagnitude: 0
   shakeRemain: 0
+  antCameraSize: 24
+  tyrCameraSize: 24
   boundsX: 0
   checkColX: 0
   boundsY: 0
@@ -201,9 +203,9 @@ MonoBehaviour:
   checkPushUp: 0
   pushDown: 0
   checkPushDown: 0
+  exeShake: 0
   offsetCollider: {fileID: 0}
   offset: {x: 0, y: 8, z: 0}
-  camOffsetY: 8
   updateCamOffset: 0
 --- !u!61 &2314322631637963109
 BoxCollider2D:

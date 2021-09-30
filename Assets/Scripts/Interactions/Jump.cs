@@ -50,7 +50,12 @@ namespace Splitting
 
         // Update is called once per frame
         void Update()
-        {            
+        {
+            if (bigFall)
+            {
+                Debug.Log("bigFall is " + bigFall);
+            }
+            
 
             if (canJump && !wasJumping)
             {

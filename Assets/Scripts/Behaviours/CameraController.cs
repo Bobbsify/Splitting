@@ -30,7 +30,9 @@ namespace Splitting
         public bool pushUp;
         public bool checkPushUp;
         public bool pushDown;
-        public bool checkPushDown;     
+        public bool checkPushDown;
+
+        public bool exeShake;
 
         private KeyCode swapButton;
         private GameObject cameraBounds;        
@@ -114,26 +116,46 @@ namespace Splitting
                 if (contactsX.Count == 0 && contactsY.Count == 0 && !pushUp && !pushDown)
                 {                    
                     yTo = player.transform.position.y;                   
-                }               
-
-                // Screen shake 
-                if (shakeLenght > 0)
-                {
-                    transform.position = new Vector3(transform.position.x + Random.Range(-shakeRemain, shakeRemain), transform.position.y + Random.Range(-shakeRemain, shakeRemain), transform.position.z);
-                    shakeRemain = Mathf.Max(0, shakeRemain - ((1 / shakeLenght) * shakeMagnitude * Time.deltaTime));
-                }
+                }              
+                                
             }
             else //Object could be destroyed
             {
                 player = findPlayer();
             }
 
-            // Update position
-            if (!pushRight && !pushLeft && !pushUp && !pushDown)
+            if (exeShake)
             {
-                transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x)), transform.position.y + ((yTo - transform.position.y)), transform.position.z) + offset;                                
-            }           
+                ScreenShake();
+            }
+            else
+            {               
+                if (!pushRight && !pushLeft && !pushUp && !pushDown)
+                {
+                    transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x)), transform.position.y + ((yTo - transform.position.y)), transform.position.z) + offset;
+                }
+            }
+                                             
            
+        }
+
+        public void ScreenShake()
+        {
+
+            if (shakeLenght > 0)
+            {
+                Debug.Log("lenght is " + shakeLenght);
+                Debug.Log("shake is " + shakeRemain);
+
+                transform.position = new Vector3(transform.position.x + Random.Range(-shakeRemain, shakeRemain), transform.position.y + Random.Range(-shakeRemain, shakeRemain), transform.position.z);
+                shakeRemain = Mathf.Max(0, shakeRemain - ((1 / shakeLenght) * shakeMagnitude * Time.deltaTime));                
+
+                if (shakeRemain == 0.0f)
+                {
+                    exeShake = false;
+                }
+            }          
+
         }
 
         private GameObject findPlayer()

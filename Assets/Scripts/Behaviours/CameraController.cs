@@ -49,9 +49,7 @@ namespace Splitting
         private BoxCollider2D cameraCollider;
         public BoxCollider2D offsetCollider;
 
-        [SerializeField] public Vector3 offset = new Vector3(0, 8, 0);
-        public float camOffsetY = 8.0f;
-        private float camCheckOffesetY = 0.0f;
+        [SerializeField] public Vector3 offset = new Vector3(0, 8, 0);        
 
         public bool updateCamOffset;
 
@@ -72,16 +70,16 @@ namespace Splitting
         {
             FixCameraColliderSize();
 
-            DisableCameraBounds();
-
-            UpdateOffsetCollider();                           
+            DisableCameraBounds();                                     
 
             if (player != null)
             {
                 if (player.tag != "Player") //Switching
                 {
                     player = findPlayer();                                        
-                }                                        
+                }
+
+                UpdateCameraSize();
 
                 ControlBoundsXContacts();                             
                 ControlBoundsYContacts();
@@ -170,6 +168,24 @@ namespace Splitting
         void FixCameraColliderSize()
         {
             cameraCollider.size = new Vector2((((cameraComponent.orthographicSize * 2) * 16) / 9), cameraComponent.orthographicSize * 2);
+        }
+
+        void UpdateCameraSize()
+        {
+            bool ant = false;
+            bool tyr = false;
+
+            ant = player.name.ToUpper().Contains("ANT");
+            tyr = player.name.ToUpper().Contains("TYR");
+
+            if (ant && !tyr)
+            {
+                cameraComponent.orthographicSize = antCameraSize;
+            }
+            else if (!ant && tyr)
+            {
+                cameraComponent.orthographicSize = tyrCameraSize;
+            }
         }
 
         void DisableCameraBounds()
@@ -491,32 +507,19 @@ namespace Splitting
                 contactsY.Clear();
             }
             else if (pushDown && !checkPushDown)
-            {
-                Debug.Log("dai");
-                transform.position = new Vector3(transform.position.x + ((xTo - transform.position.x)), transform.position.y + ((yTo - transform.position.y)), transform.position.z) + offset;
+            {              
+                
+                float distanceToPush = (contactsY.ToArray()[0].point.y) - ((contactsY.ToArray()[0].collider.bounds.center.y) - contactsY.ToArray()[0].collider.bounds.extents.y);
 
-                if (camOffsetY == 0)
-                {
-                    float distanceToPush = (contactsY.ToArray()[0].point.y) - ((contactsY.ToArray()[0].collider.bounds.center.y) - contactsY.ToArray()[0].collider.bounds.extents.y);
+                transform.position = new Vector3(transform.position.x, transform.position.y - (distanceToPush), transform.position.z);
+                yTo = transform.position.y;
 
-                    transform.position = new Vector3(transform.position.x, transform.position.y - (distanceToPush), transform.position.z);
-                    yTo = transform.position.y;
+                checkPushDown = true;
 
-                    checkPushDown = true;
-
-                    contactsY.Clear();
-                }                
+                contactsY.Clear();                               
             }
-        }       
-        
-
-        void UpdateOffsetCollider()
-        {
-            camCheckOffesetY = 8.0f - camOffsetY;
-
-            offsetCollider.transform.position = transform.position + new Vector3(0, camCheckOffesetY, 0);
-            offsetCollider.size = cameraCollider.size;
-        }
+        }     
+               
 
     }
 }

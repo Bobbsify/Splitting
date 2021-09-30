@@ -147,17 +147,7 @@ namespace Splitting
                 ControlIfDisableJump();
             }
             
-        }
-
-        private void ScreenShake(float shake, float lenght)
-        {
-            if (shake > camera.shakeRemain)
-            {
-                camera.shakeMagnitude = shake;
-                camera.shakeRemain = shake;
-                camera.shakeLenght = lenght;
-            }
-        }
+        }       
 
         bool AnimatorIsPlaying(string stateName)
         {
@@ -213,11 +203,15 @@ namespace Splitting
                 {
 
                     tyrantJump.isLanded = true; 
-                    tyrantJump.wasJumping = false;
+                    tyrantJump.wasJumping = false;                    
 
                     if (tyrantJump.bigFall) 
                     {
-                        ScreenShake(shake, lenght);
+                        camera.shakeMagnitude = shake;
+                        camera.shakeRemain = shake;
+                        camera.shakeLenght = lenght;
+
+                        camera.exeShake = true;
                     }
                 }
             }

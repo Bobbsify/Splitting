@@ -947,7 +947,7 @@ MonoBehaviour:
   chargeJump: 0
   timerJump: 2
   elapsedKeyDown: 0
-  timerFall: 2
+  timerFall: 0.8
   elapsedFall: 0
   timerStartFall: 0.15
   startFall: 0

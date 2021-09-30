@@ -19,7 +19,9 @@ namespace Splitting
         private float boundsOffsetY = 1.5f;
 
         public float antCameraSize;
+        [SerializeField] public Vector3 antCameraOffset = new Vector3(0, 8, 0);
         public float tyrCameraSize;
+        [SerializeField] public Vector3 tyrCameraOffset = new Vector3(0, 8, 0);
 
         public bool boundsX;
         public bool checkColX;
@@ -181,14 +183,17 @@ namespace Splitting
             if (ant && !tyr)
             {
                 cameraComponent.orthographicSize = antCameraSize;
+                offset = antCameraOffset;
             }
             else if (!ant && tyr)
             {
                 cameraComponent.orthographicSize = tyrCameraSize;
+                offset = tyrCameraOffset;
             }
             else if (ant && tyr)
             {
                 cameraComponent.orthographicSize = antCameraSize;
+                offset = tyrCameraOffset;
             }
         }
 

@@ -176,7 +176,11 @@ namespace Splitting
 
                     if (tyrJump.bigFall) // Se Tyr è atterrato dopo una caduta lunga più di un tot verrà considerata bigFall ed avverrà uno ScreenShake
                     {
-                        ScreenShake(shake, lenght);
+                        camera.shakeMagnitude = shake;
+                        camera.shakeRemain = shake;
+                        camera.shakeLenght = lenght;
+
+                        camera.exeShake = true;
                     }
                 }
             }

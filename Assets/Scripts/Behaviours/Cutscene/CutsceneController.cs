@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class CutsceneController : MonoBehaviour
 {
+    public bool removePlayerControl = true;
+    [HideInInspector] public GameObject player;
 
     [SerializeField] private GameObject firstEvent;
-    [SerializeField] private bool removePlayerControl = true;
 
-    [HideInInspector] public GameObject player;
     private bool isInCutscene = false;
 
     public void startCutscene()

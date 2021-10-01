@@ -115,6 +115,8 @@ namespace Splitting
 
             ResetVerticalSpeedWhenPushing();
 
+            CallAnimator(hasControl);
+
             if (hasControl)
             {
                 ControlWhenCanMove();
@@ -146,6 +148,14 @@ namespace Splitting
         bool AnimatorIsPlaying(string stateName)
         {
             return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+        }
+
+        private void CallAnimator(bool hasControl)
+        {
+            if (animator != null)
+            {                
+                animator.SetBool("hasControl", hasControl);
+            }
         }
 
         void CheckIfHasFallen()

@@ -25,10 +25,12 @@ namespace Splitting {
 
         private Vector3 jumpRaystart;
         private Vector3 biteRangeCenter;
+        private Vector3 rococoSize;
 
         private void Awake()
         {
             originalRococo = transform.parent;
+            rococoSize = new Vector3(27.0f,5.6f,0);
         }
 
         private void Update()
@@ -57,7 +59,7 @@ namespace Splitting {
                 if (collision.collider.tag == "Player")
                 {
                     activatedRococo = Instantiate(rococoIdleAttackPrefab);
-                    activatedRococo.transform.position = transform.parent.Find("FollowMe").position;
+                    activatedRococo.transform.position = collision.transform.position - rococoSize;
                     GameObject.FindGameObjectWithTag("Player").tag = "Untagged"; //Stop player from moving
                 }
             }

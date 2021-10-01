@@ -16,7 +16,7 @@ public class CutsceneController : MonoBehaviour
     {
         if (removePlayerControl) { 
             player = GameObject.FindGameObjectWithTag("Player");
-            player.tag = "Untagged";
+            player.GetComponent<StateControllerInterface>().DisableControl();
         }
         isInCutscene = true;
         firstEvent.GetComponent<CutsceneEvent>().Execute();
@@ -27,7 +27,7 @@ public class CutsceneController : MonoBehaviour
         isInCutscene = false;
         if (removePlayerControl)
         {
-            player.tag = "Player";
+            player.GetComponent<StateControllerInterface>().EnableControl();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Splitting {
 
         public List<GameObject> hackableObj = new List<GameObject>();
 
-        public HackDetect hackDetect;
+        private HackDetect hackDetect;
 
         public bool canHack;
 

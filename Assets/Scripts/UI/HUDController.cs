@@ -14,16 +14,21 @@ namespace Splitting
         // ant
         private Move antMove;
         private Jump antJump;
-        private Carry antCarry;        
+        private Carry antCarry;
+        private Extend antExtend;
 
         // tyr
         private GameObject tyrTrajectPred;
         private Throw tyrThrow;
-        
+        private FlashlightController tyrFlashlight;        
+
         // tyrant
         private GameObject tyrantTrajectPred;
         private Throw tyrantThrow;
+        private Extend tyrantExtend;
+        private FlashlightController tyrantFlashlight;
 
+        private Animator animator;
         private AutobotUnity autobotUnity;
 
         [SerializeField] private int currentPlayer;
@@ -135,6 +140,23 @@ namespace Splitting
                     currentAbilities[3].transform.Find("AbilityOnFrame4").gameObject.SetActive(false);
                     currentAbilities[3].transform.Find("OnIcon_Carry").gameObject.SetActive(false);
                 }
+
+                if (antExtend.isExtended)
+                {
+                    currentAbilities[0].transform.Find("AbilityFrame1").gameObject.SetActive(false);
+                    currentAbilities[0].transform.Find("Icon_Lift").gameObject.SetActive(false);
+
+                    currentAbilities[0].transform.Find("AbilityOnFrame1").gameObject.SetActive(true);
+                    currentAbilities[0].transform.Find("OnIcon_Lift").gameObject.SetActive(true);
+                }
+                else
+                {
+                    currentAbilities[0].transform.Find("AbilityFrame1").gameObject.SetActive(true);
+                    currentAbilities[0].transform.Find("Icon_Lift").gameObject.SetActive(true);
+
+                    currentAbilities[0].transform.Find("AbilityOnFrame1").gameObject.SetActive(false);
+                    currentAbilities[0].transform.Find("OnIcon_Lift").gameObject.SetActive(false);
+                }
             }
 
             // Tyr
@@ -157,11 +179,62 @@ namespace Splitting
                     currentAbilities[0].transform.Find("OnIcon_Launch").gameObject.SetActive(false);
                 }
 
+                if (AnimatorIsPlaying("Tyr hacking") || AnimatorIsPlaying("Tyr hacking2"))
+                {
+                    currentAbilities[1].transform.Find("AbilityFrame2").gameObject.SetActive(false);
+                    currentAbilities[1].transform.Find("Icon_Hacking").gameObject.SetActive(false);
+
+                    currentAbilities[1].transform.Find("AbilityOnFrame2").gameObject.SetActive(true);
+                    currentAbilities[1].transform.Find("OnIcon_Hacking").gameObject.SetActive(true);
+                }
+                else
+                {
+                    currentAbilities[1].transform.Find("AbilityFrame2").gameObject.SetActive(true);
+                    currentAbilities[1].transform.Find("Icon_Hacking").gameObject.SetActive(true);
+
+                    currentAbilities[1].transform.Find("AbilityOnFrame2").gameObject.SetActive(false);
+                    currentAbilities[1].transform.Find("OnIcon_Hacking").gameObject.SetActive(false);
+                }
+
+                if (tyrFlashlight.lightsAre)
+                {
+                    currentAbilities[2].transform.Find("AbilityFrame3").gameObject.SetActive(false);
+                    currentAbilities[2].transform.Find("Icon_Torch").gameObject.SetActive(false);
+
+                    currentAbilities[2].transform.Find("AbilityOnFrame3").gameObject.SetActive(true);
+                    currentAbilities[2].transform.Find("OnIcon_Torch").gameObject.SetActive(true);
+                }
+                else
+                {
+                    currentAbilities[2].transform.Find("AbilityFrame3").gameObject.SetActive(true);
+                    currentAbilities[2].transform.Find("Icon_Torch").gameObject.SetActive(true);
+
+                    currentAbilities[2].transform.Find("AbilityOnFrame3").gameObject.SetActive(false);
+                    currentAbilities[2].transform.Find("OnIcon_Torch").gameObject.SetActive(false);
+                }
+
             }
 
             // Tyrant
             if (currentPlayer == 2)
             {
+                if (tyrantExtend.isExtended)
+                {
+                    currentAbilities[0].transform.Find("AbilityFrame1").gameObject.SetActive(false);
+                    currentAbilities[0].transform.Find("Icon_Lift").gameObject.SetActive(false);
+
+                    currentAbilities[0].transform.Find("AbilityOnFrame1").gameObject.SetActive(true);
+                    currentAbilities[0].transform.Find("OnIcon_Lift").gameObject.SetActive(true);
+                }
+                else
+                {
+                    currentAbilities[0].transform.Find("AbilityFrame1").gameObject.SetActive(true);
+                    currentAbilities[0].transform.Find("Icon_Lift").gameObject.SetActive(true);
+
+                    currentAbilities[0].transform.Find("AbilityOnFrame1").gameObject.SetActive(false);
+                    currentAbilities[0].transform.Find("OnIcon_Lift").gameObject.SetActive(false);
+                }
+
                 if (tyrantThrow.rbToThrow == true && tyrantThrow.throwing == false)
                 {
                     currentAbilities[1].transform.Find("AbilityFrame4").gameObject.SetActive(false);
@@ -192,6 +265,42 @@ namespace Splitting
                     currentAbilities[2].transform.Find("AbilityOnFrame1").gameObject.SetActive(false);
                     currentAbilities[2].transform.Find("OnIcon_Launch").gameObject.SetActive(false);
                 }
+
+                if (AnimatorIsPlaying("TyrantHacking"))
+                {
+                    currentAbilities[3].transform.Find("AbilityFrame2").gameObject.SetActive(false);
+                    currentAbilities[3].transform.Find("Icon_Hacking").gameObject.SetActive(false);
+
+                    currentAbilities[3].transform.Find("AbilityOnFrame2").gameObject.SetActive(true);
+                    currentAbilities[3].transform.Find("OnIcon_Hacking").gameObject.SetActive(true);
+                }
+                else
+                {
+                    currentAbilities[3].transform.Find("AbilityFrame2").gameObject.SetActive(true);
+                    currentAbilities[3].transform.Find("Icon_Hacking").gameObject.SetActive(true);
+
+                    currentAbilities[3].transform.Find("AbilityOnFrame2").gameObject.SetActive(false);
+                    currentAbilities[3].transform.Find("OnIcon_Hacking").gameObject.SetActive(false);
+                }
+
+                if (tyrantFlashlight.lightsAre)
+                {
+                    currentAbilities[4].transform.Find("AbilityFrame3").gameObject.SetActive(false);
+                    currentAbilities[4].transform.Find("Icon_Torch").gameObject.SetActive(false);
+
+                    currentAbilities[4].transform.Find("AbilityOnFrame3").gameObject.SetActive(true);
+                    currentAbilities[4].transform.Find("OnIcon_Torch").gameObject.SetActive(true);
+                }
+                else
+                {
+                    currentAbilities[4].transform.Find("AbilityFrame3").gameObject.SetActive(true);
+                    currentAbilities[4].transform.Find("Icon_Torch").gameObject.SetActive(true);
+
+                    currentAbilities[4].transform.Find("AbilityOnFrame3").gameObject.SetActive(false);
+                    currentAbilities[4].transform.Find("OnIcon_Torch").gameObject.SetActive(false);
+                }
+
+
             }
             
         }
@@ -202,7 +311,7 @@ namespace Splitting
 
             bool ant = false;
             bool tyr = false;
-            
+
             player = GameObject.FindGameObjectWithTag("Player");
 
             ant = player.name.ToUpper().Contains("ANT");
@@ -217,7 +326,7 @@ namespace Splitting
                 x = 1; // tyr
             }
             else if (ant && tyr)
-            {                
+            {
                 x = 2; // tyrant
             }
 
@@ -242,13 +351,17 @@ namespace Splitting
                 antMove = player.GetComponent<Move>();
                 antJump = player.GetComponent<Jump>();
                 antCarry = player.GetComponent<Carry>();
+                antExtend = player.GetComponent<Extend>();
 
                 autobotUnity = player.GetComponent<AutobotUnity>();
             }
             else if (currentPlayer == 1) // tyr
             {
                 tyrTrajectPred = player.transform.Find("TrajectoryPrediction").gameObject;
-                tyrThrow = tyrTrajectPred.GetComponent<Throw>();
+                tyrThrow = tyrTrajectPred.GetComponent<Throw>();                
+                tyrFlashlight = player.GetComponentInChildren<FlashlightController>();
+
+                animator = player.GetComponent<Animator>();
 
                 autobotUnity = player.GetComponent<AutobotUnity>();
             }
@@ -256,6 +369,10 @@ namespace Splitting
             {
                 tyrantTrajectPred = player.transform.Find("TrajectoryPredictionTA").gameObject;
                 tyrantThrow = tyrantTrajectPred.GetComponent<Throw>();
+                tyrantExtend = player.GetComponent<Extend>();
+                tyrantFlashlight = player.GetComponentInChildren<FlashlightController>();
+
+                animator = player.GetComponent<Animator>();
             }          
         }
         
@@ -283,6 +400,11 @@ namespace Splitting
                 }
             }
 
+        }
+
+        bool AnimatorIsPlaying(string stateName)
+        {
+            return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
         }
     }    
 }

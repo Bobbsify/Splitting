@@ -107,7 +107,7 @@ namespace Splitting
 
             ResetVerticalSpeedWhenPushing();            
 
-            CallAnimator(isNotScared, getThrow.throwing, isGrounded, getThrow.rbToThrow);
+            CallAnimator(isNotScared, getThrow.throwing, isGrounded, getThrow.rbToThrow, hasControl);
 
             if (hasControl)
             {
@@ -167,14 +167,15 @@ namespace Splitting
             }
         }
 
-        private void CallAnimator(bool isNotScared, bool throwingMode, bool isGrounded, bool isCarrying)
+        private void CallAnimator(bool isNotScared, bool throwingMode, bool isGrounded, bool isCarrying, bool hasControl)
         {
             if (animator != null)
             {
                 animator.SetBool("isNotScared", isNotScared);
                 animator.SetBool("isThrowing", throwingMode);
                 animator.SetBool("isGrounded", isGrounded);
-                animator.SetBool("isCarrying", isCarrying);                
+                animator.SetBool("isCarrying", isCarrying);
+                animator.SetBool("hasControl", hasControl);
             }
         }
 

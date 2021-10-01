@@ -116,7 +116,7 @@ namespace Splitting
             ResetVerticalSpeedWhenPushing();           
 
             //ControlWhenForceDrop();
-            CallAnimator(isNotScared, isGrounded);
+            CallAnimator(isNotScared, isGrounded, hasControl);
 
             if (hasControl)
             {
@@ -189,12 +189,13 @@ namespace Splitting
             }
         }
 
-        private void CallAnimator(bool isNotScared, bool isGrounded)
+        private void CallAnimator(bool isNotScared, bool isGrounded, bool hasControl)
         {
             if (animator != null)
             {
                 animator.SetBool("isNotScared", isNotScared);
-                animator.SetBool("isGrounded", isGrounded);                
+                animator.SetBool("isGrounded", isGrounded);
+                animator.SetBool("hasControl", hasControl);
             }
         }       
 

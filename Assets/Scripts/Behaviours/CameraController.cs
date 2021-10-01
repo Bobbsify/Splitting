@@ -147,12 +147,9 @@ namespace Splitting
 
             if (shakeLenght > 0)
             {
-                Debug.Log("lenght is " + shakeLenght);
-                Debug.Log("shake is " + shakeRemain);
-
-                transform.position = new Vector3(transform.position.x + Random.Range(-shakeRemain, shakeRemain), transform.position.y + Random.Range(-shakeRemain, shakeRemain), transform.position.z);
-                shakeRemain = Mathf.Max(0, shakeRemain - ((1 / shakeLenght) * shakeMagnitude * Time.deltaTime));
-                               
+                
+                transform.position = new Vector3((transform.position.x + (xTo - transform.position.x)) + Random.Range(-shakeRemain, shakeRemain), (transform.position.y + (yTo - transform.position.y)) + Random.Range(-shakeRemain, shakeRemain), transform.position.z) + offset;
+                shakeRemain = Mathf.Max(0, shakeRemain - ((1 / shakeLenght) * shakeMagnitude * Time.deltaTime));                               
 
                 if (shakeRemain == 0.0f)
                 {

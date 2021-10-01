@@ -180,11 +180,11 @@ namespace Splitting
 
        void ControlIfHasControl()
        {
-            if (gameObject.tag != "Player" || AnimatorIsPlaying("TyrantDeath") || !isNotScared || AnimatorIsPlaying("TyrantUnity") || AnimatorIsPlaying("TyrantUnlink"))
+            if (gameObject.tag != "Player" || AnimatorIsPlaying("TyrantDeath") || !isNotScared || AnimatorIsPlaying("TyrantUnity") || AnimatorIsPlaying("TyrantUnlink") || forcedStop)
             {
                 hasControl = false;
             }
-            else if (gameObject.tag == "Player" && !AnimatorIsPlaying("TyrantDeath") && isNotScared && !AnimatorIsPlaying("TyrantUnity") && !AnimatorIsPlaying("TyrantUnlink"))
+            else if (gameObject.tag == "Player" && !AnimatorIsPlaying("TyrantDeath") && isNotScared && !AnimatorIsPlaying("TyrantUnity") && !AnimatorIsPlaying("TyrantUnlink") && !forcedStop)
             {
                 hasControl = true;
             }

@@ -9,6 +9,7 @@ namespace Splitting
     {
         [SerializeField] private float xTo;
         [SerializeField] private float yTo;
+        [SerializeField] private bool blockYTo;
 
         [Header("Shaking Settings")]
         public float shakeLenght = 0.0f;
@@ -19,9 +20,9 @@ namespace Splitting
         private float boundsOffsetY = 1.5f;
 
         public float antCameraSize;
-        [SerializeField] public Vector3 antCameraOffset = new Vector3(0, 8, 0);
+        public Vector3 antCameraOffset = new Vector3(0, 8, 0);
         public float tyrCameraSize;
-        [SerializeField] public Vector3 tyrCameraOffset = new Vector3(0, 8, 0);
+        public Vector3 tyrCameraOffset = new Vector3(0, 8, 0);
 
         public bool boundsX;
         public bool checkColX;
@@ -32,18 +33,18 @@ namespace Splitting
 
         public bool boundsY;
         public bool checkColY;
-        public bool pushUp;
-        public bool checkPushUp;
-        public bool pushDown;
-        public bool checkPushDown;
+        private bool pushUp;
+        private bool checkPushUp;
+        private bool pushDown;
+        private bool checkPushDown;
 
         public bool exeShake;
 
         private KeyCode swapButton;
         private GameObject cameraBounds;        
 
-        public List<ContactPoint2D> contactsX = new List<ContactPoint2D>();
-        public List<ContactPoint2D> contactsY = new List<ContactPoint2D>();
+        private List<ContactPoint2D> contactsX = new List<ContactPoint2D>();
+        private List<ContactPoint2D> contactsY = new List<ContactPoint2D>();
 
         private GameObject player;
 
@@ -116,7 +117,7 @@ namespace Splitting
                     xTo = player.transform.position.x;                    
                 }                
                 
-                if (contactsX.Count == 0 && contactsY.Count == 0 && !pushUp && !pushDown)
+                if (contactsX.Count == 0 && contactsY.Count == 0 && !pushUp && !pushDown && !blockYTo)
                 {                    
                     yTo = player.transform.position.y;                   
                 }              
@@ -524,7 +525,17 @@ namespace Splitting
 
                 contactsY.Clear();                               
             }
-        }     
+        }
+        
+        public void DisableYTo()
+        {
+            blockYTo = true;
+        }
+
+        public void EnableYTo()
+        {
+            blockYTo = false;
+        }
                
 
     }

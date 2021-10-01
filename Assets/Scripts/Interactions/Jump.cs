@@ -30,7 +30,7 @@ namespace Splitting
         public float elapsedFall;
 
         [SerializeField] private float timerStartFall = 1.0f;
-        public bool startFall;
+        private bool startFall;
 
         public bool bigFall;
 

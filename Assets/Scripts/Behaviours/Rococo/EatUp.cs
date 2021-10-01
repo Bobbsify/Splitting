@@ -20,39 +20,54 @@ namespace Splitting {
         [SerializeField] private GameObject rococoJumpAttackPrefab;
         [SerializeField] private GameObject rococoIdleAttackPrefab;
         [SerializeField] private float skipToBiteOffset = 5.0f;
-
-        private Transform rococoTransform;
-        private Transform originalRococo;
         
+        private Transform originalRococo;
+
+        private Vector3 jumpRaystart;
+        private Vector3 biteRangeCenter;
+
         private void Awake()
         {
             originalRococo = transform.parent;
-            rococoTransform = originalRococo.Find("bone_1");
         }
 
         private void Update()
         {
             currentTransform = transform.parent.position;
-        }
+            Transform bone1 = originalRococo.Find("bone_1");
+            jumpRaystart = bone1.Find("bone_2").position;
+            biteRangeCenter = new Vector2 (bone1.position.x, bone1.Find("bone_2/bone_6").position.y);
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.tag == "Player")
+            RaycastHit2D[] jumpCollisions = Physics2D.RaycastAll(jumpRaystart, Vector2.up * 200);
+            RaycastHit2D[] biteCollisions = Physics2D.BoxCastAll(biteRangeCenter,new Vector2(5.2f,3.2f),0,new Vector2(0,0));
+            GameObject activatedRococo;
+
+            foreach (RaycastHit2D collision in jumpCollisions)
             {
-                Vector3 playerPos = collision.transform.position;
-                if (playerPos.y >= rococoTransform.position.y - skipToBiteOffset && playerPos.y <= rococoTransform.position.y + skipToBiteOffset)
+                if (collision.collider.tag == "Player")
                 {
-                    GameObject activatedRococo = Instantiate(rococoIdleAttackPrefab);
-                    activatedRococo.transform.position = transform.parent.position;
-                    GameObject.FindGameObjectWithTag("Player").tag = "Untagged"; //Stop player from moving
-                }
-                else
-                {
-                    GameObject activatedRococo = Instantiate(rococoJumpAttackPrefab);
-                    activatedRococo.transform.position = transform.parent.position;
+                    activatedRococo = Instantiate(rococoJumpAttackPrefab);
+                    activatedRococo.transform.position = transform.parent.Find("FollowMe").position;
                     GameObject.FindGameObjectWithTag("Player").tag = "Untagged"; //Stop player from moving
                 }
             }
+
+            foreach (RaycastHit2D collision in biteCollisions)
+            {
+                if (collision.collider.tag == "Player")
+                {
+                    activatedRococo = Instantiate(rococoIdleAttackPrefab);
+                    activatedRococo.transform.position = transform.parent.Find("FollowMe").position;
+                    GameObject.FindGameObjectWithTag("Player").tag = "Untagged"; //Stop player from moving
+                }
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(jumpRaystart, Vector2.up * 200);
+            Gizmos.DrawCube(biteRangeCenter, new Vector2(5.2f, 3.2f));
         }
     }
 }

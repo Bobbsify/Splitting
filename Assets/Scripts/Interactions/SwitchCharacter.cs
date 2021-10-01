@@ -60,7 +60,7 @@ namespace Splitting
             }
         }
 
-        public void Connect()
+        public GameObject Connect()
         {
             bool isThisAnt = gameObject.name.ToUpper().Contains("ANT");
 
@@ -75,10 +75,11 @@ namespace Splitting
 
             //Turn flashlight correctly
             tyrantFlashlight.GetComponent<FlashlightController>().SetLightsToState(tyrFlashlight.GetComponent<FlashlightController>().lightsAre);
-
-
+            
             tyrant.GetComponent<UnlinkTyrAnt>().antScripts = isThisAnt ? ScriptsToDisable : ScriptsToEnable;
             tyrant.GetComponent<UnlinkTyrAnt>().tyrScripts = isThisAnt ? ScriptsToEnable : ScriptsToDisable;
+
+            return tyrant;
         }
 
         private void TurnThisOff()

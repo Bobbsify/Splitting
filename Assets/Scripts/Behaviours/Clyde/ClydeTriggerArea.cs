@@ -46,7 +46,7 @@ namespace Splitting
                     trajectPred = GameObject.Find("TrajectoryPredictionTA");
                     getThrow = trajectPred.GetComponentInChildren<Throw>();
 
-                    collision.GetComponent<StateControllerTA>().DisableThrow();
+                    getThrow.RemoveInputs();
 
                     if (!getThrow.rbToThrow)
                     {
@@ -81,7 +81,7 @@ namespace Splitting
                     trajectPred = GameObject.Find("TrajectoryPredictionTA");
                     getThrow = trajectPred.GetComponentInChildren<Throw>();
 
-                    collision.GetComponent<StateControllerTA>().EnableThrow();
+                    getThrow.SetInputs();                   
 
                     if (!getThrow.rbToThrow)
                     {
@@ -89,6 +89,10 @@ namespace Splitting
 
                         clydePatrol.enabled = true;
                         clydeController.startApproach = false;
+                    }
+                    else
+                    {
+                        getThrow.ReleaseBox();
                     }
                 }
                 else

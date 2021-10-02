@@ -145,6 +145,7 @@ namespace Splitting
 
         public void ScreenShake()
         {
+            Debug.Log("OOOO");
             if (shakeLenght > 0)
             {                
                 transform.position = new Vector3((transform.position.x + (xTo - transform.position.x)) + Random.Range(-shakeRemain, shakeRemain), (transform.position.y + (yTo - transform.position.y)) + Random.Range(-shakeRemain, shakeRemain), transform.position.z) + offset;
@@ -537,7 +538,8 @@ namespace Splitting
           
         public void EnableExeShake()
         {
-            exeShake = true;
+            shakeRemain = 0.5f;
+            exeShake = true;            
         }
 
     }

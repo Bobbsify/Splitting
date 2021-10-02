@@ -9,6 +9,7 @@ namespace Splitting
     {
         public bool hasControl;
         public bool forcedStop;
+        public bool stopJump;
 
         public bool isGrounded;
         public bool isWalled;
@@ -107,7 +108,7 @@ namespace Splitting
 
             ResetVerticalSpeedWhenPushing();            
 
-            CallAnimator(isNotScared, getThrow.throwing, isGrounded, getThrow.rbToThrow, hasControl);
+            CallAnimator(isNotScared, getThrow.throwing, isGrounded, getThrow.rbToThrow, forcedStop);
 
             if (hasControl)
             {
@@ -270,7 +271,7 @@ namespace Splitting
         {
             tyrantJump.enabled = true;
 
-            if (isGrounded && !tyrantExtend.isExtended && !getThrow.rbToThrow && !isObstructed && (!AnimatorIsPlaying("Tyrant grab3") && !AnimatorIsPlaying("Tyrant grab")) && !AnimatorIsPlaying("TyrantLift3") && !AnimatorIsPlaying("TyrantHacking"))
+            if (!stopJump && isGrounded && !tyrantExtend.isExtended && !getThrow.rbToThrow && !isObstructed && (!AnimatorIsPlaying("Tyrant grab3") && !AnimatorIsPlaying("Tyrant grab")) && !AnimatorIsPlaying("TyrantLift3") && !AnimatorIsPlaying("TyrantHacking"))
             {
                 tyrantJump.canJump = true;
             }
@@ -360,6 +361,16 @@ namespace Splitting
         public void EnableControl()
         {
             forcedStop = false;
+        }
+
+        public void DisableJump()
+        {
+            stopJump = true;
+        }
+
+        public void EnableJump()
+        {
+            stopJump = false;
         }
     }
 }

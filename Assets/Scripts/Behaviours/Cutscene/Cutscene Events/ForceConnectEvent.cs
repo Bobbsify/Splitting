@@ -35,12 +35,12 @@ namespace Splitting {
                 if (target.TryGetComponent(out SwitchCharacter sw))
                 { 
                     GameObject tyrant = sw.Connect();
+                    originalCutsceneController.GetComponent<CutsceneController>().player = tyrant;
                     if (originalCutsceneController.TryGetComponent(out CutsceneController ctrl))
                     {
                         if (ctrl.removePlayerControl)
                         {
                             tyrant.GetComponent<StateControllerTA>().DisableControl();
-                            ctrl.player = tyrant;
                         }
                     }
                 }

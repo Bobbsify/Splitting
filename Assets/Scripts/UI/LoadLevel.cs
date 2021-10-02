@@ -39,6 +39,7 @@ namespace Splitting
             {
                 SceneManager.LoadScene(gameScenes.ToArray()[(int)sceneToLoad]);
             }
+            lastCheckpoint.levelCheckpoint = 0;
         }
     }
 

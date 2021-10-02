@@ -102,7 +102,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 301
+  m_SortingOrder: 371
   m_Sprite: {fileID: 6003036010296045653, guid: 20de74c326edfe349b0565a29201f781,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 3458940439232735118}
   m_Bounds:
-    m_Center: {x: 0.01999998, y: 0.06003046, z: 0}
+    m_Center: {x: 0.01999998, y: 0.059984684, z: 0}
     m_Extent: {x: 1.06, y: 2.115, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -206,7 +206,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 302
+  m_SortingOrder: 372
   m_Sprite: {fileID: 7142219626860624867, guid: 20de74c326edfe349b0565a29201f781,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -310,7 +310,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 303
+  m_SortingOrder: 373
   m_Sprite: {fileID: 2412992921747953366, guid: 20de74c326edfe349b0565a29201f781,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -339,7 +339,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 7590368543083654999}
   m_Bounds:
-    m_Center: {x: 0.0028748512, y: -0.041949987, z: 0}
+    m_Center: {x: 0.0028748512, y: -0.041965246, z: 0}
     m_Extent: {x: 2.3395247, y: 1.23805, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -383,8 +383,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1246226277363164007}
-  - component: {fileID: 451597641980019810}
-  - component: {fileID: 451597641980019809}
   m_Layer: 0
   m_Name: bone_3
   m_TagString: Untagged
@@ -406,36 +404,6 @@ Transform:
   m_Father: {fileID: 7590368543083654999}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &451597641980019810
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5238712327434598728}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.87098974, y: 0.007339919}
-  m_Size: {x: 1.3469281, y: 0.687611}
-  m_Direction: 1
---- !u!114 &451597641980019809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5238712327434598728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d18d342536039b4299adb22da0526b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waterGunForce: 5000
-  collisionCheck: 0
 --- !u!1 &9170212562070322858
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,9 +414,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8433238500466988074}
   - component: {fileID: 451597641538432538}
+  - component: {fileID: 4806380150396589708}
+  - component: {fileID: 1458611471}
   m_Layer: 0
   m_Name: ClydeSprite
-  m_TagString: Untagged
+  m_TagString: Clyde
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -483,10 +453,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e30b58c48df75c748a70b3d243c2e843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  readyToShotPosition: 0
-  approachSpeed: 5
-  waterGunColl: {fileID: 0}
-  waterGunSpeed: 1
-  realSize: {x: 0, y: 0}
+  readyToShotPosition: 353
+  approachSpeed: 20
+  changeDirDx: 326
+  changeDirSx: 403
+  waterGunProj: {fileID: 0}
+  offsetY: {x: 0, y: -1, z: 0}
   startApproach: 0
   startShot: 0
+--- !u!95 &4806380150396589708
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9170212562070322858}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 64771f687a7d5654f99191aea4465e01, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1458611471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9170212562070322858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a84c8873811ce5439afec7e27df253f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path:
+  - {x: 325.339, y: 249.06, z: 0}
+  - {x: 403.25, y: 249.06, z: 0}
+  patrolType: 0
+  speed: 20
+  movementType: 0
+  elevator: 0
+  expectedCarriedUnits: 5
+  doOnPathCompletionInstead: 0
+  checkpointEvents:
+    m_PersistentCalls:
+      m_Calls: []

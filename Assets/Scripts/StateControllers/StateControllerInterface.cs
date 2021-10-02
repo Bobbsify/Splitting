@@ -7,4 +7,8 @@ public interface StateControllerInterface
     void DisableControl();
 
     void EnableControl();
+
+    void DisableJump();
+
+    void EnableJump();
 }

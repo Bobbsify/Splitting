@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractionCheck : MonoBehaviour
 {
     [SerializeField] private GameObject interactionPrefab;
+    [SerializeField] private Vector3 scale = new Vector3(1, 1, 1);
     private GameObject interactionPrefabInstantiated;
     private bool isPlayerInRange = false;
 
@@ -19,6 +20,7 @@ public class InteractionCheck : MonoBehaviour
                 Collider2D col;
                 TryGetComponent(out col);
                 interactionPrefabInstantiated.transform.localPosition = new Vector3(0, col.bounds.extents.y, 0);
+                interactionPrefabInstantiated.transform.localScale = scale;
             }
         }
         else

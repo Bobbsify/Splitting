@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2409213450412532081}
   - component: {fileID: 6782247572631098220}
   - component: {fileID: 3802965841498618458}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Electricity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 3871824451521664894}
   - component: {fileID: 3871824451521664895}
   - component: {fileID: 2928724217757694432}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: PoweringBattery
   m_TagString: Carryable
   m_Icon: {fileID: 0}

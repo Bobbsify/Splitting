@@ -12,9 +12,9 @@ namespace Splitting
         [SerializeField] private bool blockYTo;
 
         [Header("Shaking Settings")]
-        public float shakeLenght = 0.0f;
-        public float shakeMagnitude = 0.0f;
-        public float shakeRemain = 0.0f;
+        public float shakeLenght = 1.0f;
+        public float shakeMagnitude = 1.0f;
+        public float shakeRemain = 1.0f;
 
         private float boundsOffsetX = 0.5f;
         private float boundsOffsetY = 1.5f;
@@ -145,10 +145,8 @@ namespace Splitting
 
         public void ScreenShake()
         {
-
             if (shakeLenght > 0)
-            {
-                
+            {                
                 transform.position = new Vector3((transform.position.x + (xTo - transform.position.x)) + Random.Range(-shakeRemain, shakeRemain), (transform.position.y + (yTo - transform.position.y)) + Random.Range(-shakeRemain, shakeRemain), transform.position.z) + offset;
                 shakeRemain = Mathf.Max(0, shakeRemain - ((1 / shakeLenght) * shakeMagnitude * Time.deltaTime));                               
 
@@ -536,7 +534,11 @@ namespace Splitting
         {
             blockYTo = false;
         }
-               
+          
+        public void EnableExeShake()
+        {
+            exeShake = true;
+        }
 
     }
 }

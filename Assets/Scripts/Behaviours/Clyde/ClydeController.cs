@@ -7,21 +7,21 @@ public class ClydeController : MonoBehaviour
     [SerializeField] private float readyToShotPosition = 0.0f;
     [SerializeField] private float approachSpeed = 1.0f;
 
-    public CapsuleCollider2D waterGunColl;
-    [SerializeField] private float waterGunSpeed = 1.0f;
+    public GameObject waterGunProj;
+    private Transform projSpawner;
 
-    private WaterGunController waterGunController;
+    [SerializeField] private Vector3 offsetY = new Vector3(0, -1, 0); 
 
-    [SerializeField] private Vector2 realSize = new Vector2(0, 0);
+    private WaterGunController waterGunController;    
 
     public bool startApproach;
+    private bool boom;
     public bool startShot;
 
     // Start is called before the first frame update
     void Start()
-    {
-        waterGunColl = gameObject.GetComponentInChildren<CapsuleCollider2D>();
-        waterGunController = gameObject.GetComponentInChildren<WaterGunController>();
+    { 
+        projSpawner = transform.Find("bone_1/bone_2/bone_3");
     }
 
     // Update is called once per frame
@@ -41,8 +41,7 @@ public class ClydeController : MonoBehaviour
                 transform.position = new Vector2(transform.position.x + (Time.deltaTime * approachSpeed * -1), transform.position.y);
 
                 if (transform.position.x <= readyToShotPosition)
-                {
-                    realSize = waterGunColl.size;
+                {                    
                     startApproach = false;
                     startShot = true;
                 }
@@ -52,8 +51,7 @@ public class ClydeController : MonoBehaviour
                 transform.position = new Vector2(transform.position.x + (Time.deltaTime * approachSpeed), transform.position.y);
 
                 if (transform.position.x >= readyToShotPosition)
-                {
-                    realSize = waterGunColl.size;
+                {                   
                     startApproach = false;
                     startShot = true;
                 }
@@ -64,15 +62,27 @@ public class ClydeController : MonoBehaviour
     public void ClydeWaterGun()
     {
         if (startShot)
-        {     
-
-            waterGunColl.size = new Vector2(waterGunColl.size.x + (waterGunSpeed * Time.deltaTime), waterGunColl.size.y);
-           
-            if (waterGunController.collisionCheck)
+        {
+            if (!boom)
             {
-                waterGunColl.size = realSize;
+                boom = true;
+                GameObject water =  Instantiate(waterGunProj);
+
+                water.transform.position = projSpawner.position + offsetY;                
+
+                Quaternion rotation = water.transform.rotation;
+                Vector3 rotationEulers = new Vector3(0, 0, (projSpawner.eulerAngles.z + 90));
+                rotation.eulerAngles = rotationEulers;
+                water.transform.rotation = rotation;
+
+                waterGunController = water.GetComponentInChildren<WaterGunController>();
+            }            
+            
+            if (waterGunController.collisionCheck)
+            {                
                 waterGunController.collisionCheck = false;
                 startShot = false;
+                boom = false;
             }
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WaterGunController : MonoBehaviour
-{
+{    
     [SerializeField] private float waterGunForce = -500.0f;
     public bool collisionCheck;
 
@@ -27,5 +27,5 @@ public class WaterGunController : MonoBehaviour
 
             collisionCheck = true;
         }
-    }
+    }    
 }

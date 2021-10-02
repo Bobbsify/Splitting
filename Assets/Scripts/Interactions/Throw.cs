@@ -6,7 +6,7 @@ namespace Splitting
 {
     public class Throw : MonoBehaviour
     {
-        private static string[] tagsToCheck = {"GROUND","PLATFORM"};
+        private static string[] tagsToCheck = { "GROUND", "PLATFORM" };
 
         public Rigidbody2D rbToThrow;
         public GameObject entityThrowing;
@@ -53,15 +53,7 @@ namespace Splitting
 
                 if (Input.GetKeyUp(undoThrowButton)) //drop
                 {
-                    entityThrowing.GetComponent<Animator>().SetTrigger("release");
-                    rbToThrow.velocity = new Vector2(entityThrowing.GetComponent<Collider2D>().bounds.size.x*2, 0) * -entityThrowing.transform.localScale;
-                    foreach (Collider2D col in rbToThrow.gameObject.GetComponents<Collider2D>()) //Enable Colliders
-                    {
-                        col.enabled = true;
-                    }
-                    entityThrowing.layer = 8; //Gameplay-back
-                    rbToThrow.gameObject.layer = 13; //Boxes
-                    resetLr();
+                    ReleaseBox();
                 }
 
                 if (Input.GetKeyDown(throwButton))
@@ -111,7 +103,7 @@ namespace Splitting
 
             RaycastHit2D[] hitRay;
 
-            for(int i = 0; i < maxCalculations; i++) { 
+            for (int i = 0; i < maxCalculations; i++) {
                 moveStep += gravityAccel;
                 moveStep *= drag;
                 pos += moveStep;
@@ -119,13 +111,13 @@ namespace Splitting
                 hitRay = Physics2D.RaycastAll(pos, Vector2.down, 0.1f);
                 foreach (RaycastHit2D ray in hitRay)
                 {
-                        foreach (string tagToCheck in tagsToCheck)
+                    foreach (string tagToCheck in tagsToCheck)
+                    {
+                        if (ray.collider.tag.ToUpper() == tagToCheck)
                         {
-                            if (ray.collider.tag.ToUpper() == tagToCheck)
-                            {
-                                return results.ToArray();
-                            }
+                            return results.ToArray();
                         }
+                    }
                 }
             }
 
@@ -141,7 +133,7 @@ namespace Splitting
         private void defineAngle()
         {
             //horizontalInput
-            angle = Mathf.Min(Mathf.Max(angle + horizontalInput, minAngle),maxAngle);
+            angle = Mathf.Min(Mathf.Max(angle + horizontalInput, minAngle), maxAngle);
 
             //flip when angle is less than zero
             Vector3 originalScale = entityThrowing.transform.localScale;
@@ -177,7 +169,7 @@ namespace Splitting
 
         //Resets Linerenderer so it may be used once more
         private void resetLr()
-        {            
+        {
             lr.positionCount = 0;
             throwing = false;
             if (rbToThrow.gameObject != null && rbToThrow.gameObject.tag == "Carryable")
@@ -188,6 +180,19 @@ namespace Splitting
             entityThrowing.layer = 8; //Gameplay-back
             rbToThrow.gameObject.layer = 13; //Boxes
             rbToThrow = null; //remove object
+        }
+
+        public void ReleaseBox()
+        {
+            entityThrowing.GetComponent<Animator>().SetTrigger("release");
+            rbToThrow.velocity = new Vector2(entityThrowing.GetComponent<Collider2D>().bounds.size.x * 2, 0) * -entityThrowing.transform.localScale;
+            foreach (Collider2D col in rbToThrow.gameObject.GetComponents<Collider2D>()) //Enable Colliders
+            {
+                col.enabled = true;
+            }
+            entityThrowing.layer = 8; //Gameplay-back
+            rbToThrow.gameObject.layer = 13; //Boxes
+            resetLr();
         }
     }
 

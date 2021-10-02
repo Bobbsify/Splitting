@@ -18,7 +18,7 @@ namespace Splitting {
         private float maxY = 1;
         private float maxX = 1;
         private bool doFade = false;
-        private float fadeQuantity = 0.5f;
+        private float fadeQuantity = 0.1f;
         private float fadeMod = 1;
 
         // Start is called before the first frame update
@@ -44,7 +44,7 @@ namespace Splitting {
             {
                 objCollider = null;
                 audioToPlay.volume += fadeQuantity * fadeMod * Time.deltaTime;
-                if (audioToPlay.volume <= 0)
+                if (fadeMod > 0 ? audioToPlay.volume <= 0 : audioToPlay.volume >= 1)
                 {
                     doFade = false;
                 }

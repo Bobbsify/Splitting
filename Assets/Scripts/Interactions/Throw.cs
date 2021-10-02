@@ -38,7 +38,7 @@ namespace Splitting
         private void Awake()
         {
             lr = GetComponent<LineRenderer>();
-            setInputs();
+            SetInputs();
         }
 
         private void Update()

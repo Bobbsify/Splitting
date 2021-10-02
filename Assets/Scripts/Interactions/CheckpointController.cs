@@ -11,7 +11,7 @@ namespace Splitting {
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.tag == "Player") {
-                lastCheckpoint.levelCheckpoint++;
+                lastCheckpoint.levelCheckpoint = 1;
                 this.enabled = false; //Checkpoints may only trigger once
             }
         }

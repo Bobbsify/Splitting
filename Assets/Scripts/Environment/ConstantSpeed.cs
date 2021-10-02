@@ -9,6 +9,7 @@ namespace Splitting {
     {
         [SerializeField] private float speed;
         [SerializeField] private Direction direction;
+        [SerializeField] private bool isEnabled = false;
         private int speedDirectionMultiplier = 1;
 
         [SerializeField] private UnityEvent wakingEvents;
@@ -34,7 +35,7 @@ namespace Splitting {
 
         private void OnCollisionStay2D(Collision2D collision)
         {
-            if (this.isActiveAndEnabled) { 
+            if (isEnabled) { 
                 Vector3 pos = collision.collider.transform.position;
                 Vector2 newVec = new Vector3(pos.x + speed * speedDirectionMultiplier * Time.deltaTime, pos.y, pos.z);
                 collision.collider.transform.position = newVec;
@@ -47,21 +48,13 @@ namespace Splitting {
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            if (this.isActiveAndEnabled)
+            if (isEnabled)
             {
-                Vector3 pos = collision.collider.transform.position;
-                Vector2 newVec = new Vector3(pos.x + speed * speedDirectionMultiplier * Time.deltaTime, pos.y, pos.z);
-                collision.collider.transform.position = newVec;
                 if (collision.collider.tag == "Player")
                 {
                     collision.collider.GetComponent<StateControllerInterface>().EnableJump();
                 }
             }
-        }
-
-        private void Start()
-        {
-            
         }
     }
 

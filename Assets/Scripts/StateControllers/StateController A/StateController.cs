@@ -8,7 +8,9 @@ namespace Splitting
     public class StateController : MonoBehaviour, StateControllerInterface
     {
         public bool hasControl;
+
         public bool forcedStop;
+        public bool stopJump;
 
         public bool isGrounded;
         public bool isWalled;
@@ -251,7 +253,7 @@ namespace Splitting
         {
             antJump.enabled = true;
 
-            if (isGrounded && !antExtend.isExtended && !antMove.isCrouched && (!AnimatorIsPlaying("AntCarryingAdjust") && !AnimatorIsPlaying("AntCarryingEnd") && !AnimatorIsPlaying("AntButtonPress")) && !isObstructed)
+            if (!stopJump && isGrounded && !antExtend.isExtended && !antMove.isCrouched && (!AnimatorIsPlaying("AntCarryingAdjust") && !AnimatorIsPlaying("AntCarryingEnd") && !AnimatorIsPlaying("AntButtonPress")) && !isObstructed)
             {
                 antJump.canJump = true;
             }
@@ -390,6 +392,16 @@ namespace Splitting
         public void EnableControl()
         {
             forcedStop = false;
+        }
+
+        public void DisableJump()
+        {
+            stopJump = true;
+        }
+
+        public void EnableJump()
+        {
+            stopJump = false;
         }
     }
 }

@@ -6,8 +6,8 @@ using UnityEngine.UI;
 namespace Splitting { 
 public class PauseController : MonoBehaviour
     {
-        [SerializeField]
-        private GameObject GUI;
+        [SerializeField] private GameObject GUI;
+        [SerializeField] private GameObject HUD;
 
         private KeyCode pauseButton;
         private bool pause = false;
@@ -37,6 +37,7 @@ public class PauseController : MonoBehaviour
         private void ActivateGui()
         {
             GUI.SetActive(pause);
+            HUD.SetActive(!pause);
             foreach (Transform obj in GUI.transform)
             {
                 if (obj.name.ToLower() == "main" || obj.name.ToLower() == "logo" || obj.name.ToLower() == "pausebackground")

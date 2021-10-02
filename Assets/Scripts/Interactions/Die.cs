@@ -29,6 +29,7 @@ namespace Splitting {
         {
             sceneCheckpoint = checkpoint.levelCheckpoint;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneCheckpoint);
+            checkpoint.levelCheckpoint = 0;
         }
 
         public void resetCheckpoint()

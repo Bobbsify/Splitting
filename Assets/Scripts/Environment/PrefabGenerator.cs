@@ -9,10 +9,11 @@ public class PrefabGenerator : MonoBehaviour
     [SerializeField] private float maxInstances = 1;
     [SerializeField] private Transform spawn;
 
-    private List<GameObject> instances;
+    private List<GameObject> instances = new List<GameObject>();
 
     public void Generate()
     {
+        Debug.Log(instances.Count);
         if (instances.Count >= maxInstances)
         {
             removeOldestInstance();
@@ -23,7 +24,7 @@ public class PrefabGenerator : MonoBehaviour
     private void removeOldestInstance()
     {
         Destroy(instances.ToArray()[0]);
-        //instances.RemoveAt(0);
+        instances.RemoveAt(0);
     }
 
     private void createNewInstance()

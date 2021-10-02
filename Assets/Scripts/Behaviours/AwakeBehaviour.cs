@@ -10,9 +10,9 @@ namespace Splitting {
         [Header("Awaking Settings")]
         [SerializeField] private Turn actionType;
         [SerializeField] private ActivationTypes activationType;
-        [SerializeField] private MonoBehaviour[] scriptsToLoad;
+        [SerializeField] private bool disableAfterUse = true;
 
-        [Header("Scoring Settings")]
+        [Header("Scoring Settings (Only use with score activation type)")]
         [SerializeField] private Platform scoringPlatform;
         [SerializeField] private int targetScore;
 
@@ -115,18 +115,23 @@ namespace Splitting {
 
         private void AwakeScripts()
         {
-            bool action = actionType == Turn.on;
-            foreach (MonoBehaviour script in scriptsToLoad)
-            {
-                script.enabled = actionType == Turn.toggle ? !script.enabled : action;
-            }
             DoEvents();
             this.enabled = false;
+            if(!disableAfterUse)
+            {
+                StartCoroutine(restart());
+            }
         }
 
         private void DoEvents()
         {
             subsequentEvents.Invoke();
+        }
+
+        private IEnumerator restart()
+        {
+            yield return new WaitForSeconds(0.5f);
+            this.enabled = true;
         }
     }
 

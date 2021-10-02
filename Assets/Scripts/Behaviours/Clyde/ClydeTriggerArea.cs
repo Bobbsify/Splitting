@@ -46,18 +46,23 @@ namespace Splitting
                     trajectPred = GameObject.Find("TrajectoryPredictionTA");
                     getThrow = trajectPred.GetComponentInChildren<Throw>();
 
+                    collision.GetComponent<StateControllerTA>().DisableThrow();
+
                     if (!getThrow.rbToThrow)
                     {
                         collision.GetComponent<StateControllerInterface>().DisableControl();
+
+                        clydePatrol.enabled = false;
+                        clydeController.startApproach = true;
                     }
                 }
                 else
                 {
                     collision.GetComponent<StateControllerInterface>().DisableControl();
-                }
 
-                clydePatrol.enabled = false;
-                clydeController.startApproach = true;
+                    clydePatrol.enabled = false;
+                    clydeController.startApproach = true;
+                }               
             }
         }
 
@@ -65,10 +70,35 @@ namespace Splitting
         {
             if (collision.tag == "Player")
             {
-                collision.GetComponent<StateControllerInterface>().EnableControl();
+                bool ant = false;
+                bool tyr = false;
 
-                clydePatrol.enabled = true;
-                clydeController.startApproach = false;
+                ant = collision.name.ToUpper().Contains("ANT");
+                tyr = collision.name.ToUpper().Contains("TYR");
+
+                if (ant && tyr)
+                {
+                    trajectPred = GameObject.Find("TrajectoryPredictionTA");
+                    getThrow = trajectPred.GetComponentInChildren<Throw>();
+
+                    collision.GetComponent<StateControllerTA>().EnableThrow();
+
+                    if (!getThrow.rbToThrow)
+                    {
+                        collision.GetComponent<StateControllerInterface>().EnableControl();
+
+                        clydePatrol.enabled = true;
+                        clydeController.startApproach = false;
+                    }
+                }
+                else
+                {
+                    collision.GetComponent<StateControllerInterface>().EnableControl();
+
+                    clydePatrol.enabled = true;
+                    clydeController.startApproach = false;
+                }
+                
             }
         }
     }

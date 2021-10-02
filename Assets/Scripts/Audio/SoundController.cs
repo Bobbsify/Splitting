@@ -17,6 +17,9 @@ namespace Splitting {
 
         private float maxY = 1;
         private float maxX = 1;
+        private bool doFade = false;
+        private float fadeQuantity = 0.5f;
+        private float fadeMod = 1;
 
         // Start is called before the first frame update
         void OnEnable()
@@ -36,6 +39,15 @@ namespace Splitting {
             if (directional && objCollider != null) {
                     audioToPlay.volume = ProcessVolume(objCollider.transform.position.x, objCollider.transform.position.y);
                     audioToPlay.panStereo = DetectStereoPan(objCollider.transform.position.x);
+            }
+            if (doFade)
+            {
+                objCollider = null;
+                audioToPlay.volume += fadeQuantity * fadeMod * Time.deltaTime;
+                if (audioToPlay.volume <= 0)
+                {
+                    doFade = false;
+                }
             }
         }
 
@@ -82,6 +94,17 @@ namespace Splitting {
             float distanceY = Mathf.Abs(curr.y - incomingY); //detect distance Y
             
             return 1 - Mathf.Sqrt(Mathf.Pow(distanceX / maxX, 2) + Mathf.Pow(distanceY / maxY, 2));
+        }
+
+        public void fadeOut()
+        {
+            fadeMod = -1;
+            doFade = true;
+        }
+        public void fadeIn()
+        {
+            fadeMod = 1;
+            doFade = true;
         }
 
         private void OnDrawGizmos()

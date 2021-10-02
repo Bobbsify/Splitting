@@ -18,6 +18,16 @@ namespace Splitting {
 
         private void Awake()
         {
+
+            if (isEnabled)
+            {
+                Enable();
+            }
+            else
+            {
+                Disable();
+            }
+
             if (direction == Direction.Left)
             {
                 speedDirectionMultiplier = -1;
@@ -26,12 +36,27 @@ namespace Splitting {
             {
                 speedDirectionMultiplier = 1;
             }
-            wakingEvents.Invoke();
+
         }
 
-        private void OnDisable()
+        public void Enable()
         {
+            isEnabled = true;
+            wakingEvents.Invoke();
+            foreach (Animator anim in GetComponentsInChildren<Animator>())
+            {
+                anim.enabled = true;
+            }
+        }
+
+        public void Disable()
+        {
+            isEnabled = false;
             disabilngEvents.Invoke();
+            foreach (Animator anim in GetComponentsInChildren<Animator>())
+            {
+                anim.enabled = false;
+            }
         }
 
         private void OnCollisionStay2D(Collision2D collision)

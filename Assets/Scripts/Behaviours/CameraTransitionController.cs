@@ -37,6 +37,7 @@ namespace Splitting
 
         private void Update()
         {
+            Debug.Log("doZoom? " + doZoom + "\ndoOffset? " + doOffset + "\nX Y Z?" + reachedX + "/" + reachedY + "/" + reachedZ);
             if (doZoom)
             {
                 Zoom();
@@ -79,23 +80,20 @@ namespace Splitting
 
         public void StartOffset()
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            tyr = player.name.ToLower().Contains("tyr");
-            ant = player.name.ToLower().Contains("ant");
             doOffset = true;
         }
 
         public void StartZoomOut()
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            tyr = player.name.ToLower().Contains("tyr");
-            ant = player.name.ToLower().Contains("ant");
             modifier = targetSize > gameCamera.orthographicSize ? 1 : -1;
             doZoom = true;
         }
 
         private void Zoom()
         {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            tyr = player.name.ToLower().Contains("tyr");
+            ant = player.name.ToLower().Contains("ant");
             float zoomAmount = modifier * zoomSpeed * Time.deltaTime;
             CameraController ctrl = gameCamera.GetComponent<CameraController>();
             if (tyr && ant)
@@ -115,6 +113,9 @@ namespace Splitting
 
         private void Offset()
         {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            tyr = player.name.ToLower().Contains("tyr");
+            ant = player.name.ToLower().Contains("ant");
             CameraController cameraCtrl;
             gameCamera.gameObject.TryGetComponent(out cameraCtrl);
 
@@ -131,13 +132,13 @@ namespace Splitting
                     {
                         cameraCtrl.tyrCameraOffset.x += cameraCtrl.tyrCameraOffset.x >= targetOffset.x ? cameraCtrl.tyrCameraOffset.x : xMod * offsetSpeeds.x * Time.deltaTime;
                         cameraCtrl.antCameraOffset.x = cameraCtrl.tyrCameraOffset.x;
-                        if (cameraCtrl.tyrCameraOffset.x >= targetOffset.x) reachedX = true;
+                        if (cameraCtrl.tyrCameraOffset.x >= targetOffset.x || cameraCtrl.antCameraOffset.x >= targetOffset.x) reachedX = true;
                     }
                     else
                     {
                         cameraCtrl.tyrCameraOffset.x += cameraCtrl.tyrCameraOffset.x <= targetOffset.x ? cameraCtrl.tyrCameraOffset.x : xMod * offsetSpeeds.x * Time.deltaTime;
                         cameraCtrl.antCameraOffset.x = cameraCtrl.tyrCameraOffset.x;
-                        if (cameraCtrl.tyrCameraOffset.x <= targetOffset.x) reachedX = true;
+                        if (cameraCtrl.tyrCameraOffset.x <= targetOffset.x || cameraCtrl.antCameraOffset.x <= targetOffset.x) reachedX = true;
                     }
                 }
                 if (!reachedY)
@@ -146,13 +147,13 @@ namespace Splitting
                     {
                         cameraCtrl.tyrCameraOffset.y += cameraCtrl.tyrCameraOffset.y >= targetOffset.y ? cameraCtrl.tyrCameraOffset.y : yMod * offsetSpeeds.y * Time.deltaTime;
                         cameraCtrl.antCameraOffset.y = cameraCtrl.tyrCameraOffset.y;
-                        if (cameraCtrl.tyrCameraOffset.y >= targetOffset.y) reachedY = true;
+                        if (cameraCtrl.tyrCameraOffset.y >= targetOffset.y || cameraCtrl.antCameraOffset.y >= targetOffset.y) reachedY = true;
                     }
                     else
                     {
                         cameraCtrl.tyrCameraOffset.y += cameraCtrl.tyrCameraOffset.y <= targetOffset.y ? cameraCtrl.tyrCameraOffset.y : yMod * offsetSpeeds.y * Time.deltaTime;
                         cameraCtrl.antCameraOffset.y = cameraCtrl.tyrCameraOffset.y;
-                        if (cameraCtrl.tyrCameraOffset.y <= targetOffset.y) reachedY = true;
+                        if (cameraCtrl.tyrCameraOffset.y <= targetOffset.y || cameraCtrl.antCameraOffset.y <= targetOffset.y) reachedY = true;
                     }
                 }
                 if (!reachedZ)
@@ -161,13 +162,13 @@ namespace Splitting
                     {
                         cameraCtrl.tyrCameraOffset.z += cameraCtrl.tyrCameraOffset.z >= targetOffset.z ? cameraCtrl.tyrCameraOffset.z : zMod * offsetSpeeds.z * Time.deltaTime;
                         cameraCtrl.antCameraOffset.z = cameraCtrl.tyrCameraOffset.z;
-                        if (cameraCtrl.tyrCameraOffset.z >= targetOffset.z) reachedZ = true;
+                        if (cameraCtrl.tyrCameraOffset.z >= targetOffset.z || cameraCtrl.antCameraOffset.z >= targetOffset.z) reachedZ = true;
                     }
                     else
                     {
                         cameraCtrl.tyrCameraOffset.z += cameraCtrl.tyrCameraOffset.z >= targetOffset.z ? cameraCtrl.tyrCameraOffset.z : zMod * offsetSpeeds.z * Time.deltaTime;
                         cameraCtrl.antCameraOffset.z = cameraCtrl.tyrCameraOffset.z;
-                        if (cameraCtrl.tyrCameraOffset.z <= targetOffset.z) reachedZ = true;
+                        if (cameraCtrl.tyrCameraOffset.z <= targetOffset.z || cameraCtrl.antCameraOffset.z <= targetOffset.z) reachedZ = true;
                     }
                 }
                 if (reachedX && reachedY && reachedZ)

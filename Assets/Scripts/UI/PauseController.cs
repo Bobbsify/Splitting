@@ -23,7 +23,7 @@ public class PauseController : MonoBehaviour
             {
                 pause = !pause;
                 Time.timeScale = pause ? 0 : 1;
-                GUI.SetActive(pause);
+                ActivateGui();
             }
         }
 
@@ -31,7 +31,23 @@ public class PauseController : MonoBehaviour
         {
             pause = !pause;
             Time.timeScale = pause ? 0 : 1;
+            ActivateGui();
+        }
+
+        private void ActivateGui()
+        {
             GUI.SetActive(pause);
+            foreach (Transform obj in GUI.transform)
+            {
+                if (obj.name.ToLower() == "Main" || obj.name.ToLower() == "Logo")
+                {
+                    obj.gameObject.SetActive(true);
+                }
+                else
+                {
+                    obj.gameObject.SetActive(false);
+                }
+            }
         }
     }
 }

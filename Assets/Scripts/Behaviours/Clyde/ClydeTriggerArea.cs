@@ -2,49 +2,74 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClydeTriggerArea : MonoBehaviour
+namespace Splitting
 {
-    private GameObject clyde;
-    private ClydeController clydeController;
-    private Patrol clydePatrol;
-
-    // Start is called before the first frame update
-    void Start()
+    public class ClydeTriggerArea : MonoBehaviour
     {
-        clyde = GameObject.FindGameObjectWithTag("Clyde");
+        public GameObject clyde;
+        private ClydeController clydeController;
+        private Patrol clydePatrol;
 
-        if (clyde != null)
+        private GameObject trajectPred;
+        private Throw getThrow;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            clydeController = clyde.GetComponent<ClydeController>();
-            clydePatrol = clyde.GetComponent<Patrol>();
+            clyde = GameObject.FindGameObjectWithTag("Clyde");
+
+            if (clyde != null)
+            {
+                clydeController = clyde.GetComponent<ClydeController>();
+                clydePatrol = clyde.GetComponent<Patrol>();
+            }
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Player")
+        // Update is called once per frame
+        void Update()
         {
-            collision.GetComponent<StateControllerInterface>().DisableControl();
 
-            clydePatrol.enabled = false;
-            clydeController.startApproach = true;
         }
-    }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag == "Player")
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            collision.GetComponent<StateControllerInterface>().EnableControl();
+            if (collision.tag == "Player")
+            {
+                bool ant = false;
+                bool tyr = false;
 
-            clydePatrol.enabled = true;
-            clydeController.startApproach = false;
+                ant = collision.name.ToUpper().Contains("ANT");
+                tyr = collision.name.ToUpper().Contains("TYR");
+
+                if (ant && tyr)
+                {
+                    trajectPred = GameObject.Find("TrajectoryPredictionTA");
+                    getThrow = trajectPred.GetComponentInChildren<Throw>();
+
+                    if (!getThrow.rbToThrow)
+                    {
+                        collision.GetComponent<StateControllerInterface>().DisableControl();
+                    }
+                }
+                else
+                {
+                    collision.GetComponent<StateControllerInterface>().DisableControl();
+                }
+
+                clydePatrol.enabled = false;
+                clydeController.startApproach = true;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.tag == "Player")
+            {
+                collision.GetComponent<StateControllerInterface>().EnableControl();
+
+                clydePatrol.enabled = true;
+                clydeController.startApproach = false;
+            }
         }
     }
 }

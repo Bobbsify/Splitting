@@ -28,7 +28,7 @@ namespace Splitting
             }
         }
 
-        private void loadLevel(bool goToTransition) {
+        public void loadLevel(bool goToTransition) {
             lastCheckpoint.levelCheckpoint = 0;
             if (goToTransition)
             {
@@ -53,10 +53,8 @@ namespace Splitting
      Level 5.1 : 4
      Level 5 checkpoint 1 : 5
      Level 5.2 : 6
-     Level 5.2 checkpoint 1 : 7
-     Level 5.2 checkpoint 2 : 8
-     Third Cutscene: 9
-     Loading Screen: 10
+     ToBeContinued: 7
+     Loading Screen: 8
 
 
     */
@@ -67,12 +65,10 @@ namespace Splitting
         FirstCutscene = 1,
         Tutorial = 2,
         SecondCutscene = 3,
-        Level5part1 = 4,
-        Level5part1checkpoint1 = 5,
-        Level5part2 = 6,
-        Level5part2checkpoint1 = 7,
-        Level5part2checkpoint2 = 8,
-        ThirdCutscene = 9,
-        LoadingScreen = 10
+        Level5Part1 = 4,
+        Level5Part1Checkpoint1 = 5,
+        Level5Part2 = 6,
+        ToBeContinued = 7,
+        LoadingScreen = 8
     }
 }

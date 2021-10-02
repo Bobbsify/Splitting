@@ -34,9 +34,34 @@ namespace Splitting {
 
         private void OnCollisionStay2D(Collision2D collision)
         {
-            Vector3 pos = collision.collider.transform.position;
-            Vector2 newVec = new Vector3(pos.x + speed * speedDirectionMultiplier * Time.deltaTime, pos.y, pos.z);
-            collision.collider.transform.position = newVec;
+            if (this.isActiveAndEnabled) { 
+                Vector3 pos = collision.collider.transform.position;
+                Vector2 newVec = new Vector3(pos.x + speed * speedDirectionMultiplier * Time.deltaTime, pos.y, pos.z);
+                collision.collider.transform.position = newVec;
+                if (collision.collider.tag == "Player")
+                {
+                    collision.collider.GetComponent<StateControllerInterface>().DisableJump();
+                }
+            }
+        }
+
+        private void OnCollisionExit2D(Collision2D collision)
+        {
+            if (this.isActiveAndEnabled)
+            {
+                Vector3 pos = collision.collider.transform.position;
+                Vector2 newVec = new Vector3(pos.x + speed * speedDirectionMultiplier * Time.deltaTime, pos.y, pos.z);
+                collision.collider.transform.position = newVec;
+                if (collision.collider.tag == "Player")
+                {
+                    collision.collider.GetComponent<StateControllerInterface>().EnableJump();
+                }
+            }
+        }
+
+        private void Start()
+        {
+            
         }
     }
 

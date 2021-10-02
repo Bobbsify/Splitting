@@ -11,16 +11,25 @@ public class AreaTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.tag == "Player")
+        { 
         enteringEvents.Invoke();
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-       stayingEvents.Invoke();
+        if (collision.tag == "Player")
+        {
+            stayingEvents.Invoke();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
-    {
-        exitingEvents.Invoke();
-    }
+        {
+            if (collision.tag == "Player")
+            {
+                exitingEvents.Invoke();
+            }
+        }
 }

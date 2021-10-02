@@ -10,6 +10,7 @@ namespace Splitting
         public bool hasControl;
         public bool forcedStop;
         public bool stopJump;
+        private bool stopThrow;
 
         public bool isGrounded;
         public bool isWalled;
@@ -309,7 +310,7 @@ namespace Splitting
 
         void ControlWhenCanThrow()
         {
-            if (!isGrounded || AnimatorIsPlaying("TyrantHacking"))
+            if (!isGrounded || AnimatorIsPlaying("TyrantHacking") || stopThrow)
             {
                 getThrow.enabled = false;
             }
@@ -371,6 +372,16 @@ namespace Splitting
         public void EnableJump()
         {
             stopJump = false;
+        }
+
+        public void DisableThrow()
+        {
+            stopThrow = true;
+        }
+
+        public void EnableThrow()
+        {
+            stopThrow = false;
         }
     }
 }

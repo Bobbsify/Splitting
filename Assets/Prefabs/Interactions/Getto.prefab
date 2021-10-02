@@ -263,8 +263,8 @@ MonoBehaviour:
   - {fileID: 8327940506662822908}
   - {fileID: 4643073868916271910}
   m_Bounds:
-    m_Center: {x: -4.4227476, y: -8.498175, z: 0}
-    m_Extent: {x: 0.53010976, y: 0.89997697, z: 0}
+    m_Center: {x: 1.4115493, y: 2.5018497, z: 0}
+    m_Extent: {x: 0.41574162, y: 0.6196929, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &4177943181266963865
@@ -399,8 +399,8 @@ MonoBehaviour:
   - {fileID: 6337747907994586607}
   - {fileID: 1937470579822677525}
   m_Bounds:
-    m_Center: {x: -3.8250165, y: -7.611701, z: 0}
-    m_Extent: {x: 0.94229937, y: 0.56551385, z: 0}
+    m_Center: {x: 2.250836, y: 3.7884343, z: 0}
+    m_Extent: {x: 0.29907268, y: 0.40367103, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &4997007103548096117
@@ -524,5 +524,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d18d342536039b4299adb22da0526b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterGunForce: -500
+  waterGunForce: -800
   collisionCheck: 0

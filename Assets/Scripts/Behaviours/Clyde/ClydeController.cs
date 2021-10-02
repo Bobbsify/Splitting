@@ -12,6 +12,8 @@ namespace Splitting
         [SerializeField] private float changeDirDx = 326.0f;
         [SerializeField] private float changeDirSx = 403.0f;
 
+        private bool checkDir;
+        private bool previousDirection;
         private bool direction;
         private bool controlIfUpdateDir;
 
@@ -45,7 +47,7 @@ namespace Splitting
 
             UpdateAnimation();
 
-            CallAnimator(direction, startShot);
+            CallAnimator(direction, startShot, previousDirection);
 
         }
 
@@ -55,6 +57,16 @@ namespace Splitting
             {
                 if (transform.position.x > readyToShotPosition)
                 {
+                    if (direction && !checkDir)
+                    {
+                        previousDirection = true;
+                    }
+                    else if (!direction && !checkDir)
+                    {
+                        previousDirection = false;
+                    }
+
+                    checkDir = true;
                     direction = false;
                     transform.position = new Vector2(transform.position.x + (Time.deltaTime * approachSpeed * -1), transform.position.y);
 
@@ -66,6 +78,16 @@ namespace Splitting
                 }
                 else if (transform.position.x < readyToShotPosition)
                 {
+                    if (direction && !checkDir)
+                    {
+                        previousDirection = true;
+                    }
+                    else if (!direction && !checkDir)
+                    {
+                        previousDirection = false;
+                    }
+
+                    checkDir = true;
                     direction = true;
                     transform.position = new Vector2(transform.position.x + (Time.deltaTime * approachSpeed), transform.position.y);
 
@@ -99,23 +121,26 @@ namespace Splitting
                     waterGunController = water.GetComponentInChildren<WaterGunController>();
                 }
 
-                /*
                 if (waterGunController.collisionCheck)
-                {                
+                {
+                    direction = previousDirection;
+                    checkDir = false;
+
                     waterGunController.collisionCheck = false;
                     startShot = false;
                     boom = false;
                 }
-                */
             }
+            
         }
 
-        private void CallAnimator(bool direction, bool startShot)
+        private void CallAnimator(bool direction, bool startShot, bool previoudDir)
         {
             if (animator != null)
             {
                 animator.SetBool("direction", direction);
                 animator.SetBool("startShot", startShot);
+                animator.SetBool("previousDirection", previoudDir);
             }
         }
 

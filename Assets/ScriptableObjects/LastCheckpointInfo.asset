@@ -12,7 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eb9bde1db26ba144a248a75f868ab18, type: 3}
   m_Name: LastCheckpointInfo
   m_EditorClassIdentifier: 
-  savedObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  levelCheckpoint: 0

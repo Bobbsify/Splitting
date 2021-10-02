@@ -38,8 +38,7 @@ namespace Splitting
         private void Awake()
         {
             lr = GetComponent<LineRenderer>();
-            throwButton = new InputSettings().ThrowButton;
-            undoThrowButton = new InputSettings().UndoThrowButton;
+            setInputs();
         }
 
         private void Update()
@@ -193,6 +192,18 @@ namespace Splitting
             entityThrowing.layer = 8; //Gameplay-back
             rbToThrow.gameObject.layer = 13; //Boxes
             resetLr();
+        }
+
+        public void SetInputs()
+        {
+            throwButton = new InputSettings().ThrowButton;
+            undoThrowButton = new InputSettings().UndoThrowButton;
+        }
+
+        public void RemoveInputs()
+        {
+            throwButton = 0;
+            undoThrowButton = 0;
         }
     }
 

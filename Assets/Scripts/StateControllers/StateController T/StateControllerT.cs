@@ -9,6 +9,7 @@ namespace Splitting
     {
         public bool hasControl;
         public bool forcedStop;
+        public bool stopJump;
 
         public bool isGrounded;
         public bool isWalled;
@@ -312,6 +313,16 @@ namespace Splitting
         public void EnableControl()
         {
             forcedStop = false;
+        }
+
+        public void DisableJump()
+        {
+            stopJump = true;
+        }
+
+        public void EnableJump()
+        {
+            stopJump = false;
         }
     }
 }

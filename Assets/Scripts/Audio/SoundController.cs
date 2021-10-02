@@ -6,11 +6,11 @@ using UnityEngine.Audio;
 namespace Splitting { 
     public class SoundController : MonoBehaviour
     {
+        public AudioMixer mixer;
+
         [SerializeField] bool alwaysPlaying = false;
         [SerializeField] bool directional = true;
         [SerializeField] private SoundTypes soundType;
-        
-        public AudioMixer mixer;
 
         private AudioSource audioToPlay;
         private Collider2D objCollider; //Player collider
@@ -18,7 +18,7 @@ namespace Splitting {
         private float maxY = 1;
         private float maxX = 1;
         private bool doFade = false;
-        private float fadeQuantity = 0.1f;
+        private float fadeOutSpeed = 0.1f;
         private float fadeMod = 1;
 
         // Start is called before the first frame update
@@ -43,7 +43,7 @@ namespace Splitting {
             if (doFade)
             {
                 objCollider = null;
-                audioToPlay.volume += fadeQuantity * fadeMod * Time.deltaTime;
+                audioToPlay.volume += fadeOutSpeed * fadeMod * Time.deltaTime;
                 if (fadeMod > 0 ? audioToPlay.volume <= 0 : audioToPlay.volume >= 1)
                 {
                     doFade = false;
@@ -114,6 +114,11 @@ namespace Splitting {
                 Gizmos.color = Color.yellow;
                 Gizmos.DrawLine(objCollider.transform.position, transform.position);
             }
+        }
+
+        public void setFadeoutSpeed(float speed)
+        {
+            fadeOutSpeed = speed;
         }
 
         private enum SoundTypes

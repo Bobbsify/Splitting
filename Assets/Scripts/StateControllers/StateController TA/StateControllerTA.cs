@@ -107,7 +107,7 @@ namespace Splitting
 
             ResetVerticalSpeedWhenPushing();            
 
-            CallAnimator(isNotScared, getThrow.throwing, isGrounded, getThrow.rbToThrow, hasControl);
+            CallAnimator(isNotScared, getThrow.throwing, isGrounded, getThrow.rbToThrow, forcedStop);
 
             if (hasControl)
             {

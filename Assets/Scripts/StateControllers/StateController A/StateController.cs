@@ -116,7 +116,7 @@ namespace Splitting
             ResetVerticalSpeedWhenPushing();           
 
             //ControlWhenForceDrop();
-            CallAnimator(isNotScared, isGrounded, hasControl);
+            CallAnimator(isNotScared, isGrounded, forcedStop);
 
             if (hasControl)
             {

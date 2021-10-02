@@ -115,7 +115,7 @@ namespace Splitting
 
             ResetVerticalSpeedWhenPushing();
 
-            CallAnimator(hasControl);
+            CallAnimator(forcedStop);
 
             if (hasControl)
             {

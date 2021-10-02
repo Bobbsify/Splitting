@@ -40,6 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 790314436891374866}
   - component: {fileID: 7239522520947902559}
+  - component: {fileID: 966144674747199032}
   m_Layer: 0
   m_Name: Getto
   m_TagString: Untagged
@@ -84,6 +85,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &966144674747199032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863745035650868930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d18d342536039b4299adb22da0526b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterGunForce: 0
+  collisionCheck: 0
 --- !u!1 &2143653243151921768
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,8 +263,8 @@ MonoBehaviour:
   - {fileID: 8327940506662822908}
   - {fileID: 4643073868916271910}
   m_Bounds:
-    m_Center: {x: 1.4115548, y: 2.501853, z: 0}
-    m_Extent: {x: 0.4157414, y: 0.6196868, z: 0}
+    m_Center: {x: -4.4227476, y: -8.498175, z: 0}
+    m_Extent: {x: 0.53010976, y: 0.89997697, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &4177943181266963865
@@ -384,8 +399,8 @@ MonoBehaviour:
   - {fileID: 6337747907994586607}
   - {fileID: 1937470579822677525}
   m_Bounds:
-    m_Center: {x: 2.2508416, y: 3.7884402, z: 0}
-    m_Extent: {x: 0.2990747, y: 0.40367186, z: 0}
+    m_Center: {x: -3.8250165, y: -7.611701, z: 0}
+    m_Extent: {x: 0.94229937, y: 0.56551385, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &4997007103548096117

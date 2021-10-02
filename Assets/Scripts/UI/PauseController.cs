@@ -39,7 +39,7 @@ public class PauseController : MonoBehaviour
             GUI.SetActive(pause);
             foreach (Transform obj in GUI.transform)
             {
-                if (obj.name.ToLower() == "main" || obj.name.ToLower() == "logo")
+                if (obj.name.ToLower() == "main" || obj.name.ToLower() == "logo" || obj.name.ToLower() == "pausebackground")
                 {
                     obj.gameObject.SetActive(true);
                 }

@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/OldMainMenu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: b4ec05be25208054698a5b939faab214
   - enabled: 1
     path: Assets/Scenes/Cutscsenes/PreTutorialCutscene.unity
@@ -16,7 +16,7 @@ EditorBuildSettings:
     guid: fb62da67cf8a9d64c85cb012f3b6ee01
   - enabled: 1
     path: Assets/Scenes/Cutscsenes/PostTutorialCutscene.unity
-    guid: dad492907b702a84ab47013602871037
+    guid: 9d25f8faae0dd464e850966dc1c3f817
   - enabled: 1
     path: Assets/Scenes/Level 5/Level 5.1.1.unity
     guid: 69e4a09a6a5ab184fbb20357d0dafdb6
@@ -27,14 +27,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 5/Level 5.2.1.unity
     guid: c6961d689b3ba5441b03d4fed7af72e2
   - enabled: 1
-    path: Assets/Scenes/Characters.unity
-    guid: 6386814835986724b9cb37e22e426897
-  - enabled: 1
-    path: Assets/Scenes/TestingScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/Cutscsenes/PostFabbricaCutscene.unity
-    guid: 1046a0dce6640d0489c1c789a7a293bb
+    path: Assets/Scenes/Cutscsenes/ToBeContinued.unity
+    guid: 183adbdf39f2bcb46a0873839b6d3109
   - enabled: 1
     path: Assets/Scenes/LoadingScreen.unity
     guid: 38cb24eeb64685743a99b3714b9ba95b

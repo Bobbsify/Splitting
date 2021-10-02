@@ -20,25 +20,25 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: {x: 0, y: 0, z: 0}
-        inSlope: {x: 0, y: 0, z: 243.7252}
-        outSlope: {x: 0, y: 0, z: 243.7252}
+        inSlope: {x: 0, y: 0, z: 195.24942}
+        outSlope: {x: 0, y: 0, z: 195.24942}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.060534436}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.07552857}
       - serializedVersion: 3
         time: 2
         value: {x: 0, y: 0, z: 360}
-        inSlope: {x: 0, y: 0, z: 223.07826}
-        outSlope: {x: 0, y: 0, z: 223.07826}
+        inSlope: {x: 0, y: 0, z: 174.93457}
+        outSlope: {x: 0, y: 0, z: 174.93457}
         tangentMode: 0
         weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.17556047}
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.2889747}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Layer21
+    path: Fan
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves: []
@@ -51,7 +51,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 3465441654
+      path: 1572486873
       attribute: 4
       script: {fileID: 0}
       typeID: 4
@@ -104,7 +104,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Layer21
+    path: Fan
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -132,7 +132,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Layer21
+    path: Fan
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -141,26 +141,26 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 243.7252
-        outSlope: 243.7252
+        inSlope: 195.24942
+        outSlope: 195.24942
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.060534436
+        outWeight: 0.07552857
       - serializedVersion: 3
         time: 2
         value: 360
-        inSlope: 223.07826
-        outSlope: 223.07826
+        inSlope: 174.93457
+        outSlope: 174.93457
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.17556047
+        inWeight: 0.2889747
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Layer21
+    path: Fan
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -171,7 +171,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Layer21
+    path: Fan
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -181,7 +181,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Layer21
+    path: Fan
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -191,7 +191,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Layer21
+    path: Fan
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0

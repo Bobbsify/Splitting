@@ -7,9 +7,10 @@ namespace Splitting {
 
     public class ConstantSpeed : MonoBehaviour
     {
+        public bool isEnabled = false;
+
         [SerializeField] private float speed;
         [SerializeField] private Direction direction;
-        [SerializeField] private bool isEnabled = false;
         private int speedDirectionMultiplier = 1;
 
         [SerializeField] private UnityEvent wakingEvents;

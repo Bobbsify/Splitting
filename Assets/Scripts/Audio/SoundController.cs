@@ -8,9 +8,11 @@ namespace Splitting {
     {
         public AudioMixer mixer;
 
+        [SerializeField] private SoundTypes soundType;
         [SerializeField] bool alwaysPlaying = false;
         [SerializeField] bool directional = true;
-        [SerializeField] private SoundTypes soundType;
+        [SerializeField] private float maxVolume = 1.0f;
+        [SerializeField] private float minVolume = 0.0f;
 
         private AudioSource audioToPlay;
         private Collider2D objCollider; //Player collider
@@ -37,14 +39,14 @@ namespace Splitting {
         void Update()
         {
             if (directional && objCollider != null) {
-                    audioToPlay.volume = ProcessVolume(objCollider.transform.position.x, objCollider.transform.position.y);
+                    audioToPlay.volume = Mathf.Max(ProcessVolume(objCollider.transform.position.x, objCollider.transform.position.y),minVolume);
                     audioToPlay.panStereo = DetectStereoPan(objCollider.transform.position.x);
             }
             if (doFade)
             {
                 objCollider = null;
                 audioToPlay.volume += fadeOutSpeed * fadeMod * Time.deltaTime;
-                if (fadeMod > 0 ? audioToPlay.volume <= 0 : audioToPlay.volume >= 1)
+                if (fadeMod < 0 ? audioToPlay.volume <= minVolume : audioToPlay.volume >= maxVolume)
                 {
                     doFade = false;
                 }
@@ -93,7 +95,7 @@ namespace Splitting {
             float distanceX = Mathf.Abs(curr.x - incomingX); //detect distance X
             float distanceY = Mathf.Abs(curr.y - incomingY); //detect distance Y
             
-            return 1 - Mathf.Sqrt(Mathf.Pow(distanceX / maxX, 2) + Mathf.Pow(distanceY / maxY, 2));
+            return maxVolume - Mathf.Sqrt(Mathf.Pow(distanceX / maxX, 2) + Mathf.Pow(distanceY / maxY, 2));
         }
 
         public void fadeOut()

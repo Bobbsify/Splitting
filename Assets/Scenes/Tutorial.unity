@@ -39208,7 +39208,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1188, y: 462}
+  m_AnchoredPosition: {x: -1188, y: 505.58203}
   m_SizeDelta: {x: 971.8782, y: 103.4346}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &332345902
@@ -43221,8 +43221,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1188, y: 230.20999}
-  m_SizeDelta: {x: 971.8782, y: 400.14}
+  m_AnchoredPosition: {x: -1188, y: 165.58203}
+  m_SizeDelta: {x: 971.878, y: 529.087}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &820500307
 MonoBehaviour:
@@ -43257,8 +43257,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.3
-  m_Text: When Ant & Tyr are close enough pressing Q will instead make Ant carry
+  m_Text: 'When Ant & Tyr are close enough pressing Q will instead make Ant carry
     Tyr on top of it. Pressing Q again while carrying Tyr separates them.
+
+
+    TyrAnt
+    preserves the mechanics of both characters except for Charged '
 --- !u!222 &820500308
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -121794,8 +121798,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1188, y: 273}
-  m_SizeDelta: {x: 1085.3551, y: 547.2772}
+  m_AnchoredPosition: {x: -1188, y: 190}
+  m_SizeDelta: {x: 1085.355, y: 810.165}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1921276837
 MonoBehaviour:
@@ -121817,8 +121821,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8046954919887538488, guid: a0bc8e56afe3910479334776fce9bdea,
-    type: 3}
+  m_Sprite: {fileID: 55314263266472233, guid: 362638f77d1a15645a255d2d81cebfe0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -123762,9 +123765,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 818a5bb12115e824aa57b46cfb7d2c1a, type: 2}
+  soundType: 1
   alwaysPlaying: 0
   directional: 1
-  soundType: 1
+  maxVolume: 1
+  minVolume: 0
 --- !u!1001 &4640820206089354794
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -124050,9 +124055,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 818a5bb12115e824aa57b46cfb7d2c1a, type: 2}
+  soundType: 1
   alwaysPlaying: 0
   directional: 1
-  soundType: 1
+  maxVolume: 1
+  minVolume: 0
 --- !u!114 &5127121606489098591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124159,9 +124166,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 818a5bb12115e824aa57b46cfb7d2c1a, type: 2}
+  soundType: 1
   alwaysPlaying: 0
   directional: 1
-  soundType: 1
+  maxVolume: 1
+  minVolume: 0
 --- !u!114 &5127121607265700146
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,7 +12,10 @@ public class EnableAfterSeconds : MonoBehaviour
 
     private void Awake()
     {
-        StartCoroutine(doEnabling());
+        if (objsToEnable.Count > 0)
+        {
+            startEnabilng();
+        }
     }
 
     private IEnumerator doEnabling()

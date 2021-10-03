@@ -20,4 +20,9 @@ public class EnableAfterSeconds : MonoBehaviour
             obj.SetActive(true);
         }
     }
+
+    public void startAction()
+    {
+        StartCoroutine(doEnabling());
+    }
 }

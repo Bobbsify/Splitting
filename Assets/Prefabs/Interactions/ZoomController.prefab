@@ -73,7 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionType: 0
   activationType: 0
-  scriptsToLoad: []
+  disableAfterUse: 1
   scoringPlatform: {fileID: 0}
   targetScore: 0
   subsequentEvents:
@@ -130,7 +130,7 @@ MonoBehaviour:
   gameCamera: {fileID: 0}
   targetSize: 28
   zoomSpeed: 15
-  targetOffset: {x: 0, y: 12, z: 0}
+  targetOffset: {x: 0, y: 8, z: 0}
   offsetSpeeds: {x: 1, y: 15, z: 1}
   doZoom: 0
   doOffset: 0
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionType: 0
   activationType: 0
-  scriptsToLoad: []
+  disableAfterUse: 1
   scoringPlatform: {fileID: 0}
   targetScore: 0
   subsequentEvents:

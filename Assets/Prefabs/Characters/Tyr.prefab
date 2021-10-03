@@ -876,7 +876,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.0898013, y: 0}
   serializedVersion: 2
-  m_Radius: 28
+  m_Radius: 38
 --- !u!114 &6753093790673091507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -890,7 +890,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hackableObj: []
-  hackDetect: {fileID: 0}
   canHack: 0
   hackableObjIndex: 0
 --- !u!1 &2974337793815265316
@@ -1216,7 +1215,6 @@ MonoBehaviour:
   timerFall: 2
   elapsedFall: 0
   timerStartFall: 0.15
-  startFall: 0
   bigFall: 0
   velocityY: 0
 --- !u!114 &609878403404720499
@@ -1232,6 +1230,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasControl: 0
+  forcedStop: 0
+  stopJump: 0
   isGrounded: 0
   isWalled: 0
   isObstructed: 0

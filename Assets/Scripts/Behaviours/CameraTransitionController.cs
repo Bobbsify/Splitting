@@ -37,22 +37,35 @@ namespace Splitting
 
         private void Update()
         {
-            Debug.Log("doZoom? " + doZoom + "\ndoOffset? " + doOffset + "\nX Y Z?" + reachedX + "/" + reachedY + "/" + reachedZ);
-            if (doZoom)
-            {
-                Zoom();
-                if (modifier == 1)
+                if (doZoom)
                 {
-                    if (gameCamera.orthographicSize >= targetSize) doZoom = false;
+                if (ReachedZoomCheck())
+                {
+                    doZoom = false;
                 }
                 else
-                {
-                    if (gameCamera.orthographicSize <= targetSize) doZoom = false;
+                { 
+                    Zoom();
                 }
-            }
-            if (doOffset)
-            {
-                Offset();
+                if (modifier == 1)
+                    {
+                        if (gameCamera.orthographicSize >= targetSize) doZoom = false;
+                    }
+                    else
+                    {
+                        if (gameCamera.orthographicSize <= targetSize) doZoom = false;
+                    }
+                }
+                if (doOffset)
+                {
+                if (ReachedOffsetCheck())
+                {
+                    doOffset = false;
+                }
+                else
+                { 
+                    Offset();
+                }
             }
         }
 
@@ -279,6 +292,36 @@ namespace Splitting
                     reachedZ = false; reachedX = false; reachedY = false;
                 }
             }
+        }
+
+        private bool ReachedOffsetCheck()
+        {
+            CameraController ctrl;
+            if (gameCamera.TryGetComponent(out ctrl))
+            {
+                return CheckIfVectorsNear(ctrl.tyrCameraOffset, targetOffset, 0.5f);
+            }
+            return false;
+        }
+
+        private bool ReachedZoomCheck()
+        {
+            CameraController ctrl;
+            if (gameCamera.TryGetComponent(out ctrl))
+            {
+                return isInRange(gameCamera.orthographicSize, targetSize, 0.5f);
+            }
+            return false;
+        }
+
+        private bool CheckIfVectorsNear(Vector3 vec1, Vector3 vec2, float range)
+        {
+            return isInRange(vec1.x, vec2.x, range) && isInRange(vec1.y, vec2.y, range) && isInRange(vec1.z, vec2.z, range);
+        }
+
+        private bool isInRange(float value1, float value2,float range)
+        {
+            return value1 >= value2 - range && value1 <= value2 + range;
         }
     }
 }

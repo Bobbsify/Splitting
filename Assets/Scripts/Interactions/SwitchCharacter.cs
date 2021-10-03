@@ -107,5 +107,15 @@ namespace Splitting
                 targetEntity.GetComponent<Animator>().SetFloat("velocityX",0);
             }
         }
+
+        public void SetInputs()
+        {
+            swapButton = new InputSettings().SwitchCharacterButton;
+        }
+
+        public void RemoveInputs()
+        {
+            swapButton = 0;
+        }
     }
 }

@@ -35,6 +35,18 @@ namespace Splitting
             }
         }
 
+        private void Start()
+        {
+            if (gameCamera == null)
+            {
+                GameObject.FindGameObjectWithTag("MainCamera").TryGetComponent(out gameCamera);
+                if (gameCamera == null)
+                {
+                    throw new System.Exception("Unable to find camera, assign MainCamera tag to camera or attach the camera object to the script");
+                }
+            }
+        }
+
         private void Update()
         {
                 if (doZoom)

@@ -10,8 +10,11 @@ namespace Splitting
         private ClydeController clydeController;
         private Patrol clydePatrol;
 
-        private GameObject trajectPred;
-        private Throw getThrow;
+        private GameObject tyrantTrajectPred;
+        private Throw tyrantGetThrow;
+
+        private SwitchCharacter switchCharacter;
+        private UnlinkTyrAnt unlinkTyrAnt;
 
         // Start is called before the first frame update
         void Start()
@@ -43,12 +46,15 @@ namespace Splitting
 
                 if (ant && tyr)
                 {
-                    trajectPred = GameObject.Find("TrajectoryPredictionTA");
-                    getThrow = trajectPred.GetComponentInChildren<Throw>();
+                    unlinkTyrAnt = collision.GetComponent<UnlinkTyrAnt>();
+                    unlinkTyrAnt.RemoveInputs();
 
-                    getThrow.RemoveInputs();
+                    tyrantTrajectPred = GameObject.Find("TrajectoryPredictionTA");
+                    tyrantGetThrow = tyrantTrajectPred.GetComponentInChildren<Throw>();
 
-                    if (!getThrow.rbToThrow)
+                    tyrantGetThrow.RemoveInputs();
+
+                    if (!tyrantGetThrow.rbToThrow)
                     {
                         collision.GetComponent<StateControllerInterface>().DisableControl();
 
@@ -58,6 +64,9 @@ namespace Splitting
                 }
                 else
                 {
+                    switchCharacter = collision.GetComponent<SwitchCharacter>();
+                    switchCharacter.RemoveInputs();
+
                     collision.GetComponent<StateControllerInterface>().DisableControl();
 
                     clydePatrol.enabled = false;
@@ -78,12 +87,15 @@ namespace Splitting
 
                 if (ant && tyr)
                 {
-                    trajectPred = GameObject.Find("TrajectoryPredictionTA");
-                    getThrow = trajectPred.GetComponentInChildren<Throw>();
+                    unlinkTyrAnt = collision.GetComponent<UnlinkTyrAnt>();
+                    unlinkTyrAnt.SetInputs();
 
-                    getThrow.SetInputs();                   
+                    tyrantTrajectPred = GameObject.Find("TrajectoryPredictionTA");
+                    tyrantGetThrow = tyrantTrajectPred.GetComponentInChildren<Throw>();
 
-                    if (!getThrow.rbToThrow)
+                    tyrantGetThrow.SetInputs();                   
+
+                    if (!tyrantGetThrow.rbToThrow)
                     {
                         collision.GetComponent<StateControllerInterface>().EnableControl();
 
@@ -92,11 +104,14 @@ namespace Splitting
                     }
                     else
                     {
-                        getThrow.ReleaseBox();
+                        tyrantGetThrow.ReleaseBox();
                     }
                 }
                 else
                 {
+                    switchCharacter = collision.GetComponent<SwitchCharacter>();
+                    switchCharacter.SetInputs();
+
                     collision.GetComponent<StateControllerInterface>().EnableControl();
 
                     clydePatrol.enabled = true;

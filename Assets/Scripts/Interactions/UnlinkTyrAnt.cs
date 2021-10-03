@@ -43,6 +43,7 @@ namespace Splitting
             GameObject tyr = Instantiate(tyrPrefab); //Create Tyr
 
             ant.transform.position = transform.position;
+            ant.transform.position = new Vector2(ant.transform.position.x - 0.2f, ant.transform.position.y);
             ant.transform.localScale = transform.localScale;
             Vector2 lowerTyr = new Vector2(ant.transform.position.x,ant.transform.position.y - 1); //1 --> height difference
             tyr.transform.position = lowerTyr;

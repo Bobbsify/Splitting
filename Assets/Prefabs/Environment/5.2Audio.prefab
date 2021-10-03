@@ -146,8 +146,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 818a5bb12115e824aa57b46cfb7d2c1a, type: 2}
   soundType: 1
-  alwaysPlaying: 0
-  directional: 1
+  alwaysPlaying: 1
+  directional: 0
   maxVolume: 0.3
   minVolume: 0
 --- !u!114 &31693586124638130
@@ -1526,8 +1526,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 818a5bb12115e824aa57b46cfb7d2c1a, type: 2}
   soundType: 1
-  alwaysPlaying: 0
-  directional: 1
+  alwaysPlaying: 1
+  directional: 0
   maxVolume: 1
   minVolume: 0
 --- !u!114 &31693587598105720
@@ -1723,8 +1723,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 818a5bb12115e824aa57b46cfb7d2c1a, type: 2}
   soundType: 1
-  alwaysPlaying: 0
-  directional: 1
+  alwaysPlaying: 1
+  directional: 0
   maxVolume: 0.6
   minVolume: 0
 --- !u!114 &31693587916166266

@@ -82,5 +82,15 @@ namespace Splitting
 
             return scale;
         }
+
+        public void SetInputs()
+        {
+            unlinkKey = new InputSettings().SwitchCharacterButton;
+        }
+
+        public void RemoveInputs()
+        {
+            unlinkKey = 0;
+        }
     }
 }

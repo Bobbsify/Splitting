@@ -950,7 +950,6 @@ MonoBehaviour:
   timerFall: 0.8
   elapsedFall: 0
   timerStartFall: 0.15
-  startFall: 0
   bigFall: 0
   velocityY: 0
 --- !u!114 &4467002386518633220
@@ -966,6 +965,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasControl: 0
+  forcedStop: 0
+  stopJump: 0
   isGrounded: 0
   isWalled: 0
   isObstructed: 0
@@ -1368,7 +1369,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.021678925, y: -2.7513618}
+  m_Offset: {x: 0.07838726, y: -2.688427}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1379,7 +1380,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.9409103, y: 0.10495758}
+  m_Size: {x: 4.6641293, y: 0.23082733}
   m_EdgeRadius: 0
 --- !u!114 &812186055348739928
 MonoBehaviour:
@@ -2799,7 +2800,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hackableObj: []
-  hackDetect: {fileID: 0}
   canHack: 0
   hackableObjIndex: 0
 --- !u!1 &6186365600049918185

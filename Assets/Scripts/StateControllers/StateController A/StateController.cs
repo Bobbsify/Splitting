@@ -11,6 +11,8 @@ namespace Splitting
 
         public bool forcedStop;
         public bool stopJump;
+        public bool stopDrop;
+        private bool stopPush;
 
         public bool isGrounded;
         public bool isWalled;
@@ -236,7 +238,7 @@ namespace Splitting
         {            
             antMove.enabled = true;
 
-            if (isWalled || (isPushing && Input.GetKey(jumpButton)) || (antJump.chargeJump && !antMove.isCrouched) || AnimatorIsPlaying("AntLift1") || AnimatorIsPlaying("AntLift2") || AnimatorIsPlaying("AntLift3") || AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd") || AnimatorIsPlaying("AntButtonPress")) //  || (isPushing && Input.GetKey(jumpButton))
+            if (isWalled || (isPushing && (Input.GetKey(jumpButton) || stopPush)) || (antJump.chargeJump && !antMove.isCrouched) || AnimatorIsPlaying("AntLift1") || AnimatorIsPlaying("AntLift2") || AnimatorIsPlaying("AntLift3") || AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd") || AnimatorIsPlaying("AntButtonPress")) //  || (isPushing && Input.GetKey(jumpButton))
             {
                 
                 antMove.canMove = false;
@@ -306,7 +308,7 @@ namespace Splitting
         {
             antCarry.enabled = true;
 
-            if (Input.GetKey(jumpButton) || antCarry.isCarrying || !isGrounded || (AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd") || AnimatorIsPlaying("AntButtonPress")) || antMove.isCrouched || antExtend.isExtended)
+            if (stopDrop || Input.GetKey(jumpButton) || antCarry.isCarrying || !isGrounded || (AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntCarryingEnd") || AnimatorIsPlaying("AntButtonPress")) || antMove.isCrouched || antExtend.isExtended)
             {
                 antCarry.canCarry = false;
             }
@@ -318,7 +320,7 @@ namespace Splitting
 
         void ControlWhenCanDrop()
         {
-            if (Input.GetKey(jumpButton) || !antCarry.isCarrying || !isGrounded || (AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntButtonPress")) || isObstructed || antMove.isCrouched || antExtend.isExtended)
+            if (stopDrop || Input.GetKey(jumpButton) || !antCarry.isCarrying || !isGrounded || (AnimatorIsPlaying("AntCarryingAdjust") || AnimatorIsPlaying("AntButtonPress")) || isObstructed || antMove.isCrouched || antExtend.isExtended)
             {
                 antCarry.canDrop = false;
             }
@@ -402,6 +404,26 @@ namespace Splitting
         public void EnableJump()
         {
             stopJump = false;
+        }
+
+        public void DisableDrop()
+        {
+            stopDrop = true;
+        }
+
+        public void EnableDrop()
+        {
+            stopDrop = false;
+        }
+
+        public void DisablePush()
+        {
+            stopPush = true;
+        }
+
+        public void EnablePush()
+        {
+            stopPush = false;
         }
     }
 }

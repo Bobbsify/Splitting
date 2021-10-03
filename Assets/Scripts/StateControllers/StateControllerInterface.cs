@@ -11,4 +11,8 @@ public interface StateControllerInterface
     void DisableJump();
 
     void EnableJump();
+
+    void DisablePush();
+
+    void EnablePush();
 }

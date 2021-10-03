@@ -11,6 +11,7 @@ namespace Splitting
         public bool forcedStop;
         public bool stopJump;
         private bool stopThrow;
+        private bool stopPush;
 
         public bool isGrounded;
         public bool isWalled;
@@ -258,7 +259,7 @@ namespace Splitting
                 tyrantMove.enabled = true;
             }              
             
-            if (isWalled || (isPushing && Input.GetKey(jumpButton)) || (tyrantJump.chargeJump && !getThrow.rbToThrow) || AnimatorIsPlaying("Tyrant grab3") || AnimatorIsPlaying("Tyrant grab") || getThrow.throwing || AnimatorIsPlaying("TyrantHacking") || AnimatorIsPlaying("TyrantLift1") || AnimatorIsPlaying("TyrantLift2") || AnimatorIsPlaying("TyrantLift3") || AnimatorIsPlaying("TyrantButtonPress"))
+            if (isWalled || (isPushing && (Input.GetKey(jumpButton) || stopPush)) || (tyrantJump.chargeJump && !getThrow.rbToThrow) || AnimatorIsPlaying("Tyrant grab3") || AnimatorIsPlaying("Tyrant grab") || getThrow.throwing || AnimatorIsPlaying("TyrantHacking") || AnimatorIsPlaying("TyrantLift1") || AnimatorIsPlaying("TyrantLift2") || AnimatorIsPlaying("TyrantLift3") || AnimatorIsPlaying("TyrantButtonPress"))
             {
                 tyrantMove.canMove = false;
             }
@@ -382,6 +383,16 @@ namespace Splitting
         public void EnableThrow()
         {
             stopThrow = false;
+        }
+
+        public void DisablePush()
+        {
+            stopPush = true;
+        }
+
+        public void EnablePush()
+        {
+            stopPush = false;
         }
     }
 }

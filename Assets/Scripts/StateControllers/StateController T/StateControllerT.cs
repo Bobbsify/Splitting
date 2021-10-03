@@ -10,6 +10,8 @@ namespace Splitting
         public bool hasControl;
         public bool forcedStop;
         public bool stopJump;
+        public bool stopPickup;
+        private bool stopPush;
 
         public bool isGrounded;
         public bool isWalled;
@@ -224,7 +226,7 @@ namespace Splitting
                 tyrMove.enabled = true;
             }            
 
-            if (isWalled || AnimatorIsPlaying("Tyr hacking") || AnimatorIsPlaying("Tyr hacking2") || getThrow.rbToThrow || AnimatorIsPlaying("Tyr throw1") || AnimatorIsPlaying("Tyr throw4"))
+            if (isWalled || (isPushing && stopPush) || AnimatorIsPlaying("Tyr hacking") || AnimatorIsPlaying("Tyr hacking2") || getThrow.rbToThrow || AnimatorIsPlaying("Tyr throw1") || AnimatorIsPlaying("Tyr throw4"))
             {
                 tyrMove.canMove = false;
             }
@@ -236,7 +238,7 @@ namespace Splitting
 
         void ControlWhenCanPickup()
         {
-            if (!isGrounded || AnimatorIsPlaying("Tyr hacking") || AnimatorIsPlaying("Tyr hacking2") || getThrow.rbToThrow || AnimatorIsPlaying("Tyr throw1") || AnimatorIsPlaying("Tyr throw4"))
+            if (stopPickup || !isGrounded || AnimatorIsPlaying("Tyr hacking") || AnimatorIsPlaying("Tyr hacking2") || getThrow.rbToThrow || AnimatorIsPlaying("Tyr throw1") || AnimatorIsPlaying("Tyr throw4"))
             {
                 tyrPickup.enabled = false;
             }
@@ -323,6 +325,26 @@ namespace Splitting
         public void EnableJump()
         {
             stopJump = false;
+        }
+
+        public void DisablePickup()
+        {
+            stopPickup = true;
+        }
+
+        public void EnablePickup()
+        {
+            stopPickup = false;
+        }
+
+        public void DisablePush()
+        {
+            stopPush = true;
+        }
+
+        public void EnablePush()
+        {
+            stopPush = false;
         }
     }
 }

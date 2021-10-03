@@ -26,10 +26,12 @@ namespace Splitting
                 stateController.isGrounded = true;
             }
 
+            /*
             if (collision.gameObject.tag == "Carryable")
             {
                 stateController.isPushing = true;
             }
+            */
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -39,10 +41,12 @@ namespace Splitting
                 stateController.isGrounded = false;
             }
 
+            /*
             if (collision.gameObject.tag == "Carryable")
             {
                 stateController.isPushing = false;
             }
+            */
         }
 
     }

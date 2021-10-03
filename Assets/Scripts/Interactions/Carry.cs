@@ -7,8 +7,10 @@ namespace Splitting
     public class Carry : MonoBehaviour
     {
         public bool canCarry;
+        public bool canDrop;
                 
         public KeyCode dropButton;
+        public bool forcedDrop;
 
         public bool isFixed;
         public bool isFixing;
@@ -16,13 +18,18 @@ namespace Splitting
         public bool isCarrying;
         public bool wasCarrying;
 
+        private BoxCollider2D antBoxCol;     
+        private GameObject bone;
+        private GameObject headBone;        
+
         public GameObject carryedObj;
         public GameObject lastObj;
-       
-        public Rigidbody2D carryedRig;
+
+        private BoxCollider2D carryedObjCol;
+        private Rigidbody2D carryedObjRig;
 
         [SerializeField] private float horizontalForce = 750.0f;
-        [SerializeField] private float verticalForce = 250.0f;
+        [SerializeField] private float verticalForce = 100.0f;
 
         private Animator animator;
         
@@ -31,7 +38,16 @@ namespace Splitting
         {
             animator = gameObject.GetComponent<Animator>();
 
+            antBoxCol = gameObject.GetComponent<BoxCollider2D>();
+
             dropButton = new InputSettings().ReleaseItemButton;
+
+            bone = gameObject.transform.GetChild(0).gameObject;
+
+            if (bone != null)
+            {
+                headBone = bone.transform.GetChild(3).gameObject;
+            }
         }
 
         // Update is called once per frame
@@ -40,32 +56,34 @@ namespace Splitting
                        
             if (canCarry)
             {
-                if (carryedObj != null)
-                {                                        
-                    isFixing = true;
-                    lastObj = carryedObj;
+                if (carryedObj != null )
+                {
+                    carryedObjCol = carryedObj.GetComponent<BoxCollider2D>();
+                    carryedObjRig = carryedObj.GetComponent<Rigidbody2D>();
+
+                    if (ControlCarryableObjPos(carryedObjCol, antBoxCol))
+                    {
+                        isFixing = true;
+                        lastObj = carryedObj;
+                    }
+                    else
+                    {
+                        carryedObjCol = null;
+                        carryedObjRig = null;
+                    }
                 }
             }
             else
             {
-                if (Input.GetKeyUp(dropButton) && isCarrying)
+                if ((Input.GetKeyUp(dropButton) || forcedDrop) && isCarrying && canDrop)
                 {                  
 
                     wasCarrying = true;
                     isFixed = false;
                     
-                    carryedRig.simulated = true;                    
+                    carryedObjRig.simulated = true;                    
                     
-                    lastObj.transform.SetParent(null);                    
-                    
-                    if (transform.localScale.x > 0)
-                    {
-                        carryedRig.AddForce(new Vector2(-horizontalForce, verticalForce));
-                    }
-                    else
-                    {
-                        carryedRig.AddForce(new Vector2(horizontalForce, verticalForce));
-                    }                                     
+                    lastObj.transform.SetParent(null);                                                              
                 }
             }
 
@@ -73,39 +91,51 @@ namespace Splitting
             if (isFixing && !isFixed)
             {
 
-                if (carryedRig != null)
+                if (carryedObjRig != null)
                 {
-                    carryedRig.simulated = false;
+                    carryedObjRig.simulated = false;
                 }
 
-                carryedObj.transform.SetParent(transform);
-                carryedObj.transform.position = new Vector2(carryedObj.transform.position.x, carryedObj.transform.position.y);
+                carryedObj.transform.SetParent(headBone.transform);
+                carryedObj.transform.position = new Vector2(headBone.transform.position.x, (antBoxCol.bounds.center.y + antBoxCol.bounds.extents.y + carryedObjCol.bounds.extents.y));                
 
                 isFixed = true;
             }
             
             if (AnimatorIsPlaying("AntCarryingIdle") || AnimatorIsPlaying("AntCarrying"))
             {
-                isFixing = false;
+                isFixing = false;                
+            }
+
+            if (headBone.transform.childCount > 0)
+            {
                 isCarrying = true;
             }
             else
             {
-                isCarrying = false;
+                isCarrying = false;               
+
+                if (AnimatorIsPlaying("AntIdle") || AnimatorIsPlaying("AntWalking"))
+                {
+                    wasCarrying = false;
+
+                    lastObj = null;
+                    carryedObjCol = null;
+                    carryedObjRig = null;
+                }
             }
 
-            if (isCarrying)
+            if (AnimatorIsPlaying("AntCarryingEnd"))
             {
-                lastObj.transform.position = new Vector2(transform.position.x, lastObj.transform.position.y);
+                if (transform.localScale.x > 0)
+                {
+                    carryedObjRig.AddForce(new Vector2(-horizontalForce, verticalForce));
+                }
+                else
+                {
+                    carryedObjRig.AddForce(new Vector2(horizontalForce, verticalForce));
+                }
             }
-
-            if (wasCarrying && canCarry)
-            {
-                lastObj = null;
-                carryedRig = null;
-                wasCarrying = false;
-            }
-            
 
             CallAnimator(isCarrying, isFixing, wasCarrying);            
         }
@@ -123,7 +153,22 @@ namespace Splitting
         bool AnimatorIsPlaying(string stateName)
         {
             return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
-        }       
+        }
+        
+        bool ControlCarryableObjPos(BoxCollider2D carryedObjCol, BoxCollider2D antCol)
+        {
+            bool isCarryable;
+
+            if (((carryedObjCol.bounds.center.y - carryedObjCol.bounds.extents.y) > (antCol.bounds.center.y + antCol.bounds.extents.y)) && (carryedObjCol.bounds.center.x < (antCol.bounds.center.x + antCol.bounds.extents.x)) && (carryedObjCol.bounds.center.x > (antCol.bounds.center.x - antCol.bounds.extents.x)))
+            {
+                isCarryable = true;
+            }
+            else
+            {
+                isCarryable = false;
+            }
+            return isCarryable;
+        }
     }
     
 }

@@ -1,52 +1,96 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Splitting
 {
-    public class StateControllerTA : MonoBehaviour
+    public class StateControllerTA : MonoBehaviour, StateControllerInterface
     {
         public bool hasControl;
+        public bool forcedStop;
+        public bool stopJump;
+        private bool stopThrow;
+        private bool stopPush;
 
         public bool isGrounded;
         public bool isWalled;
         public bool isObstructed;
+        public bool isNotScared;
+        public bool isIlluminated;
+
+        public bool isPushing;        
+
+        [SerializeField] private float elapsedInDark;
+        [SerializeField] private float timerInDark = 0.5f;
+
+        [SerializeField] private float speedInAir = 0.5f;
 
         [SerializeField] private float shake = 1.0f;
-        [SerializeField] private float lenght = 1.0f;
+        [SerializeField] private float lenght = 1.0f;       
 
-        public Jump jump;
-        public KeyCode jumpButton;
-        public Move move;
-        public Pickup pickup;
+        private KeyCode jumpButton;
+        private Jump tyrantJump;        
+        private Move tyrantMove;
+        private Extend tyrantExtend;
+        private Pickup tyrantPickup;
 
         private GameObject trajectPred;
         private Throw getThrow;
-
-        public GameObject ant;
-        public AutobotUnity antUnity;
-        public GameObject tyr;
-        public AutobotUnity tyrUnity;
+        private Hacking tyrantHacking;
+        private FlashlightController tyrantFlashlight;
 
         private Animator animator;
 
-        new public CameraController camera;
+        private Rigidbody2D tyrantRigidBody;
+
+        new private CameraController camera;        
 
         // Start is called before the first frame update
         void Start()
         {
-            hasControl = true;
+            // Get Move script  
+            tyrantMove = gameObject.GetComponent<Move>();
+
+            // Get Extend script
+            tyrantExtend = gameObject.GetComponent<Extend>();
+
+            // Get Jump script            
+            tyrantJump = gameObject.GetComponent<Jump>();
+
+            // Get Pickup script
+            tyrantPickup = gameObject.GetComponent<Pickup>();
+
+            // Get Hacking script
+            tyrantHacking = gameObject.GetComponentInChildren<Hacking>();
+
+            // Get FlashlightController script
+            tyrantFlashlight = gameObject.GetComponentInChildren<FlashlightController>();
 
             animator = gameObject.GetComponent<Animator>();
 
             trajectPred = GameObject.Find("TrajectoryPredictionTA");
             getThrow = trajectPred.GetComponentInChildren<Throw>();
 
-            ant = gameObject.transform.Find("Ant").gameObject;
-            tyr = gameObject.transform.Find("Tyr").gameObject;
+            // Get CameraController script
+            try
+            {
+                camera = GameObject.Find("Main Camera").GetComponent<CameraController>();
+            }
+            catch
+            {
+                throw new Exception("Camera not found");
+            }
 
-            antUnity = ant.GetComponent<AutobotUnity>();
-            tyrUnity = tyr.GetComponent<AutobotUnity>();
+            // Get RigidBody
+            try
+            {
+                tyrantRigidBody = gameObject.GetComponent<Rigidbody2D>();
+            }
+            catch
+            {
+                throw new Exception("RigidBody not found");
+            }
 
             jumpButton = new InputSettings().JumpButton;
         }
@@ -54,96 +98,301 @@ namespace Splitting
         // Update is called once per frame
         void Update()
         {
-            if (jump.isLanded && !AnimatorIsPlaying("Tyrant Jump 4"))
-            {
-                jump.isLanded = false;
-            }
+            ControlIfHasControl();
+
+            CheckIfHasFallen();
+            ResetLandBoolAfterHasFallen();
+            ResetFallTime();
+
+            TyrantIsNotAfraid();
+
+            ModifySpeedWhenJump();
+
+            ResetVerticalSpeedWhenPushing();            
+
+            CallAnimator(isNotScared, getThrow.throwing, isGrounded, getThrow.rbToThrow, forcedStop);
 
             if (hasControl)
             {
-                jump.enabled = true;
-                move.enabled = true;
+                ControlWhenCanMove();
+                ControlWhenCanExtend();
 
-                move.canCrouch = false;
+                ControlWhenCanJump();
 
-                if (isWalled || Input.GetKey(jumpButton))
-                {
-                    move.canMove = false;
-                }
-                else
-                {
-                    move.canMove = true;
-                }
+                ControlWhenCanPickup();
+                ControlWhenCanThrow();
 
-                if (isGrounded)
-                {
-                    pickup.enabled = true;                    
+                ControlWhenCanHack();
 
-                    if (jump.wasJumping && !animator.IsInTransition(0))
-                    {
-                        jump.isLanded = true;
-                        jump.wasJumping = false;
-
-                        ScreenShake(shake, lenght);
-                    }
-
-                    if (AnimatorIsPlaying("Tyrant Jump 4") || getThrow.throwing || AnimatorIsPlaying("TyrantUnity") || AnimatorIsPlaying("TyrantUnlink"))
-                    {
-                        move.enabled = false;
-                        jump.canJump = false;                        
-                    }
-                    else if (getThrow.rbToThrow)
-                    {
-                        move.enabled = true;
-                        jump.canJump = false;
-                    }
-                    else
-                    {
-                        move.enabled = true;
-                        jump.jumpDivider = jump.jumpMultiplier;
-                        jump.canJump = true;
-                    }
-
-                }
-                else
-                {
-                    pickup.enabled = false;
-                }
+                tyrantJump.jumpDivider = tyrantJump.jumpMultiplier;
+                tyrantFlashlight.canUseFlashlight = true;
+                tyrantMove.canCrouch = false;
 
             }
             else
             {
-                jump.enabled = false;
-                pickup.enabled = false;
-                move.enabled = false;
-            }
+                tyrantMove.enabled = false;
+                tyrantExtend.enabled = false;
 
-            if (gameObject.tag != "Player")
-            {
-                hasControl = false;
-            }
-            else if (gameObject.tag == "Player")
-            {
-                hasControl = true;
+                tyrantPickup.enabled = false;
+                getThrow.enabled = false;
 
-                antUnity.readyForConnection = false;
-                tyrUnity.readyForConnection = false;
-            }
-        }
+                tyrantHacking.enabled = false;
 
-        private void ScreenShake(float shake, float lenght)
-        {
-            if (shake > camera.shakeRemain)
-            {
-                camera.shakeMagnitude = shake;
-                camera.shakeRemain = shake;
-                camera.shakeLenght = lenght;
+                tyrantFlashlight.canUseFlashlight = true;
+
+                tyrantJump.canJump = false;
+                ControlIfDisableJump();
             }
-        }
+            
+        }       
 
         bool AnimatorIsPlaying(string stateName)
         {
             return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+        }
+
+        void TyrantIsNotAfraid()
+        {
+            if (tyrantFlashlight.lightsAre || isIlluminated || !isGrounded)
+            {                
+                elapsedInDark = 0.0f;
+                isNotScared = true;
+            }
+            else if ((!isIlluminated || !tyrantFlashlight.lightsAre) && isGrounded) 
+            {
+                elapsedInDark += Time.deltaTime;
+                
+                if (elapsedInDark >= timerInDark)
+                {
+                    isNotScared = false;
+                }                
+            }
+        }
+
+        private void CallAnimator(bool isNotScared, bool throwingMode, bool isGrounded, bool isCarrying, bool hasControl)
+        {
+            if (animator != null)
+            {
+                animator.SetBool("isNotScared", isNotScared);
+                animator.SetBool("isThrowing", throwingMode);
+                animator.SetBool("isGrounded", isGrounded);
+                animator.SetBool("isCarrying", isCarrying);
+                animator.SetBool("hasControl", hasControl);
+            }
+        }
+
+       void ControlIfHasControl()
+       {
+            if (gameObject.tag != "Player" || AnimatorIsPlaying("TyrantDeath") || !isNotScared || AnimatorIsPlaying("TyrantUnity") || AnimatorIsPlaying("TyrantUnlink") || forcedStop)
+            {
+                hasControl = false;
+            }
+            else if (gameObject.tag == "Player" && !AnimatorIsPlaying("TyrantDeath") && isNotScared && !AnimatorIsPlaying("TyrantUnity") && !AnimatorIsPlaying("TyrantUnlink") && !forcedStop)
+            {
+                hasControl = true;
+            }
+       }
+
+        void CheckIfHasFallen()
+        {
+            if (isGrounded)
+            {
+                if (tyrantJump.wasJumping && !animator.IsInTransition(0)) 
+                {
+
+                    tyrantJump.isLanded = true; 
+                    tyrantJump.wasJumping = false;                    
+
+                    if (tyrantJump.bigFall) 
+                    {
+                        camera.shakeMagnitude = shake;
+                        camera.shakeRemain = shake;
+                        camera.shakeLenght = lenght;
+
+                        camera.exeShake = true;
+                    }
+                }
+            }
+        }
+
+        void ResetLandBoolAfterHasFallen()
+        {
+            if (tyrantJump.isLanded && (AnimatorIsPlaying("Tyrant idle") || AnimatorIsPlaying("Tyrant walking") || AnimatorIsPlaying("Tyrant grab walking") || AnimatorIsPlaying("Tyrant grab2")))
+            {
+                tyrantJump.isLanded = false;
+            }
+        }
+
+        void ModifySpeedWhenJump()
+        {
+            if (!isGrounded)
+            {
+                tyrantMove.speedModifier = speedInAir;
+            }
+            else
+            {
+                tyrantMove.speedModifier = 1.0f;
+            }
+        }
+
+        void ControlIfDisableJump()
+        {
+            if (isGrounded && AnimatorIsPlaying("Tyrant idle") || AnimatorIsPlaying("Tyrant grab2"))
+            {
+                tyrantJump.enabled = false;
+            }
+            else
+            {
+                tyrantJump.enabled = true;
+            }
+        }
+
+        void ControlWhenCanMove()
+        {            
+            if (getThrow.throwing)
+            {                
+                tyrantMove.enabled = false;
+            }
+            else
+            {
+                tyrantMove.enabled = true;
+            }              
+            
+            if (isWalled || (isPushing && (Input.GetKey(jumpButton) || stopPush)) || (tyrantJump.chargeJump && !getThrow.rbToThrow) || AnimatorIsPlaying("Tyrant grab3") || AnimatorIsPlaying("Tyrant grab") || getThrow.throwing || AnimatorIsPlaying("TyrantHacking") || AnimatorIsPlaying("TyrantLift1") || AnimatorIsPlaying("TyrantLift2") || AnimatorIsPlaying("TyrantLift3") || AnimatorIsPlaying("TyrantButtonPress"))
+            {
+                tyrantMove.canMove = false;
+            }
+            else
+            {
+                tyrantMove.canMove = true;
+            }
+        }
+
+        void ControlWhenCanJump()
+        {
+            tyrantJump.enabled = true;
+
+            if (!stopJump && isGrounded && !tyrantExtend.isExtended && !getThrow.rbToThrow && !isObstructed && (!AnimatorIsPlaying("Tyrant grab3") && !AnimatorIsPlaying("Tyrant grab")) && !AnimatorIsPlaying("TyrantLift3") && !AnimatorIsPlaying("TyrantHacking"))
+            {
+                tyrantJump.canJump = true;
+            }
+            else
+            {
+                tyrantJump.canJump = false;
+            }
+        }
+
+        void ControlWhenCanExtend()
+        {
+            tyrantExtend.enabled = true;
+
+            if (!isGrounded || getThrow.rbToThrow || AnimatorIsPlaying("Tyrant grab3") || AnimatorIsPlaying("Tyrant grab") || isObstructed || AnimatorIsPlaying("TyrantHacking"))
+            {
+                tyrantExtend.canExtend = false;
+            }
+            else
+            {
+                tyrantExtend.canExtend = true;
+            }
+        }
+
+        void ControlWhenCanPickup()
+        {
+            if (!isGrounded || getThrow.rbToThrow || AnimatorIsPlaying("Tyrant grab3") || tyrantExtend.isExtended || AnimatorIsPlaying("TyrantHacking") || AnimatorIsPlaying("TyrantLift3"))
+            {
+                tyrantPickup.enabled = false;
+            }
+            else
+            {
+                tyrantPickup.enabled = true;
+            }
+        }
+
+        void ControlWhenCanThrow()
+        {
+            if (!isGrounded || AnimatorIsPlaying("TyrantHacking") || stopThrow)
+            {
+                getThrow.enabled = false;
+            }
+            else
+            {
+                getThrow.enabled = true;
+            }
+        }
+
+        void ControlWhenCanHack()
+        {
+            tyrantHacking.enabled = true;
+
+            if (!isGrounded || getThrow.rbToThrow || AnimatorIsPlaying("Tyrant grab3") || AnimatorIsPlaying("Tyrant grab") || tyrantExtend.isExtended || AnimatorIsPlaying("TyrantLift3"))
+            {
+                tyrantHacking.canHack = false;
+            }
+            else
+            {
+                tyrantHacking.canHack = true;
+            }
+        }
+
+        void ResetFallTime()
+        {
+            if (isGrounded)
+            {
+                tyrantJump.elapsedFall = 0.0f;
+            }
+        }        
+
+        void ResetVerticalSpeedWhenPushing()
+        {
+            if (isGrounded && isPushing)
+            {
+                tyrantJump.velocityY = 0.0f;
+            }
+            else
+            {
+                tyrantJump.velocityY = tyrantRigidBody.velocity.y;
+            }
+        }
+
+        public void DisableControl()
+        {
+            forcedStop = true;
+        }
+
+        public void EnableControl()
+        {
+            forcedStop = false;
+        }
+
+        public void DisableJump()
+        {
+            stopJump = true;
+        }
+
+        public void EnableJump()
+        {
+            stopJump = false;
+        }
+
+        public void DisableThrow()
+        {
+            stopThrow = true;
+        }
+
+        public void EnableThrow()
+        {
+            stopThrow = false;
+        }
+
+        public void DisablePush()
+        {
+            stopPush = true;
+        }
+
+        public void EnablePush()
+        {
+            stopPush = false;
         }
     }
 }

@@ -8,24 +8,19 @@ namespace Splitting
 {
     public class SwitchCharacter : MonoBehaviour
     {
-        [SerializeField] private GameObject targetEntity;
+        [SerializeField] public GameObject targetEntity;
         [SerializeField] private List<string> ScriptsToDisable;
         [SerializeField] private List<string> ScriptsToEnable;
         private KeyCode swapButton; //Defaults to Q
 
         [Header("Tyrant")]
-        [SerializeField] private string tyrantName;
-        private GameObject tyrAnt;
+        [SerializeField] private GameObject tyrantPrefab;
         private AutobotUnity unionCheck;
 
-
-        private void Awake()
-        {
-            gatherInfo();
-        }
-
+        
         private void OnEnable()
         {
+            StopMovementX();
             gatherInfo();
         }
 
@@ -47,7 +42,10 @@ namespace Splitting
                 }
                 else
                 {
-                    throw new Exception("Unknown State Exception: unionCheck should be assigned but is instead " + unionCheck);
+                    gatherInfo();
+                    if (unionCheck == null) { 
+                        throw new Exception("Unknown State Exception: unionCheck should be assigned but is instead " + unionCheck+"\n");
+                    }
                 }
             }
         }
@@ -55,21 +53,6 @@ namespace Splitting
         private void gatherInfo()
         {
             swapButton = new InputSettings().SwitchCharacterButton;
-            try
-            {
-                tyrAnt = transform.Find(tyrantName).gameObject;
-            }
-            catch
-            {
-                try
-                {
-                    tyrAnt = targetEntity.transform.Find(tyrantName).gameObject;
-                }
-                catch
-                {
-                    throw new Exception("Neither Entity has a TyrAnt attached OR the specified TyrAnt name is incorrect! Please attach a tyrant to either entity and assign its correct name in the \"SwitchCharacter\" module");
-                }
-            }
             unionCheck = GetComponent<AutobotUnity>();
             if (unionCheck == null)
             {
@@ -77,28 +60,32 @@ namespace Splitting
             }
         }
 
-        private void Connect()
+        public GameObject Connect()
         {
-            targetEntity.SetActive(false); //Disable Other
-            targetEntity.tag = "Untagged";
-            
-            gameObject.SetActive(false); //Disable This
-            gameObject.tag = "Untagged";
+            bool isThisAnt = gameObject.name.ToUpper().Contains("ANT");
 
-            tyrAnt.transform.parent = null; //Remove Object from parent
+            Destroy(targetEntity); //Destroy Other
+            Destroy(gameObject); //Destroy This
+
+            GameObject tyrant = Instantiate(tyrantPrefab);
+            tyrant.transform.position = transform.position;
+
+            Transform tyrFlashlight = isThisAnt ? targetEntity.transform.Find("bone_1/bone_14/Flashlight") : transform.Find("bone_1/bone_14/Flashlight");
+            Transform tyrantFlashlight = tyrant.transform.Find("bone_1/bone_2/bone_3/bone_13/Flashlight");
+
+            //Turn flashlight correctly
+            tyrantFlashlight.GetComponent<FlashlightController>().SetLightsToState(tyrFlashlight.GetComponent<FlashlightController>().lightsAre);
             
-            targetEntity.transform.parent = tyrAnt.transform; // Set Ant&Tyr as children of TyrAnt
-            transform.parent = tyrAnt.transform;
-            
-            tyrAnt.SetActive(true);
-            tyrAnt.tag = "Player";
+            tyrant.GetComponent<UnlinkTyrAnt>().antScripts = isThisAnt ? ScriptsToDisable : ScriptsToEnable;
+            tyrant.GetComponent<UnlinkTyrAnt>().tyrScripts = isThisAnt ? ScriptsToEnable : ScriptsToDisable;
+
+            return tyrant;
         }
 
         private void TurnThisOff()
         {
             foreach (string script in ScriptsToDisable) //Get Scripts and disable them one by one
             {
-                StopMovementX();
                 (gameObject.GetComponent(script) as MonoBehaviour).enabled = false;
             }
             gameObject.tag = "Untagged";
@@ -116,7 +103,19 @@ namespace Splitting
 
         private void StopMovementX()
         {
-            GetComponent<Animator>().SetFloat("velocityX", 0.0f);
+            if (targetEntity != null) { 
+                targetEntity.GetComponent<Animator>().SetFloat("velocityX",0);
+            }
+        }
+
+        public void SetInputs()
+        {
+            swapButton = new InputSettings().SwitchCharacterButton;
+        }
+
+        public void RemoveInputs()
+        {
+            swapButton = 0;
         }
     }
 }

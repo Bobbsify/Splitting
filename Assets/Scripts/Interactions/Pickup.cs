@@ -58,16 +58,56 @@ namespace Splitting {
 
         public void PickUp()
         {
+            string TyrFingerBone = "bone_1/bone_5/bone_6/bone_18/bone_7/bone_17/bone_8/bone_9";
+            string TyrantFingerBone = "bone_1/bone_2/bone_3/bone_14/bone_15/bone_16/bone_17/bone_18/bone_19/bone_20";
             Rigidbody2D objRigidbody = grabCheck.collider.gameObject.GetComponent<Rigidbody2D>();
-            grabCheck.collider.gameObject.transform.parent = transform;
-            grabCheck.collider.gameObject.transform.position = new Vector2(transform.position.x, transform.position.y + col.bounds.size.y * 2);
+            grabCheck.collider.gameObject.transform.parent = transform.Find(name.ToUpper().Contains("ANT") ? TyrantFingerBone : TyrFingerBone);
+            grabCheck.collider.gameObject.transform.localPosition = fetchCorrectPosition(grabCheck.collider.gameObject);
             objRigidbody.isKinematic = true;
+            foreach (Collider2D col in grabCheck.collider.gameObject.GetComponents<Collider2D>()) //Enable Colliders
+            {
+                col.enabled = false;
+            }
+            gameObject.layer = 13; //Boxes
+            grabCheck.collider.gameObject.layer = 14; //Boxes Bounds
             throwScript.rbToThrow = objRigidbody;
         }
 
         public void Throw()
         {
             trajectoryPrediction.GetComponent<Throw>().ThrowEntity();
+            foreach (Collider2D col in grabCheck.collider.GetComponents<Collider2D>()) //Enable Colliders
+            {
+                col.enabled = true;
+            }
+        }
+
+        private Vector2 fetchCorrectPosition(GameObject box)
+        {
+            Vector2 result;
+
+            try
+            {
+                Vector2 boxColliderSize = box.GetComponent<BoxCollider2D>().bounds.extents; // x --> width | y --> height
+                                                                                            //BoxCollider2D playerBoxCollider = GetComponent<BoxCollider2D>();
+
+                //Get top ( Y + 1/2 size + offset)
+                //float top = playerBoxCollider.bounds.center.y + playerBoxCollider.bounds.extents.y;
+
+                //offsetY is distance from top to bottom + boxColliderSize/2 
+                //float offsetY = boxColliderSize.y;
+
+                //result = new Vector2(playerBoxCollider.transform.position.x, top + offsetY); // center , top + box
+                box.transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
+                result = new Vector2(boxColliderSize.x/2,-boxColliderSize.y);
+            }
+            catch
+            {
+                Debug.LogWarning("Could not find collider, resorting to default formula");
+                result = new Vector2(transform.position.x, transform.position.y + col.bounds.size.y * 2);
+            }
+
+            return result;
         }
 
         private void OnDrawGizmosSelected()
@@ -75,7 +115,6 @@ namespace Splitting {
             col = gameObject.GetComponent<CapsuleCollider2D>();
             BoxCollider2D wallCheckCollider = transform.Find("Wall Check").GetComponent<BoxCollider2D>();
             Gizmos.color = Color.red;
-            //Gizmos.DrawRay(new Vector2((wallCheckCollider.transform.position.x + wallCheckCollider.offset.x - wallCheckCollider.size.x), transform.position.y), Vector2.right * -transform.localScale.x);
             Gizmos.DrawRay(new Vector2(wallCheckCollider.transform.position.x + (Mathf.Abs(wallCheckCollider.offset.x) + wallCheckCollider.size.x ) * -transform.localScale.x, transform.position.y), Vector2.right * -transform.localScale.x);
         }
     }

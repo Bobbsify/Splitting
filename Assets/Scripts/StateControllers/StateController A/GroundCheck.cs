@@ -6,12 +6,12 @@ namespace Splitting
 {
     public class GroundCheck : MonoBehaviour
     {
-        public StateController stateController;
+        private StateController stateController;
 
         // Start is called before the first frame update
         void Start()
         {
-
+            stateController = gameObject.GetComponentInParent<StateController>();
         }
 
         // Update is called once per frame
@@ -25,6 +25,13 @@ namespace Splitting
             {
                 stateController.isGrounded = true;
             }
+
+            /*
+            if (collision.gameObject.tag == "Carryable")
+            {
+                stateController.isPushing = true;
+            }
+            */
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -33,6 +40,13 @@ namespace Splitting
             {
                 stateController.isGrounded = false;
             }
+
+            /*
+            if (collision.gameObject.tag == "Carryable")
+            {
+                stateController.isPushing = false;
+            }
+            */
         }
 
     }

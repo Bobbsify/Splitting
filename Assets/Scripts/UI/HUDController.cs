@@ -6,43 +6,40 @@ namespace Splitting
 {
     public class HUDController : MonoBehaviour
     {
-        public GameObject[] players;              
-
-        public GameObject[] abilities = new GameObject[3];
-        public GameObject[] currentAbilities = new GameObject[5];
+        private GameObject player;
+                
+        private GameObject[] abilities = new GameObject[3];
+        private GameObject[] currentAbilities = new GameObject[5];
          
         // ant
-        Move antMove;
-        Jump antJump;
-        Carry antCarry;
+        private Move antMove;
+        private Jump antJump;
+        private Carry antCarry;
+        private Extend antExtend;
 
         // tyr
-        public GameObject tyrTrajectPred;
-        public Throw tyrThrow;
+        private GameObject tyrTrajectPred;
+        private Throw tyrThrow;
+        private FlashlightController tyrFlashlight;        
 
         // tyrant
-        public GameObject tyrantTrajectPred;
-        public Throw tyrantThrow;
+        private GameObject tyrantTrajectPred;
+        private Throw tyrantThrow;
+        private Extend tyrantExtend;
+        private FlashlightController tyrantFlashlight;
+
+        private Animator animator;
+        private AutobotUnity autobotUnity;
 
         [SerializeField] private int currentPlayer;
 
         // Start is called before the first frame update
         void Start()
         {
+            
             currentPlayer = ControlWhoIsPlayer();            
 
-            // ant
-            antMove = players[0].GetComponent<Move>();
-            antJump = players[0].GetComponent<Jump>();
-            antCarry = players[0].GetComponent<Carry>();
-
-            // tyr
-            tyrTrajectPred = players[1].transform.Find("TrajectoryPrediction").gameObject;
-            tyrThrow = tyrTrajectPred.GetComponent<Throw>();
-
-            // tyrant
-            tyrantTrajectPred = players[2].transform.Find("TrajectoryPredictionTA").gameObject;
-            tyrantThrow = tyrantTrajectPred.GetComponent<Throw>();
+            GetComponentsFromCurrentPlayer();
 
             // Get abilities
             for (int i = 0; i < abilities.Length; i++)
@@ -58,8 +55,7 @@ namespace Splitting
         // Update is called once per frame
         void Update()
         {
-            
-            if (players[currentPlayer].tag != "Player")
+            if (player == null)
             {
                 for (int i = 0; i < currentAbilities.Length; i++)
                 {
@@ -68,9 +64,28 @@ namespace Splitting
 
                 currentPlayer = ControlWhoIsPlayer();
 
+                GetComponentsFromCurrentPlayer();
+
                 GetCurrentAbilities();
+
             }
-            
+            else
+            {
+                if (player.tag != "Player")
+                {
+                    for (int i = 0; i < currentAbilities.Length; i++)
+                    {
+                        currentAbilities[i] = null;
+                    }
+
+                    currentPlayer = ControlWhoIsPlayer();
+
+                    GetComponentsFromCurrentPlayer();
+
+                    GetCurrentAbilities();
+                }
+            }            
+
             // Ant
             if (currentPlayer == 0)
             {          
@@ -125,6 +140,23 @@ namespace Splitting
                     currentAbilities[3].transform.Find("AbilityOnFrame4").gameObject.SetActive(false);
                     currentAbilities[3].transform.Find("OnIcon_Carry").gameObject.SetActive(false);
                 }
+
+                if (antExtend.isExtended)
+                {
+                    currentAbilities[0].transform.Find("AbilityFrame1").gameObject.SetActive(false);
+                    currentAbilities[0].transform.Find("Icon_Lift").gameObject.SetActive(false);
+
+                    currentAbilities[0].transform.Find("AbilityOnFrame1").gameObject.SetActive(true);
+                    currentAbilities[0].transform.Find("OnIcon_Lift").gameObject.SetActive(true);
+                }
+                else
+                {
+                    currentAbilities[0].transform.Find("AbilityFrame1").gameObject.SetActive(true);
+                    currentAbilities[0].transform.Find("Icon_Lift").gameObject.SetActive(true);
+
+                    currentAbilities[0].transform.Find("AbilityOnFrame1").gameObject.SetActive(false);
+                    currentAbilities[0].transform.Find("OnIcon_Lift").gameObject.SetActive(false);
+                }
             }
 
             // Tyr
@@ -147,11 +179,62 @@ namespace Splitting
                     currentAbilities[0].transform.Find("OnIcon_Launch").gameObject.SetActive(false);
                 }
 
+                if (AnimatorIsPlaying("Tyr hacking") || AnimatorIsPlaying("Tyr hacking2"))
+                {
+                    currentAbilities[1].transform.Find("AbilityFrame2").gameObject.SetActive(false);
+                    currentAbilities[1].transform.Find("Icon_Hacking").gameObject.SetActive(false);
+
+                    currentAbilities[1].transform.Find("AbilityOnFrame2").gameObject.SetActive(true);
+                    currentAbilities[1].transform.Find("OnIcon_Hacking").gameObject.SetActive(true);
+                }
+                else
+                {
+                    currentAbilities[1].transform.Find("AbilityFrame2").gameObject.SetActive(true);
+                    currentAbilities[1].transform.Find("Icon_Hacking").gameObject.SetActive(true);
+
+                    currentAbilities[1].transform.Find("AbilityOnFrame2").gameObject.SetActive(false);
+                    currentAbilities[1].transform.Find("OnIcon_Hacking").gameObject.SetActive(false);
+                }
+
+                if (tyrFlashlight.lightsAre)
+                {
+                    currentAbilities[2].transform.Find("AbilityFrame3").gameObject.SetActive(false);
+                    currentAbilities[2].transform.Find("Icon_Torch").gameObject.SetActive(false);
+
+                    currentAbilities[2].transform.Find("AbilityOnFrame3").gameObject.SetActive(true);
+                    currentAbilities[2].transform.Find("OnIcon_Torch").gameObject.SetActive(true);
+                }
+                else
+                {
+                    currentAbilities[2].transform.Find("AbilityFrame3").gameObject.SetActive(true);
+                    currentAbilities[2].transform.Find("Icon_Torch").gameObject.SetActive(true);
+
+                    currentAbilities[2].transform.Find("AbilityOnFrame3").gameObject.SetActive(false);
+                    currentAbilities[2].transform.Find("OnIcon_Torch").gameObject.SetActive(false);
+                }
+
             }
 
             // Tyrant
             if (currentPlayer == 2)
             {
+                if (tyrantExtend.isExtended)
+                {
+                    currentAbilities[0].transform.Find("AbilityFrame1").gameObject.SetActive(false);
+                    currentAbilities[0].transform.Find("Icon_Lift").gameObject.SetActive(false);
+
+                    currentAbilities[0].transform.Find("AbilityOnFrame1").gameObject.SetActive(true);
+                    currentAbilities[0].transform.Find("OnIcon_Lift").gameObject.SetActive(true);
+                }
+                else
+                {
+                    currentAbilities[0].transform.Find("AbilityFrame1").gameObject.SetActive(true);
+                    currentAbilities[0].transform.Find("Icon_Lift").gameObject.SetActive(true);
+
+                    currentAbilities[0].transform.Find("AbilityOnFrame1").gameObject.SetActive(false);
+                    currentAbilities[0].transform.Find("OnIcon_Lift").gameObject.SetActive(false);
+                }
+
                 if (tyrantThrow.rbToThrow == true && tyrantThrow.throwing == false)
                 {
                     currentAbilities[1].transform.Find("AbilityFrame4").gameObject.SetActive(false);
@@ -182,6 +265,42 @@ namespace Splitting
                     currentAbilities[2].transform.Find("AbilityOnFrame1").gameObject.SetActive(false);
                     currentAbilities[2].transform.Find("OnIcon_Launch").gameObject.SetActive(false);
                 }
+
+                if (AnimatorIsPlaying("TyrantHacking"))
+                {
+                    currentAbilities[3].transform.Find("AbilityFrame2").gameObject.SetActive(false);
+                    currentAbilities[3].transform.Find("Icon_Hacking").gameObject.SetActive(false);
+
+                    currentAbilities[3].transform.Find("AbilityOnFrame2").gameObject.SetActive(true);
+                    currentAbilities[3].transform.Find("OnIcon_Hacking").gameObject.SetActive(true);
+                }
+                else
+                {
+                    currentAbilities[3].transform.Find("AbilityFrame2").gameObject.SetActive(true);
+                    currentAbilities[3].transform.Find("Icon_Hacking").gameObject.SetActive(true);
+
+                    currentAbilities[3].transform.Find("AbilityOnFrame2").gameObject.SetActive(false);
+                    currentAbilities[3].transform.Find("OnIcon_Hacking").gameObject.SetActive(false);
+                }
+
+                if (tyrantFlashlight.lightsAre)
+                {
+                    currentAbilities[4].transform.Find("AbilityFrame3").gameObject.SetActive(false);
+                    currentAbilities[4].transform.Find("Icon_Torch").gameObject.SetActive(false);
+
+                    currentAbilities[4].transform.Find("AbilityOnFrame3").gameObject.SetActive(true);
+                    currentAbilities[4].transform.Find("OnIcon_Torch").gameObject.SetActive(true);
+                }
+                else
+                {
+                    currentAbilities[4].transform.Find("AbilityFrame3").gameObject.SetActive(true);
+                    currentAbilities[4].transform.Find("Icon_Torch").gameObject.SetActive(true);
+
+                    currentAbilities[4].transform.Find("AbilityOnFrame3").gameObject.SetActive(false);
+                    currentAbilities[4].transform.Find("OnIcon_Torch").gameObject.SetActive(false);
+                }
+
+
             }
             
         }
@@ -190,21 +309,71 @@ namespace Splitting
         {
             int x = 0;
 
-            for (int i = 0; i < players.Length; i++)
-            {
+            bool ant = false;
+            bool tyr = false;
 
-                if (players[i].tag == "Player")
+            player = GameObject.FindGameObjectWithTag("Player");
+
+            ant = player.name.ToUpper().Contains("ANT");
+            tyr = player.name.ToUpper().Contains("TYR");
+
+            if (ant && !tyr)
+            {
+                x = 0; // ant
+            }
+            else if (tyr && !ant)
+            {
+                x = 1; // tyr
+            }
+            else if (ant && tyr)
+            {
+                x = 2; // tyrant
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                transform.GetChild(i).gameObject.SetActive(false);
+
+                if (i == x)
                 {
                     transform.GetChild(i).gameObject.SetActive(true);
-                    x = i;
-                }
-                else
-                {
-                    transform.GetChild(i).gameObject.SetActive(false);
                 }
             }
 
             return x;
+        }
+
+        void GetComponentsFromCurrentPlayer()
+        {
+            
+            if (currentPlayer == 0) // ant
+            {
+                antMove = player.GetComponent<Move>();
+                antJump = player.GetComponent<Jump>();
+                antCarry = player.GetComponent<Carry>();
+                antExtend = player.GetComponent<Extend>();
+
+                autobotUnity = player.GetComponent<AutobotUnity>();
+            }
+            else if (currentPlayer == 1) // tyr
+            {
+                tyrTrajectPred = player.transform.Find("TrajectoryPrediction").gameObject;
+                tyrThrow = tyrTrajectPred.GetComponent<Throw>();                
+                tyrFlashlight = player.GetComponentInChildren<FlashlightController>();
+
+                animator = player.GetComponent<Animator>();
+
+                autobotUnity = player.GetComponent<AutobotUnity>();
+            }
+            else if (currentPlayer == 2) // tyrant
+            {
+                tyrantTrajectPred = player.transform.Find("TrajectoryPredictionTA").gameObject;
+                tyrantThrow = tyrantTrajectPred.GetComponent<Throw>();
+                tyrantExtend = player.GetComponent<Extend>();
+                tyrantFlashlight = player.GetComponentInChildren<FlashlightController>();
+
+                animator = player.GetComponent<Animator>();
+            }          
         }
         
         public void GetCurrentAbilities()
@@ -231,6 +400,11 @@ namespace Splitting
                 }
             }
 
+        }
+
+        bool AnimatorIsPlaying(string stateName)
+        {
+            return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
         }
     }    
 }

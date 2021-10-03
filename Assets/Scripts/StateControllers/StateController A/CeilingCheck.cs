@@ -6,15 +6,15 @@ namespace Splitting
 {
     public class CeilingCheck : MonoBehaviour
     {
-        public StateController stateController;
-        public Carry carry;
-
-        private Rigidbody2D objRig;
+        private StateController stateController;
+        private Carry carry;
 
         // Start is called before the first frame update
         void Start()
-        {
-            objRig = gameObject.GetComponent<Rigidbody2D>();
+        {           
+            stateController = gameObject.GetComponentInParent<StateController>();
+
+            carry = gameObject.GetComponentInParent<Carry>();
         }
 
         // Update is called once per frame
@@ -29,12 +29,9 @@ namespace Splitting
                 stateController.isObstructed = true;
             }
             
-            if (collision.gameObject.tag == "Carryable" && !carry.wasCarrying)
+            if (collision.gameObject.tag == "Carryable" && !carry.isCarrying && !carry.wasCarrying)
             {
-                carry.carryedObj = collision.gameObject;
-
-                objRig = collision.GetComponent<Rigidbody2D>();
-                carry.carryedRig = objRig;
+                carry.carryedObj = collision.gameObject;                
             }
         }
 
@@ -44,7 +41,6 @@ namespace Splitting
             {
                 stateController.isObstructed = false;
             }
-
             
             if (collision.gameObject.tag == "Carryable")
             {

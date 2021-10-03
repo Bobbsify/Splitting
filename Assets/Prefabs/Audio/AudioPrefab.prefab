@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3396441058585089034}
   - component: {fileID: 3396441058585089035}
   - component: {fileID: 3396441058585089036}
+  - component: {fileID: 2173989628119758913}
+  - component: {fileID: -4472699848955359205}
   m_Layer: 0
   m_Name: AudioPrefab
   m_TagString: Audio
@@ -154,3 +156,35 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2173989628119758913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3396441058585089037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f43d4cb0113a2d42ae8c5ac972d4d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alwaysPlaying: 0
+  directional: 1
+  soundType: 1
+  mixer: {fileID: 24100000, guid: 818a5bb12115e824aa57b46cfb7d2c1a, type: 2}
+--- !u!114 &-4472699848955359205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3396441058585089037}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7502707cd7dc12e40aa26d9ee33b2dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loopDelayInSeconds: 0
+  randomizeDelay: 0
+  randomizationLessenRange: -1
+  randomizationIncreaseRange: 1

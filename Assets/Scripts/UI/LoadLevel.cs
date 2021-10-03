@@ -8,10 +8,12 @@ namespace Splitting
 { 
     public class LoadLevel : MonoBehaviour
     {
+        public LastCheckpointInfo lastCheckpoint;
+        public LevelLoadingInfo lvlInfoObj;
+
         [SerializeField] private InGameScenes sceneToLoad;
         [SerializeField] private bool transition;
         private List<string> gameScenes = new List<string>();
-        private LevelLoadingInfo lvlInfoObj;
 
         private void Start()
         {
@@ -26,7 +28,8 @@ namespace Splitting
             }
         }
 
-        private void loadLevel(bool goToTransition) {
+        public void loadLevel(bool goToTransition) {
+            lastCheckpoint.levelCheckpoint = 0;
             if (goToTransition)
             {
                 lvlInfoObj.levelInfo.levelToLoad = (int)sceneToLoad;
@@ -36,30 +39,36 @@ namespace Splitting
             {
                 SceneManager.LoadScene(gameScenes.ToArray()[(int)sceneToLoad]);
             }
-            //TODO implement transition
+            lastCheckpoint.levelCheckpoint = 0;
         }
     }
 
     /*
-    1: Main Menu
-    2: Livello 0
-    3: Livello 1
-    4: Livello 2
-    5: Livello 3
-    6: Loading Screen
-    7: Win Scene
-    8: Tutorial Scene
+    Building:
+
+     Main Menu: 0
+     First Cutscene : 1
+     Level 1 : 2
+     Second Cutscene : 3
+     Level 5.1 : 4
+     Level 5 checkpoint 1 : 5
+     Level 5.2 : 6
+     ToBeContinued: 7
+     Loading Screen: 8
+
+
     */
 
     public enum InGameScenes
     {
         MainMenu = 0,
-        Level0 = 1,
-        Level1 = 2,
-        Level2 = 3,
-        Level3 = 4,
-        LoadingScreen = 5,
-        WinScene = 6,
-        TutorialScene = 7
+        FirstCutscene = 1,
+        Tutorial = 2,
+        SecondCutscene = 3,
+        Level5Part1 = 4,
+        Level5Part1Checkpoint1 = 5,
+        Level5Part2 = 6,
+        ToBeContinued = 7,
+        LoadingScreen = 8
     }
 }

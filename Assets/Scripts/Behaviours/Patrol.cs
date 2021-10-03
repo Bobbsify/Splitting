@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using UnityEngine.Events;
 
 /* slow to fast to slow non funziona la metterò a posto se servira :^)*/
 
@@ -11,7 +13,7 @@ public class Patrol : MonoBehaviour
     [SerializeField] private PatrolTypes patrolType;
 
     [Header("Movement Properties")]
-    [SerializeField] private float speed;
+    [SerializeField] public float speed;
     [Header("Slow to fast to Slow non funziona, la metterò a posto se servirà :^)")]
     [SerializeField] private MovementTypes movementType;
 
@@ -21,19 +23,20 @@ public class Patrol : MonoBehaviour
     private float distanceX;
     private float distanceY;
     private float totalDistance;
+    private float rangePity = 0.2f;
 
     private int whereToX;
     private int whereToY;
 
-    private int travelMode = 1;
+    private int travelMode = 1; //Going forward or backwards
 
+    [Header("Determines whether this platform carries any objects colliding on top of itself")]
+    [SerializeField] private bool elevator = false;
+    [SerializeField] private int expectedCarriedUnits = 5;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        startPoint = transform.position;
-        StartCalculations();
-    }
+    [Header("Events upon point arrival")]
+    [SerializeField] private bool doOnPathCompletionInstead;
+    [SerializeField] private UnityEvent checkpointEvents;
 
     private void OnEnable()
     {
@@ -62,44 +65,44 @@ public class Patrol : MonoBehaviour
     {
         if (whereToX == 1 && whereToY == 1) //Moving Top Right
         {
-            if (transform.position.y < path[nextPoint].y)
+            if (transform.position.y <= path[nextPoint].y)
             {
                 AdvanceY();
             }
-            if (transform.position.x < path[nextPoint].x)
+            if (transform.position.x <= path[nextPoint].x)
             {
                 AdvanceX();
             }
         }
         if (whereToX == 1 && whereToY == -1) //Moving Top Left
         {
-            if (transform.position.y > path[nextPoint].y)
+            if (transform.position.y >= path[nextPoint].y)
             {
                 AdvanceY();
             }
-            if (transform.position.x < path[nextPoint].x)
+            if (transform.position.x <= path[nextPoint].x)
             {
                 AdvanceX();
             }
         }
         if (whereToX == -1 && whereToY == 1) //Moving Bottom Right
         {
-            if (transform.position.y < path[nextPoint].y)
+            if (transform.position.y <= path[nextPoint].y)
             {
                 AdvanceY();
             }
-            if (transform.position.x > path[nextPoint].x)
+            if (transform.position.x >= path[nextPoint].x)
             {
                 AdvanceX();
             }
         }
         if (whereToX == -1 && whereToY == -1) //Moving Bottom Left
         {
-            if (transform.position.y > path[nextPoint].y)
+            if (transform.position.y >= path[nextPoint].y)
             {
                 AdvanceY();
             }
-            if (transform.position.x > path[nextPoint].x)
+            if (transform.position.x >= path[nextPoint].x)
             {
                 AdvanceX();
             }
@@ -160,11 +163,16 @@ public class Patrol : MonoBehaviour
         }
     }
 
-    private bool isInRange(float numberToCompare,float rangeStart, float range)
+    private bool isInRange(float numberToCompare, float rangeStart, float range)
     {
-        return numberToCompare>=rangeStart && numberToCompare<=rangeStart+range;
+        return numberToCompare >= rangeStart && numberToCompare <= rangeStart + range;
     }
-    
+
+    private bool isInRange(float numberToCompare, float center)
+    {
+        return numberToCompare >= center - rangePity && numberToCompare <= center + rangePity;
+    }
+
     private void StartCalculations()
     {
         distanceY = Mathf.Abs(transform.position.y - path[nextPoint].y);
@@ -173,6 +181,17 @@ public class Patrol : MonoBehaviour
 
         whereToX = transform.position.x < path[nextPoint].x ? 1 : -1; //Left or Right
         whereToY = transform.position.y < path[nextPoint].y ? 1 : -1; //Up or down
+        
+        if (elevator)
+        {
+            Collider2D col = FetchElevatorCollider();
+            Collider2D[] contacts = new Collider2D[expectedCarriedUnits];
+            col.GetContacts(contacts);
+            Debug.Log(contacts);
+            if (contacts != null) { 
+                attachObjectsToThis(contacts);
+            }
+        }
     }
 
     private void Disable()
@@ -180,18 +199,18 @@ public class Patrol : MonoBehaviour
         switch (whereToX)
         {
             case 1:
-                if (transform.position.x >= path[nextPoint].x)
+                if (isInRange(transform.position.x,path[nextPoint].x))
                 {
                     switch (whereToY)
                     {
                         case 1:
-                            if (transform.position.y >= path[nextPoint].y)
+                            if (isInRange(transform.position.y, path[nextPoint].y))
                             {
                                 HandleNextPoint();
                             }
                             break;
                         case -1:
-                            if (transform.position.y <= path[nextPoint].y)
+                            if (isInRange(transform.position.y, path[nextPoint].y))
                             {
                                 HandleNextPoint();
                             }
@@ -203,18 +222,18 @@ public class Patrol : MonoBehaviour
                 }
                 break;
             case -1:
-                if (transform.position.x <= path[nextPoint].x)
+                if (isInRange(transform.position.x, path[nextPoint].x))
                 {
                     switch (whereToY)
                     {
                         case 1:
-                            if (transform.position.y >= path[nextPoint].y)
+                            if (isInRange(transform.position.y, path[nextPoint].y))
                             {
                                 HandleNextPoint();
                             }
                             break;
                         case -1:
-                            if (transform.position.y <= path[nextPoint].y)
+                            if (isInRange(transform.position.y, path[nextPoint].y))
                             {
                                 HandleNextPoint();
                             }
@@ -250,11 +269,24 @@ public class Patrol : MonoBehaviour
             {
                 nextPoint = 0;
             }
+            if (doOnPathCompletionInstead)
+            {
+                checkpointEvents.Invoke();
+            }
         }
         else
         {
             nextPoint += (travelMode);
         }
+
+        removeAttachedObjects();
+
+        //Execute checkpoint events
+        if (!doOnPathCompletionInstead)
+        {
+            checkpointEvents.Invoke();
+        }
+
         if (patrolType == PatrolTypes.NextPointOnAwake || patrolType == PatrolTypes.NextPointOnAwakeNeverRepeat || patrolType == PatrolTypes.NextPointOnAwakeSwing)
         {
             this.enabled = false;
@@ -263,7 +295,58 @@ public class Patrol : MonoBehaviour
         {
             StartCalculations();
         }
-        Debug.Log("Next Point: "+nextPoint);
+    }
+
+    private Collider2D FetchElevatorCollider()
+    {
+        Collider2D result;
+
+        result = GetComponent<Collider2D>();
+
+        if(result == null || result.isTrigger) //No collider was found or it's wrong
+        {
+            Collider2D[] cols = GetComponentsInChildren<Collider2D>(); //search in children
+            foreach (Collider2D col in cols)
+            {
+                if (!col.isTrigger && result == null)
+                {
+                    result = col;
+                }
+                else if (!col.isTrigger && result != null)
+                {
+                    throw new Exception("Multiple valid colliders were found!! First fetched collider: " + result + "\nOther: " + col);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private void attachObjectsToThis(Collider2D[] cols)
+    {
+        if (cols != null) { 
+            foreach (Collider2D col in cols)
+            {
+                if (col != null) { 
+                    if (col.tag == "Player" || col.tag == "Carryable" || col.name.ToLower().Contains("tyr") || col.name.ToLower().Contains("ant"))
+                    {
+                        col.gameObject.transform.parent = transform;
+                    }
+                }
+            }
+        }
+    }
+
+    private void removeAttachedObjects()
+    {
+        foreach (Transform child in transform)
+        {
+            Debug.Log(child);
+            if (child.tag == "Player" || child.tag == "Carryable" || child.name.ToLower().Contains("tyr") || child.name.ToLower().Contains("ant"))
+            {
+                child.gameObject.transform.parent = null;
+            }
+        }
     }
 
 }

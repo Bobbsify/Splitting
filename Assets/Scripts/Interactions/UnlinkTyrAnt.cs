@@ -1,24 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Splitting
 { 
     public class UnlinkTyrAnt : MonoBehaviour
     {
-        [SerializeField] private string tyrName = "Tyr";
-        private GameObject tyr;
-        [SerializeField] private string antName = "Ant";
-        private GameObject ant;
+        [SerializeField] private GameObject tyrPrefab;
+        [SerializeField] private GameObject antPrefab;
+
+        [HideInInspector] public List<string> antScripts;
+        [HideInInspector] public List<string> tyrScripts;
     
         private Animator animator;
         private KeyCode unlinkKey;
 
         private void Awake()
         {
-            ant = transform.Find(antName).gameObject;
-            tyr = transform.Find(tyrName).gameObject;
-        
             animator = GetComponent<Animator>();
             unlinkKey = new InputSettings().SwitchCharacterButton;
         }
@@ -38,27 +37,60 @@ namespace Splitting
 
         public void Unlink()    //Animation should fire this event
         {
-            //Set correct TyrAnt
-            gameObject.transform.localScale = new Vector2(Mathf.Abs(gameObject.transform.localScale.x),gameObject.transform.localScale.y);
+            Destroy(gameObject); //Destroy This
+            
+            GameObject ant = Instantiate(antPrefab); //Create Ant
+            GameObject tyr = Instantiate(tyrPrefab); //Create Tyr
 
-            //Remove Ant & Tyr Children
-            ant.transform.parent = null;
-            ant.tag = "Player";
+            ant.transform.position = transform.position;
+            ant.transform.position = new Vector2(ant.transform.position.x - 0.2f, ant.transform.position.y);
+            ant.transform.localScale = transform.localScale;
+            Vector2 lowerTyr = new Vector2(ant.transform.position.x,ant.transform.position.y - 1); //1 --> height difference
+            tyr.transform.position = lowerTyr;
+            tyr.transform.localScale = GetTyrScale();
 
-            tyr.transform.parent = null;
-            tyr.tag = "Untagged";
-            tyr.transform.localScale = new Vector2(1.13f,1.13f);
+            ant.GetComponent<SwitchCharacter>().targetEntity = tyr;
+            tyr.GetComponent<SwitchCharacter>().targetEntity = ant;
+            
+            //Toggle flashlight correctly
+            tyr.transform.Find("bone_1/bone_14/Flashlight").GetComponent<FlashlightController>().SetLightsToState(transform.Find("bone_1/bone_2/bone_3/bone_13/Flashlight").GetComponent<FlashlightController>().lightsAre);
 
-            //Disable TyrAnt
-            gameObject.SetActive(false);
-            gameObject.tag = "Untagged";
+            SetupTyr(tyr);
+            SetupAnt(ant);
+ 
+        }
 
-            //Attach TyrAnt to Ant
-            transform.parent = ant.transform;
+        private void SetupAnt(GameObject ant)
+        {
+            ant.GetComponent<AutobotUnity>().enabled = true;
+            ant.GetComponent<AutobotUnity>().GetStateControllers();
+            ant.GetComponent<SwitchCharacter>().enabled = true;
+        }
 
-            //Enable Ant & Tyr
-            ant.SetActive(true);
-            tyr.SetActive(true);
+        private void SetupTyr(GameObject tyr)
+        {
+            tyr.GetComponent<AutobotUnity>().enabled = true;
+            tyr.GetComponent<AutobotUnity>().GetStateControllers();
+        }
+
+        private Vector3 GetTyrScale()
+        {
+            Vector3 scale = new Vector3();
+
+            scale = tyrPrefab.transform.localScale;
+            scale.x *= transform.localScale.x;
+
+            return scale;
+        }
+
+        public void SetInputs()
+        {
+            unlinkKey = new InputSettings().SwitchCharacterButton;
+        }
+
+        public void RemoveInputs()
+        {
+            unlinkKey = 0;
         }
     }
 }

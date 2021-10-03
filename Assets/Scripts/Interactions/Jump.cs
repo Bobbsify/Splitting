@@ -18,12 +18,23 @@ namespace Splitting
         public float jumpMultiplier = 2.0f;
         public float jumpDivider = 1.0f;
 
-        public KeyCode jumpButton;
+        private KeyCode jumpButton;
+
+        [SerializeField] private float timerChargeJump = 1.0f;
+        public bool chargeJump;
 
         [SerializeField] private float timerJump = 2.0f;
-        [SerializeField] private float elapsedKeyDown;       
+        [SerializeField] private float elapsedKeyDown;
 
-        private float velocityY;
+        [SerializeField] private float timerFall = 2.0f;
+        public float elapsedFall;
+
+        [SerializeField] private float timerStartFall = 1.0f;
+        private bool startFall;
+
+        public bool bigFall;
+
+        public float velocityY;
 
         new private Rigidbody2D rigidbody2D;
 
@@ -39,14 +50,29 @@ namespace Splitting
 
         // Update is called once per frame
         void Update()
-        {            
+        {
+            if (bigFall)
+            {
+                Debug.Log("bigFall is " + bigFall);
+            }
+            
 
-            if (canJump && !isLanded && !wasJumping)
+            if (canJump && !wasJumping)
             {
                 if (Input.GetKey(jumpButton))
                 {
                     elapsedKeyDown += Time.deltaTime;
                 }
+
+                if (elapsedKeyDown >= timerChargeJump)
+                {
+                    chargeJump = true;
+                }
+                else
+                {
+                    chargeJump = false;
+                }
+
 
                 if (elapsedKeyDown >= timerJump)
                 {
@@ -71,33 +97,67 @@ namespace Splitting
                 }
             }
 
+            
             if (!canJump)
             {
                 elapsedKeyDown = 0.0f;
             }
-
-            velocityY = rigidbody2D.velocity.y;
+            else
+            {
+                elapsedFall = 0.0f;
+            }
+            
+                        
 
             if (Mathf.Abs(velocityY) > 4 && Mathf.Abs(velocityY) < 100)
             {          
                 wasJumping = true;
             }
-            
 
-            CallAnimator(Input.GetKey(jumpButton), velocityY, isLanded);
+            if (velocityY < 0)
+            {
+                elapsedFall += Time.deltaTime;
+            }
+
+            if (elapsedFall >= timerStartFall)
+            {
+                startFall = true;
+                wasJumping = true;
+            }
+            else
+            {
+                startFall = false;
+            }
+
+            if (elapsedFall > timerFall)
+            {
+                bigFall = true;
+            }
+            else
+            {
+                bigFall = false;
+            }            
+
+            CallAnimator(Input.GetKey(jumpButton), velocityY, isLanded, startFall);
             
         }
 
-        private void CallAnimator(bool isPreparing, float verticalSpeed, bool isLanded)
+        private void CallAnimator(bool isPreparing, float verticalSpeed, bool isLanded, bool startingFall)
         {
             if (animator != null)
             {
                 animator.SetBool("jumpPrep", isPreparing);
                 animator.SetFloat("velocityY", verticalSpeed);
                 animator.SetBool("land", isLanded);
+                animator.SetBool("startFall", startingFall);
             }
+        }       
+
+        bool AnimatorIsPlaying(string stateName)
+        {
+            return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
         }
 
-       
+
     }
 }

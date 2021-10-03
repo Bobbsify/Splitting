@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Splitting
 {
@@ -14,8 +15,16 @@ namespace Splitting
         [SerializeField] private float connectDistance = 5.0f;
         [SerializeField] private float approachSpeed;
 
-        public StateController stateController;
-        public StateControllerT stateControllerT;
+        // ant components
+        private StateController antStateController;
+        private Carry antCarry;
+
+        // tyr components
+        private StateControllerT tyrStateController;
+        private GameObject tyrTrajectPred;
+        private Throw tyrGetThrow;
+        
+        private SwitchCharacter switchCharacter;
         private Animator animator;
 
         private Rigidbody2D targetRig;
@@ -24,12 +33,12 @@ namespace Splitting
         private RaycastHit2D connectCheck;
         private int layerMask;
 
-        public GameObject ant;
+        private GameObject ant;
 
         private Vector3 initialScale;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             connectButton = new InputSettings().SwitchCharacterButton;
 
@@ -38,12 +47,28 @@ namespace Splitting
 
             animator = gameObject.GetComponent<Animator>();
 
+            switchCharacter = gameObject.GetComponent<SwitchCharacter>();
+
+            try
+            {
+                if (switchCharacter.targetEntity != null)
+                {
+                    GetStateControllers();
+                }                
+            }
+            catch
+            {
+                throw new Exception("Could not get state controllers");
+            }            
+
             initialScale = transform.localScale;
         }
 
         // Update is called once per frame
         void Update()
         {
+            ControlIfCanConnet();
+
             if (gameObject.layer == 8)
             {
                 layerMask = LayerMask.GetMask("Gameplay-Middle");
@@ -53,16 +78,17 @@ namespace Splitting
                 layerMask = LayerMask.GetMask("Gameplay-Back");
             }
 
-            connectDistance = Mathf.Sqrt(Mathf.Pow(boxCol.bounds.size.y + (capsuleCol.bounds.size.y / 2), 2.0f) + Mathf.Pow(boxCol.bounds.size.x, 2.0f));
+            // La gizmo che si vede una volta avviato il gioco non è la reale connect distance necessaria per l'unione tra ant e tyr
+            connectDistance = Mathf.Sqrt(Mathf.Pow(boxCol.bounds.extents.y, 2.0f) + Mathf.Pow(boxCol.bounds.extents.x, 2.0f)) * 2;
 
-            Vector2 editedTransform = new Vector2(boxCol.bounds.center.x - (boxCol.bounds.size.x / 2), boxCol.bounds.center.y + (boxCol.bounds.size.y / 2));
+            Vector2 editedTransform = new Vector2(boxCol.bounds.center.x - ((capsuleCol.bounds.extents.x) * -gameObject.transform.localScale.x), boxCol.bounds.center.y + (boxCol.bounds.extents.y));
 
             if (canConnect)
             {
-                connectCheck = Physics2D.Raycast(editedTransform, Vector2.down + Vector2.right, connectDistance, layerMask);
-            }
+                connectCheck = Physics2D.Raycast(editedTransform, Vector2.down + (Vector2.right * -gameObject.transform.localScale.x), connectDistance, layerMask);
+            }            
 
-            if (connectCheck.collider != null)
+            if (connectCheck.collider != null && canConnect)
             {
                 targetRig = connectCheck.collider.gameObject.GetComponent<Rigidbody2D>();
                 connectable = true;
@@ -76,11 +102,11 @@ namespace Splitting
             {
                 if (gameObject.layer == 9)
                 {
-                    stateController.hasControl = false;
+                    antStateController.hasControl = false;
                 }
                 else if (gameObject.layer == 8)
                 {
-                    stateControllerT.hasControl = false;
+                    tyrStateController.hasControl = false;
                 }                
                 connectionPrep = true;
             }
@@ -143,7 +169,7 @@ namespace Splitting
             capsuleCol = gameObject.GetComponent<CapsuleCollider2D>();
 
             Gizmos.color = Color.red;
-            Gizmos.DrawRay(new Vector2(boxCol.bounds.center.x - (boxCol.bounds.size.x / 2), boxCol.bounds.center.y + (boxCol.bounds.size.y / 2)), (Vector2.down + Vector2.right) * 5);
+            Gizmos.DrawRay(new Vector2(boxCol.bounds.center.x - ((capsuleCol.bounds.extents.x ) * - gameObject.transform.localScale.x), boxCol.bounds.center.y + (boxCol.bounds.extents.y)), (Vector2.down + (Vector2.right * -gameObject.transform.localScale.x)) * connectDistance);
         }
 
         private void CallAnimator(float speed)
@@ -151,6 +177,44 @@ namespace Splitting
             if (animator != null) //is null falsey?
             {
                 animator.SetFloat("velocityX", Mathf.Abs(speed));                
+            }
+        }
+
+        public void GetStateControllers()
+        {
+            if (switchCharacter.targetEntity.name.ToUpper().Contains("ANT"))
+            {
+                antStateController = switchCharacter.targetEntity.GetComponent<StateController>();
+                antCarry = switchCharacter.targetEntity.GetComponent<Carry>();
+
+                tyrStateController = gameObject.GetComponent<StateControllerT>();
+                tyrTrajectPred = transform.Find("TrajectoryPrediction").gameObject;
+                tyrGetThrow = tyrTrajectPred.GetComponentInChildren<Throw>();
+                                
+                ant = switchCharacter.targetEntity;
+            }
+            else
+            {
+                antStateController = gameObject.GetComponent<StateController>();
+                antCarry = gameObject.GetComponent<Carry>();
+
+                tyrStateController = switchCharacter.targetEntity.GetComponent<StateControllerT>();
+                tyrTrajectPred = GameObject.Find("TrajectoryPrediction");
+                tyrGetThrow = tyrTrajectPred.GetComponentInChildren<Throw>();
+
+                ant = gameObject;
+            }
+        }
+
+        void ControlIfCanConnet()
+        {
+            if (!antStateController.isNotScared || antCarry.isCarrying || tyrGetThrow.rbToThrow)
+            {
+                canConnect = false;
+            }
+            else
+            {
+                canConnect = true;
             }
         }
     }

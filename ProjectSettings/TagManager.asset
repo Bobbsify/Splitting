@@ -10,6 +10,10 @@ TagManager:
   - SoundBubbleFar
   - Audio
   - Carryable
+  - HackArea
+  - Light
+  - Platform
+  - CameraBounds
   layers:
   - Default
   - TransparentFX
@@ -22,12 +26,12 @@ TagManager:
   - Gameplay-Back
   - Gameplay-Middle
   - Gameplay-Front
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Camera
+  - CameraBounds
+  - Boxes
+  - BoxesBounds
+  - Piston
+  - PistonBounds
   - 
   - 
   - 

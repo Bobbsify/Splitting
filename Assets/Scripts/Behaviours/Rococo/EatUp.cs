@@ -49,7 +49,7 @@ namespace Splitting {
                 if (collision.collider.tag == "Player")
                 {
                     activatedRococo = Instantiate(rococoJumpAttackPrefab);
-                    activatedRococo.transform.position = transform.parent.Find("FollowMe").position;
+                    activatedRococo.transform.position = new Vector2(collision.transform.position.x - rococoSize.x - (collision.collider.bounds.size.x / 2) , transform.parent.Find("FollowMe").position.y);
                     GameObject.FindGameObjectWithTag("Player").tag = "Untagged"; //Stop player from moving
                 }
             }

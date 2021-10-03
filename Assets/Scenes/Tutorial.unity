@@ -71626,7 +71626,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.3
-  m_Text: Ant Crouch
+  m_Text: Crouch and Lift
 --- !u!222 &1532418705
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -122701,7 +122701,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.3
-  m_Text: "Press S (or \u2193) to make Ant Crouch to let it fit into tighter spaces."
+  m_Text: "Press S (or \u2193) to make Ant Crouch to let it fit into tighter spaces.\nPress
+    W (or \u2191) to make Ant Lift up, in order to push stuff that\u2019s above him."
 --- !u!222 &2002199033
 CanvasRenderer:
   m_ObjectHideFlags: 0

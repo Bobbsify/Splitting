@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PrefabGenerator : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class PrefabGenerator : MonoBehaviour
     [SerializeField] private GameObject prefabToSpawn;
     [SerializeField] private float maxInstances = 1;
     [SerializeField] private Transform spawn;
+
+    [SerializeField] private UnityEvent generationEvents;
 
     private List<GameObject> instances = new List<GameObject>();
 
@@ -32,6 +35,7 @@ public class PrefabGenerator : MonoBehaviour
         GameObject instanced = Instantiate(prefabToSpawn);
         instanced.transform.position = spawn.position;
         instances.Add(instanced);
+        generationEvents.Invoke();
     }
 
 }

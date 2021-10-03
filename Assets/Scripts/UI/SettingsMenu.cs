@@ -81,12 +81,6 @@ namespace Splitting
             UpdateFilmGrain(settingsScriptableObject.currentSettings.filmGrain);
         }
 
-        private void Awake()
-        {
-            GameObject.Find("Global Volume").TryGetComponent(out volumeProfile);
-            UpdateAll();
-        }
-
 
 
         /*

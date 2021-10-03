@@ -15,7 +15,12 @@ namespace Splitting
         public AudioMixer mixer;
 
         public Volume volumeProfile;
-        
+
+        public void Awake()
+        {
+            UpdateAll();
+        }
+
         public void SetMasterVolume(float volume)
         {
            settingsScriptableObject.currentSettings.masterVolume = volume;

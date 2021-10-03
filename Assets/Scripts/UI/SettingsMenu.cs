@@ -16,7 +16,7 @@ namespace Splitting
 
         public Volume volumeProfile;
 
-        public void Awake()
+        public void Start()
         {
             UpdateAll();
         }

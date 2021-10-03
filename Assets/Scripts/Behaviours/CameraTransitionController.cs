@@ -58,15 +58,18 @@ namespace Splitting
                 }
                 if (doOffset)
                 {
-                if (ReachedOffsetCheck())
-                {
-                    doOffset = false;
+                    if (ReachedOffsetCheck())
+                    {
+                        doOffset = false;
+                        reachedX = false;
+                        reachedY = false;
+                        reachedZ = false;
+                    }
+                    else
+                    { 
+                        Offset();
+                    }
                 }
-                else
-                { 
-                    Offset();
-                }
-            }
         }
 
         public void StopAll()
@@ -179,7 +182,7 @@ namespace Splitting
                     }
                     else
                     {
-                        cameraCtrl.tyrCameraOffset.z += cameraCtrl.tyrCameraOffset.z >= targetOffset.z ? cameraCtrl.tyrCameraOffset.z : zMod * offsetSpeeds.z * Time.deltaTime;
+                        cameraCtrl.tyrCameraOffset.z += cameraCtrl.tyrCameraOffset.z <= targetOffset.z ? cameraCtrl.tyrCameraOffset.z : zMod * offsetSpeeds.z * Time.deltaTime;
                         cameraCtrl.antCameraOffset.z = cameraCtrl.tyrCameraOffset.z;
                         if (cameraCtrl.tyrCameraOffset.z <= targetOffset.z || cameraCtrl.antCameraOffset.z <= targetOffset.z) reachedZ = true;
                     }
@@ -231,7 +234,7 @@ namespace Splitting
                     }
                     else
                     {
-                        cameraCtrl.tyrCameraOffset.z += cameraCtrl.tyrCameraOffset.z >= targetOffset.z ? cameraCtrl.tyrCameraOffset.z : zMod * offsetSpeeds.z * Time.deltaTime;
+                        cameraCtrl.tyrCameraOffset.z += cameraCtrl.tyrCameraOffset.z <= targetOffset.z ? cameraCtrl.tyrCameraOffset.z : zMod * offsetSpeeds.z * Time.deltaTime;
                         if (cameraCtrl.tyrCameraOffset.z <= targetOffset.z) reachedZ = true;
                     }
                 }
@@ -241,7 +244,7 @@ namespace Splitting
                     reachedZ = false; reachedX = false; reachedY = false;
                 }
             }
-            else
+            else if( ant )
             { 
                 xMod = cameraCtrl.antCameraOffset.x > targetOffset.x ? -1 : 1;
                 yMod = cameraCtrl.antCameraOffset.y > targetOffset.y ? -1 : 1;
@@ -256,10 +259,11 @@ namespace Splitting
                     }
                     else
                     {
-                    cameraCtrl.antCameraOffset.x += cameraCtrl.antCameraOffset.x <= targetOffset.x ? cameraCtrl.antCameraOffset.x : xMod * offsetSpeeds.x * Time.deltaTime;
-                    if (cameraCtrl.antCameraOffset.x <= targetOffset.x) reachedX = true;
+                        cameraCtrl.antCameraOffset.x += cameraCtrl.antCameraOffset.x <= targetOffset.x ? cameraCtrl.antCameraOffset.x : xMod * offsetSpeeds.x * Time.deltaTime;
+                        if (cameraCtrl.antCameraOffset.x <= targetOffset.x) reachedX = true;
                     }
                 }
+
                 if (!reachedY)
                 { 
                     if (yMod == 1)
@@ -273,6 +277,7 @@ namespace Splitting
                         if (cameraCtrl.antCameraOffset.y <= targetOffset.y) reachedY = true;
                     }
                 }
+
                 if (!reachedZ)
                 { 
                     if (zMod == 1)
@@ -282,10 +287,11 @@ namespace Splitting
                     }
                     else
                     {
-                        cameraCtrl.antCameraOffset.z += cameraCtrl.antCameraOffset.z >= targetOffset.z ? cameraCtrl.antCameraOffset.z : zMod * offsetSpeeds.z * Time.deltaTime;
+                        cameraCtrl.antCameraOffset.z += cameraCtrl.antCameraOffset.z <= targetOffset.z ? cameraCtrl.antCameraOffset.z : zMod * offsetSpeeds.z * Time.deltaTime;
                         if (cameraCtrl.antCameraOffset.z <= targetOffset.z) reachedZ = true;
                     }
                 }
+
                 if (reachedX && reachedY && reachedZ)
                 {
                     doOffset = false;
